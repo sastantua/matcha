@@ -12,21 +12,23 @@
 	border: solid;
 	border-radius: 2em;
 	background-color: #61dafb;
-	width: 5em;
+	width: 7em;
+	height: 3em;
 }
 
 .App .App-btn:hover {
 	margin-top: 5em;
 	border: solid;
 	border-radius: 2em;
+	color: white;
 	background-color: #61dafb;
-	width: 5em;
-
+	width: 7em;
+	height: 3em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
 	.App-logo {
-		animation: App-logo-spin infinite 0.4s linear;
+		animation: App-logo-spin infinite 2s linear;
 	}
 }
 
