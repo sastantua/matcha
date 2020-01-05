@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './react_spin.css';
 import spin from './spin.js'
 
 function App() {
