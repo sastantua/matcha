@@ -4,8 +4,8 @@ class EmojiButton extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
-			emoji: ["😆", "🤣", "😝", "🤪", "🤢", "🤮", "🤯", "😈", "🤫"],
-			index: 0
+			index: 0,
+			emoji: ["😆", "🤣", "😝", "🤪", "🤢", "🤮", "🤯", "😈", "🤫"]
 		};
 	}
 	
