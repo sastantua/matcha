@@ -13,7 +13,7 @@ class App extends React.Component {
 		var duration = 5;
 
 		var changeDuration = () => {
-			let logo = document.getElementById("logo");
+			let logo = document.getElementById("App-logo");
 			duration > 0.15 ? duration -= .25 : duration = 1;
 			console.log(duration);
 			logo.animate([
@@ -56,7 +56,7 @@ class App extends React.Component {
 			<div id="App">
 				    {/* <ReactNotifications /> */}
 					<Menu />
-					<img src={logo} id="App-logo" id="logo" alt="logo" />
+					<img src={logo} id="App-logo" alt="logo" />
 					{/* <Test /> */}
 					<EmojiButton id='EmojiButton' changeDuration={changeDuration} />
 			</div>
