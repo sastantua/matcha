@@ -1,6 +1,8 @@
 import React from 'react';
 import './Menu.css';
 import logo from './matcha.png';
+import messageIcon from './message.png';
+import notificationIcon from './notification.png';
 
 
 class Menu extends React.Component {
@@ -16,15 +18,20 @@ class Menu extends React.Component {
 		const handleClick = () => {
 		}
 		return (
-            <div id='Menu'>
-                <img id='logo' src={logo} alt="logo"/>
-                <p>Logo</p>
-                <p>Home</p>
-                <p>Profile</p>
-                <p>Match</p>
-
-                <p>Message</p>
-                <p>Notifications</p>
+            <div id='menu'>
+                <div id='menuLeft'>
+					<img id='logo' src={logo}/>
+                	<p>Home</p>
+                	<p>Profile</p>
+                	<p>Match</p>
+				</div>
+				<div id='menuRight'>
+				<p>Match</p>
+				<p>Match</p>
+				<p>Match</p>
+					<img id='messageIcon' src={messageIcon}/>
+					<img id='notificationIcon' src={notificationIcon}/>
+				</div>
                 {/* <p>logout</p> //   <p>login</p> */}
             </div>
 		)

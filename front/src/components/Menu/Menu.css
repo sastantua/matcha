@@ -1,21 +1,48 @@
-#Menu {
+/* menu bar */
+
+#menu {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
     background-color: #15202B;
     height: 4vh;
     width: 100vw;
 }
 
-#Menu p {
+#menu p {
     color: #b33c36;
 }
 
-#Menu p:hover {
+#menu p:hover {
     color: #e24329;
 }
 
-#Menu #logo {
+/* menu barleft side */
+
+#menu #menuLeft {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: right;
+    width: 30vw;
+}
+
+#menu #menuLeft img {
     width: 50px;
     height: 50px;
+}
+
+
+/* menu barright side */
+
+#menu #menuRight {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: left;
+    width: 30vw;
+}
+
+#menu #menuRight img {
+    width: 35px;
+    height: 35px;
 }
