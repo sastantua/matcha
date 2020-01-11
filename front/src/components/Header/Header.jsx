@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Menu.css';
+import './Header.css';
 import logo from './matcha.png';
 import messageIcon from './message.png';
 import notificationIcon from './notification.png';
