@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 
 import Menu from './Menu/Menu';
-import Homepage from './features/Homepage/Homepage';
+import Homepage from './allFeatures/Homepage/Homepage';
 import NoMatch from './NoMatch';
 
 class App extends React.Component {
