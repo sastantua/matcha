@@ -1,5 +1,5 @@
 import React from 'react';
-
+ 
 class Clock extends React.Component {
 	constructor(props) {
 		super(props);
@@ -29,7 +29,7 @@ class Clock extends React.Component {
 		console.log(date);
 		return (
 			<p className="App-clock">
-				{date[1]}<br/>{date[0]}
+				{date[1]} {date[0]}
 			</p>
 			// <p className="App-clock">
 				// {this.state.time}
