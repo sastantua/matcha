@@ -1,5 +1,7 @@
 import React from 'react';
 import './EmojiButton.css';
+import logo from './logo.svg';
+import { Button } from 'react-bulma-components';
 
 class EmojiButton extends React.Component {
 	constructor (props) {
@@ -19,9 +21,12 @@ class EmojiButton extends React.Component {
 		}
 
 		return (
-			<button id="EmojiButton" onClick={handleClick}>
-				{this.state.emoji[this.state.index]}
-			</button>
+			<div id="ReactLogo">
+				<img src={logo} id="App-logo" alt="logo" />
+				<Button id="EmojiButton" onClick={handleClick}>
+					{this.state.emoji[this.state.index]}
+				</Button>
+			</div>
 		)
 	}
 }
