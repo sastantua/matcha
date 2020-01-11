@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Menu.css';
 import logo from './matcha.png';
 import messageIcon from './message.png';
 import notificationIcon from './notification.png';
-
+import { Navbar } from 'react-bulma-components';
 
 class Menu extends React.Component {
 	constructor (props) {
@@ -15,25 +16,56 @@ class Menu extends React.Component {
 	}
 	
 	render () {
-		const handleClick = () => {
-		}
 		return (
-            <div id='menu'>
-                <div id='menuLeft'>
-					<img id='logo' src={logo}/>
-                	<p>Home</p>
-                	<p>Profile</p>
-                	<p>Match</p>
-				</div>
-				<div id='menuRight'>
-				<p>Match</p>
-				<p>Match</p>
-				<p>Match</p>
-					<img id='messageIcon' src={messageIcon}/>
-					<img id='notificationIcon' src={notificationIcon}/>
-				</div>
-                {/* <p>logout</p> //   <p>login</p> */}
-            </div>
+			<Navbar>
+				<Navbar.Brand>
+					<Navbar.Item>
+						<img src={logo} />
+					</Navbar.Item>
+				</Navbar.Brand>
+				<Navbar.Menu>
+					<Navbar.Container>
+						<Navbar.Item renderAs="p">
+							<Link to="/">
+								Home
+							</Link>
+						</Navbar.Item>
+						<Navbar.Item renderAs="p">
+							<Link to="/account">
+								Account
+							</Link>
+						</Navbar.Item>
+						<Navbar.Item renderAs="p">
+							<Link to="/">
+								Match
+							</Link>
+						</Navbar.Item>
+						<Navbar.Item renderAs="p">
+							<Link to="/">
+								Message
+							</Link>
+						</Navbar.Item>
+					</Navbar.Container>
+					<Navbar.Container position="end">
+						<Navbar.Item dropdown hoverable>
+							<Navbar.Link arrowless={false}>
+								<img src="https://via.placeholder.com/150"/>
+							</Navbar.Link>
+							<Navbar.Dropdown className="is-right">
+								<Navbar.Item renderAs="p" >
+									<Link to='/notification'>
+										Notification
+									</Link>
+								</Navbar.Item>
+								<Navbar.Item renderAs="p" >
+									Logout
+								</Navbar.Item>
+							</Navbar.Dropdown>
+						</Navbar.Item>
+					</Navbar.Container>
+				</Navbar.Menu>
+			</Navbar>
+		
 		)
 	}
 }

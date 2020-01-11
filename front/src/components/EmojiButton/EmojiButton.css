@@ -1,4 +1,11 @@
-#EmojiButton {
+#ReactLogo {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+#ReactLogo #EmojiButton {
+	align-items: center;	
 	margin-top: 5em;
 	border: solid;
 	border-radius: 2em;
@@ -7,7 +14,7 @@
 	height: 3em;
 }
 
-#EmojiButton:hover {
+#ReactLogo #EmojiButton:hover {
 	margin-top: 5em;
 	border: solid;
 	border-radius: 2em;

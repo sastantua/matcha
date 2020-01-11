@@ -1,8 +1,7 @@
 import React from 'react';
-import './App.css';
-import logo from './logo.svg';
-import Menu from '../Menu/Menu';
-import EmojiButton from '../EmojiButton/EmojiButton';
+import Menu from './Menu/Menu';
+//import EmojiButton from './EmojiButton/EmojiButton';
+import 'react-bulma-components/dist/react-bulma-components.min.css';
 // import ReactNotifications from 'react-notifications-component';
 // import 'react-notifications-component/dist/theme.css';
 // import 'animate.css';
@@ -54,11 +53,8 @@ class App extends React.Component {
 
 		return (
 			<div id="App">
-				    {/* <ReactNotifications /> */}
 					<Menu />
-					<img src={logo} id="App-logo" alt="logo" />
-					{/* <Test /> */}
-					<EmojiButton id='EmojiButton' changeDuration={changeDuration} />
+					{/* <EmojiButton id='EmojiButton' changeDuration={changeDuration} /> */}
 			</div>
 		);
 	}
