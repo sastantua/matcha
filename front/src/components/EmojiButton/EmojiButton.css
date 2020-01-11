@@ -2,24 +2,7 @@
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
+	height: auto;
+	width: 7em;
 }
 
-#ReactLogo #EmojiButton {
-	align-items: center;	
-	margin-top: 5em;
-	border: solid;
-	border-radius: 2em;
-	background-color: #61dafb;
-	width: 7em;
-	height: 3em;
-}
-
-#ReactLogo #EmojiButton:hover {
-	margin-top: 5em;
-	border: solid;
-	border-radius: 2em;
-	color: white;
-	background-color: #61dafb;
-	width: 7em;
-	height: 3em;
-}

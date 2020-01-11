@@ -8,12 +8,13 @@ class EmojiButton extends React.Component {
 		super(props);
 		this.state = {
 			index: 0,
-			emoji: ["😆", "🤣", "😝", "🤪", "🤢", "🤮", "🤯", "😈", "🤫"]
 		};
 	}
 
-
+	
 	render () {
+	
+
 		const handleClick = () => {
 			this.props.changeDuration();
 			console.log(this.state);
@@ -22,10 +23,7 @@ class EmojiButton extends React.Component {
 
 		return (
 			<div id="ReactLogo">
-				<img src={logo} id="App-logo" alt="logo" />
-				<Button id="EmojiButton" onClick={handleClick}>
-					{this.state.emoji[this.state.index]}
-				</Button>
+				<img src={logo} onClick={handleClick} id="App-logo" alt="logo" />
 			</div>
 		)
 	}
