@@ -9,8 +9,8 @@ import './Footer.css';
 class Foooter extends React.Component {
 	render() {
 
+		/* React Logo Spin */
 		var duration = 5;
-	
 		var changeDuration = () => {
 			let logo = document.getElementById("App-logo");
 			duration > 0.15 ? duration -= .25 : duration = 1;

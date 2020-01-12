@@ -1,7 +1,7 @@
 import React from 'react';
 import './EmojiButton.css';
 import logo from './logo.svg';
-import { Button } from 'react-bulma-components';
+import btc from './bitcoin.svg';
 
 class EmojiButton extends React.Component {
 	constructor (props) {
@@ -14,7 +14,6 @@ class EmojiButton extends React.Component {
 	
 	render () {
 	
-
 		const handleClick = () => {
 			this.props.changeDuration();
 			console.log(this.state);
