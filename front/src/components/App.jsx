@@ -15,6 +15,7 @@ class App extends React.Component {
 				<Menu />
 				<Switch>
 					<Route exact path="/" component={Homepage} />
+					<Route exact path="/" component={Homepage} />
 					<Route path="*" component={NoMatch} />
 				</Switch>
 				<Foooter />
