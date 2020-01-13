@@ -29,7 +29,7 @@ class Foooter extends React.Component {
 			<div id="footerMainDiv">
 				<footer id="footer">
 					<div id="flex_row_container">
-							<p><strong>Paris:</strong></p>
+							<p>Paris:&nbsp;&nbsp;</p>
 							<Clock />
 							<EmojiButton changeDuration={changeDuration} />
 					</div>
