@@ -2,11 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import logo from './matcha.png';
-import messageIcon from './message.png';
-import notificationIcon from './notification.png';
 import { Navbar } from 'react-bulma-components';
 
-class Menu extends React.Component {
+class Header extends React.Component {
 	constructor (props) {
 		super(props);
 		this.state = {
@@ -91,4 +89,4 @@ class Menu extends React.Component {
 //   }
 // }
 
-export default Menu;
+export default Header;
