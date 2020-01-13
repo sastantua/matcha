@@ -13,11 +13,12 @@ class App extends React.Component {
 		return (
 			<BrowserRouter>
 				<Menu />
-				<Switch>
-					<Route exact path="/" component={Homepage} />
-					<Route exact path="/" component={Homepage} />
-					<Route path="*" component={NoMatch} />
-				</Switch>
+				<div id="pageContainer">
+					<Switch>
+						<Route exact path="/" component={Homepage} />
+						<Route path="*" component={NoMatch} />
+					</Switch>
+				</div>
 				<Foooter />
 			</BrowserRouter>
 		)
