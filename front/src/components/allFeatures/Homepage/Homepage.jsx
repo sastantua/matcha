@@ -1,5 +1,5 @@
 import React from 'react';
-import {Section, Container} from 'react-bulma-components';
+// import {Section, Container} from 'react-bulma-components';
 import './Homepage.css';
 
 class Homepage extends React.Component {

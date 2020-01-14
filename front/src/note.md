@@ -1,10 +1,16 @@
 # Todo
 
-	- Read hooks documentation
-	- Refacto Existing objects to use hooks
 
-	DoneuseState
-	DoneuseEffect
+	################### IN PROGRESS ###################
+	
+# React Hooks
+
+	OkRead hooks documentation
+	- Refacto Existing objects to use hooks
+	- Read https://overreacted.io/a-complete-guide-to-useeffect/
+
+	OkuseState
+	OkuseEffect
 	
 	- useContext
 	- useReducer
@@ -16,25 +22,28 @@
 	- useDebugValue
 	- useCustom (custom hook)
 
-# React Class Components
 
+	################### DONE ###################
+
+# React Native
+
+	OkHistory {2013facebookopensourceactive and huge community}
+	OkWeb components {a new design}
+	OkJsx and rendering {html in javascript}
+	OkConditional rendering {render what you need for a context}
+	OkState and lifecycle {top => bottom: state become props}
+	OkState and lifecycle {bottom => top: pass callback from parent to child component}
+	OkList and keys {allow react self organize better than with basic index}
+	OkVirtual dom {abstract render managment}
+	OkFunction syntax {render "basic" component without state}
+	OkObject syntax {create logic components => constructor, binding, this scope}
+	OkRender props {sharing code between components using a prop whose value is a function}
+	OkLift state / higher order component {better design pattern}
+	OkRoutes {navigate in the app: react router dom}
+	
+	UnclearHooks {a new design pattern}
 	UnclearComposition vs inheritance
 
-	DoneHistory {2013facebookopensourceactive and huge community}
-	DoneWeb components {a new design}
-	DoneJsx and rendering {better than <?= =>}
-	DoneConditional rendering {render what you need for a context}
-	DoneState and lifecycle {top => bottom: state become props}
-	DoneState and lifecycle {bottom => top: pass callback from parent to child component}
-	DoneList and keys {allow react self organize better than with basic index}
-	DoneVirtual dom {abstract render managment}
-	DoneFunction syntax {render "basic" component without state}
-	DoneObject syntax {create logic components => constructor, binding, this scope}
-	DoneLift state {better design pattern}
-	DoneRoutes {navigate in the app: react router dom}
-	DoneHooks {a new design pattern}
-
-# React Hooks
 
 
 ## Ressources

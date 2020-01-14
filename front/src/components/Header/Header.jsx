@@ -18,7 +18,7 @@ class Header extends React.Component {
 			<Navbar id="header">
 				<Navbar.Brand>
 					<Navbar.Item>
-						<img src={logo} />
+						<img src={logo} alt="app logo"/>
 					</Navbar.Item>
 				</Navbar.Brand>
 				<Navbar.Menu>
@@ -47,7 +47,7 @@ class Header extends React.Component {
 					<Navbar.Container position="end">
 						<Navbar.Item dropdown hoverable>
 							<Navbar.Link arrowless={false}>
-								<img src="https://via.placeholder.com/150"/>
+								<img src="https://via.placeholder.com/150" alt="test"/>
 							</Navbar.Link>
 							<Navbar.Dropdown className="is-right">
 								<Navbar.Item renderAs="p" >

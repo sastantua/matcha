@@ -1,7 +1,7 @@
 import React from 'react';
 import './EmojiButton.css';
 import logo from './logo.svg';
-import btc from './bitcoin.svg';
+// import btc from './bitcoin.svg';
 
 class EmojiButton extends React.Component {
 	constructor (props) {

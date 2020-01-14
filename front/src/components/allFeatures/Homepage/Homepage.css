@@ -1,8 +1,8 @@
 #homepage {
+	opacity: 0.9;
 	width: auto;
 	height: 100vh;
-	opacity: 0.9;
-	background-image: url("landscapes/space.jpg");
 	background-size: cover;
+	/* background-image: url("landscapes/space.jpg"); */
 	/* background-image: url("landscape7.png"); */
 }
