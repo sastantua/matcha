@@ -1,0 +1,114 @@
+{
+	// Place your snippets for javascriptreact here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	"Create a useCustom Hook": {
+		"prefix": "hookCustom",
+		"body": [
+			"const [$1, $2] = use($3);",
+			"$0"
+		],
+		"description": "Create a custom hook"
+	},
+
+	"Create a useState Hook": {
+		"prefix": "hookState",
+		"body": [
+			"const [$1, $2] = useState($3);",
+			"$0"
+		],
+		"description": "Create a state hook"
+	},
+
+	"Create a useEffect Hook": {
+		"prefix": "hookEffect",
+		"body": [
+			"const [$1, $2] = useEffect($3);",
+			"$0"
+		],
+		"description": "Create a effect hook"
+	},
+
+	"Create a useContext Hook": {
+		"prefix": "hookContext",
+		"body": [
+			"const [$1, $2] = useContext($3);",
+			"$0"
+		],
+		"description": "Create a context hook"
+	},
+
+	"Create a useReducer Hook": {
+		"prefix": "hookReducer",
+		"body": [
+			"const [$1, $2] = useReducer($3);",
+			"$0"
+		],
+		"description": "Create a reducer hook"
+	},
+
+	"Create a useCallback Hook": {
+		"prefix": "hookCallback",
+		"body": [
+			"const [$1, $2] = useCallback($3);",
+			"$0"
+		],
+		"description": "Create a callback hook"
+	},
+
+	"Create a useMemo Hook": {
+		"prefix": "hookMemo",
+		"body": [
+			"const [$1, $2] = useMemo($3);",
+			"$0"
+		],
+		"description": "Create a memo hook"
+	},
+
+	"Create a useRef Hook": {
+		"prefix": "hookRef",
+		"body": [
+			"const [$1, $2] = useRef($3);",
+			"$0"
+		],
+		"description": "Create a ref hook"
+	},
+
+	"Create a useImperativeHandle Hook": {
+		"prefix": "hookImperativeHandle",
+		"body": [
+			"const [$1, $2] = useImperativeHandle($3);",
+			"$0"
+		],
+		"description": "Create a imperative handle hook"
+	},
+
+	"Create a useLayoutEffect Hook": {
+		"prefix": "hookLayoutEffect",
+		"body": [
+			"const [$1, $2] = useLayoutEffect($3);",
+			"$0"
+		],
+		"description": "Create a layout effect hook"
+	},
+
+	"Create a useDebugValue Hook": {
+		"prefix": "hookDebugValue",
+		"body": [
+			"const [$1, $2] = useDebugValue($3);",
+			"$0"
+		],
+		"description": "Create a debug value hook"
+	},
+}
