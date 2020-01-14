@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Footer } from 'react-bulma-components';
+// import { Footer } from 'react-bulma-components';
 
 import EmojiButton from '../EmojiButton/EmojiButton'
 import Clock from '../Clock/Clock';
