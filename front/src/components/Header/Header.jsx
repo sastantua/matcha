@@ -15,7 +15,7 @@ class Header extends React.Component {
 	
 	render () {
 		return (
-			<Navbar>
+			<Navbar id="header">
 				<Navbar.Brand>
 					<Navbar.Item>
 						<img src={logo} />

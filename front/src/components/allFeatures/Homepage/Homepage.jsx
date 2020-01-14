@@ -1,11 +1,12 @@
 import React from 'react';
 import {Section, Container} from 'react-bulma-components';
-import Clock from '../../Clock/Clock';
+import './Homepage.css';
 
 class Homepage extends React.Component {
 	render () {
 		return (
-			<div>
+			<div id="homepage">
+				coucou
 				{/* <Section> */}
 					{/* <Container breakpoint="widescreen"> */}
 						{/* <p>hello</p> */}
