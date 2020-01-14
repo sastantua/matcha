@@ -12,13 +12,11 @@ class App extends React.Component {
 	render() {
 		return (
 			<BrowserRouter>
-				<Header />
-				<div id="pageContainer">
+				<Header />				
 					<Switch>
 						<Route exact path="/" component={Homepage} />
 						<Route path="*" component={NoMatch} />
 					</Switch>
-				</div>
 				<Foooter />
 			</BrowserRouter>
 		)
