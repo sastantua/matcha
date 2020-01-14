@@ -1,1 +1,13 @@
 /* header bar */
+#header {
+	position: fixed;
+	top: 0;
+	height: 5vh;
+	width: 100vw;
+	color: #ffb99a;
+	background-color: #db3056;
+}
+
+/* .test {
+	color: #ffb99a;
+} */
