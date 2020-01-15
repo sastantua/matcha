@@ -5,9 +5,5 @@
 	height: 5vh;
 	width: 100vw;
 	color: #ffb99a;
-	background-color: #db3056;
+    background: linear-gradient(357deg, rgba(133,29,65,1) 0%, rgba(219,81,81,1) 55%, rgba(226,101,82,1) 100%);
 }
-
-/* .test {
-	color: #ffb99a;
-} */

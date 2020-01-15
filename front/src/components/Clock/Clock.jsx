@@ -18,18 +18,10 @@ function Clock() {
 		let today = new Date(time);
 		bh = bh.getTime() / 86400000;
 		today = today.getTime() / 86400000;
-		return new Number(bhtoday).toFixed(0).toLocaleString();
+		return (bhtoday).toFixed(0).toLocaleString();
 	}
 
 	return (<p>{date} days before blackhole</p>);
 }
 
 export default Clock;
-
-
-/* 
-https://www.scriptol.fr/javascript/dates-difference.php
-
-
-
-*/ 
