@@ -15,6 +15,7 @@ class App extends React.Component {
 				<Header />				
 					<Switch>
 						<Route exact path="/" component={Homepage} />
+						{/* <Route exact path="/account" component={Account} /> */}
 						<Route path="*" component={NoMatch} />
 					</Switch>
 				<Foooter />

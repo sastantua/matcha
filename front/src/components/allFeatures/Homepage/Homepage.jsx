@@ -1,17 +1,16 @@
 import React from 'react';
-// import {Section, Container} from 'react-bulma-components';
+import {Notification, Container} from 'react-bulma-components';
 import './Homepage.css';
 
 class Homepage extends React.Component {
 	render () {
 		return (
 			<div id="homepage">
-				coucou
-				{/* <Section> */}
-					{/* <Container breakpoint="widescreen"> */}
-						{/* <p>hello</p> */}
-					{/* </Container> */}
-				{/* </Section> */}
+			<Container style={{ color: '#FFF'}, { background: '#000'}}>
+				<Notification>
+					This container is <strong>centered</strong> on desktop
+				</Notification>
+			</Container>
 			</div>
 		)
 	}

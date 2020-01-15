@@ -6,11 +6,13 @@
 # React Hooks
 
 	OkRead hooks documentation
-	- Refacto Existing objects to use hooks
-	- Read https://overreacted.io/a-complete-guide-to-useeffect/
 
 	OkuseState
 	OkuseEffect
+
+	
+	- Read https://overreacted.io/a-complete-guide-to-useeffect/
+	- Read https://reactjs.org/docs/hooks-reference.html
 	
 	- useContext
 	- useReducer
