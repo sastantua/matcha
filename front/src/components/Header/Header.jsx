@@ -40,7 +40,7 @@ function Header() {
 						<Navbar.Link arrowless={false}>
 							<img src="https://via.placeholder.com/150" alt="test"/>
 						</Navbar.Link>
-						<Navbar.Dropdown className="is-right">
+						<Navbar.Dropdown style={{ background: '#ff3860' }} className="is-right">
 							<Navbar.Item renderAs="p" >
 								<Link to='/notification'>
 									Notification
