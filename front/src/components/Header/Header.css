@@ -4,8 +4,8 @@
 	top: 0;
 	height: 5vh;
 	width: 100vw;
-	/* color: #ffb99a; */
 	background: linear-gradient(357deg,  rgba(226,101,82,1) 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%);
+	/* color: #ffb99a; */
 	/* background: linear-gradient(357deg, rgba(133,29,65,1) 0%, rgba(219,81,81,1) 55%, rgba(226,101,82,1) 100%); */
 	/* background: #ff3860; */
 }
