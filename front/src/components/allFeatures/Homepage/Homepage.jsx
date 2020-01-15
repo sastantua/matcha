@@ -6,7 +6,7 @@ class Homepage extends React.Component {
 	render () {
 		return (
 			<div id="homepage">
-			<Container style={{ color: '#FFF'}, { background: '#000'}}>
+			<Container style={{ color: '#000', background: '#000'}}>
 				<Notification>
 					This container is <strong>centered</strong> on desktop
 				</Notification>
