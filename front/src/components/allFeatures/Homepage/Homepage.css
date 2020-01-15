@@ -1,6 +1,10 @@
 #homepage {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	width: auto;
-	height: 100vh;
+	height: 95vh;
+	margin-top: 5vh;
 	background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
 
 	/* best so far ()*/
