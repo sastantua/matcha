@@ -9,3 +9,13 @@
 	/* background: linear-gradient(357deg, rgba(133,29,65,1) 0%, rgba(219,81,81,1) 55%, rgba(226,101,82,1) 100%); */
 	/* background: #ff3860; */
 }
+
+#header-left {
+	margin-left: 0vw;
+}
+
+#header-right {
+	right: 0;
+	position: fixed;
+	margin-right: 1vw;
+}
