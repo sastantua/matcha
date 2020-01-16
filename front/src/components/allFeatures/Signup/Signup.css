@@ -1,0 +1,33 @@
+#signup-component {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+	background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
+}
+
+#signup-component #signup-container {
+	display: flex;
+	flex-direction: row;
+	height: 50vh;
+	width: 50vw;
+	background-image: linear-gradient(315deg, #acacac 0%, #fbfbfb 74%);
+}
+
+#signup-component #signup-container #signup-left {
+	height: inherit;
+	width: 20vw;
+	/* width: calc(inherit / 2); */
+}
+
+#signup-component #signup-container #signup-left img {
+	height: inherit;
+	width: 20vw;
+}
+
+
+#signupComponent #signupContainer #signup-right {
+	height: inherit;
+	width: 30vw;
+} 

@@ -5,13 +5,24 @@ import 'react-bulma-components/dist/react-bulma-components.min.css';
 
 import Header from './Header/Header';
 import Foooter from './Footer/Footer';
+import Signup from './allFeatures/Signup/Signup';
 import Homepage from './allFeatures/Homepage/Homepage';
 import NoMatch from './NoMatch';
 
+const isLog = 0;
+
 class App extends React.Component {
 	render() {
-		return (
-			<BrowserRouter>
+		if (isLog === 0) {
+			return (
+				<BrowserRouter>
+					<Route path="/" component={Signup} />
+				</BrowserRouter>
+			);
+		}
+		else {
+			return (
+				<BrowserRouter>
 				<Header />				
 					<Switch>
 						<Route exact path="/" component={Homepage} />
@@ -20,7 +31,8 @@ class App extends React.Component {
 					</Switch>
 				<Foooter />
 			</BrowserRouter>
-		)
+		);
+		}
 	}
 }
 
