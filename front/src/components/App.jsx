@@ -6,6 +6,7 @@ import 'react-bulma-components/dist/react-bulma-components.min.css';
 import Header from './Header/Header';
 import Foooter from './Footer/Footer';
 import Signup from './allFeatures/Signup/Signup';
+import Login from './allFeatures/Login/Login';
 import Homepage from './allFeatures/Homepage/Homepage';
 import NoMatch from './NoMatch';
 
@@ -16,7 +17,9 @@ class App extends React.Component {
 		if (isLog === 0) {
 			return (
 				<BrowserRouter>
-					<Route path="/" component={Signup} />
+					<Route exact path="/signup" component={Signup} />
+					<Route exact path="/login" component={Login} />
+					<Route path="*" component={NoMatch} />
 				</BrowserRouter>
 			);
 		}
