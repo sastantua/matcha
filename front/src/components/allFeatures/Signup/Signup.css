@@ -26,8 +26,26 @@
 	width: 20vw;
 }
 
-
-#signupComponent #signupContainer #signup-right {
+#signup-component #signup-container #signup-right {
+	display: flex;
+	flex-direction: column;
 	height: inherit;
 	width: 30vw;
+	background: linear-gradient(-45deg, hsl(196, 40%, 91%),hsl(196, 21%, 97%));
+	background: hsl(14, 15%, 83%);
+}
+
+#signup-component #signup-container #signup-right #signup-right-top {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 20vh;
+	width: inherit;
+}
+
+#signup-component #signup-container #signup-right #signup-right-bottom #credentials-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 } 
