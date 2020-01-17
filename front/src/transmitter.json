@@ -13,6 +13,46 @@
 	// 	"description": "Log output to console"
 	// }
 
+	// =========================     imports     ========================= \\
+	
+	"import styled components from react": {
+		"prefix": "import-stylded",
+		"body": [
+			"import styled from \"styled-components\"",
+		],
+		"description": "import styled components from react"
+	},
+
+	// =========================  styled elements  ========================= \\
+
+	"style an element": {
+		"prefix": "style-elem",
+		"body": [
+			"const $1 = styled.$2",
+			"`",
+			"$3",
+			"`",
+			"$0",
+		],
+		"description": "style an element"
+	},
+
+	// ========================= styled components ========================= \\
+
+	"style a component": {
+		"prefix": "style-comp",
+		"body": [
+			"const $1 = styled($2)",
+			"`",
+			"$3",
+			"`",
+			"$0",
+		],
+		"description": "style a component"
+	},
+
+	// =========================        hooks        ========================= \\
+
 	"trigger set callback from a hook": {
 		"prefix": "sethook",
 		"body": [

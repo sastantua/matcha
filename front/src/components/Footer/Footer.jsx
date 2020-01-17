@@ -8,7 +8,6 @@ import './Footer.css';
 
 class Foooter extends React.Component {
 	render() {
-
 		/* React Logo Spin */
 		var duration = 5;
 		var changeDuration = () => {
