@@ -1,13 +1,17 @@
 import React from 'react';
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
 
 import './Signup.css';
-import snail from '../../../media/frogs.jpg';
+import styled from "styled-components";
+import snail from '../../../media/snail.jpg';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import { makeStyles, styled as styledMaterial } from '@material-ui/core/styles';
+
+import Login from '../../allFeatures/Login/Login';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,6 +61,14 @@ function Signup() {
 							<InputWrapper id="outlined-basic" label="password" variant="outlined" />
 							<Button color="secondary" >submit</Button>
 						</form>
+						<div id="redirect-login">
+							<p>Already have an account?</p>
+							<Button color="secondary" >
+								<Link to="/login" >
+									login
+								</Link>
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>
