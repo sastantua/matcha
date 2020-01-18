@@ -22,11 +22,14 @@ const useStyles = makeStyles(theme => ({
 
 const TitleWrapper = styledMaterial(Typography)({
 	fontSize: '2rem',
+	marginTop: '1em',
+	marginBottom: '0.5em',
 });
 
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '2rem',
 	width: '20rem',
+	height: '3rem',
 });
 
 function Login() {
@@ -46,6 +49,9 @@ function Login() {
 					</div>
 					<div id="login-right-bottom">
 						<form id="credentials-form" className={classes.root} noValidate autoComplete="off">
+							<InputWrapper id="outlined-basic" label="name" variant="outlined" />
+							<InputWrapper id="outlined-basic" label="surname" variant="outlined" />
+							<InputWrapper id="outlined-basic" label="email" variant="outlined" />
 							<InputWrapper id="outlined-basic" label="username" variant="outlined" />
 							<InputWrapper id="outlined-basic" label="password" variant="outlined" />
 							<Button color="secondary" >submit</Button>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import styled from "styled-components"
 
-import EmojiButton from '../EmojiButton/EmojiButton'
+import EmojiButton from '../../EmojiButton/EmojiButton'
 
 import './Choice.css'
 
@@ -28,9 +28,9 @@ function Choice() {
 
 	return (
 		<div id="main-wrapper">
-			<div id="second-wrapper-top">
-				<EmojiButton changeDuration={changeDuration} />
-			</div>
+			{/* <div id="second-wrapper-top"> */}
+				{/* <EmojiButton changeDuration={changeDuration} /> */}
+			{/* </div> */}
 			<div id="second-wrapper-bottom">
 				<Button variant="contained" color="secondary">
 					<Link to="/signup" style={{ color:'#FFF'}}>

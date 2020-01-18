@@ -16,7 +16,7 @@
 	height: 20vh;
 	width: auto;
 }
-#main-wrapper #second-wrapper-top img {
+#main-wrapper #second-wrapper-top {
 	height: 20vh;
 	width: 20vw;
 }
@@ -35,5 +35,5 @@
 	height: 4vh;
 	max-height: 8vh;
 	min-height: 4vh;
-	margin: 5px;
+	margin: 2vw;
 }

@@ -11,7 +11,7 @@ import Login from './allFeatures/Login/Login';
 import Homepage from './allFeatures/Homepage/Homepage';
 import NoMatch from './NoMatch/NoMatch';
 
-const isLog = 0;
+const isLog = 1;
 
 class App extends React.Component {
 	render() {
@@ -19,9 +19,10 @@ class App extends React.Component {
 			return (
 				<BrowserRouter>
 					<Switch>
-						<Route exact path="/" component={Choice} />
-						<Route exact path="/signup" component={Signup} />
+						{/* <Route exact path="/" component={Choice} /> */}
+						<Route exact path="/" component={Login} />
 						<Route exact path="/login" component={Login} />
+						<Route exact path="/signup" component={Signup} />
 						<Route path="*" component={NoMatch} />
 					</Switch>
 				</BrowserRouter>

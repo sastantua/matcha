@@ -1,4 +1,4 @@
-import React, { useState, useEffect,  } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function Clock() {
 	const blackhole = new Date("1 May 2020").toLocaleString();
@@ -12,15 +12,19 @@ function Clock() {
 	}, [])
 
 	let date = remaningTime(blackhole, time);
-
+	// console.log(typeof(date));
 	function remaningTime(blackhole, time) {
 		let bh = new Date(blackhole);
 		let today = new Date(time);
 		bh = bh.getTime() / 86400000;
 		today = today.getTime() / 86400000;
-		return (bhtoday).toFixed(0).toLocaleString();
+		console.log(today.toLocaleString);
+		// console.log((bhtoday).toFixed(0).toLocaleString());
+		return ((bhtoday).toFixed(0));
+		// return (bhtoday).toFixed(0).toLocaleString();
 	}
-
+	console.log(typeof(date));
+	console.log(date);
 	return (<p>{date} days before blackhole</p>);
 }
 
