@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './Signup.css';
-import styled from "styled-components";
+// import styled from "styled-components";
 import snail from '../../../media/snail.jpg';
 
 import Button from '@material-ui/core/Button';
@@ -10,7 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import { makeStyles, styled as styledMaterial } from '@material-ui/core/styles';
 
-import Login from '../../allFeatures/Login/Login';
 
 
 const useStyles = makeStyles(theme => ({

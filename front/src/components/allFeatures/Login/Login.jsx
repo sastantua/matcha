@@ -9,8 +9,6 @@ import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import { makeStyles, styled as styledMaterial } from '@material-ui/core/styles';
 
-import Signup from '../../allFeatures/Signup/Signup';
-
 const useStyles = makeStyles(theme => ({
   root: {
 	'& > *': {

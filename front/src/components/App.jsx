@@ -5,7 +5,7 @@ import 'react-bulma-components/dist/react-bulma-components.min.css';
 
 import Header from './Header/Header';
 import Foooter from './Footer/Footer';
-import Choice from './Choice/Choice';
+// import Choice from './Choice/Choice';
 import Signup from './allFeatures/Signup/Signup';
 import Login from './allFeatures/Login/Login';
 import Homepage from './allFeatures/Homepage/Homepage';
