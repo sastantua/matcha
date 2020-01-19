@@ -51,6 +51,17 @@
 	align-items: center;
 }
 
+#login-component #login-container #login-right #login-right-bottom #credentials-form #style-form {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+#login-component #login-container #login-right #login-right-bottom #credentials-form #style-form #margin-selector {
+	margin-left: 1vw;
+}
+
 #login-component #login-container #login-right #login-right-bottom #redirect-login {
 	display: flex;
 	flex-direction: row;
