@@ -2,14 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './Login.css';
+// import styled from "styled-components";
 import snail from '../../../media/snail.jpg';
-
-import styled from "styled-components"
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import { makeStyles, styled as styledMaterial } from '@material-ui/core/styles';
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,23 +23,21 @@ const useStyles = makeStyles(theme => ({
 
 const TitleWrapper = styledMaterial(Typography)({
 	fontSize: '2rem',
-	marginTop: '1em',
-	marginBottom: '0.5em',
 });
 
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '2rem',
-	width: '12rem',
-	height: '5rem',
+	width: '20rem',
 });
 
-const InputSubWrapper = styled.div
-`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-`
+// const Test = styled.div`
+// 	background-color: black;
+// 	height: 1000px;
+// 	width: auto;
+// `
+// const TestMod = styled(Test)`
+// 	background-color: ${props => props.color};
+// `
 
 function Login() {
 	const classes = useStyles();
@@ -57,25 +56,15 @@ function Login() {
 					</div>
 					<div id="login-right-bottom">
 						<form id="credentials-form" className={classes.root} noValidate autoComplete="off">
-							<div id="style-form">
-								<InputSubWrapper>
-									<InputWrapper id="outlined-basic" label="name" variant="outlined" />
-									<InputWrapper id="outlined-basic" label="surname" variant="outlined" />
-									<InputWrapper id="outlined-basic" label="username" variant="outlined" />
-								</InputSubWrapper>
-								<InputSubWrapper id="margin-selector">
-									<InputWrapper id="outlined-basic" label="email" variant="outlined" />
-									<InputWrapper id="outlined-basic" label="password" variant="outlined" />
-									<InputWrapper id="outlined-basic" label="confirm password" variant="outlined" />
-								</InputSubWrapper>
-							</div>
+							<InputWrapper id="outlined-basic" label="username" variant="outlined" />
+							<InputWrapper id="outlined-basic" label="password" variant="outlined" />
 							<Button color="secondary" >submit</Button>
 						</form>
 						<div id="redirect-login">
-							<p>Don't have an account?</p>
+							<p>Already have an account?</p>
 							<Button color="secondary" >
 								<Link to="/signup" >
-									sign in
+									login
 								</Link>
 							</Button>
 						</div>
