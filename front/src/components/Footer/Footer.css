@@ -22,3 +22,7 @@
     align-items: center;
     box-sizing: border-box;
 }
+
+#footerMainDiv #footer #flex_row_container #react-logo {
+    margin-left: 20vw;
+}
