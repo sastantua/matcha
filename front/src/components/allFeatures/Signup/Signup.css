@@ -51,10 +51,21 @@
 	align-items: center;
 }
 
-#signup-component #signup-container #signup-right #signup-right-bottom #redirect-login {
+#signup-component #signup-container #signup-right #signup-right-bottom #credentials-form #style-form {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	margin-top: 5vh;
+}
+
+#signup-component #signup-container #signup-right #signup-right-bottom #credentials-form #style-form #margin-selector {
+	margin-left: 1vw;
+}
+
+#signup-component #signup-container #signup-right #signup-right-bottom #redirect-signup {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin-top: 1vh;
 }
