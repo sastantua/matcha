@@ -27,14 +27,14 @@ const InputWrapper = styledMaterial(TextField)({
 	width: '20rem',
 });
 
-// const Test = styled.div`
-// 	background-color: black;
-// 	height: 1000px;
-// 	width: auto;
-// `
-// const TestMod = styled(Test)`
-// 	background-color: ${props => props.color};
-// `
+const Test = styled.div`
+	background-color: black;
+	height: 1000px;
+	width: auto;
+`
+const TestMod = styled(Test)`
+	background-color: ${props => props.color};
+`
 
 function Signup() {
 	const classes = useStyles();
