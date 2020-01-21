@@ -1,4 +1,4 @@
-#signup-component {
+#login-component {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -7,7 +7,7 @@
 	background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
 }
 
-#signup-component #signup-container {
+#login-component #login-container {
 	display: flex;
 	flex-direction: row;
 	height: 50vh;
@@ -15,18 +15,18 @@
 	background-image: linear-gradient(315deg, #acacac 0%, #fbfbfb 74%);
 }
 
-#signup-component #signup-container #signup-left {
+#login-component #login-container #login-left {
 	height: inherit;
 	width: 20vw;
 	/* width: calc(inherit / 2); */
 }
 
-#signup-component #signup-container #signup-left img {
+#login-component #login-container #login-left img {
 	height: inherit;
 	width: 20vw;
 }
 
-#signup-component #signup-container #signup-right {
+#login-component #login-container #login-right {
 	display: flex;
 	flex-direction: column;
 	height: inherit;
@@ -36,7 +36,7 @@
 	background: hsl(14, 15%, 83%);
 }
 
-#signup-component #signup-container #signup-right #signup-right-top {
+#login-component #login-container #login-right #login-right-top {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -44,28 +44,17 @@
 	width: inherit;
 }
 
-#signup-component #signup-container #signup-right #signup-right-bottom #credentials-form {
+#login-component #login-container #login-right #login-right-bottom #credentials-form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
 
-#signup-component #signup-container #signup-right #signup-right-bottom #credentials-form #style-form {
+#login-component #login-container #login-right #login-right-bottom #redirect-login {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-}
-
-#signup-component #signup-container #signup-right #signup-right-bottom #credentials-form #style-form #margin-selector {
-	margin-left: 1vw;
-}
-
-#signup-component #signup-container #signup-right #signup-right-bottom #redirect-signup {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	margin-top: 1vh;
+	margin-top: 5vh;
 }

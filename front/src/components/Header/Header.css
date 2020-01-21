@@ -1,20 +1,58 @@
-/* header bar */
-#header {
+/* HEADER BAR FOR BIG SCREEN */
+
+#header-large {
 	position: fixed;
 	top: 0;
-	height: 5vh;
+	height: 6vh;
 	width: 100vw;
-	background: linear-gradient(357deg,  rgba(226,101,82,1) 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%);
-	/* color: #ffb99a; */
-	/* background: linear-gradient(357deg, rgba(133,29,65,1) 0%, rgba(219,81,81,1) 55%, rgba(226,101,82,1) 100%); */
-	/* background: #ff3860; */
+	background: linear-gradient(357deg, #ff3860 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%);
 }
 
-#header-left {
+#header-large-left {
 	margin-left: 0vw;
 }
 
-#header-right {
+#header-large-right {
+	right: 0;
+	position: fixed;
+	margin-right: 1vw;
+}
+
+/* HEADER BAR FOR MEDIUM SCREEN */
+
+#header-medium {
+	position: fixed;
+	top: 0;
+	height: 10vh;
+	width: 100vw;
+	background: linear-gradient(357deg, #ff3860 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%);
+}
+
+#header-medium-left {
+	margin-left: 0vw;
+}
+
+#header-medium-right {
+	right: 0;
+	position: fixed;
+	margin-right: 1vw;
+}
+
+/* HEADER BAR FOR SMALL SCREEN */
+
+#header-small {
+	position: fixed;
+	top: 0;
+	height: 10vh;
+	width: 100vw;
+	background: linear-gradient(357deg, #ff3860 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%);
+}
+
+#header-small-left {
+	margin-left: 0vw;
+}
+
+#header-small-right {
 	right: 0;
 	position: fixed;
 	margin-right: 1vw;

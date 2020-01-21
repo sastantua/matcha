@@ -1,32 +1,35 @@
 import React from 'react';
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Typography, Button, TextField, makeStyles} from '@material-ui/core';
+import { styled as styledMaterial, useMediaQuery } from '@material-ui/core';
 
 import './Signup.css';
-import snail from '../../../media/frogs.jpg';
+import snail from '../../../media/snail.jpg';
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { Typography } from '@material-ui/core';
-import { makeStyles, styled as styledMaterial } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-  root: {
+	root: {
 	'& > *': {
-	  margin: theme.spacing(1),
-	  width: 200,
+		margin: theme.spacing(1),
+		width: 200,
 	},
-  },
+	},
 }));
 
 const TitleWrapper = styledMaterial(Typography)({
 	fontSize: '2rem',
+	marginTop: '1em',
+	marginBottom: '0.5em',
 });
 
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '2rem',
-	width: '20rem',
+	width: '15rem',
+	height: '5rem',
 });
 
+<<<<<<< HEAD
 const Test = styled.div`
 	background-color: black;
 	height: 1000px;
@@ -34,10 +37,20 @@ const Test = styled.div`
 `
 const TestMod = styled(Test)`
 	background-color: ${props => props.color};
+=======
+const InputSubWrapper = styled.div
+`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+>>>>>>> b23fbd7ce4f97a9fcf83079587b5f8c1c5bde20b
 `
 
 function Signup() {
 	const classes = useStyles();
+	const matches = useMediaQuery('(min-width:600px)');
+
 
 	return (
 		<div id="signup-component">
@@ -53,16 +66,33 @@ function Signup() {
 					</div>
 					<div id="signup-right-bottom">
 						<form id="credentials-form" className={classes.root} noValidate autoComplete="off">
-							<InputWrapper id="outlined-basic" label="username" variant="outlined" />
-							<InputWrapper id="outlined-basic" label="password" variant="outlined" />
+							<div id="style-form">
+								<InputSubWrapper>
+									<InputWrapper id="outlined-basic" label="name" variant="outlined" />
+									<InputWrapper id="outlined-basic" label="surname" variant="outlined" />
+									<InputWrapper id="outlined-basic" label="username" variant="outlined" />
+								</InputSubWrapper>
+								<InputSubWrapper id="margin-selector">
+									<InputWrapper id="outlined-basic" label="email" variant="outlined" />
+									<InputWrapper id="outlined-basic" label="password" variant="outlined" />
+									<InputWrapper id="outlined-basic" label="confirm password" variant="outlined" />
+								</InputSubWrapper>
+							</div>
 							<Button color="secondary" >submit</Button>
 						</form>
+						<div id="redirect-signup">
+							<p>Don't have an account?</p>
+							<Button color="secondary" >
+								<Link to="/login" >
+									sign in
+								</Link>
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
 }
-
 
 export default Signup;
