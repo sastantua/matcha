@@ -1,23 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Typography, Button, TextField, makeStyles} from '@material-ui/core';
+import { styled as styledMaterial, useMediaQuery } from '@material-ui/core';
 
 import './Signup.css';
 import snail from '../../../media/snail.jpg';
 
-import styled from "styled-components"
-
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { Typography } from '@material-ui/core';
-import { makeStyles, styled as styledMaterial } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
-  root: {
+	root: {
 	'& > *': {
-	  margin: theme.spacing(1),
-	  width: 200,
+		margin: theme.spacing(1),
+		width: 200,
 	},
-  },
+	},
 }));
 
 const TitleWrapper = styledMaterial(Typography)({
@@ -28,7 +25,7 @@ const TitleWrapper = styledMaterial(Typography)({
 
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '2rem',
-	width: '12rem',
+	width: '15rem',
 	height: '5rem',
 });
 
@@ -42,6 +39,8 @@ const InputSubWrapper = styled.div
 
 function Signup() {
 	const classes = useStyles();
+	const matches = useMediaQuery('(min-width:600px)');
+
 
 	return (
 		<div id="signup-component">
@@ -85,6 +84,5 @@ function Signup() {
 		</div>
 	);
 }
-
 
 export default Signup;
