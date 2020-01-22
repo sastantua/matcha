@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { SideList } from "./Sidelist";
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Button, green } from '@material-ui/core';
 import { Badge, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
@@ -21,7 +21,6 @@ const useStyles = makeStyles({
 		color: 'white'
 	}
 });
-
 
 	
 function Header() {
@@ -45,41 +44,13 @@ function Header() {
 	
 	const toggleDrawer = (side, open) => event => {
 		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-		return;
+			return ;
 		}
 	
 		setState({ ...state, [side]: open });
 	};
 
-	const sideList = side => (
-		<div className={classes.list} role="presentation" onClick={toggleDrawer(side, false)} onKeyDown={toggleDrawer(side, false)}>
-			<List>
-				<ListItem button component={Link} to="/home">
-					<ListItemIcon><BrightnessHighIcon color='secondary' /></ListItemIcon>
-					<ListItemText primary='Home' />
-				</ListItem>
-				<ListItem button component={Link} to="/account">
-					<ListItemIcon><AccountCircleIcon color='secondary' /></ListItemIcon>
-					<ListItemText primary='Account' />
-				</ListItem>
-				<ListItem button component={Link} to="/match">
-					<ListItemIcon><FavoriteIcon color='secondary' /></ListItemIcon>
-					<ListItemText primary='Match' />
-				</ListItem>	
-			</List>
-			<Divider />
-			<List>
-				<ListItem button component={Link} to="/message">
-					<ListItemIcon><EmailIcon color='secondary' /></ListItemIcon>
-					<ListItemText primary='Messages' />
-				</ListItem>
-				<ListItem button component={Link} to="/notification">
-					<ListItemIcon><NotificationsIcon color='secondary' /></ListItemIcon>
-					<ListItemText primary='Notifications' />
-				</ListItem>
-			</List>
-		</div>
-	);
+	// const side
 
 	if (windowWidth >= 1024) {
 		return (
@@ -163,7 +134,7 @@ function Header() {
 						<MenuIcon />
 					</IconButton>
 					<Drawer classes={{ paper: styles.paper }} open={state.left} onClose={toggleDrawer('left', false)} style={{background: "#FFF"}}>
-						{sideList('left')}
+						{SideList('left')}
 					</Drawer>
 					<div id="header-small-right">
 						<IconButton component={Link} to="/message" className="mail" edge="start" color="inherit" aria-label="menu">
