@@ -65,26 +65,26 @@ function Header() {
 	const sideList = side => (
 		<div className={classes.list} role="presentation" onClick={toggleDrawer(side, false)} onKeyDown={toggleDrawer(side, false)}>
 			<List>
-				<ListItem button>
+				<ListItem button component={Link} to="/home">
 					<ListItemIcon><BrightnessHighIcon color='secondary' /></ListItemIcon>
 					<ListItemText primary='Home' />
 				</ListItem>
-				<ListItem button>
+				<ListItem button component={Link} to="/account">
 					<ListItemIcon><AccountCircleIcon color='secondary' /></ListItemIcon>
 					<ListItemText primary='Account' />
 				</ListItem>
-				<ListItem button>
+				<ListItem button component={Link} to="/match">
 					<ListItemIcon><FavoriteIcon color='secondary' /></ListItemIcon>
 					<ListItemText primary='Match' />
 				</ListItem>	
 			</List>
 			<Divider />
 			<List>
-				<ListItem button>
+				<ListItem button component={Link} to="/message">
 					<ListItemIcon><EmailIcon color='secondary' /></ListItemIcon>
 					<ListItemText primary='Messages' />
 				</ListItem>
-				<ListItem button>
+				<ListItem button component={Link} to="/notification">
 					<ListItemIcon><NotificationsIcon color='secondary' /></ListItemIcon>
 					<ListItemText primary='Notifications' />
 				</ListItem>
@@ -136,12 +136,12 @@ function Header() {
 						</Button>
 					</div>
 					<div id="header-large-right">
-						<IconButton className="mail" edge="start" color="inherit" aria-label="menu">
+						<IconButton component={Link} to="/message" className="mail" edge="start" color="inherit" aria-label="menu">
 							<Badge badgeContent={4} color="secondary">
 								<MailIcon />
 							</Badge>
 						</IconButton>
-						<IconButton className="notif" edge="start" color="inherit" aria-label="menu">
+						<IconButton component={Link} to="/notification" className="notif" edge="start" color="inherit" aria-label="menu">
 							<Badge badgeContent={10} color="secondary">
 								<NotificationsIcon />
 							</Badge>
@@ -173,12 +173,12 @@ function Header() {
 						</Button>
 					</div>
 					<div id="header-medium-right">
-						<IconButton className="mail" edge="start" color="inherit" aria-label="menu">
+						<IconButton component={Link} to="/message" className="mail" edge="start" color="inherit" aria-label="menu">
 							<Badge badgeContent={4} color="secondary">
 								<MailIcon />
 							</Badge>
 						</IconButton>
-						<IconButton className="notif" edge="start" color="inherit" aria-label="menu">
+						<IconButton component={Link} to="/notification" className="notif" edge="start" color="inherit" aria-label="menu">
 							<Badge badgeContent={10} color="secondary">
 								<NotificationsIcon />
 							</Badge>
@@ -199,12 +199,12 @@ function Header() {
 						{sideList('left')}
 					</Drawer>
 					<div id="header-small-right">
-						<IconButton className="mail" edge="start" color="inherit" aria-label="menu">
+						<IconButton component={Link} to="/message" className="mail" edge="start" color="inherit" aria-label="menu">
 							<Badge badgeContent={4} color="secondary">
 								<MailIcon size="small" />
 							</Badge>
 						</IconButton>
-						<IconButton className="notif" edge="start" color="inherit" aria-label="menu">
+						<IconButton component={Link} to="/notification" className="notif" edge="start" color="inherit" aria-label="menu">
 							<Badge badgeContent={10} color="secondary">
 								<NotificationsIcon size="small" />
 							</Badge>

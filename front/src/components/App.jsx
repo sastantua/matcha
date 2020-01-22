@@ -10,6 +10,7 @@ import Foooter from './Footer/Footer';
 import Signup from './allFeatures/Signup/Signup';
 import Login from './allFeatures/Login/Login';
 import Homepage from './allFeatures/Homepage/Homepage';
+import Account from './allFeatures/Account/Account';
 import NoMatch from './NoMatch/NoMatch';
 
 const isLog = 1;
@@ -35,7 +36,7 @@ class App extends React.Component {
 				<Header />				
 					<Switch>
 						<Route exact path="/" component={Homepage} />
-						{/* <Route exact path="/account" component={Account} /> */}
+						<Route exact path="/account" component={Account} />
 						<Route path="*" component={NoMatch} />
 					</Switch>
 				<Foooter />
