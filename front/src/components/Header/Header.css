@@ -68,13 +68,13 @@
 #header-small {
 	position: fixed;
 	top: 0;
-	height: 10vh;
+	height: 6vh;
 	width: 100vw;
 	background: linear-gradient(357deg, #ff3860 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%);
 }
 
 #header-small #toolbar {
-	height: 10vh;
+	height: 5vh;
 }
 
 #header-small-left {
