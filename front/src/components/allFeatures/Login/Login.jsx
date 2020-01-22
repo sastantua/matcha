@@ -13,12 +13,12 @@ import { makeStyles, styled as styledMaterial } from '@material-ui/core/styles';
 
 
 const useStyles = makeStyles(theme => ({
-  root: {
-	'& > *': {
-	  margin: theme.spacing(1),
-	  width: 200,
+	root: {
+		'& > *': {
+			margin: theme.spacing(1),
+			width: 200,
+		},
 	},
-  },
 }));
 
 const TitleWrapper = styledMaterial(Typography)({

@@ -74,11 +74,8 @@ function Header() {
 	if (windowWidth >= 1024) {
 		return (
 			<AppBar position="static" id="header-large">
-				<Toolbar>
+				<Toolbar id="toolbar">
 					<div id="header-large-left">
-						<IconButton edge="start" color="inherit" aria-label="menu">
-							<MenuIcon />
-						</IconButton>
 						<Button color="inherit">
 							<Link to="/" style={{ color: '#FFF' }}>
 								home
@@ -96,15 +93,15 @@ function Header() {
 						</Button>
 					</div>
 					<div id="header-large-right">
-						<IconButton edge="start" color="inherit" aria-label="menu">
-						<Badge badgeContent={4} color="secondary">
-							<MailIcon />
-						</Badge>
+						<IconButton className="mail" edge="start" color="inherit" aria-label="menu">
+							<Badge badgeContent={4} color="secondary">
+								<MailIcon />
+							</Badge>
 						</IconButton>
-						<IconButton edge="start" color="inherit" aria-label="menu">
-						<Badge badgeContent={10} color="secondary">
-							<NotificationsIcon />
-						</Badge>
+						<IconButton className="notif" edge="start" color="inherit" aria-label="menu">
+							<Badge badgeContent={10} color="secondary">
+								<NotificationsIcon />
+							</Badge>
 						</IconButton>
 					</div>
 				</Toolbar>
@@ -116,9 +113,6 @@ function Header() {
 			<AppBar position="static" id="header-medium">
 				<Toolbar>
 					<div id="header-medium-left">
-						<IconButton edge="start" color="inherit" aria-label="menu">
-							<MenuIcon />
-						</IconButton>
 						<Button color="inherit">
 							<Link to="/" style={{ color: '#FFF' }}>
 								home
@@ -136,15 +130,15 @@ function Header() {
 						</Button>
 					</div>
 					<div id="header-medium-right">
-						<IconButton edge="start" color="inherit" aria-label="menu">
-						<Badge badgeContent={4} color="secondary">
-							<MailIcon />
-						</Badge>
+						<IconButton className="mail" edge="start" color="inherit" aria-label="menu">
+							<Badge badgeContent={4} color="secondary">
+								<MailIcon />
+							</Badge>
 						</IconButton>
-						<IconButton edge="start" color="inherit" aria-label="menu">
-						<Badge badgeContent={10} color="secondary">
-							<NotificationsIcon />
-						</Badge>
+						<IconButton className="notif" edge="start" color="inherit" aria-label="menu">
+							<Badge badgeContent={10} color="secondary">
+								<NotificationsIcon />
+							</Badge>
 						</IconButton>
 					</div>
 				</Toolbar>
@@ -164,12 +158,12 @@ function Header() {
 						{sideList('left')}
 					</Drawer>
 					<div id="header-small-right">
-						<IconButton edge="start" color="inherit" aria-label="menu">
+						<IconButton className="mail" edge="start" color="inherit" aria-label="menu">
 							<Badge badgeContent={4} color="secondary">
 								<MailIcon size="small" />
 							</Badge>
 						</IconButton>
-						<IconButton edge="start" color="inherit" aria-label="menu">
+						<IconButton className="notif" edge="start" color="inherit" aria-label="menu">
 							<Badge badgeContent={10} color="secondary">
 								<NotificationsIcon size="small" />
 							</Badge>
