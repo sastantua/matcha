@@ -29,12 +29,22 @@ const InputWrapper = styledMaterial(TextField)({
 	height: '5rem',
 });
 
+<<<<<<< HEAD
+const Test = styled.div`
+	background-color: black;
+	height: 1000px;
+	width: auto;
+`
+const TestMod = styled(Test)`
+	background-color: ${props => props.color};
+=======
 const InputSubWrapper = styled.div
 `
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+>>>>>>> b23fbd7ce4f97a9fcf83079587b5f8c1c5bde20b
 `
 
 function Signup() {
