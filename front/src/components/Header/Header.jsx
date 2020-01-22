@@ -3,11 +3,19 @@ import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import MailIcon from '@material-ui/icons/Mail';
 import Badge from '@material-ui/core/Badge';
 import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+
+import MenuIcon from '@material-ui/icons/Menu';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
+import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+
 import './Header.css';
 
 const useStyles = makeStyles({
@@ -19,12 +27,6 @@ const useStyles = makeStyles({
 	},
   });
   
-
-
-
-
-
-
 function Header() {
 	// const classes = useStyles();
 	let windowWidth = window.innerWidth;
@@ -53,21 +55,23 @@ function Header() {
 			onClick={toggleDrawer(side, false)}
 			onKeyDown={toggleDrawer(side, false)}
 		>
-		<Button color="inherit" size="small">
-			<Link to="/" style={{ color: '#FFF' }}>
-				home
-			</Link>
-		</Button>
-		<Button color="inherit" size="small">
-			<Link to="/account" style={{ color: '#FFF' }}>
-				account
-			</Link>
-		</Button>
-		<Button color="inherit" size="small">
-			<Link to="/match" style={{ color: '#FFF' }}>
-				match
-			</Link>
-		</Button>
+	   <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem button key={text}>
+            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
 		</div>
 	);
 
@@ -106,7 +110,7 @@ function Header() {
 					</div>
 				</Toolbar>
 			</AppBar>
-	);
+		);
 	}
 	else if (windowWidth >= 720) {
 		return (
