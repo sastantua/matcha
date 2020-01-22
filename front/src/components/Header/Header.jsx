@@ -2,23 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
-import Badge from '@material-ui/core/Badge';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-
-import MenuIcon from '@material-ui/icons/Menu';
-import EmailIcon from '@material-ui/icons/Email';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import BrightnessHighIcon from '@material-ui/icons/BrightnessHigh';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import { green } from '@material-ui/core/colors';
+import { AppBar, Toolbar, IconButton, Button, green } from '@material-ui/core';
+import { Badge, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { Menu as MenuIcon, Email as EmailIcon, Favorite as FavoriteIcon, BrightnessHigh as BrightnessHighIcon } from '@material-ui/icons';
+import { AccountCircle as AccountCircleIcon, Mail as MailIcon, Notifications as NotificationsIcon } from '@material-ui/icons';
 
 import './Header.css';
 
@@ -30,23 +17,25 @@ const useStyles = makeStyles({
 		width: 'auto',
 	},
 	paper: {
-		background: "blue",
+		background: "",
 		color: 'white'
 	}
 });
 
-const styles = {
-	paper: {
-		backgroundColor: "blue"
-	}
-}
+
 	
 function Header() {
-	// const classes = useStyles();
 	let windowWidth = window.innerWidth;
 	console.log(windowWidth);
 
 	const classes = useStyles();
+
+	const styles = {
+		paper: {
+		  background: "blue"
+		}
+	}
+
 	const [state, setState] = React.useState({
 		top: false,
 		left: false,
@@ -91,28 +80,6 @@ function Header() {
 			</List>
 		</div>
 	);
-
-	// const sideList = side => (
-	// 	<div className={classes.list} role="presentation" onClick={toggleDrawer(side, false)} onKeyDown={toggleDrawer(side, false)}>
-	// 		<List>
-	// 			{['Home', 'Account', 'Match'].map((text, index) => (
-	// 				<ListItem button key={text}>
-	// 					<ListItemIcon>{index % 2 === 0 ? <FavoriteIcon color='secondary' /> : <MailIcon style={{ color: green[500] }}/>}</ListItemIcon>
-	// 					<ListItemText primary={text} />
-	// 				</ListItem>
-	// 			))}
-	// 		</List>
-	// 		<Divider />
-	// 		<List>
-	// 			{['Messages', 'Notifications'].map((text, index) => (
-	// 				<ListItem button key={text}>
-	// 					<ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-	// 					<ListItemText primary={text} />
-	// 				</ListItem>
-	// 		))}
-	// 		</List>
-	// 	</div>
-	// );
 
 	if (windowWidth >= 1024) {
 		return (
@@ -192,8 +159,8 @@ function Header() {
 		return (
 			<AppBar position="static" id="header-small">
 				<Toolbar>
-					<IconButton edge="start" color="inherit" aria-label="menu">
-						<MenuIcon onClick={toggleDrawer('left', true)} />
+					<IconButton onClick={toggleDrawer('left', true)} edge="start" color="inherit" aria-label="menu">
+						<MenuIcon />
 					</IconButton>
 					<Drawer classes={{ paper: styles.paper }} open={state.left} onClose={toggleDrawer('left', false)} style={{background: "#FFF"}}>
 						{sideList('left')}
@@ -217,3 +184,5 @@ function Header() {
 }
 
 export default Header;
+
+// https://neo4j.com/download-thanks/?edition=community&release=4.0.0&flavour=unix
