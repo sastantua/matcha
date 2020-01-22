@@ -8,6 +8,10 @@
 	background: linear-gradient(357deg, #ff3860 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%);
 }
 
+#header-large #toolbar {
+	height: 6vh;
+}
+
 #header-large-left {
 	margin-left: 0vw;
 }
@@ -15,7 +19,15 @@
 #header-large-right {
 	right: 0;
 	position: fixed;
-	margin-right: 1vw;
+	margin-right: vw;
+}
+
+#header-large-right .notif {
+	margin-right: 0.4vw;
+}
+
+#header-large-right .mail {
+	margin-right: 0.4vw;
 }
 
 /* HEADER BAR FOR MEDIUM SCREEN */
@@ -28,6 +40,10 @@
 	background: linear-gradient(357deg, #ff3860 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%);
 }
 
+#header-medium #toolbar {
+	height: 10vh;
+}
+
 #header-medium-left {
 	margin-left: 0vw;
 }
@@ -37,6 +53,15 @@
 	position: fixed;
 	margin-right: 1vw;
 }
+
+#header-medium-right .notif {
+	margin-right: 0.4vw;
+}
+
+#header-medium-right .mail {
+	margin-right: 0.4vw;
+}
+
 
 /* HEADER BAR FOR SMALL SCREEN */
 
@@ -48,6 +73,10 @@
 	background: linear-gradient(357deg, #ff3860 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%);
 }
 
+#header-small #toolbar {
+	height: 10vh;
+}
+
 #header-small-left {
 	margin-left: 0vw;
 }
@@ -56,4 +85,12 @@
 	right: 0;
 	position: fixed;
 	margin-right: 1vw;
+}
+
+#header-small-right .notif {
+	margin-right: 0.4vw;
+}
+
+#header-small-right .mail {
+	margin-right: 0.4vw;
 }
