@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Login.css';
@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import { Typography } from '@material-ui/core';
 import { makeStyles, styled as styledMaterial } from '@material-ui/core/styles';
 
-
+import api from '../../../api'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -41,7 +41,32 @@ const InputWrapper = styledMaterial(TextField)({
 
 function Login() {
 	const classes = useStyles();
+	const [email, setEmail] = useState(null);
+	const [password, setPassword] = useState(null);
 
+	const handleEmail = (e) => {
+		setEmail(e.target.value);
+	}
+
+	const handlePassword = (e) => {
+		setPassword(e.target.value);
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		const user = {
+			email: email,
+			password: password
+		}
+		const userStr = JSON.stringify(user); 
+		api.post('/user/login', userStr)
+		.then((res) => {
+			console.log(res);
+		})
+		.catch((err) => {
+			console.log(err);
+		})
+	} 
 	return (
 		<div id="login-component">
 			<div id="login-container">
@@ -55,10 +80,10 @@ function Login() {
 						</TitleWrapper>	
 					</div>
 					<div id="login-right-bottom">
-						<form id="credentials-form" className={classes.root} noValidate autoComplete="off">
-							<InputWrapper id="outlined-basic" label="username" variant="outlined" />
-							<InputWrapper id="outlined-basic" label="password" variant="outlined" />
-							<Button color="secondary" >submit</Button>
+						<form id="credentials-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+							<InputWrapper id="outlined-basic" label="username" variant="outlined" name="email" onChange={handleEmail}/>
+							<InputWrapper id="outlined-basic" label="password" variant="outlined" name="password" onChange={handlePassword}/>
+							<Button color="secondary" type='submit'>submit</Button>
 						</form>
 						<div id="redirect-login">
 							<p>Already have an account?</p>
