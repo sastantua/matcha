@@ -17,8 +17,8 @@ function Clock() {
 	function remaningTime(blackhole, time) {
 		let bh = new Date(blackhole);
 		let today = new Date();
-		console.log({today});
-		console.log({blackhole});
+		// console.log({today});
+		// console.log({blackhole});
 		return (Math.round((bhtoday) / (1000 * 60 * 60 * 24)).toFixed(0));
 	}
 	return (<p>{date} days before blackhole</p>);
