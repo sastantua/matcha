@@ -13,7 +13,7 @@ import Homepage from './allFeatures/Homepage/Homepage';
 import Account from './allFeatures/Account/Account';
 import NoMatch from './NoMatch/NoMatch';
 
-const isLog = 1;
+const isLog = 0;
 
 class App extends React.Component {
 	render() {
