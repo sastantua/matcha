@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 		width: 'auto',
 	},
 	paper: {
-		background: "",
+		background: "blue",
 		color: 'white'
 	}
 });
@@ -30,7 +30,7 @@ function HeaderSmall() {
 		paper: {
 		  background: "blue"
 		}
-	}
+	  }
 
 	const [state, setState] = React.useState({
 		top: false,
