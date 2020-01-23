@@ -7,13 +7,13 @@ import Header from './Header/Header';
 import Foooter from './Footer/Footer';
 // import Choice from './Choice/Choice';
 
-import Signup from './allPagess/Signup/Signup';
-import Login from './allPagess/Login/Login';
-import Homepage from './allPagess/Homepage/Homepage';
-import Account from './allPagess/Account/Account';
+import Signup from './allPages/Signup/Signup';
+import Login from './allPages/Login/Login';
+import Homepage from './allPages/Homepage/Homepage';
+import Account from './allPages/Account/Account';
 import NoMatch from './NoMatch/NoMatch';
 
-const isLog = 1;
+const isLog = 0;
 
 class App extends React.Component {
 	render() {

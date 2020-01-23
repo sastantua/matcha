@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import qs from 'querystring';
 
 import './Login.css';
 // import styled from "styled-components";
@@ -58,15 +59,17 @@ function Login() {
 			email: email,
 			password: password
 		}
-		const userStr = JSON.stringify(user); 
-		api.post('/user/login', userStr)
+		const queryString = qs.stringify(user)
+		api.post('/user/login', queryString)
 		.then((res) => {
 			console.log(res);
+			localStorage.token = res.data.token
 		})
 		.catch((err) => {
 			console.log(err);
 		})
-	} 
+	}
+
 	return (
 		<div id="login-component">
 			<div id="login-container">
