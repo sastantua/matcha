@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import qs from 'querystring';
+import { useSnackbar } from 'notistack';
 
 import './Login.css';
 // import styled from "styled-components";
@@ -44,6 +45,7 @@ function Login() {
 	const classes = useStyles();
 	const [email, setEmail] = useState(null);
 	const [password, setPassword] = useState(null);
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const handleEmail = (e) => {
 		setEmail(e.target.value);
@@ -63,7 +65,8 @@ function Login() {
 		api.post('/user/login', queryString)
 		.then((res) => {
 			console.log(res);
-			localStorage.token = res.data.token
+			localStorage.token = res.data.token;
+			enqueueSnackbar('I love hooks');
 		})
 		.catch((err) => {
 			console.log(err);
@@ -84,8 +87,8 @@ function Login() {
 					</div>
 					<div id="login-right-bottom">
 						<form id="credentials-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-							<InputWrapper id="outlined-basic" label="username" variant="outlined" name="email" onChange={handleEmail}/>
-							<InputWrapper id="outlined-basic" label="password" variant="outlined" name="password" onChange={handlePassword}/>
+							<InputWrapper variant="outlined" label="email" name="email" onChange={handleEmail}/>
+							<InputWrapper variant="outlined" label="password" name="password" onChange={handlePassword}/>
 							<Button color="secondary" type='submit'>submit</Button>
 						</form>
 						<div id="redirect-login">
@@ -102,6 +105,5 @@ function Login() {
 		</div>
 	);
 }
-
 
 export default Login;

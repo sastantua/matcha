@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { SnackbarProvider } from 'notistack';
 
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 
@@ -13,12 +14,13 @@ import Homepage from './allPages/Homepage/Homepage';
 import Account from './allPages/Account/Account';
 import NoMatch from './NoMatch/NoMatch';
 
-const isLog = 0;
+const isLog = 1;
 
 class App extends React.Component {
 	render() {
 		if (isLog === 0) {
 			return (
+			<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
 				<BrowserRouter>
 					<Switch>
 						{/* <Route exact path="/" component={Choice} /> */}
@@ -28,10 +30,12 @@ class App extends React.Component {
 						<Route path="*" component={NoMatch} />
 					</Switch>
 				</BrowserRouter>
+			</SnackbarProvider>
 			);
 		}
 		else {
 			return (
+			<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
 				<BrowserRouter>
 				<Header />				
 					<Switch>
@@ -41,6 +45,7 @@ class App extends React.Component {
 					</Switch>
 				<Foooter />
 			</BrowserRouter>
+		@	</SnackbarProvider>
 		);
 		}
 	}
