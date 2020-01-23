@@ -7,10 +7,10 @@ import Header from './Header/Header';
 import Foooter from './Footer/Footer';
 // import Choice from './Choice/Choice';
 
-import Signup from './allFeatures/Signup/Signup';
-import Login from './allFeatures/Login/Login';
-import Homepage from './allFeatures/Homepage/Homepage';
-import Account from './allFeatures/Account/Account';
+import Signup from './allPagess/Signup/Signup';
+import Login from './allPagess/Login/Login';
+import Homepage from './allPagess/Homepage/Homepage';
+import Account from './allPagess/Account/Account';
 import NoMatch from './NoMatch/NoMatch';
 
 const isLog = 1;
