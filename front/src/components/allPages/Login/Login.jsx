@@ -89,10 +89,10 @@ function Login() {
 							<Button color="secondary" type='submit'>submit</Button>
 						</form>
 						<div id="redirect-login">
-							<p>Already have an account?</p>
+							<p>Don't have an account?</p>
 							<Button color="secondary" >
 								<Link to="/signup" >
-									login
+									sign up
 								</Link>
 							</Button>
 						</div>

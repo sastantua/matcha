@@ -71,10 +71,10 @@ function Signup() {
 							<Button color="secondary" >submit</Button>
 						</form>
 						<div id="redirect-signup">
-							<p>Don't have an account?</p>
+							<p>Already have an account?</p>
 							<Button color="secondary" >
 								<Link to="/login" >
-									sign in
+									login
 								</Link>
 							</Button>
 						</div>
