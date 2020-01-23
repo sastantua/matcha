@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Button, green } from '@material-ui/core';
-import { Badge, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
-import { Menu as MenuIcon, Email as EmailIcon, Favorite as FavoriteIcon, BrightnessHigh as BrightnessHighIcon } from '@material-ui/icons';
-import { AccountCircle as AccountCircleIcon, Mail as MailIcon, Notifications as NotificationsIcon } from '@material-ui/icons';
+import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { Email as EmailIcon, Favorite as FavoriteIcon, BrightnessHigh as BrightnessHighIcon } from '@material-ui/icons';
+import { AccountCircle as AccountCircleIcon, Notifications as NotificationsIcon } from '@material-ui/icons';
 
 export const SideList = side => {
 	
