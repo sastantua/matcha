@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Typography, Button, TextField, makeStyles} from '@material-ui/core';
@@ -7,6 +7,7 @@ import { styled as styledMaterial, useMediaQuery } from '@material-ui/core';
 import './Signup.css';
 import snail from '../../../media/snail.jpg';
 
+import api from '../../../api'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -41,6 +42,33 @@ function Signup() {
 	const classes = useStyles();
 	const matches = useMediaQuery('(min-width:600px)');
 
+	const [email, setEmail] = useState(null);
+	const [password, setPassword] = useState(null);
+
+	const handleEmail = (e) => {
+		setEmail(e.target.value);
+	}
+
+	const handlePassword = (e) => {
+		setPassword(e.target.value);
+	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		// const user = {
+		// 	email: email,
+		// 	password: password
+		// }
+		// const queryString = qs.stringify(user)
+		// api.post('/user/login', queryString)
+		// .then((res) => {
+		// 	console.log(res);
+		// 	localStorage.token = res.data.token
+		// })
+		// .catch((err) => {
+		// 	console.log(err);
+		// })
+	}
 
 	return (
 		<div id="signup-component">

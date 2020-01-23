@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 		width: 'auto',
 	},
 	paper: {
-		background: "blue",
+		background: "#ff3860",
 		color: 'white'
 	}
 });
@@ -25,12 +25,6 @@ const useStyles = makeStyles({
 function HeaderSmall() {
 
 	const classes = useStyles();
-
-	const styles = {
-		paper: {
-		  background: "blue"
-		}
-	  }
 
 	const [state, setState] = React.useState({
 		top: false,
@@ -53,7 +47,7 @@ function HeaderSmall() {
 				<IconButton onClick={toggleDrawer('left', true)} edge="start" color="inherit" aria-label="menu">
 					<MenuIcon />
 				</IconButton>
-				<Drawer classes={{ paper: styles.paper }} open={state.left} onClose={toggleDrawer('left', false)} style={{background: "#FFF"}}>
+				<Drawer classes={{ paper: classes.paper }} open={state.left} onClose={toggleDrawer('left', false)} style={{background: "#FFF"}}>
 					{SideList('left')}
 				</Drawer>
 				<div id="header-small-right">
