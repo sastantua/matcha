@@ -1,59 +1,24 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import qs from 'querystring';
 import { useSnackbar } from 'notistack';
+import { Button } from '@material-ui/core';
 
 import './Login.css';
-// import styled from "styled-components";
+import { TitleWrapper, InputWrapper } from './Wrapper.jsx';
 import snail from '../../../media/snail.jpg';
-
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { Typography } from '@material-ui/core';
-import { makeStyles, styled as styledMaterial } from '@material-ui/core/styles';
+import useStyles from '../../../helper/useStyles'
 
 import api from '../../../api'
 
-const useStyles = makeStyles(theme => ({
-	root: {
-		'& > *': {
-			margin: theme.spacing(1),
-			width: 200,
-		},
-	},
-}));
-
-const TitleWrapper = styledMaterial(Typography)({
-	fontSize: '2rem',
-});
-
-const InputWrapper = styledMaterial(TextField)({
-	fontSize: '2rem',
-	width: '20rem',
-});
-
-// const Test = styled.div`
-// 	background-color: black;
-// 	height: 1000px;
-// 	width: auto;
-// `
-// const TestMod = styled(Test)`
-// 	background-color: ${props => props.color};
-// `
 
 function Login() {
 	const classes = useStyles();
-	const [email, setEmail] = useState(null);
-	const [password, setPassword] = useState(null);
+	const [email, setEmail] = useState("test3@test.com");
+	const [password, setPassword] = useState("test42");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-	const handleEmail = (e) => {
-		setEmail(e.target.value);
-	}
-
-	const handlePassword = (e) => {
-		setPassword(e.target.value);
-	}
+	const handleEmail = (e) => {setEmail(e.target.value);}
+	const handlePassword = (e) => {setPassword(e.target.value);}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -65,11 +30,11 @@ function Login() {
 		.then((res) => {
 			console.log(res);
 			localStorage.token = res.data.token;
-			enqueueSnackbar('loggin success', {variant: 'success'});
+			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
 		})
 		.catch((err) => {
-			console.log(err);
-			enqueueSnackbar('invalid credentials',  {variant: 'error'});
+			console.log(err.response);
+			enqueueSnackbar(`${err.response.data.message}`,  {variant: 'error'});
 		})
 	}
 

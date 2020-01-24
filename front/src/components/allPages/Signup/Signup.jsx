@@ -1,73 +1,55 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { Typography, Button, TextField, makeStyles} from '@material-ui/core';
-import { styled as styledMaterial, useMediaQuery } from '@material-ui/core';
+import { useSnackbar } from 'notistack';
+
+import { Button } from '@material-ui/core';
 
 import './Signup.css';
+import { TitleWrapper, InputWrapper, InputSubWrapper } from './Wrapper.jsx';
 import snail from '../../../media/snail.jpg';
+import useStyles from '../../../helper/useStyles'
 
 import api from '../../../api'
 
-const useStyles = makeStyles(theme => ({
-	root: {
-	'& > *': {
-		margin: theme.spacing(1),
-		width: 200,
-	},
-	},
-}));
-
-const TitleWrapper = styledMaterial(Typography)({
-	fontSize: '2rem',
-	marginTop: '1em',
-	marginBottom: '0.5em',
-});
-
-const InputWrapper = styledMaterial(TextField)({
-	fontSize: '2rem',
-	width: '15rem',
-	height: '5rem',
-});
-
-const InputSubWrapper = styled.div
-`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-`
-
 function Signup() {
 	const classes = useStyles();
-	const matches = useMediaQuery('(min-width:600px)');
 
 	const [email, setEmail] = useState(null);
 	const [password, setPassword] = useState(null);
+	const [confirm_password, setConfirmPassword] = useState(null);
+	const [username, setUsername] = useState(null);
+	const [firstname, setFirstname] = useState(null);
+	const [lastname, setLastname] = useState(null);
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-	const handleEmail = (e) => {
-		setEmail(e.target.value);
-	}
-
-	const handlePassword = (e) => {
-		setPassword(e.target.value);
-	}
+	const handleEmail = (e) => {setEmail(e.target.value);}
+	const handlePassword = (e) => {setPassword(e.target.value);}
+	const handleConfirmPassword = (e) => {setConfirmPassword(e.target.value);}
+	const handleUsername = (e) => {setUsername(e.target.value);}
+	const handleFirstname = (e) => {setFirstname(e.target.value);}
+	const handleLastname = (e) => {setLastname(e.target.value);}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// const user = {
-		// 	email: email,
-		// 	password: password
-		// }
-		// const queryString = qs.stringify(user)
-		// api.post('/user/login', queryString)
-		// .then((res) => {
-		// 	console.log(res);
-		// 	localStorage.token = res.data.token
-		// })
-		// .catch((err) => {
-		// 	console.log(err);
-		// })
+		if (password !== confirm_password)
+			return console.log('fail');
+		const user = {
+			email: email,
+			password: password,
+			username: username,
+			firstname: firstname,
+			lastname: lastname
+		}
+		api.post('/user', user)
+		.then((res) => {
+			console.log(res);
+			localStorage.token = res.data.token;
+			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
+		})
+		.catch((err) => {
+			console.log(err.response);
+			enqueueSnackbar(`${err.response.data.message}`,  {variant: 'error'});
+		})
 	}
 
 	return (
@@ -83,20 +65,20 @@ function Signup() {
 						</TitleWrapper>	
 					</div>
 					<div id="signup-right-bottom">
-						<form id="credentials-form" className={classes.root} noValidate autoComplete="off">
+						<form id="credentials-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
 							<div id="style-form">
 								<InputSubWrapper>
-									<InputWrapper id="outlined-basic" label="name" variant="outlined" />
-									<InputWrapper id="outlined-basic" label="surname" variant="outlined" />
-									<InputWrapper id="outlined-basic" label="username" variant="outlined" />
+									<InputWrapper label="firstname" name="firstname" onChange={handleFirstname} variant="outlined" />
+									<InputWrapper label="lastname" name="lastname" onChange={handleLastname} variant="outlined" />
+									<InputWrapper label="username" name="username" onChange={handleUsername} variant="outlined" />
 								</InputSubWrapper>
 								<InputSubWrapper id="margin-selector">
-									<InputWrapper id="outlined-basic" label="email" variant="outlined" />
-									<InputWrapper id="outlined-basic" label="password" variant="outlined" />
-									<InputWrapper id="outlined-basic" label="confirm password" variant="outlined" />
+									<InputWrapper label="email" name="email" onChange={handleEmail} variant="outlined" />
+									<InputWrapper label="password" name="password" onChange={handlePassword} variant="outlined" />
+									<InputWrapper label="confirm_password" name="confirm_password" onChange={handleConfirmPassword} variant="outlined" />
 								</InputSubWrapper>
 							</div>
-							<Button color="secondary" >submit</Button>
+							<Button type='submit' color="secondary" >submit</Button>
 						</form>
 						<div id="redirect-signup">
 							<p>Already have an account?</p>
