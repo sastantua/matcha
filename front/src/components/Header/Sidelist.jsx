@@ -8,16 +8,9 @@ import { AccountCircle as AccountCircleIcon, Notifications as NotificationsIcon 
 export const SideList = side => {
 	
 	const useStyles = makeStyles({
-		list: {
-			width: 250,
-		},
-		fullList: {
-			width: 'auto',
-		},
-		paper: {
-			background: "",
-			color: 'white'
-		}
+		list: {width: 250,},
+		fullList: {width: 'auto',},
+		paper: {background: "",color: 'white'}
 	});
 	
 	const classes = useStyles();
@@ -41,26 +34,26 @@ export const SideList = side => {
 	<div className={classes.list} role="presentation" onClick={toggleDrawer(side, false)} onKeyDown={toggleDrawer(side, false)}>
 		<List>
 			<ListItem button component={Link} to="/home">
-				<ListItemIcon><BrightnessHighIcon color='secondary' /></ListItemIcon>
+				<ListItemIcon><BrightnessHighIcon style={{ color: "#FFF" }} /></ListItemIcon>
 				<ListItemText primary='Home' />
 			</ListItem>
 			<ListItem button component={Link} to="/account">
-				<ListItemIcon><AccountCircleIcon color='secondary' /></ListItemIcon>
+				<ListItemIcon><AccountCircleIcon style={{ color: "#FFF" }} /></ListItemIcon>
 				<ListItemText primary='Account' />
 			</ListItem>
 			<ListItem button component={Link} to="/match">
-				<ListItemIcon><FavoriteIcon color='secondary' /></ListItemIcon>
+				<ListItemIcon><FavoriteIcon style={{ color: "#FFF" }} /></ListItemIcon>
 				<ListItemText primary='Match' />
 			</ListItem>	
 		</List>
 		<Divider />
 		<List>
 			<ListItem button component={Link} to="/message">
-				<ListItemIcon><EmailIcon color='secondary' /></ListItemIcon>
+				<ListItemIcon><EmailIcon style={{ color: "#FFF" }} /></ListItemIcon>
 				<ListItemText primary='Messages' />
 			</ListItem>
 			<ListItem button component={Link} to="/notification">
-				<ListItemIcon><NotificationsIcon color='secondary' /></ListItemIcon>
+				<ListItemIcon><NotificationsIcon style={{ color: "#FFF" }} /></ListItemIcon>
 				<ListItemText primary='Notifications' />
 			</ListItem>
 		</List>

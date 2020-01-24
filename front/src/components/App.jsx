@@ -14,39 +14,39 @@ import Homepage from './allPages/Homepage/Homepage';
 import Account from './allPages/Account/Account';
 import NoMatch from './NoMatch/NoMatch';
 
-const isLog = 1;
+const isLog = 0;
 
 class App extends React.Component {
 	render() {
 		if (isLog === 0) {
 			return (
-			<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
-				<BrowserRouter>
-					<Switch>
-						{/* <Route exact path="/" component={Choice} /> */}
-						<Route exact path="/" component={Login} />
-						<Route exact path="/login" component={Login} />
-						<Route exact path="/signup" component={Signup} />
-						<Route path="*" component={NoMatch} />
-					</Switch>
-				</BrowserRouter>
-			</SnackbarProvider>
+				<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
+					<BrowserRouter>
+						<Switch>
+							{/* <Route exact path="/" component={Choice} /> */}
+							<Route exact path="/" component={Login} />
+							<Route exact path="/login" component={Login} />
+							<Route exact path="/signup" component={Signup} />
+							<Route path="*" component={NoMatch} />
+						</Switch>
+					</BrowserRouter>
+				</SnackbarProvider>
 			);
 		}
 		else {
 			return (
 			<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
 				<BrowserRouter>
-				<Header />				
+					<Header />				
 					<Switch>
 						<Route exact path="/" component={Homepage} />
 						<Route exact path="/account" component={Account} />
 						<Route path="*" component={NoMatch} />
 					</Switch>
-				<Foooter />
-			</BrowserRouter>
-		@	</SnackbarProvider>
-		);
+					<Foooter />
+				</BrowserRouter>
+			</SnackbarProvider>
+			);
 		}
 	}
 }

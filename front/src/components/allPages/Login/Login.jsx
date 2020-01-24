@@ -61,15 +61,15 @@ function Login() {
 			email: email,
 			password: password
 		}
-		const queryString = qs.stringify(user)
-		api.post('/user/login', queryString)
+		api.post('/user/login', user)
 		.then((res) => {
 			console.log(res);
 			localStorage.token = res.data.token;
-			enqueueSnackbar('I love hooks');
+			enqueueSnackbar('loggin success', {variant: 'success'});
 		})
 		.catch((err) => {
 			console.log(err);
+			enqueueSnackbar('invalid credentials',  {variant: 'error'});
 		})
 	}
 
@@ -81,9 +81,7 @@ function Login() {
 				</div>
 				<div id="login-right">
 					<div id="login-right-top">
-						<TitleWrapper component='h1'>
-							Matcha
-						</TitleWrapper>	
+						<TitleWrapper component='h1'>Matcha</TitleWrapper>	
 					</div>
 					<div id="login-right-bottom">
 						<form id="credentials-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
@@ -94,9 +92,7 @@ function Login() {
 						<div id="redirect-login">
 							<p>Don't have an account?</p>
 							<Button color="secondary" >
-								<Link to="/signup" >
-									sign up
-								</Link>
+								<Link to="/signup" >sign up</Link>
 							</Button>
 						</div>
 					</div>
