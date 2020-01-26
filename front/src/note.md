@@ -1,7 +1,8 @@
 # Todo
-	Inscription
-	Login
 
+	Inscription => mobile view
+	Login => mobile view
+	Account => user settings
 	################### IN PROGRESS ###################
 		
 
