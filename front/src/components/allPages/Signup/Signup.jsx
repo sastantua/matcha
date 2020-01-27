@@ -42,13 +42,10 @@ function Signup() {
 		}
 		api.post('/user', user)
 		.then((res) => {
-			console.log(res);
-			localStorage.token = res.data.token;
-			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
+			enqueueSnackbar(`Welcome ${username}\ngo login`, {variant: 'success'});
 		})
 		.catch((err) => {
-			console.log(err.response);
-			enqueueSnackbar(`${err.response.data.message}`,  {variant: 'error'});
+			(err && err.response && err.response.message) ? enqueueSnackbar(`${err.response.message}`,  {variant: 'error'}) : enqueueSnackbar(`error`,  {variant: 'error'});				
 		})
 	}
 

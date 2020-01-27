@@ -33,7 +33,6 @@ function Login() {
 			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
 		})
 		.catch((err) => {
-			console.log(err.response);
 			enqueueSnackbar(`${err.response.data.message}`,  {variant: 'error'});
 		})
 	}

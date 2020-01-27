@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const api = axios.create({
-	baseURL: 'http://matchapi.guillaumerx.fr'
+	baseURL: 'http://matchapi.guillaumerx.fr',
+	headers: {'Access-Control-Allow-Origin': '*'}
 });
 
 // username: neo4j
