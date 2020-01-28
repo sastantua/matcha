@@ -3,6 +3,8 @@
 	Inscription => mobile view
 	Login => mobile view
 	Account => user settings
+	https://www.relevantprogrammer.com/posts/todo-with-react-hooks/	
+	
 	################### IN PROGRESS ###################
 		
 
