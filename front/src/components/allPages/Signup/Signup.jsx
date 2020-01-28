@@ -9,7 +9,7 @@ import { TitleWrapper, InputWrapper, InputSubWrapper } from './Wrapper.jsx';
 import snail from '../../../media/snail.jpg';
 import useStyles from '../../../helper/useStyles'
 
-import api from '../../../api'
+import api from '../../../api/api'
 
 function Signup() {
 	const classes = useStyles();

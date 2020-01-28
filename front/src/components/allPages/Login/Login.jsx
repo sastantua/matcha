@@ -8,7 +8,7 @@ import { TitleWrapper, InputWrapper } from './Wrapper.jsx';
 import snail from '../../../media/snail.jpg';
 import useStyles from '../../../helper/useStyles'
 
-import api from '../../../api'
+import api from '../../../api/api'
 
 
 function Login() {
