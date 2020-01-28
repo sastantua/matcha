@@ -9,17 +9,18 @@ function App() {
 	let content;
 	
 	const [user, setUser] = useState({
-		isLog: false,
+		isLog: 0,
 		username: null,
 		message: null,
 		notification: null
 	});
 
 	const HandleLogEvent = (e) => {
-		setState( ...user, isLog: true);
+		console.log("here and now");
+		setUser( ...user, isLog = 1);
 	}
 
-	if (user.isLog === false)
+	if (user.isLog === 0)
 	{
 		HandleLogEvent("hello");
 		content = (<Connexion />);
