@@ -1,9 +1,8 @@
 import axios from 'axios';
 
-const api = axios.create({
-	baseURL: 'http://matchapi.guillaumerx.fr',
-	headers: {'Access-Control-Allow-Origin': '*'}
-});
+const api = axios.create({ baseURL: 'http://matchapi.guillaumerx.fr' });
+
+// headers: {'Access-Control-Allow-Origin': '*'}
 
 // const config = {
 //     headers: { Authorization: `Bearer ${token}` }
