@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
-import { Badge } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Button, Badge } from '@material-ui/core';
 import { Mail as MailIcon, Notifications as NotificationsIcon } from '@material-ui/icons';
 
 import './Header.css';

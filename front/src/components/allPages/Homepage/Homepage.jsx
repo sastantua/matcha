@@ -1,5 +1,5 @@
 import React from 'react';
-import {Notification, Container} from 'react-bulma-components';
+import { Notification, Container } from 'react-bulma-components';
 import './Homepage.css';
 
 function Homepage() {

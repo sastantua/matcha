@@ -1,7 +1,7 @@
 import React from 'react';
 
-import EmojiButton from '../EmojiButton/EmojiButton'
-import Clock from '../Clock/Clock';
+import EmojiButton from './EmojiButton/EmojiButton'
+import Clock from './Clock/Clock';
 import './Footer.css';
 
 class Foooter extends React.Component {
