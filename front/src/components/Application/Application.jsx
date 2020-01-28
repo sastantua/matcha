@@ -9,7 +9,6 @@ import Foooter from '../Footer/Footer';
 import Homepage from '../allPages/Homepage/Homepage';
 import Account from '../allPages/Account/Account';
 import NoMatch from '../NoMatch/NoMatch';
-import Connexion from '../Connexion/Connexion';
 
 function Application() {
 	return (

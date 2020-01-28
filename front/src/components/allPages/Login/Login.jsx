@@ -10,7 +10,6 @@ import useStyles from '../../../helper/useStyles'
 
 import api from '../../../api/api'
 
-
 function Login() {
 	const classes = useStyles();
 	const [email, setEmail] = useState("test3@test.com");
@@ -28,7 +27,7 @@ function Login() {
 		}
 		api.post('/user/login', user)
 		.then((res) => {
-			console.log(res);
+			// console.log(res);
 			localStorage.token = res.data.token;
 			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
 		})
