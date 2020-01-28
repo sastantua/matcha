@@ -5,6 +5,24 @@ const api = axios.create({
 	headers: {'Access-Control-Allow-Origin': '*'}
 });
 
+// const config = {
+//     headers: { Authorization: `Bearer ${token}` }
+// };
+
+// const args = {
+//    a: "a",
+//    b: "b",
+//    c: "c",
+//    d: "d",
+//    e: "e"
+// };
+
+// Axios.post( 
+//   '/router/....',
+//   args,
+//   config
+// ).then(console.log('then')).catch(console.log('catch'));
+
 // username: neo4j
 // password: 42
 // bolt://matchapi.guillaumerx.fr:7687
