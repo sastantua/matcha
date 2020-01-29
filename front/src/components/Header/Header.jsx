@@ -7,7 +7,7 @@ import './Header.css';
 
 function Header() {
 	let windowWidth = window.innerWidth;
-	console.log(windowWidth);
+	// console.log(windowWidth);
 
 	if (windowWidth >= 1024)
 		return (<HeaderLarge/>);
