@@ -8,6 +8,7 @@ import Header from '../Header/Header';
 import Foooter from '../Footer/Footer';
 import Homepage from '../allPages/Homepage/Homepage';
 import Account from '../allPages/Account/Account';
+import Logout from '../Logout/Logout';
 import NoMatch from '../NoMatch/NoMatch';
 
 function Application() {
@@ -17,6 +18,7 @@ function Application() {
 				<Header />				
 				<Switch>
 					<Route exact path="/" component={Homepage} />
+					<Route exact path="/logout" component={Logout} />
 					<Route exact path="/account" component={Account} />
 					<Route path="*" component={NoMatch} />
 				</Switch>

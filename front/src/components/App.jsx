@@ -6,23 +6,15 @@ import Application from './Application/Application';
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
 function App() {
-	let content;
-	let dirty = false;
-	
-	const [userIsLog, setUserIsLog] = useState(false);
-	const HandleUserConnexion = (e) => {setUserIsLog(true);}
 
-	if (!dirty && localStorage.token) {
-		dirty = true;
-		HandleUserConnexion();
-	}
-	console.log(localStorage.token);
+	const [userIsLog, setUserIsLog] = useState(false);
+
+	userIsLog == false && localStorage.token && setUserIsLog(true);
 
 	if (userIsLog === false)	
-		content = <Connexion />;
+		return <Connexion />;
 	else if (userIsLog === true)
-		content = <Application />;
-	return content;
+		return <Application />;
 }
 
 export default App;

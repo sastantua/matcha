@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
 import { Email as EmailIcon, Favorite as FavoriteIcon, BrightnessHigh as BrightnessHighIcon } from '@material-ui/icons';
-import { AccountCircle as AccountCircleIcon, Notifications as NotificationsIcon } from '@material-ui/icons';
+import { AccountCircle as AccountCircleIcon, Notifications as NotificationsIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons';
 
 export const SideList = side => {
 	
@@ -55,6 +55,13 @@ export const SideList = side => {
 			<ListItem button component={Link} to="/notification">
 				<ListItemIcon><NotificationsIcon style={{ color: "#FFF" }} /></ListItemIcon>
 				<ListItemText primary='Notifications' />
+			</ListItem>
+		</List>
+		<Divider />
+		<List>
+			<ListItem button component={Link} to="/logout">
+				<ListItemIcon><ExitToAppIcon style={{ color: "#FFF" }} /></ListItemIcon>
+				<ListItemText primary='Logout' />
 			</ListItem>
 		</List>
 	</div>
