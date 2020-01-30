@@ -4,6 +4,7 @@ import { SnackbarProvider } from 'notistack';
 
 import Signup from '../allPages/Signup/Signup';
 import Login from '../allPages/Login/Login';
+import Logout from '../Logout/Logout';
 import NoMatch from '../NoMatch/NoMatch';
 
 function Connexion() {
@@ -12,8 +13,9 @@ function Connexion() {
 		<BrowserRouter>
 			<Switch>
 				<Route exact path="/" component={Login} />
-				<Route exact path="/login" component={Login} />
 				<Route exact path="/signup" component={Signup} />
+				<Route exact path="/login" component={Login} />
+				<Route exact path="/logout" component={Logout} />
 				<Route path="*" component={NoMatch} />
 			</Switch>
 		</BrowserRouter>
