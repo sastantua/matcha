@@ -28,7 +28,8 @@ function Signup() {
 	const handleUsername = (e) => {setUsername(e.target.value);}
 	const handleFirstname = (e) => {setFirstname(e.target.value);}
 	const handleLastname = (e) => {setLastname(e.target.value);}
-
+	closeSnackbar();
+	
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (password !== confirm_password)

@@ -1,5 +1,8 @@
 # Todo
 
+	comment on attends un message du back?
+	comment on bloque le too many rendering
+	
 	Inscription => mobile view
 	Login => mobile view
 	Account => user settings
