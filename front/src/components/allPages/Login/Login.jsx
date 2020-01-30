@@ -10,6 +10,7 @@ import useStyles from '../../../helper/useStyles'
 
 import api from '../../../api/api'
 
+
 function Login() {
 	const classes = useStyles();
 	const [email, setEmail] = useState("test3@test.com");
@@ -18,6 +19,7 @@ function Login() {
 
 	const handleEmail = (e) => {setEmail(e.target.value);}
 	const handlePassword = (e) => {setPassword(e.target.value);}
+	closeSnackbar();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
