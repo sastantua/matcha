@@ -7,8 +7,8 @@ import './Header.css';
 	
 function HeaderLarge() {
 
-	const [userIsLog, setUserIsLog] = useState(false);
-	const [, ] = useContext();
+	// const [userIsLog, setUserIsLog] = useState(false);
+	// const [, ] = useContext();
 	
 
 	return (
@@ -43,7 +43,7 @@ function HeaderLarge() {
 						</Badge>
 					</IconButton>
 					<IconButton component={Link} to="/logout" className="notif" edge="start" color="inherit" aria-label="menu">
-						{/* <ExitToAppIcon onChange={} style={{ color: '#FFF' }} badgeContent={10} color="secondary"></ExitToAppIcon> */}
+						<ExitToAppIcon style={{ color: '#FFF' }} badgeContent={10} color="secondary" />
 					</IconButton>
 				</div>
 			</Toolbar>

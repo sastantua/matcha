@@ -4,8 +4,8 @@ import { SnackbarProvider } from 'notistack';
 
 import Signup from '../Signup/Signup';
 import Login from '../Login/Login';
-import Logout from '../../components/Logout/Logout';
-import NoMatch from '../../components/NoMatch/NoMatch';
+import Logout from '../Logout/Logout';
+import NoMatch from '../NoMatch/NoMatch';
 
 import { UserContext } from '../../context/UserContext';
 

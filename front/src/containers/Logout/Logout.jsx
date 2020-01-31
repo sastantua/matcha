@@ -12,8 +12,9 @@ function Logout() {
 			<div>Logout Successfull</div>
 		);
 	}
-	return (
-		<div>Logout Failed</div>
-	);
+	else
+		return (
+			<div>Logout Failed</div>
+		);
 }
 export default Logout;

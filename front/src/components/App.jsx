@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import UserContext from '../UserContext'
+import UserContext from '../context/UserContext'
 import Connexion from '../containers/Connexion/Connexion';
-import Application from './Application/Application';
+import Application from '../containers/Application/Application';
 
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
