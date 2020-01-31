@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 
-import Connexion from './Connexion/Connexion';
+import UserContext from '../UserContext'
+import Connexion from '../containers/Connexion/Connexion';
 import Application from './Application/Application';
+
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
 function App() {
+ 
 
-	const [userIsLog, setUserIsLog] = useState(false);
-
-	if (userIsLog == false && localStorage.token)
-		setUserIsLog(true);
-
-	if (userIsLog === false)	
+	
+	if (!localStorage.token)	
 		return <Connexion />;
-	else if (userIsLog === true)
+	else
 		return <Application />;
-	return <Application />;
 }
 
 export default App;
@@ -41,3 +39,20 @@ use ...state because setState overwrite ancient state ()
 	// 	setUser( ...user, user.isLog = 1);
 	// 	console.log(`is user log? ${user.isLog}`);
 	// }
+
+
+
+	// function App() {
+ 
+	// 	const [userIsLog, setUserIsLog] = useState(false);
+	
+	// 	if (userIsLog == false && localStorage.token)
+	// 		setUserIsLog(true);
+	
+	// 	if (userIsLog === false)	
+	// 		return <Connexion />;
+	// 	else if (userIsLog === true)
+	// 		return <Application />;
+	// 	return <Application />;
+	// }
+	
