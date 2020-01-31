@@ -4,10 +4,10 @@ import { SnackbarProvider } from 'notistack';
 
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 
-import Header from '../Header/Header';
-import Foooter from '../Footer/Footer';
-import Homepage from '../../containers/Homepage/Homepage';
-import Account from '../../containers/Account/Account';
+import Header from '../../components/Header/Header';
+import Foooter from '../../components/Footer/Footer';
+import Homepage from '../Homepage/Homepage';
+import Account from '../Account/Account';
 import Logout from '../Logout/Logout';
 import NoMatch from '../NoMatch/NoMatch';
 import { UserContext } from '../../context/UserContext';
