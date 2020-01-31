@@ -6,8 +6,8 @@ import 'react-bulma-components/dist/react-bulma-components.min.css';
 
 import Header from '../Header/Header';
 import Foooter from '../Footer/Footer';
-import Homepage from '../allPages/Homepage/Homepage';
-import Account from '../allPages/Account/Account';
+import Homepage from '../../containers/Homepage/Homepage';
+import Account from '../../containers/Account/Account';
 import Logout from '../Logout/Logout';
 import NoMatch from '../NoMatch/NoMatch';
 

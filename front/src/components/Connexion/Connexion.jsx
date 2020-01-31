@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { SnackbarProvider } from 'notistack';
 
-import Signup from '../allPages/Signup/Signup';
-import Login from '../allPages/Login/Login';
+import Signup from '../../containers/Signup/Signup';
+import Login from '../../containers/Login/Login';
 import Logout from '../Logout/Logout';
 import NoMatch from '../NoMatch/NoMatch';
 

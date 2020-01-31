@@ -7,9 +7,10 @@ const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
 function App() {
 
-	const [userIsLog, setUserIsLog] = useState(`dulebi`);
+	const [userIsLog, setUserIsLog] = useState(false);
 
-	userIsLog == false && localStorage.token && setUserIsLog(true);
+	if (userIsLog == false && localStorage.token)
+		setUserIsLog(true);
 
 	if (userIsLog === false)	
 		return <Connexion />;
