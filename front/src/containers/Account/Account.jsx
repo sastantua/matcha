@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
+
+import { UserContext } from '../../context/UserContext';
 
 function Account() {
+	// const {userData, setUserData} = useContext(UserContext);
+
 	return (
-        <div></div>
+        <div>{userData}</div>
 	);
 }
 

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { SnackbarProvider } from 'notistack';
 
@@ -13,11 +14,12 @@ import NoMatch from '../NoMatch/NoMatch';
 import { UserContext } from '../../context/UserContext';
 
 function Application() {
+
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
-			<UserContext.Provider>
+			<UserContext.Provider value={{ userData, setUserData }}>
 				<BrowserRouter>
-					<Header />		
+					<Header />
 					<Switch>
 						<Route exact path="/" component={Homepage} />
 						<Route exact path="/logout" component={Logout} />
