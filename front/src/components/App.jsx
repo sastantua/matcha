@@ -1,20 +1,59 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
+import { SnackbarProvider } from 'notistack';
+
+import 'react-bulma-components/dist/react-bulma-components.min.css';
+
+import Homepage from '../containers/Homepage/Homepage';
+import Account from '../containers/Account/Account';
+
+import Header from './Header/Header';
+import Foooter from './Footer/Footer';
+
+import Signup from '../containers/Signup/Signup';
+import Login from '../containers/Login/Login';
+import Logout from '../containers/Logout/Logout';
+import NoMatch from '../containers/NoMatch/NoMatch';
 
 import UserContext from '../context/UserContext'
-import Connexion from '../containers/Connexion/Connexion';
-import Application from '../containers/Application/Application';
 
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
-function App() {
- 
+const AuthenticatedRoute = ({ component: Component, ...rest}) => {
+	return (
+	<Route 
+		{...rest}
+		render = { props => {
+			return localStorage.getItem("token") ?
+			<Component {...props} /> : <Redirect to={{pathname: '/login', state: {from: props.location }}} />
+		}}
+	/>
+	)
+}
 
-	
-	if (!localStorage.token)	
-		return <Connexion />;
-	else
-		return <Application />;
+function App() {
+	const { userData, setUserData } = useContext(UserContext);
+
+	return (
+		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
+			<UserContext.Provider value={{ userData, setUserData }}>
+				<BrowserRouter>
+				<Header />
+				<Switch>
+					<Route exact path="/signup" component={Signup} />
+					<Route exact path="/login" component={Login} />
+					<AuthenticatedRoute exact path="/" component={Homepage} />
+					<AuthenticatedRoute exact path="/logout" component={Logout} />
+					<AuthenticatedRoute exact path="/account" component={Account} />
+					<Route path="*" component={NoMatch} />
+				</Switch>
+				<Foooter />
+				</BrowserRouter>
+			</UserContext.Provider>
+		</SnackbarProvider>
+	)
 }
 
 export default App;

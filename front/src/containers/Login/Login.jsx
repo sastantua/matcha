@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { Button } from '@material-ui/core';
 
@@ -13,8 +13,10 @@ import api from '../../api/api'
 
 function Login() {
 	const classes = useStyles();
+	const history = useHistory();
 	const [email, setEmail] = useState("test3@test.com");
 	const [password, setPassword] = useState("test42");
+	// const [userData, setUserData] = useState("test");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const handleEmail = (e) => {setEmail(e.target.value);}
@@ -32,6 +34,7 @@ function Login() {
 			// console.log(res);
 			localStorage.token = res.data.token;
 			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
+		    history.push("/");
 		})
 		.catch((err) => {
 			enqueueSnackbar(`${err.response.data.message}`,  {variant: 'error'});

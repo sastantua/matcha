@@ -41,7 +41,7 @@ function Signup() {
 			firstname: firstname,
 			lastname: lastname
 		}
-		api.post('/user', user)
+		api.post('/user/register', user)
 		.then((res) => {
 			enqueueSnackbar(`Welcome ${username}\ngo login`, {variant: 'success'});
 		})

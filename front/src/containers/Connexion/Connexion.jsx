@@ -12,8 +12,7 @@ import { UserContext } from '../../context/UserContext';
 function Connexion() {
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
-			<UserContext.Provider>
-				<BrowserRouter>
+			<BrowserRouter>
 				<Switch>
 					<Route exact path="/" component={Login} />
 					<Route exact path="/signup" component={Signup} />
@@ -22,7 +21,6 @@ function Connexion() {
 					<Route path="*" component={NoMatch} />
 				</Switch>
 			</BrowserRouter>
-		</UserContext.Provider>
 		</SnackbarProvider>
 	);
 }

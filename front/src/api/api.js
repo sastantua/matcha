@@ -22,10 +22,11 @@ const api = axios.create({ baseURL: 'http://matchapi.guillaumerx.fr' });
 //   config
 // ).then(console.log('then')).catch(console.log('catch'));
 
-// username: neo4j
-// password: 42
+// ssh root@matchapi.guillaumerx.fr && cd matcha/back && docker-compose up
+// username: neo4jpassword: 42
 // bolt://matchapi.guillaumerx.fr:7687
 // http://167.172.168.207:7474
 // http://167.172.168.207:7474/browser/
+// match (n)-[r]-() delete n,r
 
 export default api;
