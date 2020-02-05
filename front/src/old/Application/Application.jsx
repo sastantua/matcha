@@ -6,7 +6,7 @@ import { SnackbarProvider } from 'notistack';
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 
 import Header from '../../components/Header/Header';
-import Foooter from '../../components/Footer/Footer';
+import Footer from '../../components/Footer/Footer';
 import Homepage from '../Homepage/Homepage';
 import Account from '../Account/Account';
 import Logout from '../Logout/Logout';
@@ -26,7 +26,7 @@ function Application() {
 						<Route exact path="/account" component={Account} />
 						<Route path="*" component={NoMatch} />
 					</Switch>
-					<Foooter />
+					<Footer />
 				</BrowserRouter>
 			</UserContext.Provider>
 		</SnackbarProvider>

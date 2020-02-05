@@ -9,7 +9,7 @@ import Homepage from '../containers/Homepage/Homepage';
 import Account from '../containers/Account/Account';
 
 import Header from './Header/Header';
-import Foooter from './Footer/Footer';
+import Footer from './Footer/Footer';
 
 import Signup from '../containers/Signup/Signup';
 import Login from '../containers/Login/Login';
@@ -17,7 +17,6 @@ import Logout from '../containers/Logout/Logout';
 import NoMatch from '../containers/NoMatch/NoMatch';
 
 import UserContext from '../context/UserContext'
-
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
@@ -49,7 +48,7 @@ function App() {
 					<AuthenticatedRoute exact path="/account" component={Account} />
 					<Route path="*" component={NoMatch} />
 				</Switch>
-				<Foooter />
+				<Footer />
 				</BrowserRouter>
 			</UserContext.Provider>
 		</SnackbarProvider>
