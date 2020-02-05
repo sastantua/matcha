@@ -4,7 +4,7 @@ import EmojiButton from './EmojiButton/EmojiButton'
 import Clock from './Clock/Clock';
 import './Footer.css';
 
-class Foooter extends React.Component {
+class Footer extends React.Component {
 	render() {
 		/* React Logo Spin */
 		var duration = 5;
@@ -35,4 +35,4 @@ class Foooter extends React.Component {
 	}
 }
 
-export default Foooter;
+export default Footer;
