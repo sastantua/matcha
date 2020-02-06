@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import api from '../../api/api'
 
 function Logout() {
 	// const [userIsLog, setUserIsLog] = useState();
+	const history = useHistory();
+	history.push("/login");
 
 	if (localStorage.token)
 	{

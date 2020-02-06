@@ -16,7 +16,7 @@ import Login from '../containers/Login/Login';
 import Logout from '../containers/Logout/Logout';
 import NoMatch from '../containers/NoMatch/NoMatch';
 
-import UserContext from '../context/UserContext'
+import { UserContext } from '../context/UserContext'
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
@@ -25,27 +25,33 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 	<Route 
 		{...rest}
 		render = { props => {
-			return localStorage.getItem("token") ?
-			<Component {...props} /> : <Redirect to={{pathname: '/login', state: {from: props.location }}} />
+			if (localStorage.getItem("token"))
+				return (<Component {...props} />)
+			return (<Redirect to={{pathname: '/login', state: {from: props.location }}} />);
 		}}
 	/>
 	)
 }
 
 function App() {
-	const { userData, setUserData } = useContext(UserContext);
+	// const { userData, setUserData } = useContext(UserContext);
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
-			<UserContext.Provider value={{ userData, setUserData }}>
+			<UserContext.Provider>
+			{/* <UserContext.Provider value={{ userData, setUserData }}> */}
 				<BrowserRouter>
+				<Switch>
+					<Route exact path="/login" component={Login} />
+					<Route exact path="/signup" component={Signup} />
+				</Switch>
 				<Header />
 				<Switch>
-					<Route exact path="/signup" component={Signup} />
-					<Route exact path="/login" component={Login} />
 					<AuthenticatedRoute exact path="/" component={Homepage} />
-					<AuthenticatedRoute exact path="/logout" component={Logout} />
+					<AuthenticatedRoute exact path="/home" component={Homepage} />
 					<AuthenticatedRoute exact path="/account" component={Account} />
+					<AuthenticatedRoute exact path="/match" component={Account} />
+					<AuthenticatedRoute exact path="/logout" component={Logout} />
 					<Route path="*" component={NoMatch} />
 				</Switch>
 				<Footer />
