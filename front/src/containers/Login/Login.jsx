@@ -2,19 +2,18 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { Button } from '@material-ui/core';
+import api from '../../api/api'
 
-import './Login.css';
-import { TitleWrapper, InputWrapper } from './Wrapper.jsx';
+import { TitleWrapper, InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
 import snail from '../../media/snail.jpg';
 import useStyles from '../../helper/useStyles'
-
-import api from '../../api/api'
+import './Login.css';
 
 
 function Login() {
 	const classes = useStyles();
 	const history = useHistory();
-	const [email, setEmail] = useState("test3@test.com");
+	const [email, setEmail] = useState("test@test.com");
 	const [password, setPassword] = useState("test42");
 	// const [userData, setUserData] = useState("test");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -33,6 +32,7 @@ function Login() {
 		.then((res) => {
 			// console.log(res);
 			localStorage.token = res.data.token;
+			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
 		    history.push("/");
 		})

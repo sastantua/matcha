@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import { SnackbarProvider } from 'notistack';
@@ -8,15 +8,13 @@ import 'react-bulma-components/dist/react-bulma-components.min.css';
 import Homepage from '../containers/Homepage/Homepage';
 import Account from '../containers/Account/Account';
 
-import Header from './Header/Header';
-import Footer from './Footer/Footer';
-
 import Signup from '../containers/Signup/Signup';
 import Login from '../containers/Login/Login';
-import Logout from '../containers/Logout/Logout';
 import NoMatch from '../containers/NoMatch/NoMatch';
 
 import { UserContext } from '../context/UserContext'
+
+import api from '../api/api';
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
@@ -34,27 +32,29 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 }
 
 function App() {
-	// const { userData, setUserData } = useContext(UserContext);
+	const [user, setUser] = useState(null);
+	const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
+
+	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
+		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
+		api.get('/user/me').then((res) => {setUser(res.data);}).catch(err => console.log(err));
+	}
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
-			<UserContext.Provider>
-			{/* <UserContext.Provider value={{ userData, setUserData }}> */}
+			<UserContext.Provider value={ userMemo }>
 				<BrowserRouter>
 				<Switch>
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/signup" component={Signup} />
 				</Switch>
-				<Header />
 				<Switch>
 					<AuthenticatedRoute exact path="/" component={Homepage} />
 					<AuthenticatedRoute exact path="/home" component={Homepage} />
 					<AuthenticatedRoute exact path="/account" component={Account} />
 					<AuthenticatedRoute exact path="/match" component={Account} />
-					<AuthenticatedRoute exact path="/logout" component={Logout} />
 					<Route path="*" component={NoMatch} />
 				</Switch>
-				<Footer />
 				</BrowserRouter>
 			</UserContext.Provider>
 		</SnackbarProvider>
@@ -70,26 +70,6 @@ use ...state because setState overwrite ancient state ()
 	}
 */
 
-
-	// const [user, setUser] = useState({
-	// 	isLog: 0,
-	// 	username: null,
-	// 	message: null,
-	// 	notification: null
-	// });
-
-	// const HandleUserConnexion = (e) => {
-	// 	console.log("here and now");
-	// 	setUser( ...user, user.isLog = 1);
-	// 	console.log(`is user log? ${user.isLog}`);
-	// }
-
-
-
-	// function App() {
- 
-	// 	const [userIsLog, setUserIsLog] = useState(false);
-	
 	// 	if (userIsLog == false && localStorage.token)
 	// 		setUserIsLog(true);
 	
@@ -98,5 +78,4 @@ use ...state because setState overwrite ancient state ()
 	// 	else if (userIsLog === true)
 	// 		return <Application />;
 	// 	return <Application />;
-	// }
 	

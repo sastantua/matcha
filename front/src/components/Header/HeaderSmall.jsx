@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 	}
 });
 	
-function HeaderSmall() {
+function HeaderSmall(props) {
 
 	const classes = useStyles();
 
@@ -48,7 +48,7 @@ function HeaderSmall() {
 					<MenuIcon />
 				</IconButton>
 				<Drawer classes={{ paper: classes.paper }} open={state.left} onClose={toggleDrawer('left', false)} style={{background: "#FFF"}}>
-					{SideList('left')}
+					{SideList('left', props)}
 				</Drawer>
 				<div id="header-small-right">
 					<IconButton component={Link} to="/message" className="mail" edge="start" color="inherit" aria-label="menu">
