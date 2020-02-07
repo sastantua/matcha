@@ -5,7 +5,7 @@ import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-
 import { Email as EmailIcon, Favorite as FavoriteIcon, BrightnessHigh as BrightnessHighIcon } from '@material-ui/icons';
 import { AccountCircle as AccountCircleIcon, Notifications as NotificationsIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons';
 
-export const SideList = side => {
+export const SideList = (side, props) => {
 	
 	const useStyles = makeStyles({
 		list: {width: 250,},
@@ -59,7 +59,7 @@ export const SideList = side => {
 		</List>
 		<Divider />
 		<List>
-			<ListItem button component={Link} to="/logout">
+			<ListItem button onClick={props.handleClick}>
 				<ListItemIcon><ExitToAppIcon style={{ color: "#FFF" }} /></ListItemIcon>
 				<ListItemText primary='Logout' />
 			</ListItem>

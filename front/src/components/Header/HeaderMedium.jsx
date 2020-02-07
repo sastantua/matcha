@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
 import { Badge } from '@material-ui/core';
-import { Mail as MailIcon, Notifications as NotificationsIcon } from '@material-ui/icons';
+import { Mail as MailIcon, Notifications as NotificationsIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons';
 
 import './Header.css';
 
-function HeaderMedium() {
+function HeaderMedium(props) {
 	return (
 		<AppBar position="static" id="header-medium">
 			<Toolbar>
@@ -37,6 +37,9 @@ function HeaderMedium() {
 						<Badge badgeContent={10} color="secondary">
 							<NotificationsIcon />
 						</Badge>
+					</IconButton>
+					<IconButton onClick={props.handleClick} className="notif" edge="start" color="inherit" aria-label="menu">
+						<ExitToAppIcon style={{ color: '#FFF' }} badgeContent={10} color="secondary" />
 					</IconButton>
 				</div>
 			</Toolbar>

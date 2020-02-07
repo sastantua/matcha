@@ -9,8 +9,9 @@ function Logout() {
 
 	if (localStorage.token)
 	{
-		api.post('/user/logout'); //pas de then ou quoi?
-		localStorage.removeItem("token");
+		api.post('/user/logout')
+		.then(localStorage.removeItem("token"))
+		.catch((err) => console.log(`${err.response.data.message}`));
 		return (
 			<div>Logout Successfull</div>
 		);

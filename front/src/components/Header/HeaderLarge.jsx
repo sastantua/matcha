@@ -1,16 +1,19 @@
 import React, {useState, useContext } from 'react';
+
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Button, Badge } from '@material-ui/core';
 import { Mail as MailIcon, Notifications as NotificationsIcon, ExitToApp as ExitToAppIcon } from '@material-ui/icons';
 
+
+
 import './Header.css';
 	
-function HeaderLarge() {
+function HeaderLarge(props) {
 
 	// const [userIsLog, setUserIsLog] = useState(false);
 	// const [, ] = useContext();
-	
 
+	
 	return (
 		<AppBar position="static" id="header-large">
 			<Toolbar id="toolbar">
@@ -42,7 +45,7 @@ function HeaderLarge() {
 							<NotificationsIcon />
 						</Badge>
 					</IconButton>
-					<IconButton component={Link} to="/logout" className="notif" edge="start" color="inherit" aria-label="menu">
+					<IconButton onClick={props.handleClick} className="notif" edge="start" color="inherit" aria-label="menu">
 						<ExitToAppIcon style={{ color: '#FFF' }} badgeContent={10} color="secondary" />
 					</IconButton>
 				</div>
