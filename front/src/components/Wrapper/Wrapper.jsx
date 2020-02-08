@@ -10,4 +10,10 @@ const InputWrapper = styledMaterial(TextField)({
 	color: '#F0F'
 });
 
-export { TitleWrapper, InputWrapper }
+const InputWrapperSmall = styledMaterial(TextField)({
+	fontSize: '0.5rem',
+	// width: '20rem',
+	color: '#F0F'
+});
+
+export { TitleWrapper, InputWrapper, InputWrapperSmall }

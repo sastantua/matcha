@@ -5,10 +5,12 @@ import api from '../../api/api'
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
-import { Button } from '@material-ui/core';
+import { InputWrapper, InputWrapperSmall } from '../../components/Wrapper/Wrapper.jsx';
+import { Button } from '@material-ui/core';
 
+import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
+import TestCard from './TestCard'
 import './Account.css'
 
 
@@ -28,7 +30,7 @@ function Account() {
 		e.preventDefault();
 		api.post('/user/edit', user)
 		.then((res) => {
-			// console.log(res);
+			console.log(res);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -40,16 +42,22 @@ function Account() {
 	return (
 		<div id="account-small">
 			<Header />
+			<div id="main-container">
+				{/* <TestCard /> */}
+				<img src={logo} id="profile-picture" alt="profile-picture"/>
 				<form id="edit-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user ? user.email : "email"} name="email" onChange={handleEmail}/>
-				<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user ? user.username : "username"} name="username" onChange={handleUsername}/>
-				<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user ? user.firstname : "firstname"} name="firstname" onChange={handleFirstname}/>
-				<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user ? user.lastname : "lastname"} name="lastname" onChange={handleLastname}/>
-				<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user && user.age ? user.age : "age"} name="age" onChange={handleAge}/>
-				<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user && user.bio ? user.bio : "bio"} name="bio" onChange={handleBio}/>
-				<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user && user.test ? user.test : "test"} name="test" onChange={handleTest}/>
-				<Button color="secondary" type='submit'>save</Button>
-				</form>
+					<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user ? user.email : "email"} name="email" onChange={handleEmail}/>
+					<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user ? user.username : "username"} name="username" onChange={handleUsername}/>
+					<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user ? user.firstname : "firstname"} name="firstname" onChange={handleFirstname}/>
+					<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user ? user.lastname : "lastname"} name="lastname" onChange={handleLastname}/>
+					<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user && user.age ? user.age : "age"} name="age" onChange={handleAge}/>
+					<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user && user.bio ? user.bio : "bio"} name="bio" onChange={handleBio}/>
+					<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user && user.test ? user.test : "test"} name="test" onChange={handleTest}/>
+					<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user && user.test ? user.test : "test"} name="test" onChange={handleTest}/>
+					<InputWrapper style={{ color: '#0FF' }} variant="outlined" label={ user && user.test ? user.test : "test"} name="test" onChange={handleTest}/>
+					<Button color="secondary" type='submit'>save</Button>
+					</form>
+				</div>
 			<Footer />
 		</div>
 	);
