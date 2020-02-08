@@ -1,8 +1,13 @@
 # Todo
 
-	comment on attends un message du back?
-	comment on bloque le too many rendering
-	
+	rajouter le drawer
+	problem with bio
+	changer la couleur des textfields
+	changer le texfield pour la bio
+	lire useEffect micka
+
+
+
 	Inscription => mobile view
 	Login => mobile view
 	Account => user settings
