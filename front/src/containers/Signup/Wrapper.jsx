@@ -11,6 +11,7 @@ const InputWrapper = styledMaterial(TextField)({
 	fontSize: '2rem',
 	width: '15rem',
 	height: '5rem',
+	color: '#000',
 });
 
 const InputSubWrapper = styled.div

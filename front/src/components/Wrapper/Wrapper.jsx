@@ -7,6 +7,7 @@ const TitleWrapper = styledMaterial(Typography)({
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '2rem',
 	width: '20rem',
+	color: '#F0F'
 });
 
 export { TitleWrapper, InputWrapper }
