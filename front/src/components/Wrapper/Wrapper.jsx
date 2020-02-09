@@ -7,12 +7,11 @@ const TitleWrapper = styledMaterial(Typography)({
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '2rem',
 	width: '20rem',
-	color: '#F0F'
+	color: '#OOB7FF'
 });
 
 const InputWrapperSmall = styledMaterial(TextField)({
 	fontSize: '0.5rem',
-	// width: '20rem',
 	color: '#F0F'
 });
 
