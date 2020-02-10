@@ -7,6 +7,7 @@ import 'react-bulma-components/dist/react-bulma-components.min.css';
 
 import Homepage from '../containers/Homepage/Homepage';
 import Account from '../containers/Account/Account';
+import Match from '../containers/Match/Match';
 
 import Signup from '../containers/Signup/Signup';
 import Login from '../containers/Login/Login';
@@ -52,7 +53,7 @@ function App() {
 					<AuthenticatedRoute exact path="/" component={Homepage} />
 					<AuthenticatedRoute exact path="/home" component={Homepage} />
 					<AuthenticatedRoute exact path="/account" component={Account} />
-					<AuthenticatedRoute exact path="/match" component={Account} />
+					<AuthenticatedRoute exact path="/match" component={Match} />
 					<Route path="*" component={NoMatch} />
 				</Switch>
 				</BrowserRouter>

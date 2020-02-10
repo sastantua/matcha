@@ -10,7 +10,6 @@ import { Button } from '@material-ui/core';
 
 import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
-import TestCard from './TestCard'
 import './Account.css'
 
 function Account() {
