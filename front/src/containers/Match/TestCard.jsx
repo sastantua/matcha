@@ -5,7 +5,7 @@ import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia } fr
 import profilePicture from '../../media/frogs.jpg'
 import logo from '../../media/reactlogoblue.svg';
 import useStyles from '../../helper/useStyles'
-import './Account.css'
+import './Match.css'
 
 function TestCard() {
 	const classes = useStyles();
@@ -29,11 +29,11 @@ function TestCard() {
 		   </CardContent>
 		</CardActionArea>
 		<CardActions>
+		   	<Button size="small" style={{ color: '#FFF' }}>
+				   Like
+		   	</Button>
 		   <Button size="small" color="primary">
-			   Share
-		   </Button>
-		   <Button size="small" color="primary">
-			   Learn More
+			   Next
 		   </Button>
 		</CardActions>
 		</Card>
