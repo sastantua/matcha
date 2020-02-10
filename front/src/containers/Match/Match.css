@@ -17,10 +17,12 @@
 	justify-content: center;
 	align-items: center;
 	background-color: #ff3860;
-	padding-top: 1em;
-	padding-left: 1em;
-	padding-right: 1em;
-	padding-bottom: 1em;
+	/* width: 15em; */
+	/* height: 25em; */
+	padding-top: 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	padding-bottom: 0.5em;
 }
 
 #match-small #main-container #profile-picture {
@@ -32,12 +34,25 @@
 	opacity: 0.8;
 }
 
+#match-small #main-container #username {
+	align-self: start;
+	margin-top: 0.5vh;
+	margin-left: 4vw;
+}
+
+#match-small #main-container #bio {
+	max-width: 20em;
+	font-size: 8px;
+}
+
 #match-small #main-container #button-container {
 	display: flex;
 	flex-direction: row;
 	margin-top: 1.5em;
+	margin-bottom: 1em;
 }
 
 #match-small #main-container #button-container .icon-btn {
 	margin-left: 1.5em;
 }
+
