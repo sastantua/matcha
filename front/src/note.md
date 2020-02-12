@@ -1,10 +1,24 @@
 # Todo
 
-	rajouter le drawer
-	problem with bio
-	changer la couleur des textfields
-	changer le texfield pour la bio
-	lire useEffect micka
+	Account
+		- pictures
+		- changer le texfield pour la bio
+		- interets
+		- handleslider
+		- sexe
+		- orientation sexuelle
+		- localisation
+
+	Match:
+		- getuserinfo
+		- 
+
+	Learn:
+		- useEffect micka post
+	
+	Others:
+		- changer la couleur des textfields
+	
 
 
 
