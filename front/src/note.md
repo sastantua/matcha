@@ -13,6 +13,9 @@
 		- getuserinfo
 		- 
 
+	Login / Signup:
+		- problem with default route (nomatch)
+
 	Learn:
 		- useEffect micka post
 	

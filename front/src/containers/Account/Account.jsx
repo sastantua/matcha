@@ -6,10 +6,11 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
+import UserImages from './UserImages'
 import CustomSlider from './CustomSlider'
 import './Account.css'
 
@@ -35,14 +36,18 @@ function Account() {
 		<div id="account-small">
 			<Header />
 			<div id="main-container">
-				<img src={logo} id="profile-picture" alt="profile-picture"/>
+				<UserImages/>
+				{/* <img src={getImages} id="profile-picture" alt="profile-picture"/> */}
+				{/* <img src={logo} id="profile-picture" alt="profile-picture"/> */}
 				<form id="edit-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-					<InputWrapper variant="outlined" label={ user ? user.email : "email"} name="email" onChange={handleEmail}/>
-					<InputWrapper variant="outlined" label={"username"} value={user && user.username} name="username" onChange={handleUsername}/>
-					<InputWrapper variant="outlined" label={ user ? user.firstname : "firstname"} name="firstname" onChange={handleFirstname}/>
-					<InputWrapper variant="outlined" label={ user ? user.lastname : "lastname"} name="lastname" onChange={handleLastname}/>
-					<InputWrapper variant="outlined" label={ user && user.age ? user.age : "age"} name="age" onChange={handleAge}/>
-					<InputWrapper variant="outlined" label={ user && user.biography ? user.biography : "biography"} name="biography" onChange={handleBiography}/>
+					<InputWrapper variant="outlined" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
+					<InputWrapper variant="outlined" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
+					<InputWrapper variant="outlined" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
+					<InputWrapper variant="outlined" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
+					<InputWrapper variant="outlined" label="age" value={ user && user.age ? user && user.age : "" } name="age" onChange={handleAge}/>
+					<InputWrapper variant="outlined" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
+					{/* <Checkbox checked={state.checkedA} onChange={handleChange('checkedA')} value="checkedA" /> */}
+					<Typography>Localisation</Typography>
 					<CustomSlider />
 					<Button color="secondary" type='submit'>save</Button>
 					</form>
