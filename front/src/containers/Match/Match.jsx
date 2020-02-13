@@ -22,15 +22,10 @@ function Match() {
 			<Paper id="main-container" component='div'>
 				<img src={logo} id="profile-picture" alt="profile-picture"/>
 				<Typography id="username">Nico</Typography>
-				{/* <p id="bio">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-      				ut labore et dolore magna aliqua
-				</p> */}
 				<Typography id="bio">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
 				    ut labore et dolore magna aliqua.
 				</Typography>
-
 				<div id="button-container">
 					<ArrowBackIosIcon htmlColor='#FAE3D9' />
 					<FavoriteIcon htmlColor='#FAE3D9' className="icon-btn" />

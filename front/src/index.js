@@ -44,8 +44,6 @@ class userCard extends React.Component {
         sendMod(e.target.value);
     }
     
-    Jeanin
-
     render() {
         return (
             <input type="text" onChange={this.handleChange} value={this.state.user.firstname}
@@ -53,12 +51,6 @@ class userCard extends React.Component {
     }
 
 }
-
-machin = userCard(props);
-
-machin.handleChange(rtrhtrh);
-
-bidule.handleChange(HROIJ);
 
 */
 
