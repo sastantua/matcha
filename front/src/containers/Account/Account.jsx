@@ -1,22 +1,26 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import api from '../../api/api'
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
-import { Button, Typography } from '@material-ui/core';
+import { TextWrapper, InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
+import { Button, Typography, Checkbox } from '@material-ui/core';
 
 import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
+
 import UserImages from './UserImages'
 import CustomSlider from './CustomSlider'
+import CustomCheckbox from './CustomCheckbox'
 import './Account.css'
 
 function Account() {
 	const classes = useStyles();
 	const { user, setUser } = useContext(UserContext);
+	const [checkboxState, setCheckboxState] = useState(false);
+	
 	
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -32,6 +36,8 @@ function Account() {
 	const handleAge = (e) => {setUser({...user, age: e.target.value});}
 	const handleBiography = (e) => {setUser({...user, biography: e.target.value});}
 
+	const handleCheckbox = (e) => {console.log(checkboxState);checkboxState ? setCheckboxState(false) : setCheckboxState(true)} 
+
 	return (
 		<div id="account-small">
 			<Header />
@@ -46,8 +52,7 @@ function Account() {
 					<InputWrapper variant="outlined" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
 					<InputWrapper variant="outlined" label="age" value={ user && user.age ? user && user.age : "" } name="age" onChange={handleAge}/>
 					<InputWrapper variant="outlined" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
-					{/* <Checkbox checked={state.checkedA} onChange={handleChange('checkedA')} value="checkedA" /> */}
-					<Typography>Localisation</Typography>
+					<CustomCheckbox/>
 					<CustomSlider />
 					<Button color="secondary" type='submit'>save</Button>
 					</form>

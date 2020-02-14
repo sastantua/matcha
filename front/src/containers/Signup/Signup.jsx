@@ -5,7 +5,7 @@ import { useSnackbar } from 'notistack';
 import { Button } from '@material-ui/core';
 
 import './Signup.css';
-import { TitleWrapper, InputWrapper, InputSubWrapper } from './Wrapper.jsx';
+import { TitleWrapper, InputWrapper, InputSubWrapper } from '../../components/Wrapper/Wrapper.jsx';
 import snail from '../../media/snail.jpg';
 import useStyles from '../../helper/useStyles'
 

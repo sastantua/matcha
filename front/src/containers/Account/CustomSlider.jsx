@@ -1,6 +1,7 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Slider, Tooltip } from '@material-ui/core';
+import { TextWrapper } from '../../components/Wrapper/Wrapper.jsx';
 
 const useStyles = makeStyles(theme => ({
 		root: {
@@ -56,6 +57,7 @@ function CustomSlider() {
 
 		return (
 				<div id="custom-slider-container">
+					<TextWrapper>Localisation</TextWrapper>
 					<PrettoSlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
 				</div>
 		);
