@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import api from '../../api/api'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -24,16 +24,22 @@ const useStyles = makeStyles(theme => ({
 
 function CustomNestedList() {
 	const classes = useStyles();
-	const [open, setOpen] = React.useState(false);
+	
+	const [open, setOpen] = useState(false);
+	const [gender, setGender] = useState(null);
 
 	const handleOpen = () => {
 		setOpen(!open);
 	};
 
 	api.get('/gender')
-	.then((res) => {console.log(res);})
+	.then((res) => {
+		console.log(res);
+		setGender(res.data);
+	})
 	.catch((err) => {console.log(err);})
 
+	console.log(gender);
 
 	return (
 		<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
