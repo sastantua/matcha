@@ -5,22 +5,26 @@ import api from '../../api/api'
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-import { TextWrapper, InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
-import { Button, Typography, Checkbox } from '@material-ui/core';
+import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
+import { Button } from '@material-ui/core';
 
-import logo from '../../media/cerisier.jpg';
+// import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
 
 import UserImages from './UserImages'
 import CustomSlider from './CustomSlider'
 import CustomCheckbox from './CustomCheckbox'
+import CustomNestedList from './CustomNestedList'
+import Age from './Age'
 import './Account.css'
+
+
+
 
 function Account() {
 	const classes = useStyles();
 	const { user, setUser } = useContext(UserContext);
 	const [checkboxState, setCheckboxState] = useState(false);
-	
 	
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -52,6 +56,8 @@ function Account() {
 					<InputWrapper variant="outlined" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
 					<InputWrapper variant="outlined" label="age" value={ user && user.age ? user && user.age : "" } name="age" onChange={handleAge}/>
 					<InputWrapper variant="outlined" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
+					<Age/>
+					<CustomNestedList/>
 					<CustomCheckbox/>
 					<CustomSlider />
 					<Button color="secondary" type='submit'>save</Button>

@@ -4,14 +4,12 @@
 		- pictures
 		- changer le texfield pour la bio
 		- interets
-		- handleslider
 		- sexe
 		- orientation sexuelle
 		- localisation
 
 	Match:
 		- getuserinfo
-		- 
 
 	Login / Signup:
 		- problem with default route (nomatch)
@@ -19,18 +17,20 @@
 	Learn:
 		- useEffect micka post
 	
+	Components:
+		- switch button	https://material-ui.com/components/switches/
+		- picture list https://material-ui.com/components/grid-list/
+		- calendar https://material-ui.com/components/pickers/
+
 	Others:
 		- changer la couleur des textfields
-	
+		- utiliser la snackbar de material ui ?
+		- faire la vue mobile signup
+		- faire la vue mobile login
 
+		- multipart form data (tuto photo react)
 
-
-	Inscription => mobile view
-	Login => mobile view
-	Account => user settings
-	https://www.relevantprogrammer.com/posts/todo-with-react-hooks/	
-	
-	################### IN PROGRESS ###################
+	https://www.relevantprogrammer.com/posts/todo-with-react-hooks/
 
 # React Hooks
 

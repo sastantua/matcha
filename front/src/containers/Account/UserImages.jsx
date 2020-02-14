@@ -2,12 +2,6 @@ import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import api from '../../api/api'
 
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
-
-import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
-import { Button } from '@material-ui/core';
-
 import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
 import './UserImages.css'

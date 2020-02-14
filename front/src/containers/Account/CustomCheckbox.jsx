@@ -2,21 +2,15 @@ import React, { useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import api from '../../api/api'
 
-import { TextWrapper, InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
-import { Button, Typography, Checkbox } from '@material-ui/core';
+import { TextWrapper } from '../../components/Wrapper/Wrapper.jsx';
+import { Checkbox } from '@material-ui/core';
 
-import useStyles from '../../helper/useStyles'
-
-import './Account.css'
+import './CustomCheckbox.css'
 
 function CustomCheckbox() {
-	const classes = useStyles();
 	const { user, setUser } = useContext(UserContext);
-	const [isMale, setIsMale] = useState(false);
-	const [isFemale, setIsFemale] = useState(false);
-	const [isIntoMale, setIsIntoMale] = useState(false);
-	const [isIntoFemale, setIsIntoFemale] = useState(false);
-	
+	const [yes, setYes] = useState(false);
+	const [no, setNo] = useState(false);
 	
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -25,53 +19,34 @@ function CustomCheckbox() {
 		.catch((err) => {console.log(err);})
 	}
 
-	const handleIsMale = (e) => {
-		if (!isMale && !isFemale)
-			setIsMale(true);
-		else if (!isMale && isFemale)
-			setIsMale(false);
+	const handleYes = (e) => {
+		if (!yes && !no)
+			setYes(true);
+		else if (!yes && no)
+			setYes(false);
 		else
-			setIsMale(false);
+			setYes(false);
 		// api.post('/user/edit', user)
 	}
 
-	const handleIsFemale = (e) => {
-		if (!isFemale && !isMale)
-			setIsFemale(true);
-		else if (!isFemale && isMale)
-			setIsFemale(false);
+	const handleNo = (e) => {
+		if (!no && !yes)
+			setNo(true);
+		else if (!no && yes)
+			setNo(false);
 		else
-			setIsFemale(false);
+			setNo(false);
 	}
-
-	const handleIsIntoMale = (e) => {
-		if (!isIntoMale && !isIntoFemale)
-			setIsIntoMale(true);
-		else if (!isIntoMale && isIntoFemale)
-			setIsIntoMale(false);
-		else
-			setIsIntoMale(false);
-	}
-
-	const handleIsIntoFemale = (e) => {
-		if (!isIntoFemale && !isIntoMale)
-			setIsIntoFemale(true);
-		else if (!isIntoFemale && isIntoMale)
-			setIsIntoFemale(false);
-		else
-			setIsIntoFemale(false);
-	}
-
-
 	return (
 		<div id="main-container">
-			<div id="sexe">
-				<Checkbox checked={isMale} onChange={handleIsMale} value="isMale" />
-				<Checkbox checked={isFemale} onChange={handleIsFemale} value="isFemale" />
+			<TextWrapper id="placeholder">Do you like cookies?</TextWrapper>
+			<div id="yes">
+				<TextWrapper id="placeholder">Yes</TextWrapper>
+				<Checkbox id="checkbox" checked={yes} onChange={handleYes} value="test" />
 			</div>
-			<div id="orientation">
-				<Checkbox checked={isIntoMale} onChange={handleIsIntoMale} value="isIntoMale" />
-				<Checkbox checked={isIntoFemale} onChange={handleIsIntoFemale} value="isIntoFemale" />
+			<div id="no">
+				<TextWrapper id="placeholder">No</TextWrapper>
+				<Checkbox id="checkbox" checked={no} onChange={handleNo} value="test" />
 			</div>
 		</div>
 	);
