@@ -1,7 +1,6 @@
-import React, {useState, useContext } from 'react';
+import React from 'react';
 
 import { SideList } from "./Sidelist";
-import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, IconButton, Button, Badge } from '@material-ui/core';
 import { Drawer } from '@material-ui/core';

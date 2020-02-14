@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
-import api from '../../api/api'
+// import api from '../../api/api'
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-import { Button, Paper, Typography, TextareaAutosize } from '@material-ui/core';
+import { Typography, Paper } from '@material-ui/core';
 import { Favorite as FavoriteIcon, ArrowForwardIos as ArrowForwardIosIcon, ArrowBackIos as ArrowBackIosIcon, AspectRatio as AspectRatioIcon } from '@material-ui/icons';
 import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
-import TestCard from './TestCard'
 import './Match.css'
 
 function Match() {

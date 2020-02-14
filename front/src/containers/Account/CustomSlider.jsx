@@ -1,6 +1,6 @@
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { Slider, Tooltip } from '@material-ui/core';
+import { Slider } from '@material-ui/core';
 import { TextWrapper } from '../../components/Wrapper/Wrapper.jsx';
 
 const useStyles = makeStyles(theme => ({
@@ -11,16 +11,6 @@ const useStyles = makeStyles(theme => ({
 			height: theme.spacing(3),
 		},
 }));
-
-function ValueLabelComponent(props) {
-		const { children, open, value } = props;
-
-		return (
-			<Tooltip open={open} enterTouchDelay={0} placement="top" title={value}>
-					{children}
-			</Tooltip>
-		);
-}
 
 const PrettoSlider = withStyles({
 		root: {
@@ -53,14 +43,12 @@ const PrettoSlider = withStyles({
 })(Slider);
 
 function CustomSlider() {
-		const classes = useStyles();
-
-		return (
-				<div id="custom-slider-container">
-					<TextWrapper>Localisation</TextWrapper>
-					<PrettoSlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
-				</div>
-		);
+	return (
+			<div id="custom-slider-container">
+				<TextWrapper>Localisation</TextWrapper>
+				<PrettoSlider valueLabelDisplay="auto" aria-label="pretto slider" defaultValue={20} />
+			</div>
+	);
 }
 
 export default CustomSlider;
