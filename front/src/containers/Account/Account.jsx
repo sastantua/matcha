@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import api from '../../api/api'
 
@@ -23,9 +23,8 @@ import './Account.css'
 
 function Account() {
 	const classes = useStyles();
+
 	const { user, setUser } = useContext(UserContext);
-	const [checkboxState, setCheckboxState] = useState(false);
-	
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		api.post('/user/edit', user)
@@ -39,8 +38,6 @@ function Account() {
 	const handleLastname = (e) => {setUser({...user, lastname: e.target.value});}
 	const handleAge = (e) => {setUser({...user, age: e.target.value});}
 	const handleBiography = (e) => {setUser({...user, biography: e.target.value});}
-
-	const handleCheckbox = (e) => {console.log(checkboxState);checkboxState ? setCheckboxState(false) : setCheckboxState(true)} 
 
 	return (
 		<div id="account-small">
@@ -57,6 +54,7 @@ function Account() {
 					<InputWrapper variant="outlined" label="age" value={ user && user.age ? user && user.age : "" } name="age" onChange={handleAge}/>
 					<InputWrapper variant="outlined" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
 					<Age/>
+					{console.log(Age.value)}
 					<CustomNestedList/>
 					<CustomCheckbox/>
 					<CustomSlider />

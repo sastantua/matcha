@@ -1,27 +1,27 @@
-import React, { useContext } from 'react';
-import { UserContext } from '../../context/UserContext';
-import api from '../../api/api'
+import React from 'react';
+// import { useContext } from 'react';
+// import { UserContext } from '../../context/UserContext';
+// import api from '../../api/api'
 
 import logo from '../../media/cerisier.jpg';
-import useStyles from '../../helper/useStyles'
 import './UserImages.css'
 
 function UserImages() {
-	const classes = useStyles();
-	const { user, setUser } = useContext(UserContext);
+	// const classes = useStyles();
+	// const { user, setUser } = useContext(UserContext);
 	
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		api.post('/user/edit', user)
-		.then((res) => {console.log(res);})
-		.catch((err) => {console.log(err);})
-	}
+	// const handleSubmit = (e) => {
+	// 	e.preventDefault();
+	// 	api.post('/user/edit', user)
+	// 	.then((res) => {console.log(res);})
+	// 	.catch((err) => {console.log(err);})
+	// }
 
 	// const handleProfilePicture = (e) => {setUser({...user, email: e.target.value});}
 
 	return (
 		<div id="user-images-small">
-			<img src={logo} id="profile-picture" alt="profile-picture"/>
+			<img src={logo} id="profile-picture" alt="profile" />
 			
 			
 			{/* <form id="edit-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}> */}

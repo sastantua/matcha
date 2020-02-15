@@ -19,18 +19,16 @@ function Age() {
   const classes = useStyles();
 
   return (
-	<form className={classes.container} noValidate>
 	  <TextField
 		id="date"
 		label="Birthday"
 		type="date"
-		defaultValue="2017-05-24"
+		defaultValue="2000-01-01"
 		className={classes.textField}
 		InputLabelProps={{
 		  shrink: true,
 		}}
 	  />
-	</form>
   );
 }
 
