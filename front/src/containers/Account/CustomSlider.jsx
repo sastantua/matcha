@@ -1,16 +1,17 @@
 import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import { Slider } from '@material-ui/core';
 import { TextWrapper } from '../../components/Wrapper/Wrapper.jsx';
 
-const useStyles = makeStyles(theme => ({
-		root: {
-			width: 300 + theme.spacing(3) * 2,
-		},
-		margin: {
-			height: theme.spacing(3),
-		},
-}));
+// const useStyles = makeStyles(theme => ({
+// 		root: {
+// 			width: 300 + theme.spacing(3) * 2,
+// 		},
+// 		margin: {
+// 			height: theme.spacing(3),
+// 		},
+// }));
 
 const PrettoSlider = withStyles({
 		root: {

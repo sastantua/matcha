@@ -17,8 +17,6 @@ import { UserContext } from '../context/UserContext'
 
 import api from '../api/api';
 
-const sleep = time => new Promise(resolve => setTimeout(resolve, time));
-
 const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 	return (
 	<Route 

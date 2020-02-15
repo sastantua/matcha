@@ -26,20 +26,32 @@ function CustomNestedList() {
 	const classes = useStyles();
 	
 	const [open, setOpen] = useState(false);
-	const [gender, setGender] = useState(null);
+	const [gender, setGender] = useState([]);
 
 	const handleOpen = () => {
 		setOpen(!open);
+		if (!gender.length) {
+			api.get('/gender')
+			.then((res) => {setGender(res.data);})
+			.catch((err) => {console.log(err);})
+		}
 	};
+	
+	const handleChooseGender = (name, id) => {
+		api.post('/user/gender')
+		.then((res) => {console.log(res)})
+		.catch((err) => {console.log(err);})
+		console.log(name);
+		console.log(id);
+	}
 
-	api.get('/gender')
-	.then((res) => {
-		console.log(res);
-		setGender(res.data);
-	})
-	.catch((err) => {console.log(err);})
+	const genderList = gender.map(text =>
+		<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseGender(text.name, text._id)} >
+			<ListItemText primary={text.name} />
+		</ListItem>
+	);
 
-	console.log(gender);
+	// console.log(genderList);
 
 	return (
 		<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
@@ -47,23 +59,13 @@ function CustomNestedList() {
 				<ListItemIcon>
 					<PowerIcon />
 				</ListItemIcon>
-				<ListItemText primary="Sex" />
+				<ListItemText primary="Sex" /> 
+				{ /* mettre user.gender au lieu de sexe api.get(/gender) */ }
 				{open ? <ExpandLess /> : <ExpandMore />}
 			</ListItem>
 			<Collapse in={open} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
-					<ListItem button className={classes.nested}>
-						<ListItemText primary="Male" />
-					</ListItem>
-					<ListItem button className={classes.nested}>
-						<ListItemText primary="Female" />
-					</ListItem>
-					<ListItem button className={classes.nested}>
-						<ListItemText primary="In between" />
-					</ListItem>
-					<ListItem button className={classes.nested}>
-						<ListItemText primary="Other" />
-					</ListItem>
+					{ genderList }
 				</List>
 			</Collapse>
 		</List>
