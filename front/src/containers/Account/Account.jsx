@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
-import { Button } from '@material-ui/core';
+import { Button, Chip } from '@material-ui/core';
 
 // import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
@@ -54,9 +54,10 @@ function Account() {
 					<InputWrapper variant="outlined" label="age" value={ user && user.age ? user && user.age : "" } name="age" onChange={handleAge}/>
 					<InputWrapper variant="outlined" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
 					<Age/>
-					{console.log(Age.value)}
+					{/* {console.log(Age.value)} */}
 					<CustomNestedList/>
 					<CustomCheckbox/>
+					<Chip variant="outlined" size="small" /> {/* onDelete={handleDelete} */}
 					<CustomSlider />
 					<Button color="secondary" type='submit'>save</Button>
 					</form>
