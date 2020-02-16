@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { TextWrapper } from '../../components/Wrapper/Wrapper.jsx';
+import { TextWrapper } from '../../../components/Wrapper/Wrapper.jsx';
 import { Checkbox } from '@material-ui/core';
 
 import './CustomCheckbox.css'

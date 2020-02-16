@@ -11,11 +11,11 @@ import { Button, Chip } from '@material-ui/core';
 // import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
 
-import UserImages from './UserImages'
-import CustomSlider from './CustomSlider'
-import CustomCheckbox from './CustomCheckbox'
-import CustomNestedList from './CustomNestedList'
-import Age from './Age'
+import UserImages from './UserImages/UserImages'
+import CustomSlider from './CustomSlider/CustomSlider'
+import CustomCheckbox from './CustomCheckbox/CustomCheckbox'
+import CustomNestedList from './CustomNestedList/CustomNestedList'
+import Age from './Age/Age'
 import './Account.css'
 
 
