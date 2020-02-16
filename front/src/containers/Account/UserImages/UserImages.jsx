@@ -3,7 +3,7 @@ import React from 'react';
 // import { UserContext } from '../../context/UserContext';
 // import api from '../../api/api'
 
-import logo from '../../media/cerisier.jpg';
+import logo from '../../../media/cerisier.jpg';
 import './UserImages.css'
 
 function UserImages() {
