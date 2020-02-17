@@ -6,12 +6,13 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
-import { Button, Chip } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 // import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
 
 import UserImages from './UserImages/UserImages'
+import CustomChip from './CustomChip/CustomChip'
 import CustomSlider from './CustomSlider/CustomSlider'
 import CustomCheckbox from './CustomCheckbox/CustomCheckbox'
 import CustomNestedList from './CustomNestedList/CustomNestedList'
@@ -57,7 +58,7 @@ function Account() {
 					{/* {console.log(Age.value)} */}
 					<CustomNestedList/>
 					<CustomCheckbox/>
-					<Chip variant="outlined" size="small" /> {/* onDelete={handleDelete} */}
+					<CustomChip/>
 					<CustomSlider />
 					<Button color="secondary" type='submit'>save</Button>
 					</form>
