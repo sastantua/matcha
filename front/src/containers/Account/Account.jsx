@@ -16,11 +16,8 @@ import CustomChip from './CustomChip/CustomChip'
 import CustomSlider from './CustomSlider/CustomSlider'
 import CustomCheckbox from './CustomCheckbox/CustomCheckbox'
 import CustomNestedList from './CustomNestedList/CustomNestedList'
-import Age from './Age/Age'
+import Birthdate from './Birthdate/Birthdate'
 import './Account.css'
-
-
-
 
 function Account() {
 	const classes = useStyles();
@@ -39,7 +36,12 @@ function Account() {
 	const handleUsername = (e) => {setUser({...user, username: e.target.value});}
 	const handleFirstname = (e) => {setUser({...user, firstname: e.target.value});}
 	const handleLastname = (e) => {setUser({...user, lastname: e.target.value});}
-	const handleAge = (e) => {setUser({...user, age: e.target.value});}
+	const handleBirthdate = (e) => {
+		console.log(e.target.value);
+		setUser({
+			...user, birthdate: e.target.value
+		});
+	}
 	const handleBiography = (e) => {setUser({...user, biography: e.target.value});}
 
 	return (
@@ -54,10 +56,8 @@ function Account() {
 					<InputWrapper variant="outlined" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
 					<InputWrapper variant="outlined" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
 					<InputWrapper variant="outlined" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
-					<InputWrapper variant="outlined" label="age" value={ user && user.age ? user && user.age : "" } name="age" onChange={handleAge}/>
 					<InputWrapper variant="outlined" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
-					<Age/>
-					{/* {console.log(Age.value)} */}
+					<Birthdate update={handleBirthdate}/>
 					<CustomNestedList user={user} />
 					<CustomCheckbox/>
 					<CustomChip/>
