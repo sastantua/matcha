@@ -108,3 +108,6 @@ dist
 
 # Public images from upload
 ./public/images
+
+# bordel
+bordel.js
