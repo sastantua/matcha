@@ -8,11 +8,12 @@ import 'dotenv/config';
 
 import { handleError} from './middleware/errors';
 
-import { generateGenders, generateHobbies } from './models/utils';
+import { generateGenders, generateHobbies, generateOrientations } from './models/utils';
 
 import userRouter from './routes/user';
 import genderRouter from './routes/gender';
 import hobbyRouter from './routes/hobby';
+import orientationRouter from './routes/orientation';
 
 var app = express();
 
@@ -24,9 +25,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 generateGenders();
 generateHobbies();
+generateOrientations();
 
 app.use('/user', userRouter);
 app.use('/gender', genderRouter);
+app.use('/orientation', orientationRouter);
 app.use('/hobby', hobbyRouter);
 
 app.use(handleError)

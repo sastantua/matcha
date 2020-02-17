@@ -9,6 +9,7 @@ import { getGender, setGender, verifyGender} from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby} from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
 import { isEmpty } from '../models/utils';
+import { getOrientation, verifyOrientation, setOrientation } from '../models/orientation';
 
 const userRouter = Router();
 
@@ -93,13 +94,32 @@ userRouter.get('/gender', auth, async (req, res) => {
 		return res.status(200).send();
 })
 
+userRouter.get('/orientation', auth, async (req, res) => {
+	const orientation = await getOrientation(req.user);
+	if (orientation)
+		return res.status(200).json(orientation);
+	else
+		return res.status(200).send();
+})
+
 userRouter.post('/gender', auth, async (req, res, next) => {
 	try {
 		const gender = req.body.gender_id;
 		if (!gender || !await verifyGender(gender)) throw new ErrorHandler(400, "Invalid required field");
 		const actualGender = await getGender(req.user);
 		if (actualGender._id != gender) await setGender(req.user, gender);
-		
+		res.status(200).send();
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.post('/orientation', auth, async (req, res, next) => {
+	try {
+		const orientation = req.body.orientation;
+		if (!orientation || !await verifyOrientation(orientation)) throw new ErrorHandler(400, "Invalid required field");
+		const actualOrientation = await getOrientation(req.user);
+		if (actualOrientation._id != orientation) await setOrientation(req.user, orientation);
 		res.status(200).send();
 	} catch (err) {
 		next(err);

@@ -3,6 +3,7 @@ import consola from 'consola';
 
 import { retriveGenders, initGenders } from './gender';
 import { retriveHobbies, initHobbies } from './hobby';
+import { retriveOrientations, initOrientations } from './orientation';
 
 export const isEmpty = (obj) => {
 	for (var key in obj) {
@@ -42,5 +43,22 @@ export const generateHobbies = async () => {
 		consola.success("Generated Hobbys");
 	} else {
 		consola.info("Hobbys already generated")
+	}
+}
+
+export const generateOrientations = async () => {
+	const orientations = [
+		{ _id: uuidv1(), name: 'gay' },
+		{ _id: uuidv1(), name: 'straight' },
+		{ _id: uuidv1(), name: 'bisexual' },
+		{ _id: uuidv1(), name: 'asexual' },
+		{ _id: uuidv1(), name: 'pansexual' }
+	]
+	const dbOrientations = await retriveOrientations();
+	if (!dbOrientations.length) {
+		initOrientations(orientations);
+		consola.success("Generated Orientations");
+	} else {
+		consola.info("Orientations already generated")
 	}
 }
