@@ -27,43 +27,76 @@ const useStyles = makeStyles(theme => ({
 function CustomNestedList() {
 	const classes = useStyles();
 	
-	const [gender, setGender] = useState([]);
-	const [orientation, setOrientation] = useState([]);
+	const [gender, setGender] = useState();
+	const [orientation, setOrientation] = useState();
+	const [genderList, setGenderList] = useState([]);
+	const [orientationList, setOrientationList] = useState([]);
 	const [openGender, setOpenGender] = useState(false);
-	const [openOrientation, setOpenOrientation] = useState(false);
+	const [openOrientation, setOpenOrientation] = useState(false);	
 
+	// SEX IDENTIFICATION
+	// Open the gender dropdown
 	const handleOpenGender = () => {
 		setOpenGender(!openGender);
-		if (!gender.length) {
+		if (!genderList.length) {
 			api.get('/gender')
-			.then((res) => {setGender(res.data);})
-			.catch((err) => {console.log(err);})
+			.then((res) => {
+				setGenderList(res.data);
+			})
+			.catch((err) => {
+				// console.log(err);
+			})
 		}
 	};
 
-	const handleOpenOrientation = () => {
-		setOpenOrientation(!openOrientation);
-		if (!gender.length) {
-			api.get('/gender')
-			.then((res) => {setOrientation(res.data);})
-			.catch((err) => {console.log(err);})
-		}
-	};
-
+	// Post selected gender (id) to server
 	const handleChooseGender = (name, id) => {
-		api.post('/user/gender', id)
-		.then((res) => {console.log(res)})
-		.catch((err) => {console.log(err);})
-		console.log(name);
-		console.log(id);
+		let gender_id = {gender_id: id};
+		api.post('/user/gender', gender_id)
+		.then((res) => {
+			// console.log(res)
+		})
+		.catch((err) => {
+			// console.log(err);
+		})
 	}
 
-	const genderList = gender.map(text =>
-		<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseGender(text.name, text._id)} >
-			<ListItemText primary={text.name} />
-		</ListItem>
-	);
+	// Create the jsx for the gender selection list
+	const genderListJsx = genderList.map(text => {
+		return (
+			<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseGender(text.name, text._id)} >
+				<ListItemText primary={text.name} />
+			</ListItem>
+		);
+	});
 
+	// Get user gender name from back 
+	const getGender = () => {
+		api.get('/user/gender')
+		.then((res) => {
+			setGender(res.data.name);
+		})
+		.catch((err) => {
+			console.log(err);
+		})
+	}
+
+	// SEXUAL ORIENTATION
+	// Open the orientation dropdown
+	const handleOpenOrientation = () => {
+		setOpenOrientation(!openOrientation);
+		if (!orientationList.length) {
+			api.get('/gender')
+			.then((res) => {
+				setOrientationList(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+		}
+	};
+
+	// Post selected orientation (id) to server
 	const handleChooseOrientation = (name, id) => {
 	// 	api.post('/user/gender', id)
 	// 	.then((res) => {console.log(res)})
@@ -72,12 +105,15 @@ function CustomNestedList() {
 	// 	console.log(id);
 	}
 
-	const orientationList = orientation.map(text =>
+	// Create the jsx for the orientation selection list
+	const orientationListJsx = orientationList.map(text =>
 		<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseOrientation(text.name, text._id)} >
 			<ListItemText primary={text.name} />
 		</ListItem>
 	);
 
+	getGender();
+	console.log(gender);
 
 	return (
 		<>
@@ -86,13 +122,12 @@ function CustomNestedList() {
 				<ListItemIcon>
 					<PowerIcon />
 				</ListItemIcon>
-				<ListItemText primary="Sex" /> 
-				{ /* mettre user.gender au lieu de sexe api.get(/gender) */ }
+				<ListItemText primary={gender} />
 				{openGender ? <ExpandLess /> : <ExpandMore />}
 			</ListItem>
 			<Collapse in={openGender} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
-					{ genderList }
+					{ genderListJsx }
 				</List>
 			</Collapse>
 		</List>
@@ -108,7 +143,7 @@ function CustomNestedList() {
 			</ListItem>
 			<Collapse in={openOrientation} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
-					{ orientationList }
+					{ orientationListJsx }
 				</List>
 			</Collapse>
 		</List>

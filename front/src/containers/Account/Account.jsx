@@ -26,6 +26,8 @@ function Account() {
 	const classes = useStyles();
 
 	const { user, setUser } = useContext(UserContext);
+	
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		api.post('/user/edit', user)
@@ -56,7 +58,7 @@ function Account() {
 					<InputWrapper variant="outlined" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
 					<Age/>
 					{/* {console.log(Age.value)} */}
-					<CustomNestedList/>
+					<CustomNestedList user={user} />
 					<CustomCheckbox/>
 					<CustomChip/>
 					<CustomSlider />
