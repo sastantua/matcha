@@ -104,7 +104,7 @@ userRouter.get('/orientation', auth, async (req, res) => {
 
 userRouter.post('/gender', auth, async (req, res, next) => {
 	try {
-		const gender = req.body.gender_id;
+		const gender = req.body._id;
 		if (!gender || !await verifyGender(gender)) throw new ErrorHandler(400, "Invalid required field");
 		const actualGender = await getGender(req.user);
 		if (actualGender._id != gender) await setGender(req.user, gender);
@@ -116,7 +116,7 @@ userRouter.post('/gender', auth, async (req, res, next) => {
 
 userRouter.post('/orientation', auth, async (req, res, next) => {
 	try {
-		const orientation = req.body.orientation;
+		const orientation = req.body._id;
 		if (!orientation || !await verifyOrientation(orientation)) throw new ErrorHandler(400, "Invalid required field");
 		const actualOrientation = await getOrientation(req.user);
 		if (actualOrientation._id != orientation) await setOrientation(req.user, orientation);
