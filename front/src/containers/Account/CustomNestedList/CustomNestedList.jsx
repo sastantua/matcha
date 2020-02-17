@@ -27,93 +27,115 @@ const useStyles = makeStyles(theme => ({
 function CustomNestedList() {
 	const classes = useStyles();
 	
-	const [gender, setGender] = useState();
-	const [orientation, setOrientation] = useState();
-	const [genderList, setGenderList] = useState([]);
+	const [gender, setGender] = useState(null);
+	const [orientation, setOrientation] = useState(null);
+    const [genderList, setGenderList] = useState([]);
 	const [orientationList, setOrientationList] = useState([]);
 	const [openGender, setOpenGender] = useState(false);
 	const [openOrientation, setOpenOrientation] = useState(false);	
 
 	// SEX IDENTIFICATION
-	// Open the gender dropdown
-	const handleOpenGender = () => {
-		setOpenGender(!openGender);
-		if (!genderList.length) {
-			api.get('/gender')
+
+		// Open the gender dropdown
+		const handleOpenGender = () => {
+			setOpenGender(!openGender);
+			if (!genderList.length) {
+				api.get('/gender')
+				.then((res) => {
+					setGenderList(res.data);
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+			}
+		};
+
+		// Post selected gender (id) to server
+		const handleChooseGender = (name, id) => {
+			let _id = {_id: id};
+			api.post('/user/gender', _id)
 			.then((res) => {
-				setGenderList(res.data);
-			})
-			.catch((err) => {
-				// console.log(err);
-			})
-		}
-	};
-
-	// Post selected gender (id) to server
-	const handleChooseGender = (name, id) => {
-		let gender_id = {gender_id: id};
-		api.post('/user/gender', gender_id)
-		.then((res) => {
-			// console.log(res)
-		})
-		.catch((err) => {
-			// console.log(err);
-		})
-	}
-
-	// Create the jsx for the gender selection list
-	const genderListJsx = genderList.map(text => {
-		return (
-			<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseGender(text.name, text._id)} >
-				<ListItemText primary={text.name} />
-			</ListItem>
-		);
-	});
-
-	// Get user gender name from back 
-	const getGender = () => {
-		api.get('/user/gender')
-		.then((res) => {
-			setGender(res.data.name);
-		})
-		.catch((err) => {
-			console.log(err);
-		})
-	}
-
-	// SEXUAL ORIENTATION
-	// Open the orientation dropdown
-	const handleOpenOrientation = () => {
-		setOpenOrientation(!openOrientation);
-		if (!orientationList.length) {
-			api.get('/gender')
-			.then((res) => {
-				setOrientationList(res.data);
+				handleOpenGender();
+				console.log(res)
 			})
 			.catch((err) => {
 				console.log(err);
 			})
-		}
-	};
+			// console.log(gender_id)
+		};
 
-	// Post selected orientation (id) to server
-	const handleChooseOrientation = (name, id) => {
-	// 	api.post('/user/gender', id)
-	// 	.then((res) => {console.log(res)})
-	// 	.catch((err) => {console.log(err);})
-	// 	console.log(name);
-	// 	console.log(id);
-	}
+		// Create the jsx for the gender selection list
+		const genderListJsx = genderList.map(text => {
+			return (
+				<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseGender(text.name, text._id)} >
+					<ListItemText primary={text.name} />
+				</ListItem>
+				);
+		});
 
-	// Create the jsx for the orientation selection list
-	const orientationListJsx = orientationList.map(text =>
-		<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseOrientation(text.name, text._id)} >
-			<ListItemText primary={text.name} />
-		</ListItem>
-	);
+		// Get user gender name from back 
+		const getGender = () => {
+			api.get('/user/gender')
+			.then((res) => {
+				setGender(res.data.name);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+		};
+
+	// SEXUAL ORIENTATION
+
+	// Open the orientation dropdown
+		const handleOpenOrientation = () => {
+			setOpenOrientation(!openOrientation);
+			if (!orientationList.length) {
+				api.get('/orientation')
+				.then((res) => {
+					setOrientationList(res.data);
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+			}
+		};
+
+		// Post selected orientation (id) to server
+		const handleChooseOrientation = (name, id) => {
+			let _id = {_id: id};
+			api.post('/user/orientation', _id)
+			.then((res) => {
+				handleOpenOrientation();
+				console.log(res);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			console.log(name);
+			console.log(id);
+		};
+
+		// Create the jsx for the orientation selection list
+		const orientationListJsx = orientationList.map(text => {
+			return (
+				<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseOrientation(text.name, text._id)} >
+					<ListItemText primary={text.name} />
+				</ListItem>
+			);
+		});
+
+		const getOrientation = () => {
+			api.get('/user/orientation')
+			.then((res) => {
+				setOrientation(res.data.name);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+		};
 
 	getGender();
-	console.log(gender);
+	getOrientation();
 
 	return (
 		<>
@@ -122,7 +144,7 @@ function CustomNestedList() {
 				<ListItemIcon>
 					<PowerIcon />
 				</ListItemIcon>
-				<ListItemText primary={gender} />
+				<ListItemText primary={ gender ? gender : "gender" } />
 				{openGender ? <ExpandLess /> : <ExpandMore />}
 			</ListItem>
 			<Collapse in={openGender} timeout="auto" unmountOnExit>
@@ -131,14 +153,12 @@ function CustomNestedList() {
 				</List>
 			</Collapse>
 		</List>
-
 		<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
 			<ListItem button onClick={handleOpenOrientation}>
 				<ListItemIcon>
 					<FlareIcon />
 				</ListItemIcon>
-				<ListItemText primary="Orientation" /> 
-				{ /* mettre user.gender au lieu de orientation api.get(/?) */ }
+				<ListItemText primary={ orientation ? orientation : "orientation" } /> 
 				{openOrientation ? <ExpandLess /> : <ExpandMore />}
 			</ListItem>
 			<Collapse in={openOrientation} timeout="auto" unmountOnExit>

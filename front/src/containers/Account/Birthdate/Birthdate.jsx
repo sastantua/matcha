@@ -15,22 +15,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function Age() {
-  const classes = useStyles();
+function Birthdate(props) {
+	const classes = useStyles();
 
-  return (
-	  <TextField
-		id="date"
-		label="Birthday"
-		type="date"
-		defaultValue="2000-01-01"
-		className={classes.textField}
-		InputLabelProps={{
-		  shrink: true,
-		}}
-	  />
-  );
+	return (
+		<TextField
+			onChange={props.update}
+			id="date"
+			label="Birthdate"
+			type="date"
+			defaultValue="1980-01-01"
+			className={classes.textField}
+			InputLabelProps={{
+			  shrink: true,
+			//   color: "secondary",
+			}}
+		/>
+	);
 }
 
-export default Age;
+export default Birthdate;
 
