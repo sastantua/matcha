@@ -70,7 +70,8 @@
 	top: 0;
 	height: 10vh;
 	width: 100vw;
-	background: linear-gradient(357deg, #ff3860 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%);
+    background-color: #FF3860;
+	/* background: linear-gradient(357deg, #ff3860 0%, rgba(219,81,81,1) 55%,rgba(133,29,65,1) 100%); */
 }
 
 #header-small #toolbar {

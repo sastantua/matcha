@@ -1,11 +1,9 @@
 # Todo
 
 	Account
+		- bio
 		- pictures
-		- changer le texfield pour la bio
 		- interets
-		- sexe
-		- orientation sexuelle
 		- localisation
 
 	Match:
@@ -13,6 +11,7 @@
 
 	Login / Signup:
 		- problem with default route (nomatch)
+		- view mobile
 
 	Learn:
 		- useEffect micka post
@@ -32,12 +31,14 @@
 
 
 	Ask Guillaume:
-		- https://material-ui.com/styles/basics/
+		- comment wait un console.log dans un call a l api
+		- wtf with react dev tool
+		- help with useStyle() https://material-ui.com/styles/basics/
 
 	Color:
 		- #FF3860
 
-
+		upload image https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/
 		https://www.relevantprogrammer.com/posts/todo-with-react-hooks/
 
 # React Hooks

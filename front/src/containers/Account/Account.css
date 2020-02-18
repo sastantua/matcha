@@ -34,7 +34,8 @@
 	height: 280vh;
 	margin-top: 6vh;
 	margin-bottom: 6vh;
-	background-color: #eb3349;
+	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
+	/* background-color: #eb3349; */
 }
 
 #account-small #main-container {
