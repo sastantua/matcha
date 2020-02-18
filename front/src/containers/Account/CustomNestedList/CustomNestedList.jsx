@@ -79,7 +79,7 @@ function CustomNestedList() {
 				<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseGender(text.name, text._id)} >
 					<ListItemText primary={text.name} />
 				</ListItem>
-				);
+			);
 		});
 
 	// SEXUAL ORIENTATION

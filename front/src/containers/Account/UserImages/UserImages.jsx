@@ -35,19 +35,14 @@ const useStyles = makeStyles({
 
 function UserImages() {
 	const classes = useStyles();
+	
 	// const { user, setUser } = useContext(UserContext);
+	
 	const [selectedFile, setSelectedFile] = useState({file: '', loaded: ''});
 	
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		// api.post('/user/edit', user)
-		// .then((res) => {console.log(res);})
-		// .catch((err) => {console.log(err);})
-	}
-
 	const addPictureFile = (e) => {
-		console.log("start");
-		console.log(e.target.files[0])
+		// console.log("start");
+		// console.log(e.target.files[0])
 		
 		setSelectedFile({
 			...selectedFile, 
@@ -57,8 +52,7 @@ function UserImages() {
 
 		api.post('/user/picture')
 		.then((res) => {
-			console.log(res);
-
+			// console.log(res);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -69,8 +63,8 @@ function UserImages() {
 
 	const uploadPicture = () => {
 		const data = new FormData() 
-		data.append('file', selectedFile.file)
-		api.post('/user/picture')
+		data.append('picture', selectedFile.file, {})
+		api.post('/user/picture', data)
 		.then((res) => {
 			console.log(res);
 		})
