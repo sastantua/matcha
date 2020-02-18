@@ -17,10 +17,10 @@ const useStyles = makeStyles(theme => ({
 		width: '100%',
 		maxWidth: 360,
 		backgroundColor: "rgba(255, 56, 96, 0.1)",
-		color: "#FF3860",
+		color: "#000",
 	},
 	nested: {
-		paddingLeft: theme.spacing(4),
+		paddingLeft: theme.spacing(9),
 	},
 }));
 
@@ -35,6 +35,17 @@ function CustomNestedList() {
 	const [openOrientation, setOpenOrientation] = useState(false);	
 
 	// SEX IDENTIFICATION
+
+		// Get gender names from back 
+		const getGender = () => {
+			api.get('/user/gender')
+			.then((res) => {
+				setGender(res.data.name);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+		};
 
 		// Open the gender dropdown
 		const handleOpenGender = () => {
@@ -56,12 +67,10 @@ function CustomNestedList() {
 			api.post('/user/gender', _id)
 			.then((res) => {
 				handleOpenGender();
-				console.log(res)
 			})
 			.catch((err) => {
 				console.log(err);
 			})
-			// console.log(gender_id)
 		};
 
 		// Create the jsx for the gender selection list
@@ -73,20 +82,20 @@ function CustomNestedList() {
 				);
 		});
 
-		// Get user gender name from back 
-		const getGender = () => {
-			api.get('/user/gender')
+	// SEXUAL ORIENTATION
+
+		// Get orientation names from back
+		const getOrientation = () => {
+			api.get('/user/orientation')
 			.then((res) => {
-				setGender(res.data.name);
+				setOrientation(res.data.name);
 			})
 			.catch((err) => {
 				console.log(err);
 			})
-		};
-
-	// SEXUAL ORIENTATION
-
-	// Open the orientation dropdown
+		};	
+		
+		// Open the orientation dropdown
 		const handleOpenOrientation = () => {
 			setOpenOrientation(!openOrientation);
 			if (!orientationList.length) {
@@ -123,16 +132,6 @@ function CustomNestedList() {
 				</ListItem>
 			);
 		});
-
-		const getOrientation = () => {
-			api.get('/user/orientation')
-			.then((res) => {
-				setOrientation(res.data.name);
-			})
-			.catch((err) => {
-				console.log(err);
-			})
-		};
 
 	getGender();
 	getOrientation();

@@ -30,7 +30,15 @@
 
 		- multipart form data (tuto photo react)
 
-	https://www.relevantprogrammer.com/posts/todo-with-react-hooks/
+
+	Ask Guillaume:
+		- https://material-ui.com/styles/basics/
+
+	Color:
+		- #FF3860
+
+
+		https://www.relevantprogrammer.com/posts/todo-with-react-hooks/
 
 # React Hooks
 

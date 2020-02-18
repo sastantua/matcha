@@ -31,10 +31,10 @@
 	justify-content: center;
 	align-items: center;
 	width: auto;
-	height: 220vh;
+	height: 280vh;
 	margin-top: 6vh;
 	margin-bottom: 6vh;
-	background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
+	background-color: #eb3349;
 }
 
 #account-small #main-container {
