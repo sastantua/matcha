@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 
 // import logo from '../../media/cerisier.jpg';
 import useStyles from '../../helper/useStyles'
@@ -52,7 +52,7 @@ function Account() {
 					<InputWrapper variant="outlined" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
 					<InputWrapper variant="outlined" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
 					<InputWrapper variant="outlined" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
-					<InputWrapper variant="outlined" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
+					<TextField placeholder="biography" multiline rows={2} rowsMax={4} value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
 					<Birthdate update={handleBirthdate}/>
 					<CustomNestedList user={user} />
 					<CustomChip/>

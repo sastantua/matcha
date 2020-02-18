@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import api from '../../../api/api'
 
-import { Chip } from '@material-ui/core';
+import { TextField, Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+// import { Autocomplete } from '@material-ui/lab';
 
 import './CustomChip.css'
 
@@ -25,66 +26,52 @@ function CustomChip() {
 
 	// Get hobbies names from back 
 	const getHobbyList = () => {
-		api.get('/user/hobby')
+		api.get('/hobby')
 		.then((res) => {
-			// console.log("before");
-			// console.log(hobbyList);
-			setHobbyList(res.data.name);
-			// console.log("after	");
-			// console.log(hobbyList);
+			setHobbyList(res.data);
+			console.log(res.data);
 		})
+		.then(() => {console.log("hobbyList");console.log(hobbyList);})
 		.catch((err) => {
 			console.log(err);
 		})
 	};
 
-	const selectHobby = (name, id) => {
+	// Add a new hobby on server
+	const createHobby = () => {
+		api.post('/user/hobby', )
+	}
+
+	
+	// Add a hobby to user hobbies
+	const addHobby = (name, id) => {
 		let _id = {_id: id};
 		api.post('/user/hobby', _id)
 		.then((res) => {
-			console.log(res);
+			// console.log(res);
 		})
 		.catch((err) => {
 			console.log(err);
 		})
-		console.log(name);
-		console.log(id);
 	};
+	
+	// Remove a hobby from user hobbies
+	const deleteHobby = () => {
 
+	}
 
-	const hobbyListJsx = hobbyList.map(text => {
+	const userHobbiesJsx = hobbyList.map(text => {
 		return (
-			<Chip className="test" variant="outlined" size="small" label="trial" onClick={selectHobby}/> 
+			<Chip className="test" variant="outlined" size="small" key={text._id} label={text.name} onClick={() => addHobby(text._id)} onDelete={deleteHobby}/> 
 		);
 	});
 
-	// getHobbyList();
-
-	// const addHobby = () => {
-	// 	api.post('/user/hobby', )
-	// }
-
-	// addHobby();
-	// const deleteHobby
+	if (!hobbyList.length)
+		getHobbyList();
 
 	return (
 		<div id="chip-container">
-			{/* { hobbyListJsx } */}
-			<Chip className="test" variant="outlined" size="small" label="bitcoin"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/> 
-			<Chip className="test" variant="outlined" size="small" label="link"/>
-			{/* onDelete={handleDelete} */}
+			{ userHobbiesJsx }
 		</div>
 	);
 }
