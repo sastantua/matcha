@@ -17,6 +17,7 @@ import CustomSlider from './CustomSlider/CustomSlider'
 import CustomCheckbox from './CustomCheckbox/CustomCheckbox'
 import CustomNestedList from './CustomNestedList/CustomNestedList'
 import Birthdate from './Birthdate/Birthdate'
+import CustomSave from './CustomSave/CustomSave'
 import './Account.css'
 
 function Account() {
@@ -36,12 +37,7 @@ function Account() {
 	const handleUsername = (e) => {setUser({...user, username: e.target.value});}
 	const handleFirstname = (e) => {setUser({...user, firstname: e.target.value});}
 	const handleLastname = (e) => {setUser({...user, lastname: e.target.value});}
-	const handleBirthdate = (e) => {
-		console.log(e.target.value);
-		setUser({
-			...user, birthdate: e.target.value
-		});
-	}
+	const handleBirthdate = (e) => {setUser({...user, birthdate: e.target.value});}
 	const handleBiography = (e) => {setUser({...user, biography: e.target.value});}
 
 	return (
@@ -59,10 +55,11 @@ function Account() {
 					<InputWrapper variant="outlined" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
 					<Birthdate update={handleBirthdate}/>
 					<CustomNestedList user={user} />
-					<CustomCheckbox/>
 					<CustomChip/>
+					<CustomCheckbox/>
 					<CustomSlider />
-					<Button color="secondary" type='submit'>save</Button>
+					<CustomSave />
+					{/* <Button color="secondary" type='submit'>save</Button> */}
 					</form>
 				</div>
 			<Footer />
