@@ -1,4 +1,5 @@
 #user-images-small {
-
+    display: flex;
+    flex-direction: column;
 }
 
