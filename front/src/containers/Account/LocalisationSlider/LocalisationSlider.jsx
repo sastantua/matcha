@@ -43,7 +43,7 @@ const PrettoSlider = withStyles({
 		},
 })(Slider);
 
-function CustomSlider() {
+function LocalisationSlider() {
 	return (
 			<div id="custom-slider-container">
 				<TextWrapper>Localisation</TextWrapper>
@@ -52,4 +52,4 @@ function CustomSlider() {
 	);
 }
 
-export default CustomSlider;
+export default LocalisationSlider;

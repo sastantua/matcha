@@ -144,8 +144,8 @@ function CustomChip() {
 
 		const userHobbiesJsx = userHobbyList.map(text => {
 			return (
-				<Chip className="test" variant="outlined" size="small" key={text._id} label={text.name} onDelete={() => deleteUserHobby(text._id, text.name)}/> 
-				// onClick={() => addHobby(text._id)}
+				<Chip variant="outlined" size="small" key={text._id} label={text.name} onClick={() => deleteUserHobby(text._id)} /> 
+				// onDelete={() => deleteUserHobby(text._id, text.name)}
 			);
 		});
 
@@ -154,24 +154,22 @@ function CustomChip() {
 
 	return (
 		<>
-			<div id="hobbie-dropdown-container">
-				<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
-				<ListItem button onClick={handleOpenHobby}>
-					<ListItemText primary={ "hobbies list" } /> 
-					{openHobby ? <ExpandLess /> : <ExpandMore />}
-				</ListItem>
-				<Collapse in={openHobby} timeout="auto" unmountOnExit>
-					<List component="div" disablePadding>
-						{ hobbyListJsx }
-					</List>
-				</Collapse>
+			<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
+			<ListItem button onClick={handleOpenHobby}>
+				<ListItemText primary={ "hobbies list" } /> 
+				{openHobby ? <ExpandLess /> : <ExpandMore />}
+			</ListItem>
+			<Collapse in={openHobby} timeout="auto" unmountOnExit>
+				<List component="div" disablePadding>
+					{ hobbyListJsx }
 				</List>
-			</div>
+			</Collapse>
+			</List>
 			<TextField variant="outlined" placeholder="add hobby" value="" name="createHobby" onChange={createHobby}/>
-			<div id="chip-container">
-				{ userHobbiesJsx }
-			</div>
 		</>
+		// <>
+		// 	{ userHobbiesJsx }
+		// </>
 	);
 }
 

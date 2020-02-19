@@ -18,7 +18,7 @@ const useStyles = makeStyles({
 	},
 });
 
-function CustomSave() {
+function SubmitForm() {
 	const classes = useStyles();
 	
 	return (
@@ -26,4 +26,4 @@ function CustomSave() {
 	);
 }
 
-export default CustomSave;
+export default SubmitForm;
