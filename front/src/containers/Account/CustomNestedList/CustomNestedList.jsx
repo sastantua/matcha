@@ -4,23 +4,22 @@ import api from '../../../api/api'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import PowerIcon from '@material-ui/icons/Power';
-import FlareIcon from '@material-ui/icons/Flare';
 
 const useStyles = makeStyles(theme => ({
 	root: {
 		width: '100%',
 		maxWidth: 360,
-		backgroundColor: "rgba(255, 56, 96, 0.1)",
+		background: '#FF3860',
+		opacity: 0.6,
+		// backgroundColor: "rgba(255, 56, 96, 0.1)",
 		color: "#000",
 	},
 	nested: {
-		paddingLeft: theme.spacing(9),
+		paddingLeft: theme.spacing(4),
 	},
 }));
 
@@ -115,13 +114,10 @@ function CustomNestedList() {
 			api.post('/user/orientation', _id)
 			.then((res) => {
 				handleOpenOrientation();
-				console.log(res);
 			})
 			.catch((err) => {
 				console.log(err);
 			})
-			console.log(name);
-			console.log(id);
 		};
 
 		// Create the jsx for the orientation selection list
@@ -132,7 +128,7 @@ function CustomNestedList() {
 				</ListItem>
 			);
 		});
-
+	
 	getGender();
 	getOrientation();
 
@@ -140,9 +136,6 @@ function CustomNestedList() {
 		<>
 		<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
 			<ListItem button onClick={handleOpenGender}>
-				<ListItemIcon>
-					<PowerIcon />
-				</ListItemIcon>
 				<ListItemText primary={ gender ? gender : "gender" } />
 				{openGender ? <ExpandLess /> : <ExpandMore />}
 			</ListItem>
@@ -154,9 +147,6 @@ function CustomNestedList() {
 		</List>
 		<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
 			<ListItem button onClick={handleOpenOrientation}>
-				<ListItemIcon>
-					<FlareIcon />
-				</ListItemIcon>
 				<ListItemText primary={ orientation ? orientation : "orientation" } /> 
 				{openOrientation ? <ExpandLess /> : <ExpandMore />}
 			</ListItem>
