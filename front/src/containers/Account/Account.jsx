@@ -13,11 +13,12 @@ import useStyles from '../../helper/useStyles'
 
 import UserImages from './UserImages/UserImages'
 import CustomChip from './CustomChip/CustomChip'
-import CustomSlider from './CustomSlider/CustomSlider'
+import LocalisationSlider from './LocalisationSlider/LocalisationSlider'
 import CustomCheckbox from './CustomCheckbox/CustomCheckbox'
-import CustomNestedList from './CustomNestedList/CustomNestedList'
+import GenderDropdown from './GenderDropdown/GenderDropdown'
+import OrientationDropdown from './OrientationDropdown/OrientationDropdown'
 import Birthdate from './Birthdate/Birthdate'
-import CustomSave from './CustomSave/CustomSave'
+import SubmitForm from './SubmitForm/SubmitForm'
 import './Account.css'
 
 function Account() {
@@ -54,11 +55,12 @@ function Account() {
 					<InputWrapper variant="outlined" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
 					<TextField placeholder="biography" multiline rows={2} rowsMax={4} value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
 					<Birthdate update={handleBirthdate}/>
-					<CustomNestedList user={user} />
+					<GenderDropdown user={user} />
+					<OrientationDropdown user={user} />
 					<CustomChip/>
 					<CustomCheckbox/>
-					<CustomSlider />
-					<CustomSave />
+					<LocalisationSlider />
+					<SubmitForm />
 					{/* <Button color="secondary" type='submit'>save</Button> */}
 					</form>
 				</div>
