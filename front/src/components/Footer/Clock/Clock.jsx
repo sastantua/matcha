@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function Clock() {
 	const blackhole = new Date('May 5, 2020 03:24:00').toLocaleString();
-	// const blackhole = new Date("01/05/2020").toLocaleString();
+	//const blackhole = new Date("01/05/2020").toLocaleString();
 	const [time, setTime] = useState(new Date().toLocaleString());
 
 	useEffect(() => {

@@ -26,18 +26,15 @@ const useStyles = makeStyles({
 		color: 'white',
 		height: 48,
 		padding: '0 30px',
-	},
-	img: {
+	}, img: {
 		marginTop: '2em',
-	},
-	imageContainerStyle: {
+	}, imageContainerStyle: {
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
 		overflow: 'hidden',
 		// backgroundColor: theme.palette.background.paper,
-		},
-	imageStyle: {
+	}, imageStyle: {
 		width: 500,
 		height: 450,
 	},
@@ -48,9 +45,8 @@ function UserImages() {
 	const classes = useStyles();
 	
 	// const { user, setUser } = useContext(UserContext);
-	const [userHasPicture, setUserHasPicture] = useState(false);
-	const [userPictures, setUserPictures] = useState([{}]);
-	const [selectedFile, setSelectedFile] = useState({file: '', loaded: ''});
+	const [userPictures, setUserPictures] = useState([]);
+	const [selectedFile, setSelectedFile] = useState();
 	
 	// Add a picture in the application state
 	const addPictureFile = (e) => {
@@ -63,11 +59,12 @@ function UserImages() {
 
 	// Upload the picture from app to server
 	const uploadPicture = () => {
-		if (selectedFile.file) {
+		if (selectedFile && selectedFile.file) {
 			const data = new FormData()
 			data.append('picture', selectedFile.file, {})
 			api.post('/user/picture', data)
 			.then((res) => {
+				getUserPictures();
 				console.log(res);
 			})
 			.catch((err) => {
@@ -79,9 +76,8 @@ function UserImages() {
 	const getUserPictures = () => {
 		api.get('/user/picture')
 		.then((res) => {
-			if (res.data)
-				setUserHasPicture(true);
 			setUserPictures(res.data);
+			console.log(res.data)
 			console.log(`getUserPictures ${res.data}`);
 			console.log(res);
 		})
@@ -91,10 +87,10 @@ function UserImages() {
 	}
 
 	const deleteUserPicture = (id) => {
-		let _id = {params: {_id: id}}
-		api.delete('/user/picture', _id)
+		console.log(id);
+		api.delete('/user/picture', { data: { _id: id } })
 		.then((res) => {
-			// remove picture from userPictures;
+			getUserPictures();
 			console.log(res);
 		})
 		.catch((err) => {
@@ -102,33 +98,31 @@ function UserImages() {
 		})
 	}
 	
-	var userImagesJsx = null;
 	console.log("userPictures");
 	console.log(userPictures);
-	if (userHasPicture) {
-		userImagesJsx = () =>
+	const UserImagesJsx = () => {
+		return (
 			<div className={classes.imageContainerStyle}>
 				<GridList cellHeight={160} className={classes.imageStyle} cols={3}>
-					{userPictures.map(text => (
-						<GridListTile key={text.id} cols={1}>
-							<img src={text.url} alt="fuck" />
+					{ userPictures.map(text =>
+						<GridListTile key={text._id} cols={1}>
+							<img src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
 						</GridListTile>
-					))}
+					)}
 				</GridList>
 			</div>
-	}	
-				// <img src={text.url} alt="alt" key={text.id} className={classes.img} onClick={() => deleteUserPicture(text.id)}/>
+		);
+	}
+	// <img src={text.url} alt="alt" key={text.id} className={classes.img} onClick={() => deleteUserPicture(text.id)}/>
 
-	// console.log(userImagesJsx);
-
-	if (userPictures.length <= 1) // normal?
+	if (!userPictures.length)
 		getUserPictures();
 	
 	// console.log(selectedFile);
 	return (
 		<div id="main-container">
 			<div id="user-images-display-small">
-				{ userImagesJsx }
+			{ userPictures.length && <UserImagesJsx /> }
 			</div>
 			<div id="user-images-upload-small">
 				<InputWrapper type="file" name="file" onChange={addPictureFile} variant="filled"/>

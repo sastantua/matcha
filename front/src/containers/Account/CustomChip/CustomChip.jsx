@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../../../api/api'
 
-import { TextField, Chip } from '@material-ui/core';
+import { TextField, Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -38,151 +38,110 @@ const useStyles = makeStyles(theme => ({
 function CustomChip() {
 	const classes = useStyles();
 
-	const [hobbies, setHobbies] = useState(null);
-	const [userHasHobby, setUserHasHobby] = useState(false);
-	const [appHasHobbyList, setAppHasHobbyList] = useState(false);
+	const [openHobby, setOpenHobby] = useState(false);
 	const [hobbyList, setHobbyList] = useState([]);
-	const [openHobby, setOpenHobby] = useState(false);	
 	const [userHobbyList, setUserHobbyList] = useState([]);
+	// const [newHobbyName, setNewHobbyName] = useState(null);
 
 	// HOBBIES DROPDOWN
 
-		// Get hobbies names from back
-		const getUserHobbies = () => {
-			api.get('/user/hobby')
+	useEffect(() => {
+		if (!hobbyList.length) getHobbyList();
+		if (!userHobbyList.length) getUserHobbies();
+	})
+
+
+	// Get hobbies names from back 
+	const getHobbyList = () => {
+		api.get('/hobby')
 			.then((res) => {
-				if (res.data)
-					setUserHasHobby(true);
-				setHobbies(res.data.name);
+				// console.log(res.data);
+				setHobbyList(res.data);
 			})
 			.catch((err) => {
 				console.log(err);
 			})
-		};	
-		
-		// Open the orientation dropdown
-		const handleOpenHobby = () => {
-			setOpenHobby(!openHobby);
-			if (!hobbyList.length) {
-				api.get('/hobby')
-				.then((res) => {
-					setHobbyList(res.data);
-				})
-				.catch((err) => {
-					console.log(err);
-				})
-			}
-		};
+	};
 
-		// Post selected orientation (id) to server
-		const handleChooseHobby = (name, id) => {
-			let _id = {hobbies: [id]};
-			api.post('/user/hobby', _id)
-			.then((res) => {
-				handleOpenHobby();
-				// console.log(res);
-			})
-			.catch((err) => {
-				console.log(err);
-			})
-			// console.log(name);
-			// console.log(_id);
-		};
-
-		// Create the jsx for the orientation selection list
-		var hobbyListJsx = null;
-		if (appHasHobbyList) {
-			hobbyListJsx = hobbyList.map(text => {
-				return (
-					<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseHobby(text.name, text._id)} >
-						<ListItemText primary={text.name} />
-					</ListItem>
-				);
-			});
-		}
-
-	getUserHobbies();
-
-	// Handle user hobbies 
-		// Get hobbies names from back 
-		const getHobbyList = () => {
-			api.get('/user/hobby')
+	// Get user hobbies from back
+	const getUserHobbies = () => {
+		api.get('/user/hobby')
 			.then((res) => {
 				console.log(res.data);
-				if (res.data)
-					setAppHasHobbyList(true);
 				setUserHobbyList(res.data);
 			})
 			.catch((err) => {
 				console.log(err);
 			})
-		};
+	};
 
-		// Add a new hobby on server
-		const [newHobbyName, setNewHobbyName] = useState(null);
-		
-		const createHobby = (e) => {
-			setNewHobbyName(e.target.value);
-			// api.post('/user/hobby', )
-		}
+	const handleChooseHobby = (id) => {
+		api.post('/user/hobby', { hobbies: [id] })
+			.then((res) => {
+				handleOpenHobby();
+				getUserHobbies();
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+	};
 
-		// // Add a hobby to user hobbies
-		// const addHobby = (name, id) => {
-		// 	let _id = [id];
-		// 	console.log("========");
-		// 	console.log(id);
-		// 	console.log(_id);
-		// 	api.post('/user/hobby', _id)
-		// 	.then((res) => {
-		// 		console.log(res);
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log(err);
-		// 	})
-		// };
-
-		// Remove a hobby from user hobbies
-		const deleteUserHobby = (id, name) => {
-			let _id = {_id: id};
-			console.log(_id);
-			console.log(_id);
-			api.delete('/user/hobby', _id)
+	const deleteUserHobby = (id) => {
+		api.delete('/user/hobby', {data: {_id: id}})
 			.then((res => {
 				console.log(res);
+				getUserHobbies();
 			}))
 			.catch((err => {
 				console.log(err);
 			}))
-		}
+	}
 
-		var userHobbiesJsx = null;
-		if (userHasHobby) {
-			const userHobbiesJsx = userHobbyList.map(text => {
-				return (
-					<Chip className={classes.chip} variant="outlined" size="small" key={text._id} label={text.name} onClick={() => deleteUserHobby(text._id)} /> 
-				);
-			});
-		}
+	// const createHobby = (e) => {
+	// 	setNewHobbyName(e.target.value);
+	// 	// api.post('/user/hobby', )
+	// }
 
-	if (!userHobbyList.length)
-		getHobbyList();
+	// Open the orientation dropdown
+	const handleOpenHobby = () => {
+		setOpenHobby(!openHobby);
+	};
+	
+	// Create the jsx for the orientation selection list
+	const HobbyList = () => {
+		return (
+			hobbyList.map(text =>
+				<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseHobby(text._id)} >
+					<ListItemText primary={text.name} />
+				</ListItem>
+			)
+		)
+	}
+
+	const UserHobbies = () => {
+		return (
+			userHobbyList.map(text =>
+				<Chip className={classes.chip} variant="outlined" size="small" key={text._id} label={text.name} onClick={() => deleteUserHobby(text._id)} />
+			)
+		)
+	};
 
 	return (
-		<>
+		<div>
 			<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
-			<ListItem button onClick={handleOpenHobby}>
-				<ListItemText primary={ "hobbies list" } /> 
-				{openHobby ? <ExpandLess /> : <ExpandMore />}
-			</ListItem>
-			<Collapse in={openHobby} timeout="auto" unmountOnExit>
-				<List component="div" disablePadding>
-					{ hobbyListJsx }
-				</List>
-			</Collapse>
+				<ListItem button onClick={handleOpenHobby}>
+					<ListItemText primary={"hobbies list"} />
+					{openHobby ? <ExpandLess /> : <ExpandMore />}
+				</ListItem>
+				<Collapse in={openHobby} timeout="auto" unmountOnExit>
+					<List component="div" disablePadding>
+						{hobbyList.length && <HobbyList />}
+					</List>
+				</Collapse>
 			</List>
-			<TextField className={classes.field} variant="outlined" placeholder="add hobby" value="" name="createHobby" onChange={createHobby}/>
-			{ userHobbiesJsx }
-		</>
+			<TextField className={classes.field} variant="outlined" placeholder="add hobby" value="" name="createHobby" /*onChange={createHobby}*/ />
+			{userHobbyList.length && <UserHobbies />}
+		</div>
 	);
 }
 
