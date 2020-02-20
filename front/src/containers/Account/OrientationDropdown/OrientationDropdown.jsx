@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
 		maxWidth: 360,
 		background: '#FF3860',
 		opacity: 0.6,
-		// backgroundColor: "rgba(255, 56, 96, 0.1)",
 		color: "#000",
 	},
 	nested: {
