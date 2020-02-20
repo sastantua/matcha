@@ -91,7 +91,7 @@ function CustomChip() {
 
 		// Create the jsx for the orientation selection list
 		var hobbyListJsx = null;
-		if (hobbyListJsx) {
+		if (appHasHobbyList) {
 			hobbyListJsx = hobbyList.map(text => {
 				return (
 					<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseHobby(text.name, text._id)} >
@@ -157,7 +157,7 @@ function CustomChip() {
 
 		var userHobbiesJsx = null;
 		if (userHasHobby) {
-			userHobbiesJsx = userHobbyList.map(text => {
+			const userHobbiesJsx = userHobbyList.map(text => {
 				return (
 					<Chip className={classes.chip} variant="outlined" size="small" key={text._id} label={text.name} onClick={() => deleteUserHobby(text._id)} /> 
 				);
