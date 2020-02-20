@@ -6,6 +6,9 @@ import api from '../../../api/api'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField,Button, styled as styledMaterial } from '@material-ui/core';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+
 import logo from '../../../media/cerisier.jpg';
 import './UserImages.css'
 
@@ -26,7 +29,18 @@ const useStyles = makeStyles({
 	},
 	img: {
 		marginTop: '2em',
-	}
+	},
+	imageContainerStyle: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'space-around',
+		overflow: 'hidden',
+		// backgroundColor: theme.palette.background.paper,
+		},
+	imageStyle: {
+		width: 500,
+		height: 450,
+	},
 });
 
 
@@ -89,14 +103,23 @@ function UserImages() {
 	}
 	
 	var userImagesJsx = null;
+	console.log("userPictures");
+	console.log(userPictures);
 	if (userHasPicture) {
-		userImagesJsx = userPictures.map(text => {
-			return (
-				<img src={text.url} alt="alt" key={text.id} className={classes.img} onClick={() => deleteUserPicture(text.id)}/>
-			);
-		});
-	}
-	// console.log(userPictures);
+		userImagesJsx = () =>
+			<div className={classes.imageContainerStyle}>
+				<GridList cellHeight={160} className={classes.imageStyle} cols={3}>
+					{userPictures.map(text => (
+						<GridListTile key={text.id} cols={1}>
+							<img src={text.url} alt="fuck" />
+						</GridListTile>
+					))}
+				</GridList>
+			</div>
+	}	
+				// <img src={text.url} alt="alt" key={text.id} className={classes.img} onClick={() => deleteUserPicture(text.id)}/>
+
+	// console.log(userImagesJsx);
 
 	if (userPictures.length <= 1) // normal?
 		getUserPictures();
@@ -105,7 +128,7 @@ function UserImages() {
 	return (
 		<div id="main-container">
 			<div id="user-images-display-small">
-				{ userHasPicture ? userImagesJsx : '' }
+				{ userImagesJsx }
 			</div>
 			<div id="user-images-upload-small">
 				<InputWrapper type="file" name="file" onChange={addPictureFile} variant="filled"/>

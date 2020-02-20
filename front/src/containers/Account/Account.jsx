@@ -23,7 +23,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import './Account.css'
 
 
-
 const useStyles = makeStyles(theme => ({
 	root: {
 		'& > *': {

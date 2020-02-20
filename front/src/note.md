@@ -1,5 +1,19 @@
 # Todo
 
+
+	Objectif du jour:
+		- picture grid
+		- delete request
+		- hobbies handling
+		- clean up
+		- check with new accounts
+		- read useEffect
+
+
+
+
+
+
 	Account
 		- pictures
 		- interets
