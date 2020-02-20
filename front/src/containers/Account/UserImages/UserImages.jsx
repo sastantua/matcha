@@ -11,7 +11,6 @@ import './UserImages.css'
 
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '1rem',
-	width: '12rem',
 	color: '#OOB7FF'
 });
 
@@ -24,12 +23,10 @@ const useStyles = makeStyles({
 		color: 'white',
 		height: 48,
 		padding: '0 30px',
-		// marginTop: '10px',
-		// display: 'flex',
-		// justifyContent: 'center',
-		// alignItems: 'center',
-		// marginRight: '80px',
 	},
+	img: {
+		marginTop: '2em',
+	}
 });
 
 
@@ -37,46 +34,83 @@ function UserImages() {
 	const classes = useStyles();
 	
 	// const { user, setUser } = useContext(UserContext);
-	
+	const [userHasPicture, setUserHasPicture] = useState(false);
+	const [userPictures, setUserPictures] = useState([{}]);
 	const [selectedFile, setSelectedFile] = useState({file: '', loaded: ''});
 	
+	// Add a picture in the application state
 	const addPictureFile = (e) => {
-		// console.log("start");
-		// console.log(e.target.files[0])
-		
 		setSelectedFile({
 			...selectedFile, 
 			file: e.target.files[0],
 			loaded: 0,
 		});	
-
-		api.post('/user/picture')
-		.then((res) => {
-			// console.log(res);
-		})
-		.catch((err) => {
-			console.log(err);
-		})
 	}
 
-	console.log(selectedFile);
-
+	// Upload the picture from app to server
 	const uploadPicture = () => {
-		const data = new FormData() 
-		data.append('picture', selectedFile.file, {})
-		api.post('/user/picture', data)
-		.then((res) => {
+		if (selectedFile.file) {
+			const data = new FormData()
+			data.append('picture', selectedFile.file, {})
+			api.post('/user/picture', data)
+			.then((res) => {
+				console.log(res);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+		}
+	}
+
+	const getUserPictures = () => {
+		api.get('/user/picture')
+		.then((res) => {
+			if (res.data)
+				setUserHasPicture(true);
+			setUserPictures(res.data);
+			console.log(`getUserPictures ${res.data}`);
 			console.log(res);
 		})
-		.catch((err) => {
+		.catch((err) => {
 			console.log(err);
 		})
 	}
 
+	const deleteUserPicture = (id) => {
+		let _id = {params: {_id: id}}
+		api.delete('/user/picture', _id)
+		.then((res) => {
+			// remove picture from userPictures;
+			console.log(res);
+		})
+		.catch((err) => {
+			console.log(err);
+		})
+	}
+	
+	var userImagesJsx = null;
+	if (userHasPicture) {
+		userImagesJsx = userPictures.map(text => {
+			return (
+				<img src={text.url} alt="alt" key={text.id} className={classes.img} onClick={() => deleteUserPicture(text.id)}/>
+			);
+		});
+	}
+	// console.log(userPictures);
+
+	if (userPictures.length <= 1) // normal?
+		getUserPictures();
+	
+	// console.log(selectedFile);
 	return (
-		<div id="user-images-small">
-			<InputWrapper type="file" name="file" onChange={addPictureFile} variant="filled"/>
-			<Button type="button" className={classes.root} onClick={uploadPicture}>Upload</Button>
+		<div id="main-container">
+			<div id="user-images-display-small">
+				{ userHasPicture ? userImagesJsx : '' }
+			</div>
+			<div id="user-images-upload-small">
+				<InputWrapper type="file" name="file" onChange={addPictureFile} variant="filled"/>
+				<Button type="button" className={classes.root} onClick={uploadPicture}>Upload</Button>
+			</div>
 		</div>
 	);
 }

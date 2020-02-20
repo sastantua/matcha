@@ -1,10 +1,10 @@
 # Todo
 
 	Account
-		- bio
 		- pictures
 		- interets
 		- localisation
+		- proteger upload sans picture
 
 	Match:
 		- getuserinfo

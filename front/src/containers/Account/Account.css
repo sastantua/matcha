@@ -47,8 +47,8 @@
 	overflow: scroll;
 }
 #account-small #main-container #profile-picture {
-	width: 12em;
-	height: 12em;
+	/* width: 12em; */
+	/* height: 12em; */
 }
 
 #account-small #main-container #profile-picture:hover {

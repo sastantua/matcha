@@ -9,7 +9,6 @@ import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
 import { Button, TextField } from '@material-ui/core';
 
 // import logo from '../../media/cerisier.jpg';
-import useStyles from '../../helper/useStyles'
 
 import UserImages from './UserImages/UserImages'
 import CustomChip from './CustomChip/CustomChip'
@@ -19,14 +18,26 @@ import GenderDropdown from './GenderDropdown/GenderDropdown'
 import OrientationDropdown from './OrientationDropdown/OrientationDropdown'
 import Birthdate from './Birthdate/Birthdate'
 import SubmitForm from './SubmitForm/SubmitForm'
+
+import { makeStyles } from '@material-ui/core/styles';
 import './Account.css'
+
+
+
+const useStyles = makeStyles(theme => ({
+	root: {
+		'& > *': {
+			margin: theme.spacing(1),
+			width: 200,
+		},
+	},
+}));
 
 function Account() {
 	const classes = useStyles();
-
+	
 	const { user, setUser } = useContext(UserContext);
 	
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		api.post('/user/edit', user)
@@ -44,10 +55,8 @@ function Account() {
 	return (
 		<div id="account-small">
 			<Header />
-			<div id="main-container">
-				<UserImages/>
-				{/* <img src={getImages} id="profile-picture" alt="profile-picture"/> */}
-				{/* <img src={logo} id="profile-picture" alt="profile-picture"/> */}
+			<div id="main-container" className={classes.root}>
+				<UserImages />
 				<form id="edit-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<InputWrapper variant="outlined" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
 					<InputWrapper variant="outlined" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
@@ -61,9 +70,8 @@ function Account() {
 					<CustomCheckbox/>
 					<LocalisationSlider />
 					<SubmitForm />
-					{/* <Button color="secondary" type='submit'>save</Button> */}
-					</form>
-				</div>
+				</form>
+			</div>
 			<Footer />
 		</div>
 	);

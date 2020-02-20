@@ -18,11 +18,19 @@ const useStyles = makeStyles(theme => ({
 		maxWidth: 360,
 		background: '#FF3860',
 		opacity: 0.6,
-		// backgroundColor: "rgba(255, 56, 96, 0.1)",
 		color: "#000",
 	},
 	nested: {
 		paddingLeft: theme.spacing(4),
+	},
+	field: {
+		width: '100%',
+		color: "#000",
+	},
+	chip: {
+		width: '100%',
+		background: '#FF3860',
+		color: "#000",
 	},
 }));
 
@@ -31,6 +39,8 @@ function CustomChip() {
 	const classes = useStyles();
 
 	const [hobbies, setHobbies] = useState(null);
+	const [userHasHobby, setUserHasHobby] = useState(false);
+	const [appHasHobbyList, setAppHasHobbyList] = useState(false);
 	const [hobbyList, setHobbyList] = useState([]);
 	const [openHobby, setOpenHobby] = useState(false);	
 	const [userHobbyList, setUserHobbyList] = useState([]);
@@ -38,9 +48,11 @@ function CustomChip() {
 	// HOBBIES DROPDOWN
 
 		// Get hobbies names from back
-		const getHobbies = () => {
+		const getUserHobbies = () => {
 			api.get('/user/hobby')
 			.then((res) => {
+				if (res.data)
+					setUserHasHobby(true);
 				setHobbies(res.data.name);
 			})
 			.catch((err) => {
@@ -78,15 +90,18 @@ function CustomChip() {
 		};
 
 		// Create the jsx for the orientation selection list
-		const hobbyListJsx = hobbyList.map(text => {
-			return (
-				<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseHobby(text.name, text._id)} >
-					<ListItemText primary={text.name} />
-				</ListItem>
-			);
-		});
+		var hobbyListJsx = null;
+		if (hobbyListJsx) {
+			hobbyListJsx = hobbyList.map(text => {
+				return (
+					<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseHobby(text.name, text._id)} >
+						<ListItemText primary={text.name} />
+					</ListItem>
+				);
+			});
+		}
 
-	getHobbies();
+	getUserHobbies();
 
 	// Handle user hobbies 
 		// Get hobbies names from back 
@@ -94,12 +109,10 @@ function CustomChip() {
 			api.get('/user/hobby')
 			.then((res) => {
 				console.log(res.data);
+				if (res.data)
+					setAppHasHobbyList(true);
 				setUserHobbyList(res.data);
 			})
-			// .then(() => {
-			// 	console.log("userHobbyList");
-			// 	console.log(userHobbyList);
-			// })
 			.catch((err) => {
 				console.log(err);
 			})
@@ -142,12 +155,14 @@ function CustomChip() {
 			}))
 		}
 
-		const userHobbiesJsx = userHobbyList.map(text => {
-			return (
-				<Chip variant="outlined" size="small" key={text._id} label={text.name} onClick={() => deleteUserHobby(text._id)} /> 
-				// onDelete={() => deleteUserHobby(text._id, text.name)}
-			);
-		});
+		var userHobbiesJsx = null;
+		if (userHasHobby) {
+			userHobbiesJsx = userHobbyList.map(text => {
+				return (
+					<Chip className={classes.chip} variant="outlined" size="small" key={text._id} label={text.name} onClick={() => deleteUserHobby(text._id)} /> 
+				);
+			});
+		}
 
 	if (!userHobbyList.length)
 		getHobbyList();
@@ -165,11 +180,9 @@ function CustomChip() {
 				</List>
 			</Collapse>
 			</List>
-			<TextField variant="outlined" placeholder="add hobby" value="" name="createHobby" onChange={createHobby}/>
+			<TextField className={classes.field} variant="outlined" placeholder="add hobby" value="" name="createHobby" onChange={createHobby}/>
+			{ userHobbiesJsx }
 		</>
-		// <>
-		// 	{ userHobbiesJsx }
-		// </>
 	);
 }
 
