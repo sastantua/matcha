@@ -2,6 +2,7 @@ import uuidv1 from 'uuid/v1';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
+import { Date } from 'neo4j-driver'
 
 import { mode, session, closeBridge } from '../middleware/session';
 
@@ -214,4 +215,15 @@ export const deletePicture = async (picture_id) => {
 	const query = 'MATCH (p:Picture)-[r:PIC]-() WHERE p._id = $_id DELETE p,r ';
 	await dbSession.session.run(query, {_id: picture_id}).then(res => closeBridge(dbSession))
 	.catch (e => console.log(e));
+}
+
+export const getPopularityScore = async (user) => {
+	const dbSession = session(mode.READ);
+	const query = 'MATCH ()-[l:LOVE]->(u:User) WHERE u._id = $_id RETURN count(l)';
+	let score = await dbSession.session.run(query, user).then(res => {
+		closeBridge(dbSession)
+		return res.records[0]._fields[0].toNumber();
+	}).catch (e => console.log(e));
+
+	return score / 100;
 }

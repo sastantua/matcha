@@ -4,11 +4,11 @@ import fs from 'fs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken } from '../models/user';
+import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore } from '../models/user';
 import { getGender, setGender, verifyGender} from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby} from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
-import { isEmpty } from '../models/utils';
+import { isEmpty, isEighteen } from '../models/utils';
 import { getOrientation, verifyOrientation, setOrientation } from '../models/orientation';
 
 const userRouter = Router();
@@ -49,6 +49,9 @@ userRouter.post('/login', async (req, res, next) => {
 		if (!email || !password) throw new ErrorHandler(400, 'Missing required fields');
 		const user = await findByCreditentials(email, password);
 		if (!user) throw new ErrorHandler(401, 'Login failed! Check authentication credentials');
+		user.popularity = await getPopularityScore(user);
+		const location = await getLocation(req.user);
+		if (location) user.location = location;
 		let token = await getToken(user);
 		if (!token) token = await generateAuthToken(user);
 		return res.status(200).json({user, token});
@@ -71,6 +74,8 @@ userRouter.post('/edit', auth, async (req, res, next) => {
 		if (user.birthdate)
 			if (!user.birthdate.match(/(19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])/g))
 				throw new ErrorHandler(400, 'Date should be in format YYYY-MM-DD');
+			else if ( !isEighteen(user.birthdate))
+				throw new ErrorHandler(400, 'You should be 18 Years Old to register');
 		user._id = req.user._id;
 		const editedUser = await editUser(user);
 		return res.status(200).json({user: editedUser});
@@ -81,7 +86,7 @@ userRouter.post('/edit', auth, async (req, res, next) => {
 
 userRouter.get('/me', auth, async (req, res) => {
 		const location = await getLocation(req.user);
-
+		req.user.popularity = await getPopularityScore(req.user);
 		if (location) req.user.location = location;
 		res.status(200).json(req.user);
 })

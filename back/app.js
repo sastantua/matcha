@@ -8,7 +8,7 @@ import 'dotenv/config';
 
 import { handleError} from './middleware/errors';
 
-import { generateGenders, generateHobbies, generateOrientations } from './models/utils';
+import { generateGenders, generateHobbies, generateOrientations, isEighteen } from './models/utils';
 
 import userRouter from './routes/user';
 import genderRouter from './routes/gender';

@@ -62,3 +62,10 @@ export const generateOrientations = async () => {
 		consola.info("Orientations already generated")
 	}
 }
+
+export const isEighteen = (birthdate) => {
+	let now = new Date().toISOString().split('T')[0].split("-");
+	now[0] = now[0]18;
+	const legalDate = now.join('-');
+	return new Date(birthdate) > new Date(legalDate) ? false : true;
+}
