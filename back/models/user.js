@@ -5,6 +5,7 @@ import fs from 'fs';
 import { Date } from 'neo4j-driver'
 
 import { mode, session, closeBridge } from '../middleware/session';
+import { toBirthdate } from './match';
 
 export const userExists = async (user) => {
 	const dbSession = session(mode.READ);
@@ -226,4 +227,25 @@ export const getPopularityScore = async (user) => {
 	}).catch (e => console.log(e));
 
 	return score / 100;
+}
+
+export const getAll = async (params = undefined) => {
+		if (params.age) {
+			const ageString = `${toBirthdate(params.age.min)} <= u.birthdate <= ${toBirthdate(params.age.max)}`;
+		}
+		if (params.orientation) {
+			const matchQuery = 'MATCH (o:Orientation {_id: $_id})-[:ATTRACT]-(u:User)'
+		} else {
+			const matchQuery = 'MATCH (u:User)'
+		}
+		if (params.popularity) {
+			const popularityQuery = `${params.popularity.min} <= u.popularity <= ${params.popularity.max}`;
+		}
+
+		const query =
+		`${matchQuery} ${ageString ? `WHERE ${ageString} ${params.popularity ? `AND ${popularityQuery}` : ''}` : `${params.popularity ? `WHERE ${popularityQuery}` : ''}`};
+		OPTIONAL MATCH (u)-[:LOCATION]-(l)
+		OPTIONAL MATCH (u)-[:LIKES]-(h)
+		`
+		
 }

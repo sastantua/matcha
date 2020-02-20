@@ -4,6 +4,7 @@ import consola from 'consola';
 import { retriveGenders, initGenders } from './gender';
 import { retriveHobbies, initHobbies } from './hobby';
 import { retriveOrientations, initOrientations } from './orientation';
+import { toBirthdate } from './match';
 
 export const isEmpty = (obj) => {
 	for (var key in obj) {
