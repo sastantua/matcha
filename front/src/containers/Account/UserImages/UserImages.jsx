@@ -12,6 +12,9 @@ import GridListTile from '@material-ui/core/GridListTile';
 import logo from '../../../media/cerisier.jpg';
 import './UserImages.css'
 
+import AwesomeSlider from 'react-awesome-slider';
+import 'react-awesome-slider/dist/styles.css';
+
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '1rem',
 	color: '#OOB7FF'
@@ -35,11 +38,10 @@ const useStyles = makeStyles({
 		overflow: 'hidden',
 		// backgroundColor: theme.palette.background.paper,
 	}, imageStyle: {
-		width: 500,
-		height: 450,
+		// width: 500,
+		// height: 450,
 	},
 });
-
 
 function UserImages() {
 	const classes = useStyles();
@@ -60,16 +62,19 @@ function UserImages() {
 	// Upload the picture from app to server
 	const uploadPicture = () => {
 		if (selectedFile && selectedFile.file) {
-			const data = new FormData()
-			data.append('picture', selectedFile.file, {})
-			api.post('/user/picture', data)
-			.then((res) => {
-				getUserPictures();
-				console.log(res);
-			})
-			.catch((err) => {
-				console.log(err);
-			})
+			if (userPictures.length < 5) {
+				const data = new FormData()
+				data.append('picture', selectedFile.file, {})
+				api.post('/user/picture', data)
+				.then((res) => {
+					getUserPictures();
+				})
+				.catch((err) => {
+					console.log(err);
+				})
+			}
+			else
+				alert('you cant have more than 5 pictures');
 		}
 	}
 
@@ -97,18 +102,37 @@ function UserImages() {
 			console.log(err);
 		})
 	}
-	
-	console.log("userPictures");
-	console.log(userPictures);
+
+	// const slider = (
+	// 	  <div data-src="/path/to/image-0.png" />
+	// 	  <div data-src="/path/to/image-1.png" />
+	// 	  <div data-src="/path/to/image-2.jpg" />
+	//   );
+	  
+	//   const UserImagesJsx = () => {
+	// 	return (
+	// 		<AwesomeSlider>
+	// 		{
+	// 			userPictures.map(text =>
+	// 				<div data-src={text.url} />
+	// 				// <img src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
+	// 			)
+	// 		}
+	// 		</AwesomeSlider>
+	// 	);
+	// }
+	  
 	const UserImagesJsx = () => {
 		return (
 			<div className={classes.imageContainerStyle}>
-				<GridList cellHeight={160} className={classes.imageStyle} cols={3}>
-					{ userPictures.map(text =>
-						<GridListTile key={text._id} cols={1}>
-							<img src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
-						</GridListTile>
-					)}
+				<GridList className={classes.imageStyle} cols={3}>
+					{
+						userPictures.map(text =>
+							<GridListTile key={text._id} cols={1}>
+								<img src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
+							</GridListTile>
+						)
+					}
 				</GridList>
 			</div>
 		);
@@ -117,24 +141,21 @@ function UserImages() {
 
 	if (!userPictures.length)
 		getUserPictures();
-	
-	// console.log(selectedFile);
-	return (
+
+		return (
 		<div id="main-container">
 			<div id="user-images-display-small">
 			{ userPictures.length && <UserImagesJsx /> }
 			</div>
 			<div id="user-images-upload-small">
-				<InputWrapper type="file" name="file" onChange={addPictureFile} variant="filled"/>
-				<Button type="button" className={classes.root} onClick={uploadPicture}>Upload</Button>
+				{ userPictures.length < 5 && <InputWrapper type="file" name="file" label="" onChange={addPictureFile} variant="filled"/> }
+				{ userPictures.length < 5 && <Button type="button" className={classes.root} onClick={uploadPicture}>Upload</Button> }
 			</div>
 		</div>
 	);
 }
 
 export default UserImages;
-
-
 
 
 
