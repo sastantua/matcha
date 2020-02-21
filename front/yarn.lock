@@ -8920,6 +8920,13 @@ react-app-polyfill@^1.0.5:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
+react-awesome-slider@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/react-awesome-slider/-/react-awesome-slider-4.0.2.tgz#df8ec4146de5f78248024c559fedb8e1e70b9057"
+  integrity sha512-+ogIg8hbmq1DaA7mBfCfuWQgyuruhBQXp6IVIIPL1E4S3P3dbk7VW37KgWiv0deO9/ltilHdOmk8H3EEF/9xJg==
+  dependencies:
+    web-animation-club "^0.6.0"
+
 react-bulma-components@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/react-bulma-components/-/react-bulma-components-3.1.3.tgz#8dee9697d66f5ead92244fac6ef6b2fe3d1c8b71"
@@ -10885,6 +10892,11 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   integrity sha512-O84QOnr0icsbFGLS0O3bI5FswxzRr8/gHwWkDlQFskhSPryQXvrTMxjxGP4+iWYoauLoBvfDpkrOauZ+0iZpDA==
   dependencies:
     minimalistic-assert "^1.0.0"
+
+web-animation-club@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/web-animation-club/-/web-animation-club-0.6.0.tgz#c1dd79646b21e4265b5f95ae9cb8b93b73e05e47"
+  integrity sha512-9W+EQu1HiaPLe/7WZlhJ2ULqQ4VL80RPDYW+ZcjfTKp6ayOuT1k3SVO6+tu0VBRmOqueJ/mrG+rjjInIv8Aglg==
 
 webidl-conversions@^4.0.2:
   version "4.0.2"

@@ -1,6 +1,6 @@
 #footerMainDiv {
     position: fixed;
-    height: 6vh;
+    height: 8vh;
     width: 100vw;
     bottom: 0;
     background-color: #FF3860;
@@ -10,7 +10,7 @@
 }
 
 #footerMainDiv #footer {
-    height: 6vh;
+    height: 8vh;
     width: 100vw;
     display: flex;
     justify-content: center;

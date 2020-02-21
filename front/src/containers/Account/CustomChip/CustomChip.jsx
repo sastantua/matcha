@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../../api/api'
 
-import { TextField, Chip } from '@material-ui/core';
+import { TextField, Button, Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -26,11 +26,13 @@ const useStyles = makeStyles(theme => ({
 	field: {
 		width: '100%',
 		color: "#000",
+		marginTop: '1em',
 	},
 	chip: {
 		width: '100%',
 		background: '#FF3860',
 		color: "#000",
+		marginTop: '1em',
 	},
 }));
 
@@ -41,7 +43,7 @@ function CustomChip() {
 	const [openHobby, setOpenHobby] = useState(false);
 	const [hobbyList, setHobbyList] = useState([]);
 	const [userHobbyList, setUserHobbyList] = useState([]);
-	// const [newHobbyName, setNewHobbyName] = useState(null);
+	const [newHobbyName, setNewHobbyName] = useState(null);
 
 	// HOBBIES DROPDOWN
 
@@ -97,10 +99,20 @@ function CustomChip() {
 			}))
 	}
 
-	// const createHobby = (e) => {
-	// 	setNewHobbyName(e.target.value);
-	// 	// api.post('/user/hobby', )
-	// }
+	const handleNewHobby = (e) => {
+		setNewHobbyName(e.target.value);
+	}
+
+	const createHobby = () => {
+		api.post('/user/hobby', {hobbies: [newHobbyName]})
+			.then((res => {
+				getHobbyList();
+				console.log(res);
+			}))
+			.catch((err => {
+				console.log(err);
+			}))
+	}
 
 	// Open the orientation dropdown
 	const handleOpenHobby = () => {
@@ -139,7 +151,8 @@ function CustomChip() {
 					</List>
 				</Collapse>
 			</List>
-			<TextField className={classes.field} variant="outlined" placeholder="add hobby" value="" name="createHobby" /*onChange={createHobby}*/ />
+			<TextField className={classes.field} variant="outlined" placeholder="add hobby" value={newHobbyName} name="createHobby" onChange={handleNewHobby} />
+			<Button onClick={createHobby} className={classes.root}>add</Button>
 			{userHobbyList.length && <UserHobbies />}
 		</div>
 	);

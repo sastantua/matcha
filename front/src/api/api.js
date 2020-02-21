@@ -29,4 +29,6 @@ const api = axios.create({ baseURL: 'http://matchapi.guillaumerx.fr' });
 // http://167.172.168.207:7474/browser/
 // match (n)-[r]-() delete n,r
 
+// doc https://stoplight.io/p/docs/gh/guillaumerx/matcha/reference/Base-API.v1.yaml
+
 export default api;
