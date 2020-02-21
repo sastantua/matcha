@@ -1,23 +1,30 @@
-const logErrors = (err, req, res, next) => {
-	console.error(err.stack);
-	next(err);
-};
+import consola from "consola";
 
-const clientErrorHandler = (err, req, res, next) => {
-	if (req.xhr) {
-		res.status(500).send({ error: 'Fatal error' });
-	} else {
-		next(err);
+class ErrorHandler extends Error {
+	constructor(statusCode, message) {
+	  super();
+	  this.statusCode = statusCode;
+	  this.message = message;
+	}
+}
+
+const handleError = (err, req, res, next) => {
+	if (err instanceof ErrorHandler) {
+		consola.error(err.message);
+		const { statusCode, message } = err;
+		res.status(statusCode).json({
+		status: "error",
+		statusCode,
+		message
+		});
+	}
+	else {
+		consola.error(err);
+		res.status(500).json({ status: "error", message: "Internal server error" });
 	}
 };
 
-const errorHandler = (err, req, res, next) => {
-	res.status(500);
-	res.render('error', { error: err });
-};
-
 export {
-	logErrors,
-	clientErrorHandler,
-	errorHandler
+	ErrorHandler,
+	handleError
 };

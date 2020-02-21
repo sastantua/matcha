@@ -4,7 +4,7 @@ export const mode = {READ: neo4j.session.READ, WRITE: neo4j.session.WRITE};
 
 export const session = (mode = mode.READ) => {
 	const driver = neo4j.driver(process.env.DB_URL, neo4j.auth.basic(process.env.DB_USR, process.env.DB_PWD));
-	const session = driver.session({defaultAccessMode: mode})
+	const session = driver.session({defaultAccessMode: mode});
 
 	return {driver, session};
 }
