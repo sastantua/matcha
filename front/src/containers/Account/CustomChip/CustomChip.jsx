@@ -104,7 +104,7 @@ function CustomChip() {
 	}
 
 	const createHobby = () => {
-		api.post('/user/hobby', {hobbies: [newHobbyName]})
+		api.post('/hobby', {name: newHobbyName})
 			.then((res => {
 				getHobbyList();
 				console.log(res);
