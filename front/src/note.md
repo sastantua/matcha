@@ -7,6 +7,10 @@
 		- clean up
 		- check with new accounts
 		- read useEffect
+		
+		import { UserContext } from '../../context/UserContext';
+		
+		const { user, setUser } = useContext(UserContext);
 
 
 
