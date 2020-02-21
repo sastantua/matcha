@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 import api from '../../api/api'
 
@@ -11,12 +11,12 @@ import { Button, TextField } from '@material-ui/core';
 // import logo from '../../media/cerisier.jpg';
 
 import UserImages from './UserImages/UserImages'
-import CustomChip from './CustomChip/CustomChip'
-import LocalisationSlider from './LocalisationSlider/LocalisationSlider'
-import CustomCheckbox from './CustomCheckbox/CustomCheckbox'
+import Birthdate from './Birthdate/Birthdate'
 import GenderDropdown from './GenderDropdown/GenderDropdown'
 import OrientationDropdown from './OrientationDropdown/OrientationDropdown'
-import Birthdate from './Birthdate/Birthdate'
+import Hobby from './Hobby/Hobby'
+import CustomCheckbox from './CustomCheckbox/CustomCheckbox'
+import LocalisationSlider from './LocalisationSlider/LocalisationSlider'
 import SubmitForm from './SubmitForm/SubmitForm'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -35,8 +35,16 @@ const useStyles = makeStyles(theme => ({
 function Account() {
 	const classes = useStyles();
 	
+	const [openHobby, setOpenHobby] = useState(false);
 	const { user, setUser } = useContext(UserContext);
+
+	const dropdowns = {
+		oh: openHobby,
+		soh: setOpenHobby,
+	}
 	
+	console.log(dropdowns);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		api.post('/user/edit', user)
@@ -50,7 +58,7 @@ function Account() {
 	const handleLastname = (e) => {setUser({...user, lastname: e.target.value});}
 	const handleBirthdate = (e) => {setUser({...user, birthdate: e.target.value});}
 	const handleBiography = (e) => {setUser({...user, biography: e.target.value});}
-
+	
 	return (
 		<div id="account-small">
 			<Header />
@@ -65,7 +73,7 @@ function Account() {
 					<Birthdate update={handleBirthdate}/>
 					<GenderDropdown user={user} />
 					<OrientationDropdown user={user} />
-					<CustomChip/>
+					<Hobby dropdowns={dropdowns}/>
 					<CustomCheckbox/>
 					<LocalisationSlider />
 					<SubmitForm />

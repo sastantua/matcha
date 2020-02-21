@@ -12,8 +12,8 @@ import GridListTile from '@material-ui/core/GridListTile';
 import logo from '../../../media/cerisier.jpg';
 import './UserImages.css'
 
-import AwesomeSlider from 'react-awesome-slider';
-import 'react-awesome-slider/dist/styles.css';
+// import AwesomeSlider from 'react-awesome-slider';
+// import 'react-awesome-slider/dist/styles.css';
 
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '1rem',
