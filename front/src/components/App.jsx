@@ -32,7 +32,8 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 
 function App() {
 	const [user, setUser] = useState(null);
-	const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
+	const [stateFunction, setStateFunction] = useState(null);
+	const userMemo = useMemo(() => ({ user, setUser }, {stateFunction, setStateFunction}), [[user, setUser], [stateFunction, setStateFunction]]);
 
 	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;

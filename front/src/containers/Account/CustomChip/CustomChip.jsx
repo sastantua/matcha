@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { StateFunctionContext } from '../../../context/UserContext';
 import api from '../../../api/api'
 
 import { TextField, Button, Chip } from '@material-ui/core';
@@ -44,14 +45,19 @@ function CustomChip() {
 	const [hobbyList, setHobbyList] = useState([]);
 	const [userHobbyList, setUserHobbyList] = useState([]);
 	const [newHobbyName, setNewHobbyName] = useState(null);
-
+	
+	const { stateFunction, setStateFunction } = useContext(StateFunctionContext);
+	setStateFunction({
+		...stateFunction,
+		openHobby: openHobby,
+		setOpenHobby: setOpenHobby,
+	});
 	// HOBBIES DROPDOWN
 
 	useEffect(() => {
 		if (!hobbyList.length) getHobbyList();
 		if (!userHobbyList.length) getUserHobbies();
 	})
-
 
 	// Get hobbies names from back 
 	const getHobbyList = () => {
