@@ -11,7 +11,7 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
-import './CustomChip.css'
+import './Hobby.css'
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -38,20 +38,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-function CustomChip() {
+function Hobby(props) {
 	const classes = useStyles();
 
-	const [openHobby, setOpenHobby] = useState(false);
 	const [hobbyList, setHobbyList] = useState([]);
 	const [userHobbyList, setUserHobbyList] = useState([]);
 	const [newHobbyName, setNewHobbyName] = useState(null);
 	
-	const { stateFunction, setStateFunction } = useContext(StateFunctionContext);
-	setStateFunction({
-		...stateFunction,
-		openHobby: openHobby,
-		setOpenHobby: setOpenHobby,
-	});
 	// HOBBIES DROPDOWN
 
 	useEffect(() => {
@@ -122,7 +115,7 @@ function CustomChip() {
 
 	// Open the orientation dropdown
 	const handleOpenHobby = () => {
-		setOpenHobby(!openHobby);
+		props.dropdowns.soh(!props.dropdowns.oh);
 	};
 	
 	// Create the jsx for the orientation selection list
@@ -149,9 +142,9 @@ function CustomChip() {
 			<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
 				<ListItem button onClick={handleOpenHobby}>
 					<ListItemText primary={"hobbies list"} />
-					{openHobby ? <ExpandLess /> : <ExpandMore />}
+					{props.dropdowns.oh ? <ExpandLess /> : <ExpandMore />}
 				</ListItem>
-				<Collapse in={openHobby} timeout="auto" unmountOnExit>
+				<Collapse in={props.dropdowns.oh} timeout="auto" unmountOnExit>
 					<List component="div" disablePadding>
 						{hobbyList.length && <HobbyList />}
 					</List>
@@ -164,4 +157,4 @@ function CustomChip() {
 	);
 }
 
-export default CustomChip;
+export default Hobby;
