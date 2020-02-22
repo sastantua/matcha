@@ -50,7 +50,7 @@ userRouter.post('/login', async (req, res, next) => {
 		const user = await findByCreditentials(email, password);
 		if (!user) throw new ErrorHandler(401, 'Login failed! Check authentication credentials');
 		user.popularity = await getPopularityScore(user);
-		const location = await getLocation(req.user);
+		const location = await getLocation(user);
 		if (location) user.location = location;
 		let token = await getToken(user);
 		if (!token) token = await generateAuthToken(user);

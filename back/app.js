@@ -14,6 +14,7 @@ import userRouter from './routes/user';
 import genderRouter from './routes/gender';
 import hobbyRouter from './routes/hobby';
 import orientationRouter from './routes/orientation';
+import { getAll } from './models/user';
 
 var app = express();
 
@@ -31,6 +32,8 @@ app.use('/user', userRouter);
 app.use('/gender', genderRouter);
 app.use('/orientation', orientationRouter);
 app.use('/hobby', hobbyRouter);
+
+//getAll();
 
 app.use(handleError)
 
