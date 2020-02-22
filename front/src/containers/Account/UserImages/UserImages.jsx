@@ -14,7 +14,13 @@ import './UserImages.css'
 
 // import AwesomeSlider from 'react-awesome-slider';
 // import 'react-awesome-slider/dist/styles.css';
-import { Slide } from 'react-slideshow-image'
+// import { Slide } from 'react-slideshow-image'
+// import Carousel from 'nuka-carousel';
+// import Slider from "react-slick";
+// import ImageGallery from 'react-image-gallery';
+import Carousel from 'react-material-ui-carousel'
+
+
 
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '1rem',
@@ -50,7 +56,8 @@ function UserImages() {
 	// const { user, setUser } = useContext(UserContext);
 	const [userPictures, setUserPictures] = useState([]);
 	const [selectedFile, setSelectedFile] = useState();
-	
+	const [current, setCurrent] = useState(0);
+
 	// Add a picture in the application state
 	const addPictureFile = (e) => {
 		setSelectedFile({
@@ -123,42 +130,40 @@ function UserImages() {
 	// 	);
 	// }
 	  
-	const properties = {
-		duration: 5000,
-		transitionDuration: 500,
-	}
-
-	const SlideShow = () => {
-		return (
-			<div className="main-container-slide">
-				<Slide {...properties}>
-					<div className="one-slide">
-						<div>
-						{
-							userPictures.map((text, index) =>
-								<img id={`profile-image-${index}`} src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
-							)
-						}
-						</div>
-					</div>
-				</Slide>
-			</div>
-		);
+	// const properties = {
+	// 	duration: 5000,
+	// 	transitionDuration: 500,
+	// }
+	// const SlideShow = () => {
+	// 	return (
+	// 		<div className="main-container-slide">
+	// 			<Slide {...properties}>
+	// 				<div className="one-slide">
+	// 					<div>
+	// 					{
+	// 						userPictures.map((text, index) =>
+	// 							<img id={`profile-image-${index}`} src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
+	// 						)
+	// 					}
+	// 					</div>
+	// 				</div>
+	// 			</Slide>
+	// 		</div>
+	// 	);
+	// }
+	
+	const UserImagesArray = () => {
+		return  (
+			userPictures.map((text, index) =>
+				<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => deleteUserPicture(text._id)}/>
+		));
 	}
 
 	const UserImagesJsx = () => {
 		return (
-			<div className={classes.imageContainerStyle}>
-				<GridList className={classes.imageStyle} cols={3}>
-					{
-						userPictures.map((text, index) =>
-							<GridListTile key={text._id} cols={1}>
-								<img id={`profile-image-${index}`} src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
-							</GridListTile>
-						)
-					}
-				</GridList>
-			</div>
+			<Carousel>
+				<UserImagesArray/>
+			</Carousel>
 		);
 	}
 
@@ -185,7 +190,7 @@ function UserImages() {
 		return (
 		<div id="main-container">
 			<div id="user-images-display-small">
-			{ userPictures.length && <SlideShow /> }
+			{ userPictures.length && <UserImagesJsx /> }
 			</div>
 			<div id="user-images-upload-small">
 				{ userPictures.length < 5 && <InputWrapper type="file" name="file" label="" onChange={addPictureFile} variant="filled"/> }
