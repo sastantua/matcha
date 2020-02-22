@@ -22,12 +22,11 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function GenderDropdown() {
+function GenderDropdown(props) {
 	const classes = useStyles();
 	
 	const [gender, setGender] = useState(null);
     const [genderList, setGenderList] = useState([]);
-	const [openGender, setOpenGender] = useState(false);
 
 	// Get gender names from back 
 	const getGender = () => {
@@ -42,7 +41,9 @@ function GenderDropdown() {
 
 	// Open the gender dropdown
 	const handleOpenGender = () => {
-		setOpenGender(!openGender);
+		props.dropdowns.setOpenGender(!props.dropdowns.openGender);
+		props.dropdowns.openOrientation && props.dropdowns.setOpenOrientation(!props.dropdowns.openOrientation);
+		props.dropdowns.openHobby && props.dropdowns.setOpenHobby(!props.dropdowns.openHobby);
 		if (!genderList.length) {
 			api.get('/gender')
 			.then((res) => {
@@ -82,9 +83,9 @@ function GenderDropdown() {
 		<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
 			<ListItem button onClick={handleOpenGender}>
 				<ListItemText primary={ gender ? gender : "gender" } />
-				{openGender ? <ExpandLess /> : <ExpandMore />}
+				{props.dropdowns.openGender ? <ExpandLess /> : <ExpandMore />}
 			</ListItem>
-			<Collapse in={openGender} timeout="auto" unmountOnExit>
+			<Collapse in={props.dropdowns.openGender} timeout="auto" unmountOnExit>
 				<List component="div" disablePadding>
 					{ genderListJsx }
 				</List>

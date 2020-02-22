@@ -43,7 +43,7 @@ function Hobby(props) {
 
 	const [hobbyList, setHobbyList] = useState([]);
 	const [userHobbyList, setUserHobbyList] = useState([]);
-	const [newHobbyName, setNewHobbyName] = useState(null);
+	const [newHobbyName, setNewHobbyName] = useState("");
 	
 	// HOBBIES DROPDOWN
 
@@ -115,7 +115,9 @@ function Hobby(props) {
 
 	// Open the orientation dropdown
 	const handleOpenHobby = () => {
-		props.dropdowns.soh(!props.dropdowns.oh);
+		props.dropdowns.setOpenHobby(!props.dropdowns.openHobby);
+		props.dropdowns.openGender && props.dropdowns.setOpenGender(!props.dropdowns.openGender);
+		props.dropdowns.openOrientation && props.dropdowns.setOpenOrientation(!props.dropdowns.openOrientation);
 	};
 	
 	// Create the jsx for the orientation selection list
@@ -142,9 +144,9 @@ function Hobby(props) {
 			<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
 				<ListItem button onClick={handleOpenHobby}>
 					<ListItemText primary={"hobbies list"} />
-					{props.dropdowns.oh ? <ExpandLess /> : <ExpandMore />}
+					{props.dropdowns.openHobby ? <ExpandLess /> : <ExpandMore />}
 				</ListItem>
-				<Collapse in={props.dropdowns.oh} timeout="auto" unmountOnExit>
+				<Collapse in={props.dropdowns.openHobby} timeout="auto" unmountOnExit>
 					<List component="div" disablePadding>
 						{hobbyList.length && <HobbyList />}
 					</List>

@@ -35,12 +35,18 @@ const useStyles = makeStyles(theme => ({
 function Account() {
 	const classes = useStyles();
 	
+	const [openGender, setOpenGender] = useState(false);
+	const [openOrientation, setOpenOrientation] = useState(false);	
 	const [openHobby, setOpenHobby] = useState(false);
 	const { user, setUser } = useContext(UserContext);
 
 	const dropdowns = {
-		oh: openHobby,
-		soh: setOpenHobby,
+		openGender: openGender, 
+		setOpenGender: setOpenGender,
+		openOrientation: openOrientation,
+		setOpenOrientation : setOpenOrientation,
+		openHobby: openHobby,
+		setOpenHobby: setOpenHobby,	
 	}
 	
 	console.log(dropdowns);
@@ -71,8 +77,8 @@ function Account() {
 					<InputWrapper variant="outlined" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
 					<TextField placeholder="biography" multiline rows={2} rowsMax={4} value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
 					<Birthdate update={handleBirthdate}/>
-					<GenderDropdown user={user} />
-					<OrientationDropdown user={user} />
+					<GenderDropdown user={user} dropdowns={dropdowns} />
+					<OrientationDropdown user={user} dropdowns={dropdowns}/>
 					<Hobby dropdowns={dropdowns}/>
 					<CustomCheckbox/>
 					<LocalisationSlider />
