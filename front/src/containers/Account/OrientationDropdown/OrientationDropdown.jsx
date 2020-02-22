@@ -22,12 +22,11 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function GenderDropdown() {
+function OrientationDropdown(props) {
 	const classes = useStyles();
 	
 	const [orientation, setOrientation] = useState(null);
 	const [orientationList, setOrientationList] = useState([]);
-	const [openOrientation, setOpenOrientation] = useState(false);	
 
 	// Get orientation names from back
 	const getOrientation = () => {
@@ -42,7 +41,9 @@ function GenderDropdown() {
 		
 	// Open the orientation dropdown
 	const handleOpenOrientation = () => {
-		setOpenOrientation(!openOrientation);
+		props.dropdowns.setOpenOrientation(!props.dropdowns.openOrientation);
+		props.dropdowns.openGender && props.dropdowns.setOpenGender(!props.dropdowns.openGender);
+		props.dropdowns.openHobby && props.dropdowns.setOpenHobby(!props.dropdowns.openHobby);
 		if (!orientationList.length) {
 			api.get('/orientation')
 			.then((res) => {
@@ -82,9 +83,9 @@ function GenderDropdown() {
 			<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
 				<ListItem button onClick={handleOpenOrientation}>
 					<ListItemText primary={ orientation ? orientation : "orientation" } /> 
-					{openOrientation ? <ExpandLess /> : <ExpandMore />}
+					{props.dropdowns.openOrientation ? <ExpandLess /> : <ExpandMore />}
 				</ListItem>
-				<Collapse in={openOrientation} timeout="auto" unmountOnExit>
+				<Collapse in={props.dropdowns.openOrientation} timeout="auto" unmountOnExit>
 					<List component="div" disablePadding>
 						{ orientationListJsx }
 					</List>
@@ -94,4 +95,4 @@ function GenderDropdown() {
 	);
 }
 
-export default GenderDropdown;
+export default OrientationDropdown;
