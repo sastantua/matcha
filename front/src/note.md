@@ -14,6 +14,11 @@
 
 
 
+	faire une div 150px / 150px
+	img height / width = 150px
+	overflow hidden
+
+
 
 
 
