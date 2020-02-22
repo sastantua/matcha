@@ -14,7 +14,6 @@ import './UserImages.css'
 
 // import AwesomeSlider from 'react-awesome-slider';
 // import 'react-awesome-slider/dist/styles.css';
-import { Slide } from 'react-slideshow-image'
 
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '1rem',
@@ -44,6 +43,7 @@ const useStyles = makeStyles({
 	},
 });
 
+function UserImages() {
 function UserImages() {
 	const classes = useStyles();
 	
@@ -123,37 +123,14 @@ function UserImages() {
 	// 	);
 	// }
 	  
-	const properties = {
-		duration: 5000,
-		transitionDuration: 500,
-	}
-
-	const SlideShow = () => {
-		return (
-			<div className="main-container-slide">
-				<Slide {...properties}>
-					<div className="one-slide">
-						<div>
-						{
-							userPictures.map((text, index) =>
-								<img id={`profile-image-${index}`} src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
-							)
-						}
-						</div>
-					</div>
-				</Slide>
-			</div>
-		);
-	}
-
 	const UserImagesJsx = () => {
 		return (
 			<div className={classes.imageContainerStyle}>
 				<GridList className={classes.imageStyle} cols={3}>
 					{
-						userPictures.map((text, index) =>
+						userPictures.map(text =>
 							<GridListTile key={text._id} cols={1}>
-								<img id={`profile-image-${index}`} src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
+								<img src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
 							</GridListTile>
 						)
 					}
@@ -161,22 +138,6 @@ function UserImages() {
 			</div>
 		);
 	}
-
-	// const UserImagesJsx = () => {
-	// 	return (
-	// 		<div className={classes.imageContainerStyle}>
-	// 			<GridList className={classes.imageStyle} cols={3}>
-	// 				{
-	// 					userPictures.map((text, index) =>
-	// 						<GridListTile key={text._id} cols={1}>
-	// 							<img id={`profile-image-${index}`} src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
-	// 						</GridListTile>
-	// 					)
-	// 				}
-	// 			</GridList>
-	// 		</div>
-	// 	);
-	// }
 	// <img src={text.url} alt="alt" key={text.id} className={classes.img} onClick={() => deleteUserPicture(text.id)}/>
 
 	if (!userPictures.length)
@@ -185,7 +146,7 @@ function UserImages() {
 		return (
 		<div id="main-container">
 			<div id="user-images-display-small">
-			{ userPictures.length && <SlideShow /> }
+			{ userPictures.length && <UserImagesJsx /> }
 			</div>
 			<div id="user-images-upload-small">
 				{ userPictures.length < 5 && <InputWrapper type="file" name="file" label="" onChange={addPictureFile} variant="filled"/> }
@@ -196,3 +157,23 @@ function UserImages() {
 }
 
 export default UserImages;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* <img src={logo} id="profile-picture" alt="profile" /> */}
+{/* <form id="image-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}> */}
+	{/* <InputWrapper type="file" label={"profile-picture"} name="profile-picture" onChange={addPicture} variant="outlined"/> */}
+	{/* <input type="file" accept="image/*" id="imageDataFile" name="imageDataFile" style="display: none;"/> */}
+{/* </form> */}
