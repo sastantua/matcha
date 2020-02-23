@@ -1,14 +1,10 @@
-import React from 'react';
-import { useState } from 'react';
-// import { useContext } from 'react';
-// import { UserContext } from '../../../context/UserContext';
+import React, { useState } from 'react';
 import api from '../../../api/api'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField,Button, styled as styledMaterial } from '@material-ui/core';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 
+import Checkbox from '../CustomCheckbox/CustomCheckbox';
 import logo from '../../../media/cerisier.jpg';
 import './UserImages.css'
 
@@ -18,7 +14,12 @@ import './UserImages.css'
 // import Carousel from 'nuka-carousel';
 // import Slider from "react-slick";
 // import ImageGallery from 'react-image-gallery';
-import Carousel from 'react-material-ui-carousel'
+// import Carousel from 'react-material-ui-carousel'
+
+// yarn bug
+// import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+// import Flickity from 'react-flickity-component'
+// import { Carousel } from 'react-responsive-carousel';
 
 
 
@@ -111,61 +112,22 @@ function UserImages() {
 		})
 	}
 
-	// const slider = (
-	// 	  <div data-src="/path/to/image-0.png" />
-	// 	  <div data-src="/path/to/image-1.png" />
-	// 	  <div data-src="/path/to/image-2.jpg" />
-	//   );
-	  
-	//   const UserImagesJsx = () => {
-	// 	return (
-	// 		<AwesomeSlider>
-	// 		{
-	// 			userPictures.map(text =>
-	// 				<div data-src={text.url} />
-	// 				// <img src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
-	// 			)
-	// 		}
-	// 		</AwesomeSlider>
-	// 	);
-	// }
-	  
-	// const properties = {
-	// 	duration: 5000,
-	// 	transitionDuration: 500,
-	// }
-	// const SlideShow = () => {
-	// 	return (
-	// 		<div className="main-container-slide">
-	// 			<Slide {...properties}>
-	// 				<div className="one-slide">
-	// 					<div>
-	// 					{
-	// 						userPictures.map((text, index) =>
-	// 							<img id={`profile-image-${index}`} src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
-	// 						)
-	// 					}
-	// 					</div>
-	// 				</div>
-	// 			</Slide>
-	// 		</div>
-	// 	);
-	// }
-	
 	const UserImagesArray = () => {
-		return  (
+		return (
 			userPictures.map((text, index) =>
-				<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => deleteUserPicture(text._id)}/>
+				<div>
+					<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => deleteUserPicture(text._id)}/>
+					<Checkbox></Checkbox>
+				</div>
 		));
 	}
 
 	const UserImagesJsx = () => {
 		return (
-			<Carousel>
-				<UserImagesArray/>
-			</Carousel>
+			<UserImagesArray/>
 		);
 	}
+
 
 	// const UserImagesJsx = () => {
 	// 	return (
@@ -190,7 +152,7 @@ function UserImages() {
 		return (
 		<div id="main-container">
 			<div id="user-images-display-small">
-			{ userPictures.length && <UserImagesJsx /> }
+				{ userPictures.length && <UserImagesJsx /> }
 			</div>
 			<div id="user-images-upload-small">
 				{ userPictures.length < 5 && <InputWrapper type="file" name="file" label="" onChange={addPictureFile} variant="filled"/> }

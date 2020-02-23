@@ -8,11 +8,6 @@
 		- check with new accounts
 		- read useEffect
 		
-		import { UserContext } from '../../context/UserContext';
-		
-		const { user, setUser } = useContext(UserContext);
-
-
 
 	faire une div 150px / 150px
 	img height / width = 150px
@@ -20,13 +15,9 @@
 
 
 
-
-
 	Account
 		- pictures
-		- interets
 		- localisation
-		- proteger upload sans picture
 
 	Match:
 		- getuserinfo
@@ -41,15 +32,12 @@
 	Components:
 		- switch button	https://material-ui.com/components/switches/
 		- picture list https://material-ui.com/components/grid-list/
-		- calendar https://material-ui.com/components/pickers/
 
 	Others:
-		- changer la couleur des textfields
-		- utiliser la snackbar de material ui ?
+		- faire un carousel pour les photos
 		- faire la vue mobile signup
 		- faire la vue mobile login
-
-		- multipart form data (tuto photo react)
+		- utiliser la snackbar de material ui ?
 
 
 	Ask Guillaume:

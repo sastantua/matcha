@@ -49,8 +49,6 @@ function Account() {
 		setOpenHobby: setOpenHobby,	
 	}
 	
-	console.log(dropdowns);
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		api.post('/user/edit', user)
