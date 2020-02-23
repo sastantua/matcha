@@ -18,6 +18,7 @@ export const newUser = async () => {
 
 	const user = {
 		main: {
+			_id: undefined,
 			firstname: firstname,
 			lastname: lastname,
 			username: faker.internet.userName(firstname, lastname),
@@ -45,20 +46,28 @@ export const newUser = async () => {
 
 const toDb = async (user) => {
 	user.main._id = await registerUser(user.main);
-	console.log(user.main._id);
-	await editUser({_id: user.main._id, birthdate: user.main.birthdate, biography: user.main.biography});
+	await editNewUser(user);
+}
+
+const editNewUser = async (user) => {
 	await setGender(user.main, user.other.gender);
 	await setOrientation(user.main, user.other.orientation);
 	await setHobbies(user.main, [user.other.hobbies]);
 	await savePicture(user.main, user.other.picture.url, user.other.picture.name);
 	await setLocation(user.main, user.other.location);
+	await editUser({"_id": user.main._id, birthdate: user.main.birthdate, biography: user.main.biography});
 }
 
 const generate = async (amount) => {
 	for (let i = 0; i < amount; i++) {
-		await toDb(await newUser());
+		const user = await newUser()
+		await toDb(user);
 		consola.info(`Generated ${i + 1} users`);
 	}
 }
 
+generate(50);
+generate(50);
+generate(50);
+generate(50);
 generate(50);
