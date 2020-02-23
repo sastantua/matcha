@@ -91,7 +91,7 @@ export const getHobby = async (name) => {
 
 export const setHobbies = async (user, hobbies) => {
 	const dbSession = session(mode.WRITE);
-	const query = 'MATCH (u:User) WHERE u._id = $userId MATCH (h:Hobby) WHERE h._id = $hobbyId CREATE (h)-[:LIKE]->(u)';
+	const query = 'MATCH (u:User) WHERE u._id = $userId MATCH (h:Hobby) WHERE h._id = $hobbyId CREATE (u)-[:LIKE]->(h)';
 	const dbHobbies = await getHobbies(user);
 	var found = false;
 

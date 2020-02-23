@@ -30,11 +30,19 @@ export const newUser = async () => {
 		other: {
 			gender: genders[Math.floor(Math.random() * genders.length)]._id,
 			orientation: orientations[Math.floor(Math.random() * orientations.length)]._id,
-			hobbies: hobbies[Math.floor(Math.random() * hobbies.length)]._id,
-			picture: {
-				url: faker.image.avatar(),
-				name: faker.system.fileName("jpg")
-			},
+			hobbies: [
+				hobbies[Math.floor(Math.random() * hobbies.length)]._id,
+				hobbies[Math.floor(Math.random() * hobbies.length)]._id,
+				hobbies[Math.floor(Math.random() * hobbies.length)]._id,
+				hobbies[Math.floor(Math.random() * hobbies.length)]._id
+			],
+			pictures: [
+				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") },
+				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") },
+				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") },
+				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") },
+				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") }
+			],
 			location: {
 				lat: faker.address.latitude(),
 				lng: faker.address.longitude(),
@@ -51,9 +59,12 @@ const toDb = async (user) => {
 
 const editNewUser = async (user) => {
 	await setGender(user.main, user.other.gender);
+	await setGender(user.main, user.other.gender);
 	await setOrientation(user.main, user.other.orientation);
-	await setHobbies(user.main, [user.other.hobbies]);
-	await savePicture(user.main, user.other.picture.url, user.other.picture.name);
+	await setHobbies(user.main, user.other.hobbies);
+	for (let picture of user.other.pictures){
+		await savePicture(user.main, picture.url, picture.name);
+	}
 	await setLocation(user.main, user.other.location);
 	await editUser({"_id": user.main._id, birthdate: user.main.birthdate, biography: user.main.biography});
 }
@@ -66,8 +77,4 @@ const generate = async (amount) => {
 	}
 }
 
-generate(50);
-generate(50);
-generate(50);
-generate(50);
 generate(50);

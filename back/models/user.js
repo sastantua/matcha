@@ -6,6 +6,8 @@ import { Date } from 'neo4j-driver'
 
 import { mode, session, closeBridge } from '../middleware/session';
 import { toBirthdate } from './match';
+import { makeQuery } from './utils';
+import { getOrientation } from './orientation';
 
 export const userExists = async (user) => {
 	const dbSession = session(mode.READ);
@@ -89,7 +91,7 @@ export const getToken = async (user) => {
 export const generateAuthToken = async (user) => {
 	const dbSession = session(mode.WRITE);
 	const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY)
-	const query = 'MATCH (u:User) WHERE u._id = $_id CREATE (t:Token {token: $token}) MERGE (t)-[:AUTH]->(u)';
+	const query = 'MATCH (u:User) WHERE u._id = $_id CREATE (t:Token {token: $token}) MERGE (u)-[:AUTH]->(t)';
 
 	await dbSession.session.run(query, { _id: user._id, token: token }).then(res => closeBridge(dbSession))
 		.catch(e => console.log(e));
@@ -228,41 +230,33 @@ export const getPopularityScore = async (user) => {
 	return score / 100;
 }
 
-export const getAll = async (params = undefined) => {
+export const getByOrientation = async (user) => {
 	const dbSession = session(mode.READ);
-	let ageString = undefined;
-	let popularityQuery = undefined;
-	if (params) {
-		if (params.age) {
-			ageString = `${toBirthdate(params.age.min)} <= u.birthdate <= ${toBirthdate(params.age.max)}`;
-		}
-		if (params.orientation) {
-			const matchQuery = 'MATCH (o:Orientation {_id: $_id})-[:ATTRACT]-(u:User)'
-		} else {
-			const matchQuery = 'MATCH (u:User)'
-		}
-		if (params.popularity) {
-			popularityQuery = `${params.popularity.min} <= u.popularity <= ${params.popularity.max}`;
-		}
-	}
-	const matchQuery = 'MATCH (u:User)'
+	const orientation = await getOrientation(user);
 	const query =
-		`${matchQuery} ${ageString ? `WHERE ${ageString} ${params.popularity ? `AND ${popularityQuery}` : ''}` : `${popularityQuery ? `WHERE ${popularityQuery}` : ''}`}
-		OPTIONAL MATCH (u)-[:LOCATION]-(l)
-		OPTIONAL MATCH (u)-[:LIKE]-(h)
-		RETURN u,l,h
-		`
-	let users = await dbSession.session.run(query, params).then(res => {
+	`MATCH (u:User)-[:ATTRACT]-(o) WHERE o._id = $orientation
+	MATCH (u)-[:TYPE]-(t)
+	MATCH (u)-[:LIKE]-(h)
+	MATCH (u)-[:PIC]-(p)
+	MATCH (u)-[:LOCATION]-(l)
+	RETURN DISTINCT u,t,h,p,l`
+	let users = await dbSession.session.run(query, {orientation: orientation._id}).then(res => {
 		closeBridge(dbSession)
 		let users = []
 		res.records.map(record => {
+			let user = undefined;
 			console.log(record._fields);
-			if (record._fields.length ==  3) { 
-				const user = record._fields[0].properties;
-				delete user.password;
-				delete user.email;
-				console.log(user);
-			}
+			record._fields.map(field => {
+			// 	switch (field.labels[0]) {
+			// 		case 'User' :
+			// 			user = field.properties;
+			// 			break;
+			// 		default :
+			// 			user[field.labels[0]] = field.properties;
+			// }
+			//users.push(user);
+		});
+		return users;
 		})
 	}).catch(e => console.log(e));
 }

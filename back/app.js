@@ -14,7 +14,7 @@ import userRouter from './routes/user';
 import genderRouter from './routes/gender';
 import hobbyRouter from './routes/hobby';
 import orientationRouter from './routes/orientation';
-import { getAll } from './models/user';
+import { getByOrientation } from './models/user';
 
 var app = express();
 
@@ -33,7 +33,7 @@ app.use('/gender', genderRouter);
 app.use('/orientation', orientationRouter);
 app.use('/hobby', hobbyRouter);
 
-//getAll();
+getByOrientation({"_id": "1ab3ede0-5685-11ea-9d66-7dd64cf7db67"});
 
 app.use(handleError)
 
