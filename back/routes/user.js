@@ -4,7 +4,7 @@ import fs from 'fs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore } from '../models/user';
+import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture } from '../models/user';
 import { getGender, setGender, verifyGender} from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby} from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
@@ -211,6 +211,17 @@ userRouter.delete('/picture', auth, async (req, res, next) => {
 		await deletePicture(picture_id);
 		res.status(200).send();
 	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.post('/profile', auth, async (req, res, next) => {
+	try {
+		const { _id } = req.body;
+		if (!_id) throw new ErrorHandler(400, 'Missing required field');
+		if (!await setAsProfilePicture(req.user, _id)) throw new ErrorHandler(400, 'This picture does not exist');
+		res.status(204).send();
+	} catch(err) {
 		next(err);
 	}
 })

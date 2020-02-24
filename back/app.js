@@ -33,7 +33,7 @@ app.use('/gender', genderRouter);
 app.use('/orientation', orientationRouter);
 app.use('/hobby', hobbyRouter);
 
-getByOrientation({"_id": "1ab3ede0-5685-11ea-9d66-7dd64cf7db67"});
+//getByOrientation({"_id": "1ab3ede0-5685-11ea-9d66-7dd64cf7db67"});
 
 app.use(handleError)
 

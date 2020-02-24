@@ -186,8 +186,8 @@ export const getPictures = async (user) => {
 		const pictures = [];
 		if (res.records.length) {
 			for (let record of res.records) {
-				let { _id, url, name } = record._fields[0].properties;
-				const picture = { _id, url, name };
+				let { _id, url, name, isPP } = record._fields[0].properties;
+				const picture = { _id, url, name, isPP };
 				pictures.push(picture);
 			}
 			return pictures;
@@ -200,16 +200,57 @@ export const getPictures = async (user) => {
 export const savePicture = async (user, picture_url, picture_name) => {
 	const dbSession = session(mode.WRITE);
 	const values = { _uid: user._id, _id: uuidv1(), url: picture_url, name: picture_name };
-	const query = 'MATCH (u:User) WHERE u._id = $_uid CREATE (p:Picture {_id: $_id, url: $url, name: $name}) MERGE (p)-[:PIC]->(u) RETURN p';
+	const query = 'MATCH (u:User) WHERE u._id = $_uid CREATE (p:Picture {_id: $_id, url: $url, name: $name, isPP: false}) MERGE (p)-[:PIC]->(u) RETURN p';
 
 	const picture = await dbSession.session.run(query, values).then(res => {
 		closeBridge(dbSession)
-		const { _id, url, name } = res.records[0]._fields[0].properties;
-		const picture = { _id, url, name }
+		const { _id, url, name, isPP } = res.records[0]._fields[0].properties;
+		const picture = { _id, url, name, isPP }
 		return picture
 	}).catch(e => console.log(e));
 
 	return picture;
+}
+
+const pictureExists = (pictures, picture_id) => {
+	for (let picture of pictures) {
+		if (picture._id == picture_id) return true;
+	}
+	return false;
+}
+
+const userHasProfilePicture = (pictures) => {
+	for (let picture in pictures) {
+		if (picture.isPP) return picture._id
+	}
+	return false
+}
+
+const unsetPicture = async (picture_id) => {
+	const dbSession = session(mode.WRITE);
+	const query = 'MATCH (p:Picture) WHERE p._id = $picture_id SET p += {isPP: false}';
+	
+	await dbSession.session.run(query, { picture_id }).then(res => closeBridge(dbSession))
+	.catch(e => console.log(e));
+}
+
+const setPicture = async (picture_id) => {
+	const dbSession = session(mode.WRITE);
+	const query = 'MATCH (p:Picture) WHERE p._id = $picture_id SET p += {isPP: true}';
+	
+	await dbSession.session.run(query, { picture_id }).then(res => closeBridge(dbSession))
+	.catch(e => console.log(e));
+}
+
+export const setAsProfilePicture = async (user, picture_id) => {
+	const pictures = await getPictures(user);
+	if (!pictureExists(pictures, picture_id)) return false;
+	const actualPicture = userHasProfilePicture(pictures);
+
+	if (actualPicture) await unsetPicture(actualPicture);
+	await setPicture(picture_id);
+
+	return true;
 }
 
 export const deletePicture = async (picture_id) => {
@@ -233,13 +274,7 @@ export const getPopularityScore = async (user) => {
 export const getByOrientation = async (user) => {
 	const dbSession = session(mode.READ);
 	const orientation = await getOrientation(user);
-	const query =
-	`MATCH (u:User)-[:ATTRACT]-(o) WHERE o._id = $orientation
-	MATCH (u)-[:TYPE]-(t)
-	MATCH (u)-[:LIKE]-(h)
-	MATCH (u)-[:PIC]-(p)
-	MATCH (u)-[:LOCATION]-(l)
-	RETURN DISTINCT u,t,h,p,l`
+	const query = `MATCH (u:User)-[:ATTRACT]-(o) WHERE o._id = $orientation RETURN u`
 	let users = await dbSession.session.run(query, {orientation: orientation._id}).then(res => {
 		closeBridge(dbSession)
 		let users = []
@@ -256,6 +291,7 @@ export const getByOrientation = async (user) => {
 			// }
 			//users.push(user);
 		});
+		console.log('---------------------')
 		return users;
 		})
 	}).catch(e => console.log(e));
