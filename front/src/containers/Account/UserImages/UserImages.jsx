@@ -7,6 +7,7 @@ import { TextField,Button, styled as styledMaterial } from '@material-ui/core';
 import Actions from './Actions/Actions';
 import logo from '../../../media/cerisier.jpg';
 import './UserImages.css'
+import 'flickity/css/flickity.css'
 
 // import AwesomeSlider from 'react-awesome-slider';
 // import 'react-awesome-slider/dist/styles.css';
@@ -113,16 +114,23 @@ function UserImages() {
 			console.log(err);
 		})
 	}
-	
+
 	const UserImagesArray = () => {
 		return (
 			userPictures.map((text, index) =>
-				<div>
-					<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => deleteUserPicture(text._id)}/>
-					<Actions></Actions>
-				</div>
+				<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name}/>
 		));
 	}
+
+	// const UserImagesArray = () => {
+	// 	return (
+	// 		userPictures.map((text, index) =>
+	// 			<div>
+	// 				<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => deleteUserPicture(text._id)}/>
+	// 				<Actions></Actions>
+	// 			</div>
+	// 	));
+	// }
 
 
 	const flickityOptions = {
@@ -166,7 +174,7 @@ function UserImages() {
 		getUserPictures();
 
 		return (
-		<div id="main-container">
+		<div id="container-user-image-small">
 			<div id="user-images-display-small">
 				{ userPictures.length && <UserImagesJsx /> }
 			</div>
