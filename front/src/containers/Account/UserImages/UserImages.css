@@ -1,13 +1,13 @@
-#main-container {
+#container-user-image-small {
     
 }
 
-#main-container #user-images-display-small {
+#container-user-image-small #user-images-display-small {
     display: flex;
     flex-direction: column;
 }
 
-#main-container #user-images-upload-small {
+#container-user-image-small #user-images-upload-small {
     display: flex;
     flex-direction: column;
     margin-top: 2em;
