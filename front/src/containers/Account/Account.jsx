@@ -15,7 +15,6 @@ import Birthdate from './Birthdate/Birthdate'
 import GenderDropdown from './GenderDropdown/GenderDropdown'
 import OrientationDropdown from './OrientationDropdown/OrientationDropdown'
 import Hobby from './Hobby/Hobby'
-import CustomCheckbox from './CustomCheckbox/CustomCheckbox'
 import LocalisationSlider from './LocalisationSlider/LocalisationSlider'
 import SubmitForm from './SubmitForm/SubmitForm'
 
@@ -78,7 +77,6 @@ function Account() {
 					<GenderDropdown user={user} dropdowns={dropdowns} />
 					<OrientationDropdown user={user} dropdowns={dropdowns}/>
 					<Hobby dropdowns={dropdowns}/>
-					<CustomCheckbox/>
 					<LocalisationSlider />
 					<SubmitForm />
 				</form>
