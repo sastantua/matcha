@@ -12,7 +12,7 @@ function Homepage() {
 		return (
 			<div id="homepage-large">
 				<Header/>
-					<div id="main-container">
+					<div id="homepage-main-container">
 						<h1>Matcha</h1>
 						<p>Protect yourself</p>
 						<img src={logo} alt="funnypic"/>
@@ -25,7 +25,7 @@ function Homepage() {
 		return (
 			<div id="homepage-medium">
 				<Header/>
-					<div id="main-container">
+					<div id="homepage-main-container">
 						<h1>Matcha</h1>
 						<p>Protect yourself</p>
 						<img src={logo} alt="funnypic"/>
@@ -39,7 +39,7 @@ function Homepage() {
 		return (
 			<div id="homepage-small">
 				<Header/>
-				<div id="main-container">
+				<div id="homepage-main-container">
 					<h1>Matcha</h1>
 					<p>Protect yourself</p>
 					<img src={logo} alt="funnypic"/>

@@ -1,5 +1,6 @@
 #container-user-image-small {
-    
+    display: flex;
+    flex-direction: column;    
 }
 
 #container-user-image-small #user-images-display-small {
@@ -7,8 +8,17 @@
     flex-direction: column;
 }
 
+#container-user-image-small #user-images-actions-small {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5em;
+}
+
 #container-user-image-small #user-images-upload-small {
     display: flex;
     flex-direction: column;
-    margin-top: 2em;
+    margin-top: 4em;
 }
+

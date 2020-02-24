@@ -1,11 +1,11 @@
-#main-container {
+#actions-main-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-#main-container #set-as-profile {
+#actions-main-container #set-as-profile {
     display: flex;
     flex-direction: row;
     justify-content: center;

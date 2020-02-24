@@ -39,23 +39,24 @@
 	/* background-color: #eb3349; */
 }
 
-#account-small #main-container {
+#account-small #account-main-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	overflow: scroll;
 }
-#account-small #main-container #profile-picture {
+
+#account-small #account-main-container #profile-picture {
 	/* width: 12em; */
 	/* height: 12em; */
 }
 
-#account-small #main-container #profile-picture:hover {
+#account-small #account-main-container #profile-picture:hover {
 	opacity: 0.8;
 }
 
-#account-small #main-container #edit-form {
+#account-small #account-main-container #edit-form {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
