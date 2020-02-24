@@ -4,7 +4,7 @@ import api from '../../../api/api'
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField,Button, styled as styledMaterial } from '@material-ui/core';
 
-import Checkbox from '../CustomCheckbox/CustomCheckbox';
+import Actions from './Actions/Actions';
 import logo from '../../../media/cerisier.jpg';
 import './UserImages.css'
 
@@ -16,9 +16,11 @@ import './UserImages.css'
 // import ImageGallery from 'react-image-gallery';
 // import Carousel from 'react-material-ui-carousel'
 
-// yarn bug
-// import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
-// import Flickity from 'react-flickity-component'
+// pure-react-carousel very bad freeze window
+// import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel'; 
+
+import FlickityComponent from 'react-flickity-component'
+
 // import { Carousel } from 'react-responsive-carousel';
 
 
@@ -111,20 +113,34 @@ function UserImages() {
 			console.log(err);
 		})
 	}
-
+	
 	const UserImagesArray = () => {
 		return (
 			userPictures.map((text, index) =>
 				<div>
 					<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => deleteUserPicture(text._id)}/>
-					<Checkbox></Checkbox>
+					<Actions></Actions>
 				</div>
 		));
 	}
 
+
+	const flickityOptions = {
+    	initialIndex: 2
+	}
+
 	const UserImagesJsx = () => {
 		return (
+			<FlickityComponent
+				className={'carousel'} // default ''
+				elementType={'div'} // default 'div'
+				options={flickityOptions} // takes flickity options {}
+				disableImagesLoaded={false} // default false
+				reloadOnUpdate // default false
+				static // default false
+			>
 			<UserImagesArray/>
+		  </FlickityComponent>
 		);
 	}
 

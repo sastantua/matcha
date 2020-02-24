@@ -70,7 +70,7 @@ function Hobby(props) {
 	const getUserHobbies = () => {
 		api.get('/user/hobby')
 			.then((res) => {
-				console.log(res.data);
+				// console.log(res.data);
 				setUserHobbyList(res.data);
 			})
 			.catch((err) => {
