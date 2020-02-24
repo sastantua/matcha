@@ -1,30 +1,17 @@
 import React, { useState } from 'react';
+import styled from 'styled-components'
 import api from '../../../api/api'
 
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField,Button, styled as styledMaterial } from '@material-ui/core';
+import { TextField, Button, styled as styledMaterial} from '@material-ui/core';
 
-import Actions from './Actions/Actions';
-import logo from '../../../media/cerisier.jpg';
-import './UserImages.css'
-import 'flickity/css/flickity.css'
-
-// import AwesomeSlider from 'react-awesome-slider';
-// import 'react-awesome-slider/dist/styles.css';
-// import { Slide } from 'react-slideshow-image'
-// import Carousel from 'nuka-carousel';
-// import Slider from "react-slick";
-// import ImageGallery from 'react-image-gallery';
-// import Carousel from 'react-material-ui-carousel'
-
-// pure-react-carousel very bad freeze window
-// import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel'; 
-
+// import Actions from './Actions/Actions';
+// import logo from '../../../media/cerisier.jpg';
 import FlickityComponent from 'react-flickity-component'
+import 'flickity/css/flickity.css'
+import 'flickity-fullscreen/fullscreen.css'
 
-// import { Carousel } from 'react-responsive-carousel';
-
-
+import './UserImages.css'
 
 const InputWrapper = styledMaterial(TextField)({
 	fontSize: '1rem',
@@ -51,8 +38,18 @@ const useStyles = makeStyles({
 	}, imageStyle: {
 		// width: 500,
 		// height: 450,
-	},
+	}, actions: {
+		background: '#FF3860',
+	}
 });
+
+const ButtonContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 5em;
+`
 
 function UserImages() {
 	const classes = useStyles();
@@ -60,7 +57,6 @@ function UserImages() {
 	// const { user, setUser } = useContext(UserContext);
 	const [userPictures, setUserPictures] = useState([]);
 	const [selectedFile, setSelectedFile] = useState();
-	const [current, setCurrent] = useState(0);
 
 	// Add a picture in the application state
 	const addPictureFile = (e) => {
@@ -117,67 +113,53 @@ function UserImages() {
 
 	const UserImagesArray = () => {
 		return (
-			userPictures.map((text, index) =>
+			userPictures.map((text, index) => 
 				<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name}/>
 		));
 	}
 
-	// const UserImagesArray = () => {
-	// 	return (
-	// 		userPictures.map((text, index) =>
-	// 			<div>
-	// 				<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => deleteUserPicture(text._id)}/>
-	// 				<Actions></Actions>
-	// 			</div>
-	// 	));
-	// }
-
-
 	const flickityOptions = {
-    	initialIndex: 2
+		initialIndex: 2,
+		draggable: '>1',
+		freeScroll: false,
+		wrapAround: false,
+		groupCells: true,
+		autoPlay: 6000,
+		fullscreen: true,
+		adaptiveHeight: true,
+		imagesLoaded: true,
+		lazyLoad: true,
+		prevNextButtons: true,
+		pageDots: true,
+		fade: false,
+		arrowShape: { 
+			x0: 10,
+			x1: 60, y1: 50,
+			x2: 70, y2: 40,
+			x3: 30
+		}
 	}
 
 	const UserImagesJsx = () => {
 		return (
-			<FlickityComponent
-				className={'carousel'} // default ''
-				elementType={'div'} // default 'div'
-				options={flickityOptions} // takes flickity options {}
-				disableImagesLoaded={false} // default false
-				reloadOnUpdate // default false
-				static // default false
-			>
-			<UserImagesArray/>
-		  </FlickityComponent>
+			<FlickityComponent className={'carousel'} elementType={'div'} options={flickityOptions} disableImagesLoaded={false} reloadOnUpdate={false} static={false}>
+				<UserImagesArray/>
+			</FlickityComponent>
 		);
 	}
-
-
-	// const UserImagesJsx = () => {
-	// 	return (
-	// 		<div className={classes.imageContainerStyle}>
-	// 			<GridList className={classes.imageStyle} cols={3}>
-	// 				{
-	// 					userPictures.map((text, index) =>
-	// 						<GridListTile key={text._id} cols={1}>
-	// 							<img id={`profile-image-${index}`} src={text.url} alt={text.name} onClick={() => deleteUserPicture(text._id)}/>
-	// 						</GridListTile>
-	// 					)
-	// 				}
-	// 			</GridList>
-	// 		</div>
-	// 	);
-	// }
-	// <img src={text.url} alt="alt" key={text.id} className={classes.img} onClick={() => deleteUserPicture(text.id)}/>
 
 	if (!userPictures.length)
 		getUserPictures();
 
-		return (
+	return (
 		<div id="container-user-image-small">
 			<div id="user-images-display-small">
 				{ userPictures.length && <UserImagesJsx /> }
 			</div>
+			<ButtonContainer>
+				<Button type="button" className={classes.actions}>set as profile</Button> 
+				<Button type="button" className={classes.actions}>delete</Button> 
+			</ButtonContainer>
 			<div id="user-images-upload-small">
 				{ userPictures.length < 5 && <InputWrapper type="file" name="file" label="" onChange={addPictureFile} variant="filled"/> }
 				{ userPictures.length < 5 && <Button type="button" className={classes.root} onClick={uploadPicture}>Upload</Button> }

@@ -19,7 +19,7 @@ function Match() {
 	return (
 		<div id="match-small">
 			<Header />
-			<Paper id="main-container" component='div'>
+			<Paper id="match-main-container" component='div'>
 				<img src={logo} id="profile-picture" alt="profile-picture"/>
 				<Typography id="username">Nico</Typography>
 				<Typography id="bio">

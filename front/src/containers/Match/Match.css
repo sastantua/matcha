@@ -11,7 +11,7 @@
 	background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
 }
 
-#match-small #main-container {
+#match-small #match-main-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -25,34 +25,34 @@
 	padding-bottom: 0.5em;
 }
 
-#match-small #main-container #profile-picture {
+#match-small #match-main-container #profile-picture {
 	width: 12em;
 	height: 12em;
 }
 
-#match-small #main-container #profile-picture:hover {
+#match-small #match-main-container #profile-picture:hover {
 	opacity: 0.8;
 }
 
-#match-small #main-container #username {
+#match-small #match-main-container #username {
 	align-self: start;
 	margin-top: 0.5vh;
 	margin-left: 4vw;
 }
 
-#match-small #main-container #bio {
+#match-small #match-main-container #bio {
 	max-width: 20em;
 	font-size: 8px;
 }
 
-#match-small #main-container #button-container {
+#match-small #match-main-container #button-container {
 	display: flex;
 	flex-direction: row;
 	margin-top: 1.5em;
 	margin-bottom: 1em;
 }
 
-#match-small #main-container #button-container .icon-btn {
+#match-small #match-main-container #button-container .icon-btn {
 	margin-left: 1.5em;
 }
 

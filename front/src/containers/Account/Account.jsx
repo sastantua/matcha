@@ -65,7 +65,7 @@ function Account() {
 	return (
 		<div id="account-small">
 			<Header />
-			<div id="main-container" className={classes.root}>
+			<div id="account-main-container" className={classes.root}>
 				<UserImages />
 				<form id="edit-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<InputWrapper variant="outlined" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>

@@ -17,7 +17,7 @@ function Actions() {
 	}
 
 	return (
-		<div id="main-container">
+		<div id="actions-main-container">
 			<div id="set-as-profile">
 				<TextWrapper id="placeholder">set as profile</TextWrapper>
 				<Checkbox id="checkbox" checked={isProfilePicture} onChange={handleIsProfilePicture} value="test" />
