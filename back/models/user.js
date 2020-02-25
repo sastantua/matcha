@@ -8,6 +8,8 @@ import { mode, session, closeBridge } from '../middleware/session';
 import { toBirthdate } from './match';
 import { makeQuery } from './utils';
 import { getOrientation } from './orientation';
+import { getHobbies } from './hobby';
+import { getGender } from './gender';
 
 export const userExists = async (user) => {
 	const dbSession = session(mode.READ);
@@ -271,28 +273,48 @@ export const getPopularityScore = async (user) => {
 	return score / 100;
 }
 
+const cleanList = (users, gender, orientation) => {
+	switch (orientation) {
+		case 'straight' :
+			if (gender == 'male') users = users.filter(user => user.gender.name === 'female');
+			if (gender == 'female') users = users.filter(user => user.gender.name === 'male');
+			break;
+		case 'gay' :
+			if (gender == 'male') users = users.filter(user => user.gender.name === 'male');
+			if (gender == 'female') users = users.filter(user => user.gender.name === 'female');
+	}
+	return users;
+}
+
 export const getByOrientation = async (user) => {
 	const dbSession = session(mode.READ);
 	const orientation = await getOrientation(user);
-	const query = `MATCH (u:User)-[:ATTRACT]-(o) WHERE o._id = $orientation RETURN u`
-	let users = await dbSession.session.run(query, {orientation: orientation._id}).then(res => {
+	const gender = await getGender(user);
+	const query =
+	`MATCH (u:User)-[:ATTRACT]-(o) WHERE o._id = $orientation RETURN u`
+	var users = await dbSession.session.run(query, {orientation: orientation._id}).then(res => {
 		closeBridge(dbSession)
 		let users = []
 		res.records.map(record => {
 			let user = undefined;
-			console.log(record._fields);
 			record._fields.map(field => {
-			// 	switch (field.labels[0]) {
-			// 		case 'User' :
-			// 			user = field.properties;
-			// 			break;
-			// 		default :
-			// 			user[field.labels[0]] = field.properties;
-			// }
-			//users.push(user);
-		});
-		console.log('---------------------')
-		return users;
+				switch (field.labels[0]) {
+					case 'User' :
+						user = field.properties;
+						break;
+					default :
+						user[field.labels[0].toLowerCase()] = field.properties;
+				}
+				users.push(user);
+			});
 		})
+		return users;
 	}).catch(e => console.log(e));
+	for (let aUser of users) {
+		aUser.gender = await getGender(aUser);
+		aUser.hobbies = await getHobbies(aUser);
+		aUser.pictures = await getPictures(aUser);
+	}
+	users = cleanList(users, gender.name, orientation.name);
+	console.log(users);
 }

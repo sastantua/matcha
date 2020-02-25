@@ -1,11 +1,10 @@
-import faker from 'faker/locale/fr';
-import { retriveGenders, setGender, getGender } from '../models/gender';
+import faker from 'faker';
+import { retriveGenders, setGender} from '../models/gender';
 import { retriveOrientations, setOrientation } from '../models/orientation';
 import { retriveHobbies, setHobbies } from '../models/hobby';
 
 import 'dotenv/config';
 import { registerUser, savePicture, setLocation, editUser } from '../models/user';
-import uuidv1 from 'uuid/v1';
 import consola from 'consola';
 
 export const newUser = async () => {
@@ -13,8 +12,9 @@ export const newUser = async () => {
 	const orientations = await retriveOrientations();
 	const hobbies = await retriveHobbies();
 
-	let firstname = faker.name.firstName();
-	let lastname = faker.name.lastName();
+	let gender = genders[Math.floor(Math.random() * genders.length)]
+	let firstname = faker.name.firstName(gender.name === 'male' ? 0 : 1);
+	let lastname = faker.name.lastName(gender.name === 'male' ? 0 : 1);
 
 	const user = {
 		main: {
@@ -28,7 +28,7 @@ export const newUser = async () => {
 			biography: faker.lorem.paragraph()
 		},
 		other: {
-			gender: genders[Math.floor(Math.random() * genders.length)]._id,
+			gender: gender._id,
 			orientation: orientations[Math.floor(Math.random() * orientations.length)]._id,
 			hobbies: [
 				hobbies[Math.floor(Math.random() * hobbies.length)]._id,

@@ -17,8 +17,6 @@ export const generateGenders = async () => {
 	const genders = [
 		{ _id: uuidv1(), name: 'male' },
 		{ _id: uuidv1(), name: 'female' },
-		{ _id: uuidv1(), name: 'alien' },
-		{ _id: uuidv1(), name: 'helicopter' }
 	]
 	const dbGenders =  await retriveGenders();
 	
@@ -51,9 +49,7 @@ export const generateOrientations = async () => {
 	const orientations = [
 		{ _id: uuidv1(), name: 'gay' },
 		{ _id: uuidv1(), name: 'straight' },
-		{ _id: uuidv1(), name: 'bisexual' },
-		{ _id: uuidv1(), name: 'asexual' },
-		{ _id: uuidv1(), name: 'pansexual' }
+		{ _id: uuidv1(), name: 'bisexual' }
 	]
 	const dbOrientations = await retriveOrientations();
 	if (!dbOrientations.length) {
