@@ -2,8 +2,6 @@
 
 
 	Objectif du jour:
-		- picture grid
-		- hobbies handling
 		- clean up
 		- check with new accounts
 		- read useEffect

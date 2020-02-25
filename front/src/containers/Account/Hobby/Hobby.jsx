@@ -150,13 +150,13 @@ function Hobby(props) {
 				</ListItem>
 				<Collapse in={props.dropdowns.openHobby} timeout="auto" unmountOnExit>
 					<List component="div" disablePadding>
-						{hobbyList.length && <HobbyList />}
+						{!!hobbyList.length && <HobbyList />}
 					</List>
 				</Collapse>
 			</List>
 			<TextField className={classes.field} variant="outlined" placeholder="add hobby" value={newHobbyName} name="createHobby" onChange={handleNewHobby} />
 			<Button onClick={createHobby} className={classes.root}>add</Button>
-			{userHobbyList.length && <UserHobbies />}
+			{!!userHobbyList.length && <UserHobbies />}
 		</div>
 	);
 }

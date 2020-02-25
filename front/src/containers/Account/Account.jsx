@@ -6,7 +6,7 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
-import { Button, TextField } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 // import logo from '../../media/cerisier.jpg';
 
@@ -15,7 +15,6 @@ import Birthdate from './Birthdate/Birthdate'
 import GenderDropdown from './GenderDropdown/GenderDropdown'
 import OrientationDropdown from './OrientationDropdown/OrientationDropdown'
 import Hobby from './Hobby/Hobby'
-import LocalisationSlider from './LocalisationSlider/LocalisationSlider'
 import SubmitForm from './SubmitForm/SubmitForm'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -77,7 +76,6 @@ function Account() {
 					<GenderDropdown user={user} dropdowns={dropdowns} />
 					<OrientationDropdown user={user} dropdowns={dropdowns}/>
 					<Hobby dropdowns={dropdowns}/>
-					<LocalisationSlider />
 					<SubmitForm />
 				</form>
 			</div>
