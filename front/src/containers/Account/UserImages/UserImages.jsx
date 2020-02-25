@@ -4,7 +4,7 @@ import api from '../../../api/api'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button, styled as styledMaterial} from '@material-ui/core';
-
+import AccountCircle from '@material-ui/icons/AccountCircle';
 // import Actions from './Actions/Actions';
 // import logo from '../../../media/cerisier.jpg';
 import FlickityComponent from 'react-flickity-component'
@@ -38,17 +38,62 @@ const useStyles = makeStyles({
 	}, imageStyle: {
 		// width: 500,
 		// height: 450,
-	}, actions: {
+	}, setProfile: {
 		background: '#FF3860',
+	}, delete: {
+		background: '#FF3860',
+	}, exitBtn: {
+		position: 'absolute',
+		background: '#FF3860',
+		top: '10%',
+		left: '90%',
+		border: 'solid',
+		borderRadius: '30%',
 	}
 });
+
+const ModalContainer = styled.div`
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 280vh;
+	margin-top: 10vh;
+	margin-bottom: 8vh;
+	z-index: 999;
+	background-color: rgba(0, 0, 0, 0.8);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`
 
 const ButtonContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin-top: 5em;
+	margin-top: 1.5em;
+`
+
+const ExitButton = styled.button`
+	position: absolute;
+	background: #FF3860;
+	top: 1.5%;
+	left: 90%;
+	border: solid;
+	border-radius: 30%;
+`
+
+const IsProfilePic = styled.div`
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #32CD32;
+	top: 1.5%;
+	left: 5%;
+	border: solid;
+	border-radius: 30%;
 `
 
 function UserImages() {
@@ -57,6 +102,7 @@ function UserImages() {
 	// const { user, setUser } = useContext(UserContext);
 	const [userPictures, setUserPictures] = useState([]);
 	const [selectedFile, setSelectedFile] = useState();
+	const [selectedPicture, setSelectedPicture] = useState(undefined);
 
 	// Add a picture in the application state
 	const addPictureFile = (e) => {
@@ -74,24 +120,24 @@ function UserImages() {
 				const data = new FormData()
 				data.append('picture', selectedFile.file, {})
 				api.post('/user/picture', data)
-				.then((res) => {
-					getUserPictures();
-				})
-				.catch((err) => {
-					console.log(err);
-				})
-			}
-			else
+				.then((res) => {getUserPictures();})
+				.catch((err) => {console.log(err);})
+			} else
 				alert('you cant have more than 5 pictures');
 		}
 	}
 
 	const getUserPictures = () => {
 		api.get('/user/picture')
+		.then((res) => {setUserPictures(res.data);})
+		.catch((err) => {console.log(err);})
+	}
+
+	const setProfilePicture = (id) => {
+		api.post('/user/profile', { _id: id })
 		.then((res) => {
-			setUserPictures(res.data);
-			console.log(res.data)
-			console.log(`getUserPictures ${res.data}`);
+			getUserPictures();
+			setSelectedPicture(id);
 			console.log(res);
 		})
 		.catch((err) => {
@@ -100,22 +146,9 @@ function UserImages() {
 	}
 
 	const deleteUserPicture = (id) => {
-		console.log(id);
 		api.delete('/user/picture', { data: { _id: id } })
-		.then((res) => {
-			getUserPictures();
-			console.log(res);
-		})
-		.catch((err) => {
-			console.log(err);
-		})
-	}
-
-	const UserImagesArray = () => {
-		return (
-			userPictures.map((text, index) => 
-				<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name}/>
-		));
+		.then((res) => {getUserPictures();})
+		.catch((err) => {console.log(err);})
 	}
 
 	const flickityOptions = {
@@ -127,7 +160,6 @@ function UserImages() {
 		autoPlay: 6000,
 		fullscreen: true,
 		adaptiveHeight: true,
-		imagesLoaded: true,
 		lazyLoad: true,
 		prevNextButtons: true,
 		pageDots: true,
@@ -140,26 +172,53 @@ function UserImages() {
 		}
 	}
 
+	const UserImagesArray = () => {
+		return (
+			userPictures.map((text, index) => 
+				<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => openModal(text._id)}/>
+		));
+	}
+	
+	const openModal = (id) => {
+		setSelectedPicture(userPictures.filter(userPicture => userPicture._id === id)[0]);
+	}
+
+	const PictureModal = (props) => {
+		return (
+			<ModalContainer>
+				<img src={props.image.url} alt=""/>
+				<ButtonContainer>
+					<Button type="button" className={classes.setProfile} onClick={() => setProfilePicture(props.image._id)}>set as profile</Button> 
+					<Button type="button" className={classes.delete} style={{marginTop: '1em'}} onClick={() => deleteUserPicture(props.image._id)}>delete</Button> 
+					{!!props.image.isPP && 
+					<IsProfilePic>
+						<AccountCircle/>
+					</IsProfilePic>}
+					<ExitButton onClick={() => setSelectedPicture(undefined)}>X</ExitButton> 
+				</ButtonContainer>
+			</ModalContainer>
+		);
+	}
+	
 	const UserImagesJsx = () => {
 		return (
-			<FlickityComponent className={'carousel'} elementType={'div'} options={flickityOptions} disableImagesLoaded={false} reloadOnUpdate={false} static={false}>
+			<FlickityComponent className={'carousel'} elementType={'div'} options={flickityOptions}>
 				<UserImagesArray/>
 			</FlickityComponent>
 		);
 	}
+
+
 
 	if (!userPictures.length)
 		getUserPictures();
 
 	return (
 		<div id="container-user-image-small">
+			{ selectedPicture && <PictureModal image={selectedPicture}/> }
 			<div id="user-images-display-small">
-				{ userPictures.length && <UserImagesJsx /> }
+				{ !!userPictures.length && <UserImagesJsx /> }
 			</div>
-			<ButtonContainer>
-				<Button type="button" className={classes.actions}>set as profile</Button> 
-				<Button type="button" className={classes.actions}>delete</Button> 
-			</ButtonContainer>
 			<div id="user-images-upload-small">
 				{ userPictures.length < 5 && <InputWrapper type="file" name="file" label="" onChange={addPictureFile} variant="filled"/> }
 				{ userPictures.length < 5 && <Button type="button" className={classes.root} onClick={uploadPicture}>Upload</Button> }
