@@ -1,8 +1,7 @@
 import uuidv1 from 'uuid/v1';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import fs from 'fs';
-import { Date } from 'neo4j-driver'
+import { getPreciseDistance } from 'geolib';
 
 import { mode, session, closeBridge } from '../middleware/session';
 import { toBirthdate } from './match';
@@ -222,7 +221,7 @@ const pictureExists = (pictures, picture_id) => {
 }
 
 const userHasProfilePicture = (pictures) => {
-	for (let picture in pictures) {
+	for (let picture of pictures) {
 		if (picture.isPP) return picture._id
 	}
 	return false
@@ -248,7 +247,6 @@ export const setAsProfilePicture = async (user, picture_id) => {
 	const pictures = await getPictures(user);
 	if (!pictureExists(pictures, picture_id)) return false;
 	const actualPicture = userHasProfilePicture(pictures);
-
 	if (actualPicture) await unsetPicture(actualPicture);
 	await setPicture(picture_id);
 
@@ -316,10 +314,9 @@ export const getByOrientation = async (user) => {
 		aUser.pictures = await getPictures(aUser);
 	}
 	users = cleanList(users, gender.name, orientation.name);
-	console.log(users);
 }
 
-export const sortByParams = (users, params) => {
+export const sortByParams = (loggedUser, users, params) => {
 	if (params.age) {
 		const minBirthdate = toBirthdate(params.age.min);
 		const maxBirthdate = toBirthdate(params.age.max);
@@ -328,4 +325,22 @@ export const sortByParams = (users, params) => {
 	if (params.popularity) {
 		users = users.filter(user => params.popularity.min >= user.popularity >= params.popularity.max);
 	}
+	if (params.distance) {
+		users = users.filter(user => getPreciseDistance({latitude: loggedUser.location.lat, longitude: loggedUser.location.lng}, {latitude: user.location.lat, longitude: user.location.lng}) <= distance);
+	}
+	if (params.hobbies) {
+		for (let hobby_id in params.hobbies) {
+			users = users.filter(user => {
+				for (let hobby in user.hobbies) {
+					if (hobby_id === hobby._id) return true;
+				}
+				return false;
+			})
+		}
+	}
+	return users;
+}
+
+export const match = (user) => {
+
 }
