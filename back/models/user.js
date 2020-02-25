@@ -318,3 +318,14 @@ export const getByOrientation = async (user) => {
 	users = cleanList(users, gender.name, orientation.name);
 	console.log(users);
 }
+
+export const sortByParams = (users, params) => {
+	if (params.age) {
+		const minBirthdate = toBirthdate(params.age.min);
+		const maxBirthdate = toBirthdate(params.age.max);
+		users = users.filter(user => minBirthdate >= user.birthdate >= maxBirthdate);
+	}
+	if (params.popularity) {
+		users = users.filter(user => params.popularity.min >= user.popularity >= params.popularity.max);
+	}
+}
