@@ -4,7 +4,7 @@ import fs from 'fs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation } from '../models/user';
+import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile } from '../models/user';
 import { getGender, setGender, verifyGender} from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby} from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
@@ -12,18 +12,6 @@ import { isEmpty, isEighteen } from '../models/utils';
 import { getOrientation, verifyOrientation, setOrientation } from '../models/orientation';
 
 const userRouter = Router();
-
-userRouter.get('/', auth, async (req, res, next) => {
-	try {
-		const {age, popularity, distance, hobbies } = req.body;
-		const filters = { age, popularity, distance, hobbies };
-		if (isEmpty(filters)) throw new ErrorHandler(400, 'You need at least one parameter');
-		const users = sortByParams(user, await getByOrientation(user), filters);
-		res.status(200).json(users);
-	} catch (err) {
-		next(err);
-	}
-})
 
 userRouter.post('/register', async (req, res, next) => {
 	try {
@@ -68,7 +56,8 @@ userRouter.post('/edit', auth, async (req, res, next) => {
 			lastname: req.body.lastname ? req.body.lastname : null,
 			username: req.body.username ? req.body.username : null,
 			biography: req.body.biography ? req.body.biography : null,
-			birthdate: req.body.birthdate ? req.body.birthdate : null
+			birthdate: req.body.birthdate ? req.body.birthdate : null,
+			proximity: req.body.proximity ? req.body.proximity : null,
 		}
 		if (isEmpty(user)) throw new ErrorHandler(400, "Missing at least one field");
 		if (user.birthdate)
@@ -234,6 +223,28 @@ userRouter.post('/location', auth, async (req, res, next) => {
 		const location = {lat, lng};
 		const newLocation = await setLocation(req.user, location);
 		res.status(200).json(newLocation);
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.get('/search', auth, async (req, res, next) => {
+	try {
+		const {age, popularity, distance, hobbies } = req.body;
+		const filters = { age, popularity, distance, hobbies };
+		if (isEmpty(filters)) throw new ErrorHandler(400, 'You need at least one parameter');
+		const users = sortByParams(user, await getByOrientation(user), filters);
+		res.status(200).json(users);
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.get('/match', auth, async (req, res, next) => {
+	try {
+		if (!hasExtendedProfile(user)) throw new ErrorHandler(403, 'Please fill your extended profile');
+		const users = await match(user);
+		res.status(200).json(users);
 	} catch (err) {
 		next(err);
 	}

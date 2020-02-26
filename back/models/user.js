@@ -1,11 +1,10 @@
 import uuidv1 from 'uuid/v1';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { getPreciseDistance } from 'geolib';
 
 import { mode, session, closeBridge } from '../middleware/session';
 import { toBirthdate } from './match';
-import { makeQuery } from './utils';
+import { distance, score } from './utils';
 import { getOrientation } from './orientation';
 import { getHobbies } from './hobby';
 import { getGender } from './gender';
@@ -58,8 +57,8 @@ export const findByCreditentials = async (email, password) => {
 	const user = await dbSession.session.run(query, { email, password }).then(res => {
 		closeBridge(dbSession);
 		if (res.records.length) {
-			let { _id, username, firstname, lastname, email, biography, birthdate, password } = res.records[0]._fields[0].properties;
-			const user = { _id, username, firstname, lastname, email, biography, birthdate, password };
+			let { _id, username, firstname, lastname, email, biography, birthdate, proximity, password } = res.records[0]._fields[0].properties;
+			const user = { _id, username, firstname, lastname, email, biography, birthdate, proximity, password };
 			return user;
 		}
 		return null;
@@ -111,8 +110,8 @@ export const editUser = async (user) => {
 	return await dbSession.session.run(query, user)
 		.then(res => {
 			closeBridge(dbSession);
-			let { _id, username, firstname, lastname, email, birthdate, biography } = res.records[0]._fields[0].properties;
-			const user = { _id, username, firstname, lastname, email, birthdate, biography };
+			let { _id, username, firstname, lastname, email, birthdate, biography, proximity } = res.records[0]._fields[0].properties;
+			const user = { _id, username, firstname, lastname, email, birthdate, biography, proximity };
 			return user;
 		})
 		.catch(e => console.log(e));
@@ -260,15 +259,85 @@ export const deletePicture = async (picture_id) => {
 		.catch(e => console.log(e));
 }
 
+const higherLikeCount = async () => {
+	const dbSession = session(mode.READ);
+	const query =
+	`MATCH (u:User)
+	WITH a, SIZE(()-[l:LIKE]->(u)) as likeCount
+	ORDER BY likeCount DESC LIMIT 1
+	RETURN count(l)`
+	return await dbSession.session.run(query).then(res => {
+		closeBridge(dbSession);
+		return res.records[0]._fields[0].toNumber();
+	}).catch(e => console.log(e));
+}
+
 export const getPopularityScore = async (user) => {
+	const point = 100 / await higherLikeCount();
 	const dbSession = session(mode.READ);
 	const query = 'MATCH ()-[l:LOVE]->(u:User) WHERE u._id = $_id RETURN count(l)';
-	let score = await dbSession.session.run(query, user).then(res => {
+	let likeCount = await dbSession.session.run(query, user).then(res => {
 		closeBridge(dbSession)
 		return res.records[0]._fields[0].toNumber();
 	}).catch(e => console.log(e));
 
-	return score / 100;
+	return point * likeCount;
+}
+
+export const like = async (user, _id) => {
+	const dbSession = session(mode.WRITE);
+	const query = 'MERGE (:User {_id: $_id})-[:LIKE {_id: $likeId date: $date}]->(:User {_id: $likedId})';
+	await dbSession.session.run(query, {_id: user._id, likeId: uuidv1(),likedId: _id, date: Date.now()}).then(res => {
+		closeBridge(dbSession)
+	}).catch(e => console.log(e));
+}
+
+export const unlike = async (_id) => {
+	const dbSession = session(mode.WRITE);
+	const query = 'MATCH (u)-[l:LIKE {_id: $_id}]-(u) DELETE l';
+	await dbSession.session.run(query, {_id}).then(res => {
+		closeBridge(dbSession)
+	}).catch(e => console.log(e));
+}
+
+export const getLikes = async (user) => {
+	const dbSession = session(mode.READ);
+	const query = 'MATCH (y:User {_id: $_id})-[l:LIKE]-(u) RETURN u,l';
+	return await dbSession.session.run(query, user).then(res => {
+		closeBridge(dbSession)
+		let users = []
+		res.records.map(record => {
+			let user = undefined;
+			record._fields.map(field => {
+				switch (field.labels[0]) {
+					case 'User' :
+						user = field.properties;
+						break;
+					default :
+						user[field.labels[0].toLowerCase()] = field.properties;
+				}
+				users.push(user);
+			});
+		})
+		return users;
+	}).catch(e => console.log(e));
+}
+
+export const block = async (user, _id) => {
+	const dbSession = session(mode.WRITE);
+	const query = `MERGE (u:User {_id: $_id})-[:BLOCK]-(blockedUser:User {_id: $blockId})
+	OTIONAL MATCH (u)-[l:LIKE]-(blockedUser) DELETE l`;
+	await dbSession.session.run(query, {_id: user._id, blockId: _id}).then(res => {
+		closeBridge(dbSession);
+	}).catch(e => console.log(e));
+}
+
+export const unblock = async (user, _id) => {
+	const dbSession = session(mode.WRITE);
+	const query = `MERGE (u:User {_id: $_id})-[b:BLOCK]-(blockedUser:User {_id: $blockId}) DELETE b`;
+	await dbSession.session.run(query, {_id: user._id, blockId: _id}).then(res => {
+		closeBridge(dbSession);
+	}).catch(e => console.log(e));
 }
 
 const cleanList = (users, gender, orientation) => {
@@ -312,6 +381,7 @@ export const getByOrientation = async (user) => {
 		aUser.gender = await getGender(aUser);
 		aUser.hobbies = await getHobbies(aUser);
 		aUser.pictures = await getPictures(aUser);
+		aUser.popularity = await getPopularityScore(aUser);
 	}
 	users = cleanList(users, gender.name, orientation.name);
 }
@@ -326,7 +396,7 @@ export const sortByParams = (loggedUser, users, params) => {
 		users = users.filter(user => params.popularity.min >= user.popularity >= params.popularity.max);
 	}
 	if (params.distance) {
-		users = users.filter(user => getPreciseDistance({latitude: loggedUser.location.lat, longitude: loggedUser.location.lng}, {latitude: user.location.lat, longitude: user.location.lng}) <= distance);
+		users = users.filter(user => distance(loggedUser, user) <= params.distance);
 	}
 	if (params.hobbies) {
 		for (let hobby_id in params.hobbies) {
@@ -341,6 +411,25 @@ export const sortByParams = (loggedUser, users, params) => {
 	return users;
 }
 
-export const match = (user) => {
+export const match = async (user) => {
+	const params = {
+		distance: user.proximity ? user.proximity : 100,
+		hobbies: await getHobbies(user)
+	}
+	user.hobbies = params.hobbies;
+	const users = await getByOrientation(user);
+	users = sortByParams(params);
+	users.sort((a, b) => score(user, a)score(user, b));
 
+	return users;
+}
+
+export const hasExtendedProfile = async (user) => {
+	user.gender = await getGender(user);
+	user.pictures = await getPictures(user);
+	user.hobbies = await getHobbies(user);
+
+	if (!user.gender || !user.birthdate || !user.biography || !user.hobbies.length || !user.pictures.length)
+		return false;
+	return true;
 }
