@@ -4,7 +4,7 @@ import fs from 'fs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match } from '../models/user';
+import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams } from '../models/user';
 import { getGender, setGender, verifyGender} from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby} from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
@@ -230,10 +230,11 @@ userRouter.post('/location', auth, async (req, res, next) => {
 
 userRouter.get('/search', auth, async (req, res, next) => {
 	try {
+		if (!hasExtendedProfile(req.user)) throw new ErrorHandler(403, 'Please fill your extended profile');
 		const {age, popularity, distance, hobbies } = req.body;
 		const filters = { age, popularity, distance, hobbies };
 		if (isEmpty(filters)) throw new ErrorHandler(400, 'You need at least one parameter');
-		const users = sortByParams(user, await getByOrientation(user), filters);
+		const users = sortByParams(req.user, await getByOrientation(req.user), filters);
 		res.status(200).json(users);
 	} catch (err) {
 		next(err);

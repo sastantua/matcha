@@ -396,12 +396,10 @@ export const getByOrientation = async (user) => {
 
 export const sortByParams = (loggedUser, users, params) => {
 	if (params.age) {
-		const minBirthdate = toBirthdate(params.age.min);
-		const maxBirthdate = toBirthdate(params.age.max);
-		users = users.filter(user => minBirthdate >= user.birthdate >= maxBirthdate);
+		users = users.filter(user => toBirthdate(params.age.min) >= user.birthdate && user.birthdate >= toBirthdate(params.age.max));
 	}
 	if (params.popularity) {
-		users = users.filter(user => params.popularity.min >= user.popularity >= params.popularity.max);
+		users = users.filter(user => params.popularity.min <= user.popularity && user.popularity <= params.popularity.max);
 	}
 	if (params.distance) {
 		
