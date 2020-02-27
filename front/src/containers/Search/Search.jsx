@@ -5,9 +5,9 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 import Age from './Age/Age';
-// import Hobby from './Hobby/Hobby';
+import Hobby from './Hobby/Hobby';
 import Popularity from './Popularity/Popularity';
-import Localisation from './Localisation/Localisation';
+import Localisation from './Proximity/Proximity';
 // import Test from './Test';
 
 const MainContainer = styled.div`
@@ -30,9 +30,9 @@ function Search() {
 			<Header />
 				<MainContainer>
 					<Age/>
-					{/* <Hobby/> */}
 					<Popularity/>
 					<Localisation/>
+					<Hobby/>
 					{/* <Test/> */}
 				</MainContainer>
 			<Footer />

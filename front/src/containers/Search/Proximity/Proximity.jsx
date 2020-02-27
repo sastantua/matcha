@@ -4,46 +4,39 @@ import { styled as styledMaterial } from '@material-ui/core';
 
 import { Typography } from '@material-ui/core';
 
-import AgeSlider from './AgeStyling';
+import ProximitySlider from './ProximityStyling';
 
-
-const AgeContainer = styled.div`
+const ProximityContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 `
-
 const TextWrapper = styledMaterial(Typography)({
 	fontSize: '1rem',
 	color: "#FFF"
 });
 
-function valuetext(value) {
-	return `${value}`;
-}
-
-function Age() {
-	const [value, setValue] = React.useState([18, 50]);
+function Proximity() {
+	const [value, setValue] = React.useState([1, 20]);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
 	};
 
 	return (
-		<AgeContainer>
-			<TextWrapper>Age</TextWrapper>
-			<AgeSlider
+		<ProximityContainer>
+			<TextWrapper>Proximity</TextWrapper>
+			<ProximitySlider 
 				value={value}
 				onChange={handleChange}
 				valueLabelDisplay="auto"
-				aria-labelledby="range-slider"
-				min={18}
-				max={50}
-				getAriaValueText={valuetext}
+				aria-label="pretto slider"
+				min={1}
+				max={20}
 			/>
-		</AgeContainer>
+		</ProximityContainer>
 	);
 }
 
-export default Age;
+export default Proximity;
