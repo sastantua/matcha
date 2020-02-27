@@ -40,8 +40,8 @@ export const verifyUser = async (_id, token) => {
 	return await dbSession.session.run(query, { _id, token }).then(res => {
 		closeBridge(dbSession);
 		if (res.records.length) {
-			let { _id, username, firstname, lastname, email, biography, birthdate } = res.records[0]._fields[0].properties;
-			const user = { _id, username, firstname, lastname, email, biography, birthdate };
+			let { _id, username, firstname, lastname, email, biography, birthdate, proximity } = res.records[0]._fields[0].properties;
+			const user = { _id, username, firstname, lastname, email, biography, birthdate, proximity };
 			return user;
 		}
 		else
@@ -263,9 +263,9 @@ const higherLikeCount = async () => {
 	const dbSession = session(mode.READ);
 	const query =
 	`MATCH (u:User)
-	WITH a, SIZE(()-[l:LIKE]->(u)) as likeCount
+	WITH u, SIZE(()-[:LIKE]->(u)) as likeCount
 	ORDER BY likeCount DESC LIMIT 1
-	RETURN count(l)`
+	RETURN likeCount`
 	return await dbSession.session.run(query).then(res => {
 		closeBridge(dbSession);
 		return res.records[0]._fields[0].toNumber();
@@ -273,14 +273,14 @@ const higherLikeCount = async () => {
 }
 
 export const getPopularityScore = async (user) => {
-	const point = 100 / await higherLikeCount();
+	const higher = await higherLikeCount()
+	const point = higher != 0 ? 100 / higher : 100;
 	const dbSession = session(mode.READ);
 	const query = 'MATCH ()-[l:LOVE]->(u:User) WHERE u._id = $_id RETURN count(l)';
 	let likeCount = await dbSession.session.run(query, user).then(res => {
 		closeBridge(dbSession)
 		return res.records[0]._fields[0].toNumber();
 	}).catch(e => console.log(e));
-
 	return point * likeCount;
 }
 
@@ -349,6 +349,9 @@ const cleanList = (users, gender, orientation) => {
 		case 'gay' :
 			if (gender == 'male') users = users.filter(user => user.gender.name === 'male');
 			if (gender == 'female') users = users.filter(user => user.gender.name === 'female');
+			break;
+		default :
+			return users;
 	}
 	return users;
 }
@@ -377,13 +380,18 @@ export const getByOrientation = async (user) => {
 		})
 		return users;
 	}).catch(e => console.log(e));
+	for (let key in users) {
+		if (!await hasExtendedProfile(users[key])) users.splice(key, 1);
+	}
 	for (let aUser of users) {
 		aUser.gender = await getGender(aUser);
 		aUser.hobbies = await getHobbies(aUser);
 		aUser.pictures = await getPictures(aUser);
 		aUser.popularity = await getPopularityScore(aUser);
+		aUser.location = await getLocation(aUser);
 	}
 	users = cleanList(users, gender.name, orientation.name);
+	return users;
 }
 
 export const sortByParams = (loggedUser, users, params) => {
@@ -396,31 +404,36 @@ export const sortByParams = (loggedUser, users, params) => {
 		users = users.filter(user => params.popularity.min >= user.popularity >= params.popularity.max);
 	}
 	if (params.distance) {
+		
 		users = users.filter(user => distance(loggedUser, user) <= params.distance);
 	}
 	if (params.hobbies) {
-		for (let hobby_id in params.hobbies) {
 			users = users.filter(user => {
-				for (let hobby in user.hobbies) {
-					if (hobby_id === hobby._id) return true;
+				for (let hobby_id of params.hobbies) {
+					for (let hobby of user.hobbies) {
+						if (hobby_id === hobby._id) return true;
+					}
 				}
 				return false;
 			})
-		}
 	}
 	return users;
 }
 
 export const match = async (user) => {
-	const params = {
-		distance: user.proximity ? user.proximity : 100,
-		hobbies: await getHobbies(user)
+	const hobbies = await getHobbies(user);
+	var hobbies_id = [];
+	for (let hobby of hobbies) {
+		hobbies_id.push(hobby._id);
 	}
-	user.hobbies = params.hobbies;
-	const users = await getByOrientation(user);
-	users = sortByParams(params);
+	const params = {
+		distance: user.proximity ? user.proximity : undefined,
+		hobbies: hobbies_id
+	}
+	user.hobbies = hobbies;
+	var users = await getByOrientation(user);
+	users = sortByParams(user, users, params);
 	users.sort((a, b) => score(user, a)score(user, b));
-
 	return users;
 }
 
@@ -428,8 +441,9 @@ export const hasExtendedProfile = async (user) => {
 	user.gender = await getGender(user);
 	user.pictures = await getPictures(user);
 	user.hobbies = await getHobbies(user);
+	user.location = await getLocation(user);
 
-	if (!user.gender || !user.birthdate || !user.biography || !user.hobbies.length || !user.pictures.length)
+	if (!user.gender || !user.birthdate || !user.biography || !user.hobbies.length || !user.pictures.length || !user.location || !user.location.lat || !user.location.lng)
 		return false;
 	return true;
 }

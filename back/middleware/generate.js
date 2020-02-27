@@ -31,10 +31,10 @@ export const newUser = async () => {
 			gender: gender._id,
 			orientation: orientations[Math.floor(Math.random() * orientations.length)]._id,
 			hobbies: [
-				hobbies[Math.floor(Math.random() * hobbies.length)]._id,
-				hobbies[Math.floor(Math.random() * hobbies.length)]._id,
-				hobbies[Math.floor(Math.random() * hobbies.length)]._id,
-				hobbies[Math.floor(Math.random() * hobbies.length)]._id
+				hobbies[0]._id,
+				hobbies[1]._id,
+				hobbies[2]._id,
+				hobbies[3]._id
 			],
 			pictures: [
 				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") },

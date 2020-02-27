@@ -4,7 +4,7 @@ import fs from 'fs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile } from '../models/user';
+import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match } from '../models/user';
 import { getGender, setGender, verifyGender} from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby} from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
@@ -242,8 +242,8 @@ userRouter.get('/search', auth, async (req, res, next) => {
 
 userRouter.get('/match', auth, async (req, res, next) => {
 	try {
-		if (!hasExtendedProfile(user)) throw new ErrorHandler(403, 'Please fill your extended profile');
-		const users = await match(user);
+		if (!hasExtendedProfile(req.user)) throw new ErrorHandler(403, 'Please fill your extended profile');
+		const users = await match(req.user);
 		res.status(200).json(users);
 	} catch (err) {
 		next(err);

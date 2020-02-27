@@ -69,13 +69,13 @@ export const isEighteen = (birthdate) => {
 }
 
 export const distance = (user_a, user_b) => {
-	getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001
+	return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001
 }
 
 const matchingHobbies = (user_a, user_b) => {
 	var count = 0;
-	for (let hobby_a in user_a.hobbies) {
-		for (let hobby_b in user_b.hobbies) {
+	for (let hobby_a of user_a.hobbies) {
+		for (let hobby_b of user_b.hobbies) {
 			if (hobby_a._id == hobby_b._id) count++;
 		}
 	}
@@ -85,7 +85,6 @@ const matchingHobbies = (user_a, user_b) => {
 export const score = (loggedUser, user) => {
 	const proximity = (500 / loggedUser.proximity) * (loggedUser.proximitydistance(loggedUser, user));
 	const hobbies = (340 / loggedUser.hobbies.length) * matchingHobbies(loggedUser, user);
-	const popularity = (160 / 100) * user.score;
-
+	const popularity = (160 / 100) * user.popularity;
 	return Math.round(proximity + hobbies + popularity);
 }
