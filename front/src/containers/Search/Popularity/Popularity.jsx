@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core';
 
 import { Typography } from '@material-ui/core';
-import PopularitySlider from '../SliderStyling/PopularityStyling';
+import PopularitySlider from './PopularityStyling';
 
 
 const PopularityContainer = styled.div`
