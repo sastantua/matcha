@@ -5,24 +5,24 @@
 		- clean up
 		- check with new accounts
 		- read useEffect
-		
-
-	faire une div 150px / 150px
-	img height / width = 150px
-	overflow hidden
-
-
 
 	Account
-		- pictures
-		- localisation
+		- localisation slider
 
 	Match:
 		- getuserinfo
 
+	Search:
+
+	Chat:
+
+	Notif:
+
 	Login / Signup:
 		- problem with default route (nomatch)
 		- view mobile
+
+
 
 	Learn:
 		- useEffect micka post
@@ -46,8 +46,9 @@
 	Color:
 		- #FF3860
 
-		upload image https://programmingwithmosh.com/javascript/react-file-upload-proper-server-side-nodejs-easy/
-		https://www.relevantprogrammer.com/posts/todo-with-react-hooks/
+		faire une div 150px / 150px
+		img height / width = 150px
+		overflow hidden
 
 # React Hooks
 
