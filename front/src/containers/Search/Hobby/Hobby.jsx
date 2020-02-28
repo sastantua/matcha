@@ -26,7 +26,6 @@ function Hobby() {
 	const getHobbyList = () => {
 		api.get('/hobby')
 		.then((res) => {
-			// console.log(res.data);
 			setHobbyList(res.data);
 		})
 		.catch((err) => {

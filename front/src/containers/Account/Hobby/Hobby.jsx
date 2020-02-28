@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { StateFunctionContext } from '../../../context/UserContext';
+import React, { useState, useEffect } from 'react';
 import api from '../../../api/api'
 
 import { TextField, Button, Chip } from '@material-ui/core';
@@ -57,62 +56,45 @@ function Hobby(props) {
 	// Get hobbies names from back 
 	const getHobbyList = () => {
 		api.get('/hobby')
-			.then((res) => {
-				// console.log(res.data);
-				setHobbyList(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			})
+		.then((res) => {setHobbyList(res.data);})
+		.catch((err) => {console.log(err);})
 	};
 
 	// Get user hobbies from back
 	const getUserHobbies = () => {
 		api.get('/user/hobby')
-			.then((res) => {
-				// console.log(res.data);
-				setUserHobbyList(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			})
+		.then((res) => {setUserHobbyList(res.data);})
+		.catch((err) => {console.log(err);})
 	};
 
 	const handleChooseHobby = (id) => {
 		api.post('/user/hobby', { hobbies: [id] })
-			.then((res) => {
-				handleOpenHobby();
-				getUserHobbies();
-			})
-			.catch((err) => {
-				console.log(err);
-			})
+		.then((res) => {
+			handleOpenHobby();
+			getUserHobbies();
+		})
+		.catch((err) => {
+			console.log(err);
+		})
 	};
 
 	const deleteUserHobby = (id) => {
 		api.delete('/user/hobby', {data: {_id: id}})
-			.then((res => {
-				console.log(res);
-				getUserHobbies();
-			}))
-			.catch((err => {
-				console.log(err);
-			}))
+		.then((res => {getUserHobbies();}))
+		.catch((err => {console.log(err);}))
 	}
 
-	const handleNewHobby = (e) => {
-		setNewHobbyName(e.target.value);
-	}
+	const handleNewHobby = (e) => {setNewHobbyName(e.target.value);}
 
 	const createHobby = () => {
 		api.post('/hobby', {name: newHobbyName})
-			.then((res => {
-				getHobbyList();
-				console.log(res);
-			}))
-			.catch((err => {
-				console.log(err);
-			}))
+		.then((res => {
+			getHobbyList();
+			console.log(res);
+		}))
+		.catch((err => {
+			console.log(err);
+		}))
 	}
 
 	// Open the orientation dropdown
