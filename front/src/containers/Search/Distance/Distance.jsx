@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core';
 
+import SearchRequestContext from '../../../context/SearchRequestContext';
+
 import { Typography } from '@material-ui/core';
 
-import ProximitySlider from './ProximityStyling';
+import DistanceSlider from './DistanceStyling';
 
-const ProximityContainer = styled.div`
+const DistanceContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,26 +19,29 @@ const TextWrapper = styledMaterial(Typography)({
 	color: "#FFF"
 });
 
-function Proximity() {
-	const [value, setValue] = React.useState([1, 20]);
+function Distance() {
+	const [value, setValue] = useState(10);
+	const [request, setRequest] = useContext(SearchRequestContext);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
+		setRequest({
+			...request, 
+			distance: value,
+		});
 	};
 
 	return (
-		<ProximityContainer>
-			<TextWrapper>Proximity</TextWrapper>
-			<ProximitySlider 
+		<DistanceContainer>
+			<TextWrapper>Distance</TextWrapper>
+			<DistanceSlider 
 				value={value}
 				onChange={handleChange}
 				valueLabelDisplay="auto"
-				aria-label="pretto slider"
-				min={1}
 				max={20}
 			/>
-		</ProximityContainer>
+		</DistanceContainer>
 	);
 }
 
-export default Proximity;
+export default Distance;

@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
+
+import api from '../../api/api'
+import SearchRequestContext from '../../context/SearchRequestContext';
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -7,8 +10,12 @@ import Footer from '../../components/Footer/Footer';
 import Age from './Age/Age';
 import Hobby from './Hobby/Hobby';
 import Popularity from './Popularity/Popularity';
-import Localisation from './Proximity/Proximity';
+import Distance from './Distance/Distance';
+
 // import Test from './Test';
+
+import { Button } from '@material-ui/core';
+
 
 const MainContainer = styled.div`
 	display: flex;
@@ -24,16 +31,35 @@ const MainContainer = styled.div`
 
 function Search() {
 	// const { user, setUser } = useContext(UserContext);
+	const [request, setRequest] = useState({});
 	
+	
+	const handleSubmit = () => {
+		api.post('/search/', request)
+		.then((res) => {
+			// handleOpenHobby();
+		})
+		.catch((err) => {
+			console.log(err);
+		})
+	}
+
+	console.log(request);
+
+
+
 	return (
 		<div id="search-small">
 			<Header />
 				<MainContainer>
-					<Age/>
-					<Popularity/>
-					<Localisation/>
-					<Hobby/>
-					{/* <Test/> */}
+					<SearchRequestContext.Provider value={[request, setRequest]}>
+						<Distance/>
+						<Age/>
+						<Popularity/>
+						<Hobby/>
+						<Button onClick={handleSubmit}>Search</Button>
+						{/* <Test/> */}
+					</SearchRequestContext.Provider>
 				</MainContainer>
 			<Footer />
 		</div>

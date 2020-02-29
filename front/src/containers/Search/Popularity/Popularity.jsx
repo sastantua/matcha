@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core';
 
+import SearchRequestContext from '../../../context/SearchRequestContext';
+
 import { Typography } from '@material-ui/core';
+
 import PopularitySlider from './PopularityStyling';
 
 
@@ -23,15 +26,23 @@ function valuetext(value) {
 }
 
 function Popularity() {
-	const [value, setValue] = React.useState([20, 80]);
+	const [value, setValue] = useState([20, 80]);
+	const [request, setRequest] = useContext(SearchRequestContext);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
+		setRequest({
+			...request, 
+			popularity: {
+				min: value[0],
+				max: value[1],
+			}
+		});
 	};
 
 	return (
 		<PopularityContainer>
-			<TextWrapper>Popularity Score</TextWrapper>
+			<TextWrapper>Popularity</TextWrapper>
 			<PopularitySlider
 				value={value}
 				onChange={handleChange}

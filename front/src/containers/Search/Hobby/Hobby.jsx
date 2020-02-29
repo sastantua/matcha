@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components'
+import { styled as styledMaterial } from '@material-ui/core/styles';
 
 import api from '../../../api/api'
+import SearchRequestContext from '../../../context/SearchRequestContext';
 
-import { TextField, Button, Chip } from '@material-ui/core';
+// import { TextField, Button, Chip } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,17 +13,38 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
+const MainContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
+`
+
+const StyledList = styledMaterial(List)({
+	width: '100%',
+	maxWidth: 360,
+	maxHeight: 300,
+	overflow: 'auto',
+	background: '#FF3860',
+	opacity: 0.6,
+	color: "#000",
+})
+
 function Hobby() {
 
 	const [hobbyList, setHobbyList] = useState([]);
-	const [userHobbyList, setUserHobbyList] = useState([]);
-	const [newHobbyName, setNewHobbyName] = useState("");
 	const [openHobby, setOpenHobby] = useState(false);
+	const [request, setRequest] = useContext(SearchRequestContext);
 	
 	useEffect(() => {
 		if (!hobbyList.length) getHobbyList();
-		if (!userHobbyList.length) getUserHobbies();
 	})
+
+	const handleOpenHobby = () => {
+		setOpenHobby(!openHobby);
+	};
 
 	const getHobbyList = () => {
 		api.get('/hobby')
@@ -33,55 +56,16 @@ function Hobby() {
 		})
 	};
 
-	const getUserHobbies = () => {
-		api.get('/user/hobby')
-		.then((res) => {
-			// console.log(res.data);
-			setUserHobbyList(res.data);
-		})
-		.catch((err) => {
-			console.log(err);
-		})
-	};
-
 	const handleChooseHobby = (id) => {
-		api.post('/user/hobby', { hobbies: [id] })
-		.then((res) => {
-			handleOpenHobby();
-			getUserHobbies();
-		})
-		.catch((err) => {
-			console.log(err);
-		})
+		setRequest({
+			...request, 
+			// hobbies: hobbies.push(id),
+		});
 	};
 
-	const deleteUserHobby = (id) => {
-		api.delete('/user/hobby', {data: {_id: id}})
-		.then((res => {
-			getUserHobbies();
-		}))
-		.catch((err => {
-			console.log(err);
-		}))
-	}
-
-	const handleNewHobby = (e) => {
-		setNewHobbyName(e.target.value);
-	}
-
-	const createHobby = () => {
-		api.post('/hobby', {name: newHobbyName})
-		.then((res => {
-			getHobbyList();
-			console.log(res);
-		}))
-		.catch((err => {
-			console.log(err);
-		}))
-	}
-
-	const handleOpenHobby = () => {setOpenHobby(!openHobby);};
 	
+
+
 	const HobbyList = () => {
 		return (
 			hobbyList.map(text =>
@@ -92,17 +76,9 @@ function Hobby() {
 		)
 	}
 
-	const UserHobbies = () => {
-		return (
-			userHobbyList.map(text =>
-				<Chip variant="outlined" size="small" key={text._id} label={text.name} onClick={() => deleteUserHobby(text._id)} />
-			)
-		)
-	};
-
 	return (
-		<div>
-			<List component="nav" aria-labelledby="nested-list-subheader" >
+		<MainContainer>
+			<StyledList component="nav" aria-labelledby="nested-StyledList-subheader" >
 				<ListItem button onClick={handleOpenHobby}>
 					<ListItemText primary={"hobbies list"} />
 					{openHobby ? <ExpandLess /> : <ExpandMore />}
@@ -112,11 +88,9 @@ function Hobby() {
 						{!!hobbyList.length && <HobbyList />}
 					</List>
 				</Collapse>
-			</List>
-			<TextField variant="outlined" placeholder="add hobby" value={newHobbyName} name="createHobby" onChange={handleNewHobby} />
-			<Button onClick={createHobby}>add</Button>
-			{!!userHobbyList.length && <UserHobbies />}
-		</div>
+			</StyledList>
+			{/* {!!userHobbyList.length && <UserHobbies />} */}
+		</MainContainer>
 	);
 }
 
