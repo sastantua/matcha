@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core';
+
+import SearchRequestContext from '../../../context/SearchRequestContext';
 
 import { Typography } from '@material-ui/core';
 
 import AgeSlider from './AgeStyling';
+
 
 
 const AgeContainer = styled.div`
@@ -24,10 +27,18 @@ function valuetext(value) {
 }
 
 function Age() {
-	const [value, setValue] = React.useState([18, 50]);
+	const [value, setValue] = useState([18, 50]);
+	const [request, setRequest] = useContext(SearchRequestContext);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
+		setRequest({
+			...request, 
+			age: {
+				min: value[0],
+				max: value[1],
+			}
+		});
 	};
 
 	return (
