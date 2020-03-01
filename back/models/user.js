@@ -190,8 +190,8 @@ export const getPictures = async (user) => {
 				const picture = { _id, url, name, isPP };
 				pictures.push(picture);
 			}
-			return pictures;
 		}
+		return pictures;
 	}).catch(e => console.log(e));
 
 	return pictures;
