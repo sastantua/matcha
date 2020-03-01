@@ -199,8 +199,9 @@ export const getPictures = async (user) => {
 
 export const savePicture = async (user, picture_url, picture_name) => {
 	const dbSession = session(mode.WRITE);
-	const values = { _uid: user._id, _id: uuidv1(), url: picture_url, name: picture_name };
-	const query = 'MATCH (u:User) WHERE u._id = $_uid CREATE (p:Picture {_id: $_id, url: $url, name: $name, isPP: false}) MERGE (p)-[:PIC]->(u) RETURN p';
+	const isPP = !await userHasProfilePicture(await getPictures(user));
+	const values = { _uid: user._id, _id: uuidv1(), url: picture_url, name: picture_name, isPP: isPP };
+	const query = 'MATCH (u:User) WHERE u._id = $_uid CREATE (p:Picture {_id: $_id, url: $url, name: $name, isPP: $isPP}) MERGE (p)-[:PIC]->(u) RETURN p';
 
 	const picture = await dbSession.session.run(query, values).then(res => {
 		closeBridge(dbSession)
@@ -334,6 +335,8 @@ export const getLikes = async (user) => {
 			let like = undefined;
 			like = record._fields[1].properties;
 			like.user = record._fields[0].properties;
+			delete user.password;
+			delete user.email;
 			likes.push(like);
 		})
 		return likes;
@@ -348,6 +351,8 @@ export const getBlocked = async (user) => {
 		let users = []
 		res.records.map(record => {
 			let user = record._fields[0].properties;
+			delete user.password;
+			delete user.email;
 			users.push(user);
 		})
 		return users;
@@ -427,7 +432,7 @@ export const getByOrientation = async (user) => {
 		return users;
 	}).catch(e => console.log(e));
 	for (let key in users) {
-		if (!await hasExtendedProfile(users[key]) || await isLiked(user, users[key]._id) || await blocks(user, aUser._id)) users.splice(key, 1);
+		if (!await hasExtendedProfile(users[key]) || await isLiked(user, users[key]._id) || await blocks(user, users[key]._id)) users.splice(key, 1);
 	}
 	for (let aUser of users) {
 		aUser.gender = await getGender(aUser);
@@ -436,6 +441,8 @@ export const getByOrientation = async (user) => {
 		aUser.popularity = await getPopularityScore(aUser);
 		aUser.location = await getLocation(aUser);
 		aUser.likes = await likes(user, aUser._id);
+		delete aUser.password;
+		delete aUser.email;
 	}
 	users = cleanList(users, gender.name, orientation.name);
 	return users;
@@ -487,7 +494,7 @@ export const hasExtendedProfile = async (user) => {
 	user.pictures = await getPictures(user);
 	user.hobbies = await getHobbies(user);
 	user.location = await getLocation(user);
-	if (!user.gender || !user.birthdate || !user.biography || !user.hobbies.length || !user.pictures.length || !user.location || !user.location.lat || !user.location.lng)
+	if (!user.gender || !user.birthdate || !user.biography || !user.hobbies.length || !user.pictures || !user.location || !user.location.lat || !user.location.lng)
 		return false;
 	return true;
 }
