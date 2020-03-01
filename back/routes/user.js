@@ -4,7 +4,7 @@ import fs from 'fs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, getLikes, blocks, unblock, block, getBlocked } from '../models/user';
+import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, getLikes, blocks, unblock, block, getBlocked, activateAccount } from '../models/user';
 import { getGender, setGender, verifyGender} from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby} from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
@@ -24,12 +24,24 @@ userRouter.post('/register', async (req, res, next) => {
 		}
 		if (!user.email || !user.username || !user.password || !user.firstname || !user.lastname) throw new ErrorHandler(400, 'Missing required fields');
 		if (await userExists(user)) throw new ErrorHandler(400, 'User already exists');
-		registerUser(user);
+		await registerUser(user);
+		await sendActivation(user);
 		res.status(200).json({});
 	} catch (err) {
 		next(err);
 	}
 });
+
+userRouter.post('/verify/:token', async (req, res, next) => {
+	try {
+		const { token } = req.params;
+
+		if (!await activateAccount(token)) throw new ErrorHandler(400, "Invalid Token");
+		res.status(200).send();
+	} catch (err) {
+		next(err);
+	}
+})
 
 userRouter.post('/login', async (req, res, next) => {
 	try {
@@ -240,7 +252,7 @@ userRouter.get('/likes', auth, async (req, res, next) => {
 userRouter.post('/like/:_id', auth, async (req, res, next) => {
 	try {
 		const { _id } = req.params;
-		console.log(_id);
+		
 		await like(req.user, _id);
 		res.status(200).send();
 	} catch (err) {
@@ -251,7 +263,7 @@ userRouter.post('/like/:_id', auth, async (req, res, next) => {
 userRouter.post('/unlike/:_id', auth, async (req, res, next) => {
 	try {
 		const { _id } = req.params;
-		console.log(_id);
+		
 		if (await isLiked(req.user, _id)) await unlike(req.user, _id);
 		res.status(200).send();
 	} catch (err) {
@@ -271,7 +283,7 @@ userRouter.get('/blocked', auth, async (req, res, next) => {
 userRouter.post('/block/:_id', auth, async (req, res, next) => {
 	try {
 		const { _id } = req.params;
-		console.log(_id);
+		
 		await block(req.user, _id);
 		res.status(200).send();
 	} catch (err) {
@@ -282,7 +294,7 @@ userRouter.post('/block/:_id', auth, async (req, res, next) => {
 userRouter.post('/unblock/:_id', auth, async (req, res, next) => {
 	try {
 		const { _id } = req.params;
-		console.log(_id);
+		
 		if (await blocks(req.user, _id)) await unblock(req.user, _id);
 		res.status(200).send();
 	} catch (err) {

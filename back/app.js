@@ -6,15 +6,12 @@ import cors from 'cors';
 
 import 'dotenv/config';
 
-import { handleError} from './middleware/errors';
-
-import { generateGenders, generateHobbies, generateOrientations, isEighteen } from './models/utils';
+import { handleError } from './middleware/errors';
 
 import userRouter from './routes/user';
 import genderRouter from './routes/gender';
 import hobbyRouter from './routes/hobby';
 import orientationRouter from './routes/orientation';
-import { getByOrientation } from './models/user';
 
 var app = express();
 

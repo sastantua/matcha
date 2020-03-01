@@ -8,6 +8,7 @@ import { distance, score } from './utils';
 import { getOrientation } from './orientation';
 import { getHobbies } from './hobby';
 import { getGender } from './gender';
+import { registerMail } from './mail';
 
 export const userExists = async (user) => {
 	const dbSession = session(mode.READ);
@@ -24,14 +25,53 @@ export const registerUser = async (user) => {
 	const dbSession = session(mode.WRITE);
 	user.password = await bcrypt.hash(user.password, 8)
 	user._id = uuidv1();
-	const query = 'CREATE (u:User { _id: $_id, username: $username, firstname: $firstname, lastname: $lastname, email: $email, password: $password })';
-	dbSession.session.run(query, user).then(res => {
+	const query = 'CREATE (u:User { _id: $_id, username: $username, firstname: $firstname, lastname: $lastname, email: $email, password: $password, activated: false })';
+	await dbSession.session.run(query, user).then(res => {
 		closeBridge(dbSession);
 	}).catch(e => {
 		console.log(e);
 	})
-
 	return user._id;
+}
+
+export const activateAccount = async (token) => {
+	const dbSession = session(mode.READ);
+	var query = 'MATCH (u:User)-[:TOKEN]-(m:Mail) WHERE m.token = $token RETURN u,m';
+	const user = await dbSession.session.run(query, { token }).then(res => {
+		if (res.records.length) {
+			let user = res.records[0]._fields[0].properties;
+			user.token = res.records[0]._fields[1].properties.token;
+			return user
+		}
+		return false;
+	}).catch(e => {
+		console.log(e);
+	})
+	if (user && token == user.token) {
+		const decoded = jwt.verify(token, process.env.JWT_KEY);
+		if (decoded.email == user.email) {
+			var query = 'MATCH (u:User)-[t:TOKEN]-(m) WHERE u.email = $email SET u += { activated: true } DETACH DELETE t,m';
+			await dbSession.session.run(query, user).then(res => {
+				closeBridge(dbSession);
+			}).catch(e => {
+				console.log(e);
+			})
+			return true;
+		}
+	}
+	return false;
+}
+
+export const sendActivation = async (user) => {
+	const dbSession = session(mode.WRITE);
+	user.registerToken = jwt.sign({ email: user.email }, process.env.JWT_KEY);
+	const query = 'MATCH (u:User) WHERE u._id = $_id CREATE (m:Mail {token: $registerToken}) MERGE (u)<-[:TOKEN]-(m)';
+	await dbSession.session.run(query, user).then(res => {
+		closeBridge(dbSession);
+	}).catch(e => {
+		console.log(e);
+	})
+	registerMail(user);
 }
 
 export const verifyUser = async (_id, token) => {
