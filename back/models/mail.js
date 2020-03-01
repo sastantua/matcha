@@ -11,3 +11,15 @@ export const registerMail = (user) => {
 
 	mailService.sendMail(message);
 }
+
+export const passwordMail = (user) => {
+	const message = {
+		from: process.env.MAIL_USR,
+		to: user.email,
+		subject: 'Modification du mot de passe',
+		text: `Lien de modification : ${user.token}`,
+		html: `<p>Lien de modification : ${user.token}</p>`
+	}
+
+	mailService.sendMail(message);
+}

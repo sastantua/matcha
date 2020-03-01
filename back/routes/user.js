@@ -1,12 +1,13 @@
 import { Router } from 'express';
 import fs from 'fs';
+import bcrypt from 'bcryptjs';
 
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, getLikes, blocks, unblock, block, getBlocked, activateAccount } from '../models/user';
-import { getGender, setGender, verifyGender} from '../models/gender';
-import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby} from '../models/hobby';
+import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, getLikes, blocks, unblock, block, getBlocked, activateAccount, requestPassword, changePassword, editPassword } from '../models/user';
+import { getGender, setGender, verifyGender } from '../models/gender';
+import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby } from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
 import { isEmpty, isEighteen } from '../models/utils';
 import { getOrientation, verifyOrientation, setOrientation } from '../models/orientation';
@@ -22,11 +23,11 @@ userRouter.post('/register', async (req, res, next) => {
 			username: req.body.username,
 			password: req.body.password
 		}
-		if (!user.email || !user.username || !user.password || !user.firstname || !user.lastname) throw new ErrorHandler(400, 'Missing required fields');
+		if (!user.email || !user.username || !user.password || !user.firstname || !user.lastname) throw new ErrorHandler(400, 'Missing required fields');
 		if (await userExists(user)) throw new ErrorHandler(400, 'User already exists');
 		await registerUser(user);
 		await sendActivation(user);
-		res.status(200).json({});
+		res.status(200).send();
 	} catch (err) {
 		next(err);
 	}
@@ -45,20 +46,45 @@ userRouter.post('/verify/:token', async (req, res, next) => {
 
 userRouter.post('/login', async (req, res, next) => {
 	try {
-		const {email, password} = req.body;
+		const { email, password } = req.body;
 		if (!email || !password) throw new ErrorHandler(400, 'Missing required fields');
 		const user = await findByCreditentials(email, password);
 		if (!user) throw new ErrorHandler(401, 'Login failed! Check authentication credentials');
+		if (!user.activated) throw new ErrorHandler(401, 'Please activate your account');
 		user.popularity = await getPopularityScore(user);
 		const location = await getLocation(user);
 		if (location) user.location = location;
 		let token = await getToken(user);
 		if (!token) token = await generateAuthToken(user);
-		return res.status(200).json({user, token});
+		return res.status(200).json({ user, token });
 	} catch (err) {
 		next(err);
 	}
 });
+
+userRouter.post('/forgot', async (req, res, next) => {
+	try {
+		const { email } = req.body;
+
+		if (!email) throw new ErrorHandler(400, 'Missing required fields');
+		await requestPassword(email);
+		res.status(200).send();
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.post('/reset', async (req, res, next) => {
+	try {
+		const { token, password } = req.body;
+
+		if (!password|| !token) throw new ErrorHandler(400, 'Missing required fields');
+		if (!await changePassword(password, token)) throw new ErrorHandler(400, "Invalid Token");
+		res.status(200).send();
+	} catch (err) {
+		next(err);
+	}
+})
 
 userRouter.post('/edit', auth, async (req, res, next) => {
 	try {
@@ -75,21 +101,36 @@ userRouter.post('/edit', auth, async (req, res, next) => {
 		if (user.birthdate)
 			if (!user.birthdate.match(/(19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])/g))
 				throw new ErrorHandler(400, 'Date should be in format YYYY-MM-DD');
-			else if ( !isEighteen(user.birthdate))
+			else if (!isEighteen(user.birthdate))
 				throw new ErrorHandler(400, 'You should be 18 Years Old to register');
 		user._id = req.user._id;
 		const editedUser = await editUser(user);
-		return res.status(200).json({user: editedUser});
+		return res.status(200).json({ user: editedUser });
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.post('/editPassword', auth, async (req, res, next) => {
+	try {
+		const { old_password, new_password } = req.body;
+
+		if (!old_password || !new_password) throw new ErrorHandler(400, "Invalid required field");
+		
+		if (!await bcrypt.compare(old_password, req.user.password)) throw new ErrorHandler(401, "Invalid creditentials");
+		await editPassword(req.user, new_password);
+		res.status(200).send();
 	} catch (err) {
 		next(err);
 	}
 })
 
 userRouter.get('/me', auth, async (req, res) => {
-		const location = await getLocation(req.user);
-		req.user.popularity = await getPopularityScore(req.user);
-		if (location) req.user.location = location;
-		res.status(200).json(req.user);
+	const location = await getLocation(req.user);
+	delete req.user.password;
+	req.user.popularity = await getPopularityScore(req.user);
+	if (location) req.user.location = location;
+	res.status(200).json(req.user);
 })
 
 userRouter.get('/gender', auth, async (req, res) => {
@@ -144,7 +185,7 @@ userRouter.post('/hobby', auth, async (req, res, next) => {
 	try {
 		const hobbies = req.body.hobbies;
 		if (!hobbies.length || !await verifyHobbies(hobbies)) throw new ErrorHandler(400, "Invalid required field");
-		
+
 		await setHobbies(req.user, hobbies);
 		return res.status(200).send();
 	} catch (err) {
@@ -156,7 +197,7 @@ userRouter.delete('/hobby', auth, async (req, res, next) => {
 	try {
 		const hobby_id = req.body._id;
 		if (!hobby_id || !await verifyHobbies([hobby_id]) || !await userHasHooby(req.user, hobby_id)) throw new ErrorHandler(400, "Invalid required field");
-		
+
 		await unsetHobby(req.user, hobby_id);
 		res.status(200).send();
 	} catch (err) {
@@ -166,17 +207,17 @@ userRouter.delete('/hobby', auth, async (req, res, next) => {
 
 userRouter.post('/logout', auth, async (req, res) => {
 	await logoutUser(req.token);
-	res.status(200).json({success: true});
+	res.status(200).json({ success: true });
 })
 
 userRouter.post('/logout/all', auth, async (req, res) => {
 	await logoutAll(req.user);
-	res.status(200).json({success: true});
+	res.status(200).json({ success: true });
 })
 
 userRouter.post('/picture', [auth, upload.single('picture')], async (req, res, next) => {
 	try {
-		if(!req.file) throw new ErrorHandler(400, "Invalid required field");
+		if (!req.file) throw new ErrorHandler(400, "Invalid required field");
 		const dbPictures = await getPictures(req.user);
 		if (dbPictures && dbPictures.length >= 5) {
 			fs.unlinkSync(`./public/images/${req.file.filename}`);
@@ -204,7 +245,7 @@ userRouter.delete('/picture', auth, async (req, res, next) => {
 	try {
 		const picture_id = req.body._id;
 		if (!picture_id) throw new ErrorHandler(400, "Invalid required field");
-		
+
 		const picture_name = await verifyPicture(req.user, picture_id)
 		if (!picture_name) throw new ErrorHandler(400, "Invalid picture id");
 
@@ -222,17 +263,17 @@ userRouter.post('/profile', auth, async (req, res, next) => {
 		if (!_id) throw new ErrorHandler(400, 'Missing required field');
 		if (!await setAsProfilePicture(req.user, _id)) throw new ErrorHandler(400, 'This picture does not exist');
 		res.status(204).send();
-	} catch(err) {
+	} catch (err) {
 		next(err);
 	}
 })
 
 userRouter.post('/location', auth, async (req, res, next) => {
 	try {
-		const {lat, lng} = req.body;
+		const { lat, lng } = req.body;
 		if (!lat || !lng) throw new ErrorHandler(400, "Invalid required field");
-		
-		const location = {lat, lng};
+
+		const location = { lat, lng };
 		const newLocation = await setLocation(req.user, location);
 		res.status(200).json(newLocation);
 	} catch (err) {
@@ -252,7 +293,7 @@ userRouter.get('/likes', auth, async (req, res, next) => {
 userRouter.post('/like/:_id', auth, async (req, res, next) => {
 	try {
 		const { _id } = req.params;
-		
+
 		await like(req.user, _id);
 		res.status(200).send();
 	} catch (err) {
@@ -263,7 +304,7 @@ userRouter.post('/like/:_id', auth, async (req, res, next) => {
 userRouter.post('/unlike/:_id', auth, async (req, res, next) => {
 	try {
 		const { _id } = req.params;
-		
+
 		if (await isLiked(req.user, _id)) await unlike(req.user, _id);
 		res.status(200).send();
 	} catch (err) {
@@ -283,7 +324,7 @@ userRouter.get('/blocked', auth, async (req, res, next) => {
 userRouter.post('/block/:_id', auth, async (req, res, next) => {
 	try {
 		const { _id } = req.params;
-		
+
 		await block(req.user, _id);
 		res.status(200).send();
 	} catch (err) {
@@ -294,7 +335,7 @@ userRouter.post('/block/:_id', auth, async (req, res, next) => {
 userRouter.post('/unblock/:_id', auth, async (req, res, next) => {
 	try {
 		const { _id } = req.params;
-		
+
 		if (await blocks(req.user, _id)) await unblock(req.user, _id);
 		res.status(200).send();
 	} catch (err) {
@@ -305,7 +346,7 @@ userRouter.post('/unblock/:_id', auth, async (req, res, next) => {
 userRouter.get('/search', auth, async (req, res, next) => {
 	try {
 		if (!hasExtendedProfile(req.user)) throw new ErrorHandler(403, 'Please fill your extended profile');
-		const {age, popularity, distance, hobbies } = req.body;
+		const { age, popularity, distance, hobbies } = req.body;
 		const filters = { age, popularity, distance, hobbies };
 		if (isEmpty(filters)) throw new ErrorHandler(400, 'You need at least one parameter');
 		const users = sortByParams(req.user, await getByOrientation(req.user), filters);

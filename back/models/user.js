@@ -8,7 +8,7 @@ import { distance, score } from './utils';
 import { getOrientation } from './orientation';
 import { getHobbies } from './hobby';
 import { getGender } from './gender';
-import { registerMail } from './mail';
+import { registerMail, passwordMail } from './mail';
 
 export const userExists = async (user) => {
 	const dbSession = session(mode.READ);
@@ -50,7 +50,7 @@ export const activateAccount = async (token) => {
 	if (user && token == user.token) {
 		const decoded = jwt.verify(token, process.env.JWT_KEY);
 		if (decoded.email == user.email) {
-			var query = 'MATCH (u:User)-[t:TOKEN]-(m) WHERE u.email = $email SET u += { activated: true } DETACH DELETE t,m';
+			query = 'MATCH (u:User)-[t:TOKEN]-(m) WHERE u.email = $email SET u += { activated: true } DETACH DELETE t,m';
 			await dbSession.session.run(query, user).then(res => {
 				closeBridge(dbSession);
 			}).catch(e => {
@@ -80,8 +80,8 @@ export const verifyUser = async (_id, token) => {
 	return await dbSession.session.run(query, { _id, token }).then(res => {
 		closeBridge(dbSession);
 		if (res.records.length) {
-			let { _id, username, firstname, lastname, email, biography, birthdate, proximity } = res.records[0]._fields[0].properties;
-			const user = { _id, username, firstname, lastname, email, biography, birthdate, proximity };
+			let { _id, username, firstname, lastname, email, biography, birthdate, proximity, password } = res.records[0]._fields[0].properties;
+			const user = { _id, username, firstname, lastname, email, biography, birthdate, proximity, password };
 			return user;
 		}
 		else
@@ -137,6 +137,54 @@ export const generateAuthToken = async (user) => {
 		.catch(e => console.log(e));
 
 	return token
+}
+
+export const editPassword = async (user, password) => {
+	const dbSession = session(mode.WRITE);
+	const hash = await bcrypt.hash(password, 8);
+	const query = 'MATCH (u:User) WHERE u._id = $_id SET u += {password: $hash}';
+
+	await dbSession.session.run(query, { _id: user._id, hash }).then(res => closeBridge(dbSession))
+		.catch(e => console.log(e));
+}
+
+export const requestPassword = async (email) => {
+	const dbSession = session(mode.WRITE);
+	var query = `MATCH (u:User) WHERE u.email = $email
+	OPTIONAL MATCH (u)-[r:RESET]-(m)
+	RETURN u,r `;
+	const user = await dbSession.session.run(query, { email })
+	.then(res => {
+		if (res.records.length) {
+			let user = res.records[0]._fields[0].properties;
+			if (res.records[0]._fields[1]) return false;
+			return user
+		}
+		return false;
+	})
+	.catch(e => console.log(e));
+	if (user) {
+		user.token = jwt.sign({ email: user.email }, process.env.JWT_KEY);
+		query = `MATCH (u:User) WHERE u._id = $_id CREATE (m:Mail {token: $token}) MERGE (u)-[:RESET]-(m)`
+		await dbSession.session.run(query, user)
+		.then(res => {
+			closeBridge(dbSession)
+		}).catch(e => console.log(e));
+		passwordMail(user);
+	}
+}
+
+export const changePassword = async (password, token) => {
+	const dbSession = session(mode.WRITE);
+	const hash = await bcrypt.hash(password, 8)
+	const query = 'MATCH (u:User)-[r:RESET]-(m:Mail) WHERE m.token = $token SET u += {password: $hash} DETACH DELETE m,r RETURN u';
+
+	return await dbSession.session.run(query, {token, hash}).then(res => {
+		closeBridge(dbSession);
+		if (res.records.length) return true;
+		return false;
+	})
+	.catch(e => console.log(e));
 }
 
 export const editUser = async (user) => {
