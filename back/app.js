@@ -24,10 +24,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-generateGenders();
-generateHobbies();
-generateOrientations();
-
 app.use('/user', userRouter);
 app.use('/gender', genderRouter);
 app.use('/orientation', orientationRouter);

@@ -286,47 +286,93 @@ export const getPopularityScore = async (user) => {
 
 export const like = async (user, _id) => {
 	const dbSession = session(mode.WRITE);
-	const query = 'MERGE (:User {_id: $_id})-[:LIKE {_id: $likeId date: $date}]->(:User {_id: $likedId})';
+	const query = 'MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $likedId MERGE (a)-[:LOVE {_id: $likeId, date: $date}]->(b)';
 	await dbSession.session.run(query, {_id: user._id, likeId: uuidv1(),likedId: _id, date: Date.now()}).then(res => {
 		closeBridge(dbSession)
 	}).catch(e => console.log(e));
 }
 
-export const unlike = async (_id) => {
+export const unlike = async (user, _id) => {
 	const dbSession = session(mode.WRITE);
-	const query = 'MATCH (u)-[l:LIKE {_id: $_id}]-(u) DELETE l';
-	await dbSession.session.run(query, {_id}).then(res => {
+	const query = 'MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $likedId MATCH (a)-[l:LOVE]->(b) DETACH DELETE l';
+	await dbSession.session.run(query, {_id: user._id, likedId: _id}).then(res => {
 		closeBridge(dbSession)
+	}).catch(e => console.log(e));
+}
+
+export const isLiked = async (user, _id) => {
+	const dbSession = session(mode.READ);
+	const query = 'MATCH (y:User)-[l:LOVE]->(u:User) WHERE y._id = $_id AND u._id = $u_id RETURN l';
+	return await dbSession.session.run(query, {_id: user._id, u_id: _id}).then(res => {
+		closeBridge(dbSession);
+		if (res.records.length) {
+			return true;
+		}
+		return false
+	}).catch(e => console.log(e));
+}
+
+export const likes = async (user, _id) => {
+	const dbSession = session(mode.READ);
+	const query = 'MATCH (y:User)<-[l:LOVE]-(u:User) WHERE y._id = $_id AND u._id = $u_id RETURN l';
+	return await dbSession.session.run(query, {_id: user._id, u_id: _id}).then(res => {
+		closeBridge(dbSession);
+		if (res.records.length) {
+			return true;
+		}
+		return false
 	}).catch(e => console.log(e));
 }
 
 export const getLikes = async (user) => {
 	const dbSession = session(mode.READ);
-	const query = 'MATCH (y:User {_id: $_id})-[l:LIKE]-(u) RETURN u,l';
+	const query = 'MATCH (y:User)<-[l:LOVE]-(u:User) WHERE y._id = $_id RETURN u,l';
+	return await dbSession.session.run(query, user).then(res => {
+		closeBridge(dbSession)
+		let likes = []
+		res.records.map(record => {
+			let like = undefined;
+			like = record._fields[1].properties;
+			like.user = record._fields[0].properties;
+			likes.push(like);
+		})
+		return likes;
+	}).catch(e => console.log(e));
+}
+
+export const getBlocked = async (user) => {
+	const dbSession = session(mode.READ);
+	const query = 'MATCH (y:User)-[b:BLOCK]->(u:User) WHERE y._id = $_id RETURN u';
 	return await dbSession.session.run(query, user).then(res => {
 		closeBridge(dbSession)
 		let users = []
 		res.records.map(record => {
-			let user = undefined;
-			record._fields.map(field => {
-				switch (field.labels[0]) {
-					case 'User' :
-						user = field.properties;
-						break;
-					default :
-						user[field.labels[0].toLowerCase()] = field.properties;
-				}
-				users.push(user);
-			});
+			let user = record._fields[0].properties;
+			users.push(user);
 		})
 		return users;
 	}).catch(e => console.log(e));
 }
 
+
+export const blocks = async (user, _id) => {
+	const dbSession = session(mode.READ);
+	const query = 'MATCH (y:User)-[b:BLOCK]-(u:User) WHERE y._id = $_id AND u._id = $u_id RETURN b';
+	return await dbSession.session.run(query, {_id: user._id, u_id: _id}).then(res => {
+		closeBridge(dbSession);
+		if (res.records.length) {
+			return true;
+		}
+		return false
+	}).catch(e => console.log(e));
+}
+
 export const block = async (user, _id) => {
 	const dbSession = session(mode.WRITE);
-	const query = `MERGE (u:User {_id: $_id})-[:BLOCK]-(blockedUser:User {_id: $blockId})
-	OTIONAL MATCH (u)-[l:LIKE]-(blockedUser) DELETE l`;
+	const query = `MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $blockId
+	OPTIONAL MATCH (a)-[l:LOVE]-(b)
+	MERGE (a)-[:BLOCK]->(b)
+	DETACH DELETE l`;
 	await dbSession.session.run(query, {_id: user._id, blockId: _id}).then(res => {
 		closeBridge(dbSession);
 	}).catch(e => console.log(e));
@@ -334,7 +380,7 @@ export const block = async (user, _id) => {
 
 export const unblock = async (user, _id) => {
 	const dbSession = session(mode.WRITE);
-	const query = `MERGE (u:User {_id: $_id})-[b:BLOCK]-(blockedUser:User {_id: $blockId}) DELETE b`;
+	const query = `MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $blockId MATCH (a)-[c:BLOCK]->(b) DETACH DELETE c`;
 	await dbSession.session.run(query, {_id: user._id, blockId: _id}).then(res => {
 		closeBridge(dbSession);
 	}).catch(e => console.log(e));
@@ -381,7 +427,7 @@ export const getByOrientation = async (user) => {
 		return users;
 	}).catch(e => console.log(e));
 	for (let key in users) {
-		if (!await hasExtendedProfile(users[key])) users.splice(key, 1);
+		if (!await hasExtendedProfile(users[key]) || await isLiked(user, users[key]._id) || await blocks(user, aUser._id)) users.splice(key, 1);
 	}
 	for (let aUser of users) {
 		aUser.gender = await getGender(aUser);
@@ -389,6 +435,7 @@ export const getByOrientation = async (user) => {
 		aUser.pictures = await getPictures(aUser);
 		aUser.popularity = await getPopularityScore(aUser);
 		aUser.location = await getLocation(aUser);
+		aUser.likes = await likes(user, aUser._id);
 	}
 	users = cleanList(users, gender.name, orientation.name);
 	return users;
@@ -440,7 +487,6 @@ export const hasExtendedProfile = async (user) => {
 	user.pictures = await getPictures(user);
 	user.hobbies = await getHobbies(user);
 	user.location = await getLocation(user);
-
 	if (!user.gender || !user.birthdate || !user.biography || !user.hobbies.length || !user.pictures.length || !user.location || !user.location.lat || !user.location.lng)
 		return false;
 	return true;

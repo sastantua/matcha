@@ -4,7 +4,7 @@ import fs from 'fs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams } from '../models/user';
+import { userExists, registerUser, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, getLikes, blocks, unblock, block, getBlocked } from '../models/user';
 import { getGender, setGender, verifyGender} from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby} from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
@@ -228,6 +228,68 @@ userRouter.post('/location', auth, async (req, res, next) => {
 	}
 })
 
+userRouter.get('/likes', auth, async (req, res, next) => {
+	try {
+		const likes = await getLikes(req.user);
+		res.status(200).json(likes);
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.post('/like/:_id', auth, async (req, res, next) => {
+	try {
+		const { _id } = req.params;
+		console.log(_id);
+		await like(req.user, _id);
+		res.status(200).send();
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.post('/unlike/:_id', auth, async (req, res, next) => {
+	try {
+		const { _id } = req.params;
+		console.log(_id);
+		if (await isLiked(req.user, _id)) await unlike(req.user, _id);
+		res.status(200).send();
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.get('/blocked', auth, async (req, res, next) => {
+	try {
+		const likes = await getBlocked(req.user);
+		res.status(200).json(likes);
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.post('/block/:_id', auth, async (req, res, next) => {
+	try {
+		const { _id } = req.params;
+		console.log(_id);
+		await block(req.user, _id);
+		res.status(200).send();
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.post('/unblock/:_id', auth, async (req, res, next) => {
+	try {
+		const { _id } = req.params;
+		console.log(_id);
+		if (await blocks(req.user, _id)) await unblock(req.user, _id);
+		res.status(200).send();
+	} catch (err) {
+		next(err);
+	}
+})
+
 userRouter.get('/search', auth, async (req, res, next) => {
 	try {
 		if (!hasExtendedProfile(req.user)) throw new ErrorHandler(403, 'Please fill your extended profile');
@@ -243,7 +305,7 @@ userRouter.get('/search', auth, async (req, res, next) => {
 
 userRouter.get('/match', auth, async (req, res, next) => {
 	try {
-		if (!hasExtendedProfile(req.user)) throw new ErrorHandler(403, 'Please fill your extended profile');
+		if (!await hasExtendedProfile(req.user)) throw new ErrorHandler(403, 'Please fill your extended profile');
 		const users = await match(req.user);
 		res.status(200).json(users);
 	} catch (err) {
