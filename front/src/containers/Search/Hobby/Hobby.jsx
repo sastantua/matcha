@@ -19,6 +19,7 @@ const MainContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: auto;
+	margin-top: 2vh;
 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
 
@@ -35,11 +36,13 @@ const StyledList = styledMaterial(List)({
 function Hobby() {
 
 	const [hobbyList, setHobbyList] = useState([]);
+	const [requestHobbyList, setRequestHobbyList] = useState([]);
 	const [openHobby, setOpenHobby] = useState(false);
 	const [request, setRequest] = useContext(SearchRequestContext);
 	
 	useEffect(() => {
-		if (!hobbyList.length) getHobbyList();
+		if (!hobbyList.length)
+			getHobbyList();
 	})
 
 	const handleOpenHobby = () => {
@@ -57,13 +60,14 @@ function Hobby() {
 	};
 
 	const handleChooseHobby = (id) => {
+		setRequestHobbyList(requestHobbyList.concat(id));
 		setRequest({
 			...request, 
 			// hobbies: hobbies.push(id),
 		});
 	};
 
-	
+	console.log(requestHobbyList);
 
 
 	const HobbyList = () => {

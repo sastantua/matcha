@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
+import { styled as styledMaterial } from '@material-ui/core/styles';
+
+import { Typography } from '@material-ui/core'
 
 import api from '../../api/api'
 import SearchRequestContext from '../../context/SearchRequestContext';
@@ -16,18 +19,23 @@ import Distance from './Distance/Distance';
 
 import { Button } from '@material-ui/core';
 
-
 const MainContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: auto;
-	height: 180vh;
+	height: 120vh;
 	margin-top: 6vh;
 	margin-bottom: 8vh;
 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
+
+const TextWrapper = styledMaterial(Typography)({
+	fontSize: '1.5rem',
+	color: "#FFF",
+	marginBottom: '4vh',
+});
 
 function Search() {
 	// const { user, setUser } = useContext(UserContext);
@@ -52,6 +60,7 @@ function Search() {
 		<div id="search-small">
 			<Header />
 				<MainContainer>
+					<TextWrapper>Search users from our base</TextWrapper>
 					<SearchRequestContext.Provider value={[request, setRequest]}>
 						<Distance/>
 						<Age/>
