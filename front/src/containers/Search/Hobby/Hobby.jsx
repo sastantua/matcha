@@ -19,7 +19,7 @@ const MainContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: auto;
-	margin-top: 2vh;
+	margin-top: 3vh;
 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
 
@@ -60,15 +60,13 @@ function Hobby() {
 	};
 
 	const handleChooseHobby = (id) => {
-		setRequestHobbyList(requestHobbyList.concat(id));
+		if (requestHobbyList.filter(cell => cell === id).length === 0)
+			setRequestHobbyList(requestHobbyList.concat(id));
 		setRequest({
-			...request, 
-			// hobbies: hobbies.push(id),
+			...request,
+			hobbies: requestHobbyList,
 		});
 	};
-
-	console.log(requestHobbyList);
-
 
 	const HobbyList = () => {
 		return (

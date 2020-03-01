@@ -14,19 +14,22 @@ import Age from './Age/Age';
 import Hobby from './Hobby/Hobby';
 import Popularity from './Popularity/Popularity';
 import Distance from './Distance/Distance';
-
-// import Test from './Test';
+import Result from './Result/Result';
 
 import { Button } from '@material-ui/core';
 
+const Container = styled.div`
+	display: flex;
+`
+
 const MainContainer = styled.div`
 	display: flex;
+	flex: auto;
 	flex-direction: column;
-	justify-content: center;
 	align-items: center;
 	width: auto;
-	height: 120vh;
-	margin-top: 6vh;
+	min-height: 88vh;
+	margin-top: 10vh;
 	margin-bottom: 8vh;
 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
@@ -34,42 +37,59 @@ const MainContainer = styled.div`
 const TextWrapper = styledMaterial(Typography)({
 	fontSize: '1.5rem',
 	color: "#FFF",
+	marginTop: '3vh',
 	marginBottom: '4vh',
+});
+
+const ButtonWrapper = styledMaterial(Button)({
+	marginTop: '3vh',
 });
 
 function Search() {
 	// const { user, setUser } = useContext(UserContext);
-	const [request, setRequest] = useState({});
-	
+	const [result, setResult] = useState({});
+	const [request, setRequest] = useState({
+		distance: 5,
+		age: {
+			min: 18,
+			max: 50,
+		},
+		popularity: {
+			min: 20,
+			max: 80,
+		},
+		hobbies: [],
+	});
 	
 	const handleSubmit = () => {
-		api.post('/search/', request)
+		api.get('/user/search', request)
 		.then((res) => {
-			// handleOpenHobby();
+			setResult(res.data)
+			console.log(res);
 		})
 		.catch((err) => {
 			console.log(err);
 		})
 	}
 
-	console.log(request);
-
-
-
+	console.log(result);
+	
 	return (
 		<div id="search-small">
 			<Header />
-				<MainContainer>
-					<TextWrapper>Search users from our base</TextWrapper>
-					<SearchRequestContext.Provider value={[request, setRequest]}>
-						<Distance/>
-						<Age/>
-						<Popularity/>
-						<Hobby/>
-						<Button onClick={handleSubmit}>Search</Button>
-						{/* <Test/> */}
-					</SearchRequestContext.Provider>
-				</MainContainer>
+				<Container>
+					<MainContainer>
+						<TextWrapper>Search users from our base</TextWrapper>
+						<SearchRequestContext.Provider value={[request, setRequest]}>
+							<Distance/>
+							<Age/>
+							<Popularity/>
+							<Hobby/>
+							<ButtonWrapper onClick={handleSubmit}>Search</ButtonWrapper>
+						</SearchRequestContext.Provider>
+						<Result/>
+					</MainContainer>
+				</Container>
 			<Footer />
 		</div>
 	);
