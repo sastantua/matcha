@@ -14,6 +14,7 @@ const DistanceContainer = styled.div`
     justify-content: center;
     align-items: center;
 `
+
 const TextWrapper = styledMaterial(Typography)({
 	fontSize: '1rem',
 	color: "#FFF"
