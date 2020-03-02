@@ -464,8 +464,9 @@ export const block = async (user, _id) => {
 	const dbSession = session(mode.WRITE);
 	const query = `MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $blockId
 	OPTIONAL MATCH (a)-[l:LOVE]-(b)
+	OPTIONAL MATCH (a)-[s:SAW]-(b)
 	MERGE (a)-[:BLOCK]->(b)
-	DETACH DELETE l`;
+	DETACH DELETE l,s`;
 	await dbSession.session.run(query, {_id: user._id, blockId: _id}).then(res => {
 		closeBridge(dbSession);
 	}).catch(e => console.log(e));
