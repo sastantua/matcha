@@ -487,12 +487,30 @@ export const alreadySaw = async (user, _id) => {
 	}).catch(e => console.log(e));
 }
 
+export const hasSeen = async (user, _id) => {
+	const dbSession = session(mode.READ);
+	const query = `MATCH (a:User)-[s:SAW]-(b:User) WHERE a._id = $_id AND b._id = $sawId RETURN s`;
+	return await dbSession.session.run(query, { _id: user._id, sawId: _id, date: Date.now() }).then(res => {
+		closeBridge(dbSession);
+		if (res.records.length) return true;
+		return false;
+	}).catch(e => console.log(e));
+}
+
 export const saw = async (user, _id) => {
 	const dbSession = session(mode.WRITE);
 	const query = `MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $sawId MERGE (a)-[s:SAW {date: $date}]->(b)`;
 	await dbSession.session.run(query, { _id: user._id, sawId: _id, date: Date.now() }).then(res => {
 		closeBridge(dbSession);
 	}).catch(e => console.log(e));
+}
+
+export const editSaw = async (user, _id) => {
+	const dbSession = session(mode.WRITE);
+	const query = `MATCH (a:User)-[s:SAW]-(b:User) WHERE a._id = $_id AND b._id = $sawId SET s += {date: $date}`;
+	await dbSession.session.run(query, { _id: user._id, sawId: _id, date: Date.now() }).then(res => {
+		closeBridge(dbSession);
+	}).catch(e => console.log(e));	
 }
 
 const cleanList = (users, gender, orientation) => {
