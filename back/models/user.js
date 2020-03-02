@@ -10,6 +10,13 @@ import { getHobbies } from './hobby';
 import { getGender } from './gender';
 import { registerMail, passwordMail } from './mail';
 
+export const regex = {
+	email: new RegExp(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g),
+	username: new RegExp(/^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/igm),
+	password: new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm),
+	name: new RegExp(/^([A-Z][a-z]+([ ]?[a-z]?['-]?[A-Z][a-z]+)*)$/)
+}
+
 export const userExists = async (user) => {
 	const dbSession = session(mode.READ);
 	const query = 'MATCH (u:User) WHERE u.email = $email OR u.username = $username RETURN u';

@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, getLikes, blocks, unblock, block, getBlocked, activateAccount, requestPassword, changePassword, editPassword, saw, hasSeen, editSaw, getSeen } from '../models/user';
+import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, getLikes, blocks, unblock, block, getBlocked, activateAccount, requestPassword, changePassword, editPassword, saw, hasSeen, editSaw, getSeen, regex} from '../models/user';
 import { getGender, setGender, verifyGender } from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby } from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
@@ -23,7 +23,8 @@ userRouter.post('/register', async (req, res, next) => {
 			username: req.body.username,
 			password: req.body.password
 		}
-		if (!user.email || !user.username || !user.password || !user.firstname || !user.lastname) throw new ErrorHandler(400, 'Missing required fields');
+		
+		if (!user.email.match(regex.email) || !user.username.match(regex.username) || !user.password.match(regex.password)|| !user.firstname.match(regex.name) || !user.lastname.match(regex.name)) throw new ErrorHandler(400, 'Invalid required fields');
 		if (await userExists(user)) throw new ErrorHandler(400, 'User already exists');
 		await registerUser(user);
 		await sendActivation(user);
@@ -47,7 +48,7 @@ userRouter.post('/verify/:token', async (req, res, next) => {
 userRouter.post('/login', async (req, res, next) => {
 	try {
 		const { email, password } = req.body;
-		if (!email || !password) throw new ErrorHandler(400, 'Missing required fields');
+		if (!email.match(regex.email) || !password.match(regex.password)) throw new ErrorHandler(400, 'Invalid required fields');
 		const user = await findByCreditentials(email, password);
 		if (!user) throw new ErrorHandler(401, 'Login failed! Check authentication credentials');
 		if (!user.activated) throw new ErrorHandler(401, 'Please activate your account');
@@ -66,7 +67,7 @@ userRouter.post('/forgot', async (req, res, next) => {
 	try {
 		const { email } = req.body;
 
-		if (!email) throw new ErrorHandler(400, 'Missing required fields');
+		if (!email.match(regex.email)) throw new ErrorHandler(400, 'Invalid required fields');
 		await requestPassword(email);
 		res.status(200).send();
 	} catch (err) {
@@ -78,7 +79,7 @@ userRouter.post('/reset', async (req, res, next) => {
 	try {
 		const { token, password } = req.body;
 
-		if (!password|| !token) throw new ErrorHandler(400, 'Missing required fields');
+		if (!password.match(regex.password)|| !token) throw new ErrorHandler(400, 'Invalid required fields');
 		if (!await changePassword(password, token)) throw new ErrorHandler(400, "Invalid Token");
 		res.status(200).send();
 	} catch (err) {
@@ -89,15 +90,15 @@ userRouter.post('/reset', async (req, res, next) => {
 userRouter.post('/edit', auth, async (req, res, next) => {
 	try {
 		const user = {
-			email: req.body.email ? req.body.email : null,
-			firstname: req.body.firstname ? req.body.firstname : null,
-			lastname: req.body.lastname ? req.body.lastname : null,
-			username: req.body.username ? req.body.username : null,
+			email: req.body.email.match(regex.email) ? req.body.email : null,
+			firstname: req.body.firstname.match(regex.name) ? req.body.firstname : null,
+			lastname: req.body.lastname.match(regex.name) ? req.body.lastname : null,
+			username: req.body.username.match(regex.username) ? req.body.username : null,
 			biography: req.body.biography ? req.body.biography : null,
 			birthdate: req.body.birthdate ? req.body.birthdate : null,
 			proximity: req.body.proximity ? req.body.proximity : null,
 		}
-		if (isEmpty(user)) throw new ErrorHandler(400, "Missing at least one field");
+		if (isEmpty(user)) throw new ErrorHandler(400, "Invalid required fields");
 		if (user.birthdate)
 			if (!user.birthdate.match(/(19|20)\d\d-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])/g))
 				throw new ErrorHandler(400, 'Date should be in format YYYY-MM-DD');
@@ -115,7 +116,7 @@ userRouter.post('/editPassword', auth, async (req, res, next) => {
 	try {
 		const { old_password, new_password } = req.body;
 
-		if (!old_password || !new_password) throw new ErrorHandler(400, "Invalid required field");
+		if (!old_password || !new_password.match(regex.password)) throw new ErrorHandler(400, "Invalid required field");
 		
 		if (!await bcrypt.compare(old_password, req.user.password)) throw new ErrorHandler(401, "Invalid creditentials");
 		await editPassword(req.user, new_password);
