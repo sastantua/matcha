@@ -479,6 +479,24 @@ export const unblock = async (user, _id) => {
 	}).catch(e => console.log(e));
 }
 
+export const getSeen = async (user) => {
+	const dbSession = session(mode.READ);
+	const query = 'MATCH (y:User)<-[s:SAW]-(u:User) WHERE y._id = $_id RETURN u,s';
+	return await dbSession.session.run(query, user).then(res => {
+		closeBridge(dbSession)
+		let saw = []
+		res.records.map(record => {
+			let seen = undefined;
+			seen = record._fields[1].properties;
+			seen.user = record._fields[0].properties;
+			delete user.password;
+			delete user.email;
+			saw.push(seen);
+		})
+		return saw;
+	}).catch(e => console.log(e));
+}
+
 export const alreadySaw = async (user, _id) => {
 	const dbSession = session(mode.WRITE);
 	const query = `MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $sawId MERGE (a)-[s:SAW {date: $date}]->(b)`;

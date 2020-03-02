@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, getLikes, blocks, unblock, block, getBlocked, activateAccount, requestPassword, changePassword, editPassword, saw, hasSeen, editSaw } from '../models/user';
+import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, getLikes, blocks, unblock, block, getBlocked, activateAccount, requestPassword, changePassword, editPassword, saw, hasSeen, editSaw, getSeen } from '../models/user';
 import { getGender, setGender, verifyGender } from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby } from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
@@ -350,6 +350,15 @@ userRouter.post('/saw/:_id', auth, async (req, res, next) => {
 		res.status(200).send();
 	} catch (err) {
 
+	}
+})
+
+userRouter.get('/saw', auth, async (req, res, next) => {
+	try {
+		const seen = await getSeen(req.user);
+		res.status(200).json(seen);
+	} catch (err) {
+		next(err);
 	}
 })
 
