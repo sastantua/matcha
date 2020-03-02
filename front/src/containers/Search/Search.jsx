@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { Typography } from '@material-ui/core'
 
@@ -47,7 +48,9 @@ const ButtonWrapper = styledMaterial(Button)({
 
 function Search() {
 	// const { user, setUser } = useContext(UserContext);
-	const [result, setResult] = useState({});
+	const [isLoading, setIsLoading] = useState(false);
+	
+	const [result, setResult] = useState([]);
 	const [request, setRequest] = useState({
 		distance: 5,
 		age: {
@@ -62,10 +65,11 @@ function Search() {
 	});
 	
 	const handleSubmit = () => {
+		setIsLoading(true);
 		api.get('/user/search', request)
 		.then((res) => {
 			setResult(res.data)
-			console.log(res);
+			setIsLoading(false);
 		})
 		.catch((err) => {
 			console.log(err);
@@ -87,7 +91,7 @@ function Search() {
 							<Hobby/>
 							<ButtonWrapper onClick={handleSubmit}>Search</ButtonWrapper>
 						</SearchRequestContext.Provider>
-						<Result/>
+						{ isLoading ? <CircularProgress/> : <Result result={result}/>}
 					</MainContainer>
 				</Container>
 			<Footer />

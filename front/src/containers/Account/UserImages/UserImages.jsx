@@ -9,7 +9,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 // import logo from '../../../media/cerisier.jpg';
 import FlickityComponent from 'react-flickity-component'
 import 'flickity/css/flickity.css'
-import 'flickity-fullscreen/fullscreen.css'
+// import 'flickity-fullscreen/fullscreen.css'
 
 import './UserImages.css'
 

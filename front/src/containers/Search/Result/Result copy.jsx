@@ -9,39 +9,34 @@ const ResultContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-	align-items: center;
-`
-
-const UserContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-	margin-top: 3vh;
+    align-items: center;
 `
 
 const TextWrapper = styledMaterial(Typography)({
 	fontSize: '0.5rem',
 	color: "#FFF",
-	marginTop: '2vh',
-	marginBottom: '1vh',
+	marginTop: '3vh',
+	marginBottom: '4vh',
 });
 
 function User(props) {
-	// const userHobbies = props.user.hobbies.slice(0, 2);
+	const userHobbies = props.user.hobbies.map((hobby, index) => {
+		if (index < 3)
+			return (hobby.name);
+		}
+	);
 
-	let d1 = Date.now();
-	let d2 = new Date(props.user.birthdate).getTime();
-	let millisecondDiff = d2d1;
-	
+	console.log(userHobbies);
+
+	// let UserHobbiesJsx = userHobbies.map(hobby =>
+	// 	<TextWrapper>{ hobby }</TextWrapper>
+	// );
 
 	return (
 		<Link to="/profile" user={props.user} style={{ textDecoration: 'none' }}>
-			<UserContainer>
-				<img src={props.user.pictures[0].url} alt={props.user.pictures[0].name} key={props.user.pictures[0].name} />
-				<TextWrapper>{ props.user.firstname }</TextWrapper>
-				<TextWrapper>{ props.user.lastname }</TextWrapper>
-				<TextWrapper>{ props.user.lastname }</TextWrapper>
-			</UserContainer>
+			<img src={props.user.pictures[0].url} alt={props.user.pictures[0].name} key={props.user.pictures[0].name} />
+			{/* <UserHobbiesJsx/> */}
+
 		</Link>
 	);
 }
