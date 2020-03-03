@@ -44,6 +44,7 @@ const TextWrapper = styledMaterial(Typography)({
 
 const ButtonWrapper = styledMaterial(Button)({
 	marginTop: '3vh',
+	marginBottom: '3vh',
 });
 
 function Search() {
@@ -75,7 +76,6 @@ function Search() {
 			console.log(err);
 		})
 	}
-
 	console.log(result);
 	
 	return (

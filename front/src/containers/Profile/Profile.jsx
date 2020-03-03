@@ -35,6 +35,8 @@ const MainContainer = styled.div`
 
 function Profile(props) {
 	// const userHobbies = props.user.hobbies.slice(0, 2);
+	console.log("props.user");
+	console.log(props);
 
 	return (
 		<>
