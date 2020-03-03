@@ -76,7 +76,7 @@ function Search() {
 			console.log(err);
 		})
 	}
-	console.log(result);
+	console.log(request);
 	
 	return (
 		<div id="search-small">
@@ -85,10 +85,10 @@ function Search() {
 					<MainContainer>
 						<TextWrapper>Search users from our base</TextWrapper>
 						<SearchRequestContext.Provider value={[request, setRequest]}>
+							<Hobby/>
 							<Distance/>
 							<Age/>
 							<Popularity/>
-							<Hobby/>
 							<ButtonWrapper onClick={handleSubmit}>Search</ButtonWrapper>
 						</SearchRequestContext.Provider>
 						{ isLoading ? <CircularProgress/> : <Result result={result}/>}
