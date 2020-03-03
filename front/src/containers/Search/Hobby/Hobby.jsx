@@ -43,7 +43,7 @@ function Hobby() {
 	const classes = useStyles();
 
 	const [hobbyList, setHobbyList] = useState([]);
-	const [requestHobbyList, setRequestHobbyList] = useState([]);
+	const [requestHobbyList, setRequestHobbyList] = useState([{}]);
 	const [openHobby, setOpenHobby] = useState(false);
 	const [request, setRequest] = useContext(SearchRequestContext);
 	
@@ -66,11 +66,11 @@ function Hobby() {
 		})
 	};
 
-	const handleChooseHobby = (id) => {
+	const handleChooseHobby = (id, name) => {
 		if (requestHobbyList.length === 0)
-			setRequestHobbyList(requestHobbyList.concat(id));
+			setRequestHobbyList(requestHobbyList.concat({id, name}));
 		else if (requestHobbyList.filter(cell => cell === id).length === 0)
-			setRequestHobbyList(requestHobbyList.concat(id));
+			setRequestHobbyList(requestHobbyList.concat({id, name}));
 		setRequest({
 			...request,
 			hobbies: requestHobbyList,
@@ -85,7 +85,7 @@ function Hobby() {
 	const HobbyList = () => {
 		return (
 			hobbyList.map(text =>
-				<ListItem button key={text._id} value={text._id} onClick={() => handleChooseHobby(text._id)} >
+				<ListItem button key={text._id} value={text._id} onClick={() => handleChooseHobby(text._id, text.name)} >
 					<ListItemText primary={text.name} />
 				</ListItem>
 			)
@@ -97,7 +97,7 @@ function Hobby() {
 			requestHobbyList.map(hobby => {
 				console.log(hobby)
 				return (
-					<Chip className={classes.chip} variant="outlined" size="small" key={hobby} label="@hobby" onClick={() => deleteUserHobby(hobby)} />
+					<Chip className={classes.chip} variant="outlined" size="small" key={hobby.id} label={hobby.name} onClick={() => deleteUserHobby(hobby)} />
 				)
 			})
 		)
