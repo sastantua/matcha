@@ -7,6 +7,7 @@ import cors from 'cors';
 import 'dotenv/config';
 
 import { handleError } from './middleware/errors';
+import socket from './middleware/socket';
 
 import userRouter from './routes/user';
 import genderRouter from './routes/gender';
@@ -14,6 +15,8 @@ import hobbyRouter from './routes/hobby';
 import orientationRouter from './routes/orientation';
 
 var app = express();
+
+socket;
 
 app.use(logger('dev'));
 app.use(cors());
