@@ -9,6 +9,7 @@ import Homepage from '../containers/Homepage/Homepage';
 import Account from '../containers/Account/Account';
 import Match from '../containers/Match/Match';
 import Search from '../containers/Search/Search';
+import Profile from '../containers/Profile/Profile';
 
 import Signup from '../containers/Signup/Signup';
 import Login from '../containers/Login/Login';
@@ -54,6 +55,7 @@ function App() {
 						<AuthenticatedRoute exact path="/account" component={Account} />
 						<AuthenticatedRoute exact path="/match" component={Match} />
 						<AuthenticatedRoute exact path="/search" component={Search} />
+						<AuthenticatedRoute exact path="/profile" component={Profile} />
 						<Route path="*" component={NoMatch} />
 					</Switch>
 				</BrowserRouter>

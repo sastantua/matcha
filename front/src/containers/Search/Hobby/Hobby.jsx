@@ -1,17 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import api from '../../../api/api'
 import SearchRequestContext from '../../../context/SearchRequestContext';
 
-// import { TextField, Button, Chip } from '@material-ui/core';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import { List, ListItem, ListItemText, Collapse, Chip } from '@material-ui/core';
+import { ExpandMore, ExpandLess } from '@material-ui/icons';
 
 const MainContainer = styled.div`
 	display: flex;
@@ -19,12 +15,12 @@ const MainContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: auto;
-	margin-top: 3vh;
+	margin-bottom: 3vh;
 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
 
 const StyledList = styledMaterial(List)({
-	width: '100%',
+	width: '150%',
 	maxWidth: 360,
 	maxHeight: 300,
 	overflow: 'auto',
@@ -33,7 +29,18 @@ const StyledList = styledMaterial(List)({
 	color: "#000",
 })
 
+const useStyles = makeStyles(theme => ({
+	root: {color: "#000"},
+	chip: {
+		width: '150%',
+		background: '#FF3860',
+		color: "#000",
+		marginTop: '1em',
+	},
+}));
+
 function Hobby() {
+	const classes = useStyles();
 
 	const [hobbyList, setHobbyList] = useState([]);
 	const [requestHobbyList, setRequestHobbyList] = useState([]);
@@ -59,22 +66,42 @@ function Hobby() {
 		})
 	};
 
-	const handleChooseHobby = (id) => {
-		if (requestHobbyList.filter(cell => cell === id).length === 0)
-			setRequestHobbyList(requestHobbyList.concat(id));
+	const handleChooseHobby = (id, name) => {
+		if (requestHobbyList.length === 0)
+			setRequestHobbyList(requestHobbyList.concat({id, name}));
+		else if (requestHobbyList.filter(cell => cell.id === id).length === 0)
+			setRequestHobbyList(requestHobbyList.concat({id, name}));
 		setRequest({
 			...request,
 			hobbies: requestHobbyList,
 		});
 	};
 
+	const deleteUserHobby = (hobbyToDelete) => {
+		console.log(hobbyToDelete);
+		console.log(requestHobbyList);
+		let newRequestHobbyList = requestHobbyList.filter(hobby => hobby.id !== hobbyToDelete.id);
+		console.log(newRequestHobbyList);
+		setRequestHobbyList(newRequestHobbyList);
+	}
+
 	const HobbyList = () => {
 		return (
 			hobbyList.map(text =>
-				<ListItem button key={text._id} value={text._id} onClick={() => handleChooseHobby(text._id)} >
+				<ListItem button key={text._id} value={text._id} onClick={() => handleChooseHobby(text._id, text.name)} >
 					<ListItemText primary={text.name} />
 				</ListItem>
 			)
+		)
+	}
+
+	const ChoosedHobbyList = () => {
+		return (
+			requestHobbyList.map(hobby => {
+				return (
+					<Chip className={classes.chip} variant="outlined" size="small" key={hobby.id} label={hobby.name} onClick={() => deleteUserHobby(hobby)} />
+				)
+			})
 		)
 	}
 
@@ -91,7 +118,7 @@ function Hobby() {
 					</List>
 				</Collapse>
 			</StyledList>
-			{/* {!!userHobbyList.length && <UserHobbies />} */}
+			{ !!requestHobbyList.length && <ChoosedHobbyList/> }
 		</MainContainer>
 	);
 }

@@ -21,7 +21,7 @@ const TextWrapper = styledMaterial(Typography)({
 });
 
 function Distance() {
-	const [value, setValue] = useState(10);
+	const [value, setValue] = useState(20);
 	const [request, setRequest] = useContext(SearchRequestContext);
 
 	const handleChange = (event, newValue) => {
@@ -39,7 +39,7 @@ function Distance() {
 				value={value}
 				onChange={handleChange}
 				valueLabelDisplay="auto"
-				max={20}
+				max={10000}
 			/>
 		</DistanceContainer>
 	);

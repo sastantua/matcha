@@ -23,10 +23,10 @@ const InputWrapperSmall = styledMaterial(TextField)({
 
 const InputSubWrapper = styled.div
 `
-       display: flex;
-       flex-direction: column;
-       justify-content: center;
-       align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `
 
 export { TitleWrapper, TextWrapper, InputWrapper, InputWrapperSmall, InputSubWrapper }
