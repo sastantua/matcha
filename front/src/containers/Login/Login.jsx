@@ -15,7 +15,6 @@ function Login() {
 	const history = useHistory();
 	const [email, setEmail] = useState("test@test.com");
 	const [password, setPassword] = useState("test42");
-	// const [userData, setUserData] = useState("test");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const handleEmail = (e) => {setEmail(e.target.value);}

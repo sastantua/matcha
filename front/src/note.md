@@ -1,9 +1,9 @@
 # Todo
 
-
 	Objectif du jour:
 		- clean up
 		- check with new accounts
+		- sort account in search
 		- read useEffect
 
 	/user/search 
@@ -11,7 +11,7 @@
 
 
 	Account
-		- localisation slider
+		- proximity slider
 
 	Match:
 		- getuserinfo
@@ -25,8 +25,6 @@
 	Login / Signup:
 		- problem with default route (nomatch)
 		- view mobile
-
-
 
 	Learn:
 		- useEffect micka post

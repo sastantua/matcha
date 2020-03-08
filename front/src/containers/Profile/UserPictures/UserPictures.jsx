@@ -32,24 +32,20 @@ const flickityOptions = {
 	}
 }
 
-function UserImages(props) {
-	let userPictures = props.images;
-
-	if (userPictures) {
-		const userPicturesArray = userPictures.map((text, index) => 
-			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={index} />
+function UserPictures(props) {
+	if (props.pictures) {
+		const userPicturesArray = props.pictures.map((text, index) => 
+			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} /> // onClick={() => openModal(text._id)}
 		);
-		// onClick={() => openModal(text._id)}
 
 		const UserImagesJsx = () => {
 			return (
-				<ImagesContainer>
-					<FlickityComponent className={'carousel'} elementType={'div'} options={flickityOptions}>
-						{ userPicturesArray }
-					</FlickityComponent>
-				</ImagesContainer>
+				<FlickityComponent className={'carousel'} elementType={'div'} options={flickityOptions}>
+					{ userPicturesArray }
+				</FlickityComponent>
 			);
 		}
+
 		return (
 			<ImagesContainer>
 				<UserImagesJsx/>
@@ -60,4 +56,4 @@ function UserImages(props) {
 	}
 }
 
-export default UserImages;
+export default UserPictures;

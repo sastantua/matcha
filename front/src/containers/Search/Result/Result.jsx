@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core/styles';
 
 import { Typography, Paper } from '@material-ui/core'
-import findAge from './findAge.js'
+import findAge from './Helper/findAge.js'
+import sortAge from './Helper/sortAge.js'
 
 const ResultContainer = styled.div`
     display: flex;
@@ -54,17 +55,10 @@ const NameAgeContainer = styled.div`
 `
 
 function User(props) {
-	// const userHobbies = props.user.hobbies.slice(0, 2);
 	const age = findAge(props.user.birthdate);
 
-	const newTo = { 
-		pathname: '/profile', 
-		user: {user: props.user},
-	};
-
 	return (
-		<Link to={{newTo}} user={props.user} style={{ textDecoration: 'none' }}>
-		{/* <Link to='/profile' user={props.user} style={{ textDecoration: 'none' }}> */}
+		<Link to={{pathname: '/profile', state: { user: props.user }}} style={{ textDecoration: 'none' }}>
 			<UserContainer>
 				<PaperContainer elevation={3} component="div">
 					<img src={props.user.pictures[0].url} alt={props.user.pictures[0].name} key={props.user.pictures[0].name} style={{width: '70vw'}}/>
@@ -79,17 +73,22 @@ function User(props) {
 	);
 }
 
-
 function Result(props) {
 
+	const users = props.result.map(user => user);
+	let test = sortAge(users);
+	console.log(users);
+
+	const Users = () => {
+		return (
+			test.map((user, index) =>
+				<User user={user} key={index}/>
+		));
+	}
+	
 	return (
 		<ResultContainer>
-			{
-				props.result.map((user, index) => {
-					console.log(user);
-					return (<User user={user} key={index}/>);	
-				})
-			}
+			<Users/>
 		</ResultContainer>
 	);
 }
