@@ -9,7 +9,6 @@ import { Mail as MailIcon, Notifications as NotificationsIcon, ExitToApp as Exit
 
 import './Header.css';
 
-	
 function HeaderLarge(props) {
 
 	const classes = props.useStyles();

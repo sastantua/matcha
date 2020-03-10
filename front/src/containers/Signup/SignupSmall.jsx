@@ -31,7 +31,7 @@ const SignupForm = styled.form`
 	justify-content: center;
 	align-items: center;
 	max-width: 50vw;
-	margin-top: 15vh;
+	margin-top: 7vh;
 `
 
 const InputWrapper = styledMaterial(TextField)({

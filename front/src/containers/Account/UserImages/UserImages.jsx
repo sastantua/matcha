@@ -172,13 +172,10 @@ function UserImages() {
 		}
 	}
 
-	const UserImagesArray = () => {
-		return (
-			userPictures.map((text, index) => 
-				<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => openModal(text._id)}/>
-		));
-	}
-	
+	const userImagesArray = userPictures.map((text, index) =>
+		<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => openModal(text._id)}/>
+	);
+
 	const openModal = (id) => {
 		setSelectedPicture(userPictures.filter(userPicture => userPicture._id === id)[0]);
 	}
@@ -203,7 +200,7 @@ function UserImages() {
 	const UserImagesJsx = () => {
 		return (
 			<FlickityComponent className={'carousel'} elementType={'div'} options={flickityOptions}>
-				<UserImagesArray/>
+				{ userImagesArray }
 			</FlickityComponent>
 		);
 	}

@@ -31,7 +31,7 @@ const SignupForm = styled.form`
 	justify-content: center;
 	align-items: center;
 	max-width: 50vw;
-	margin-top: 15vh;
+	margin-top: 7vh;
 `
 
 const InputWrapper = styledMaterial(TextField)({
@@ -90,7 +90,7 @@ function SignupMedium() {
 
 	return (
 		<SignupContainer>
-			<SignupTitle>Matcha</SignupTitle>	
+			<SignupTitle>Matcha</SignupTitle>
 			<SignupForm noValidate autoComplete="off" onSubmit={handleSubmit}>
 				<InputWrapper label="firstname" name="firstname" onChange={handleFirstname} variant="outlined" />
 				<InputWrapper label="lastname" name="lastname" onChange={handleLastname} variant="outlined" />
@@ -103,7 +103,7 @@ function SignupMedium() {
 			<RedirectionSignup>
 				<Typography>Already have an account?</Typography>
 				<Button color="secondary">
-				<Link to="/login">login</Link>
+					<Link to="/login">login</Link>
 				</Button>
 			</RedirectionSignup>
 		</SignupContainer>

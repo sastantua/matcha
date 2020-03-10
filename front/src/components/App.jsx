@@ -34,12 +34,39 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 
 function App() {
 	const [user, setUser] = useState(null);
+	const [userLocation, setUserLocation] = useState();
 	const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 
 	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 		api.get('/user/me').then((res) => {setUser(res.data);}).catch(err => console.log(err));
 	}
+
+	const handleUserLocation = (position) => {
+		console.log(position);
+		console.log('handleUserLocation');
+		setUserLocation(position);
+	}
+	
+	if (localStorage.getItem('token')) {
+		if (navigator.geolocation) {
+			console.log("if");
+			navigator.geolocation.getCurrentPosition(setUserLocation);
+		}
+		else {
+			console.log("else");
+			fetch(`http://www.geoplugin.net/json.gp?jsoncallback=?`)
+			.then((response) => {
+				setUserLocation(response)
+				// console.log(response);
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+		}
+	}
+
+	console.log(userLocation);
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
