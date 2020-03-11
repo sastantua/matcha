@@ -44,9 +44,30 @@ function App() {
 		api.get('/user/me').then((res) => {setUser(res.data);}).catch(err => console.log(err));
 	}
 
+	// const handleUserLocation = (position) => {
+	// 	console.log(position);
+	// 	console.log('handleUserLocation');
+	// 	setUserLocation(position);
+	// }
+	
+	// if (localStorage.getItem('token')) {
+	// 	fetch(`http://www.geoplugin.net/json.gp?jsoncallback=?`)
+	// 	.then((response) => {
+	// 		setUserLocation(response)
+	// 		console.log(response);
+	// 	})
+	// 	.catch((err) => {
+	// 		console.log(err)
+	// 	})
+	// }
+
+	console.log("userLocation");
 	console.log(userLocation);
+	console.log("latitude");
 	console.log(latitude);
+	console.log("longitude");
 	console.log(longitude);
+	console.log("error");
 	console.log(error);
 
 	return (

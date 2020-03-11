@@ -4,6 +4,7 @@ import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
 import logo from '../../media/frogs.jpg';
+import SimpleMap from './SimpleMap';
 import './Homepage.css';
 
 function Homepage() {
@@ -43,6 +44,7 @@ function Homepage() {
 					<h1>Matcha</h1>
 					<p>Protect yourself</p>
 					<img src={logo} alt="funnypic"/>
+					<SimpleMap/>
 				</div>
 				<Footer/>
 			</div>
