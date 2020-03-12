@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import { SnackbarProvider } from 'notistack';
@@ -39,39 +39,24 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 
 function App() {
 	const [user, setUser] = useState(null);
-	// const [userLocation, setUserLocation] = useState();
-	console.log('in App.jsx before calling usePosition');
-	const {latitude, longitude, error} = usePosition();
 	const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
+	
+	useEffect(() => {
+		if (user) {
+			const { latitude, longitude } = usePosition();
+			api.post('/user/location', {lat: latitude, lng: longitude})
+			.then(res => console.log(res.data))
+			.catch(err => console.log(err))
+		}
+	}, [user]);
 
 	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 		api.get('/user/me').then((res) => {setUser(res.data);}).catch(err => console.log(err));
 	}
 
-	// const handleUserLocation = (position) => {
-	// 	console.log(position);
-	// 	console.log('handleUserLocation');
-	// 	setUserLocation(position);
-	// }
-	
-	// if (localStorage.getItem('token')) {
-	// 	fetch(`http://www.geoplugin.net/json.gp?jsoncallback=?`)
-	// 	.then((response) => {
-	// 		setUserLocation(response)
-	// 		console.log(response);
-	// 	})
-	// 	.catch((err) => {
-	// 		console.log(err)
-	// 	})
-	// }
-
-	// console.log("userLocation");
-	// console.log(userLocation);
 	console.log("latitude", latitude);
 	console.log("longitude", longitude);
-	// console.log("error");
-	// console.log(error);
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
