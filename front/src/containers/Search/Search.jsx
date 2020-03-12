@@ -74,8 +74,10 @@ function Search() {
 		})
 		.catch((err) => {
 			console.log(err);
+			setIsLoading(false);
 		})
 	}
+	
 	console.log(request);
 	
 	return (

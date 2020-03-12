@@ -39,11 +39,11 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 
 function App() {
 	const [user, setUser] = useState(null);
+	const {latitude, longitude} = usePosition();
 	const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 	
 	useEffect(() => {
 		if (user) {
-			const { latitude, longitude } = usePosition();
 			api.post('/user/location', {lat: latitude, lng: longitude})
 			.then(res => console.log(res.data))
 			.catch(err => console.log(err))
