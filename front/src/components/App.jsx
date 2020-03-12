@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import { SnackbarProvider } from 'notistack';
+import dotenv from 'dotenv';
 
 import 'react-bulma-components/dist/react-bulma-components.min.css';
 
@@ -18,7 +19,10 @@ import NoMatch from '../containers/NoMatch/NoMatch';
 import { UserContext } from '../context/UserContext'
 
 import { usePosition } from '../hooks/usePosition';
+import localisation from './localisation'
 import api from '../api/api';
+
+dotenv.config();
 
 const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 	return (
@@ -35,7 +39,8 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 
 function App() {
 	const [user, setUser] = useState(null);
-	const [userLocation, setUserLocation] = useState();
+	// const [userLocation, setUserLocation] = useState();
+	console.log('in App.jsx before calling usePosition');
 	const {latitude, longitude, error} = usePosition();
 	const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 
@@ -61,14 +66,12 @@ function App() {
 	// 	})
 	// }
 
-	console.log("userLocation");
-	console.log(userLocation);
-	console.log("latitude");
-	console.log(latitude);
-	console.log("longitude");
-	console.log(longitude);
-	console.log("error");
-	console.log(error);
+	// console.log("userLocation");
+	// console.log(userLocation);
+	console.log("latitude", latitude);
+	console.log("longitude", longitude);
+	// console.log("error");
+	// console.log(error);
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >

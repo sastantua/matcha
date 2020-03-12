@@ -44,7 +44,7 @@ function Homepage() {
 					<h1>Matcha</h1>
 					<p>Protect yourself</p>
 					<img src={logo} alt="funnypic"/>
-					<SimpleMap/>
+					{/* <SimpleMap/> */}
 				</div>
 				<Footer/>
 			</div>
