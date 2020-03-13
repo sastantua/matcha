@@ -104,8 +104,8 @@ export const findByCreditentials = async (email, password) => {
 	const user = await dbSession.session.run(query, { email, password }).then(res => {
 		closeBridge(dbSession);
 		if (res.records.length) {
-			let { _id, username, firstname, lastname, email, biography, birthdate, proximity, password } = res.records[0]._fields[0].properties;
-			const user = { _id, username, firstname, lastname, email, biography, birthdate, proximity, password };
+			let { _id, username, firstname, lastname, email, biography, birthdate, activated, proximity, password } = res.records[0]._fields[0].properties;
+			const user = { _id, username, firstname, lastname, email, biography, birthdate, activated, proximity, password };
 			return user;
 		}
 		return null;

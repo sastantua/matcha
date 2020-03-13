@@ -12,7 +12,10 @@ const socket = io(socketServer);
 const users = [];
 
 socket.on('connection', socket => {
-	socket.on('connected', id => users[id] = socket.id);
+	socket.on('connected', id => {
+		console.log(`user connected`, id);
+		users[id] = socket.id
+	});
 })
 
 export default socket;
