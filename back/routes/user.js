@@ -366,7 +366,7 @@ userRouter.get('/saw', auth, async (req, res, next) => {
 userRouter.get('/search', auth, async (req, res, next) => {
 	try {
 		if (!hasExtendedProfile(req.user)) throw new ErrorHandler(403, 'Please fill your extended profile');
-		const { age = null, popularity = null, distance = null, hobbies = null } = req.body;
+		const { age, popularity, distance, hobbies } = req.body;
 		const filters = { age, popularity, distance, hobbies };
 		if (isEmpty(filters)) throw new ErrorHandler(400, 'You need at least one parameter');
 		const users = sortByParams(req.user, await getByOrientation(req.user), filters);
