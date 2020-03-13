@@ -13,6 +13,7 @@ import userRouter from './routes/user';
 import genderRouter from './routes/gender';
 import hobbyRouter from './routes/hobby';
 import orientationRouter from './routes/orientation';
+import { generateGenders, generateHobbies, generateOrientations } from './models/utils';
 
 var app = express();
 
@@ -24,6 +25,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.disable('etag');
+
+generateGenders();
+generateHobbies();
+generateOrientations();
 
 app.use('/user', userRouter);
 app.use('/gender', genderRouter);
