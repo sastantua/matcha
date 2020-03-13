@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import styled from "styled-components";
+import { styled as styledMaterial } from '@material-ui/core/styles';
 import api from '../../api/api'
 
 import Header from '../../components/Header/Header';
@@ -9,36 +11,88 @@ import { Favorite as FavoriteIcon, ArrowForwardIos as ArrowForwardIosIcon, Arrow
 import logo from '../../media/cerisier.jpg';
 import './Match.css'
 
+const MatchContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	height: 88vh;
+	margin-top: 6vh;
+	margin-bottom: 6vh;
+	background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
+`
+
+const CustomPaper = styledMaterial(Paper)({
+	display: "flex",
+	flexDirection: "column",
+	justifyContent: "center",
+	alignItems: "center",
+	backgroundColor: "#ff3860",
+	paddingTop: "0.5em",
+	paddingLeft: "0.5em",
+	paddingRight: "0.5em",
+	paddingBottom: "0.5em",
+});
+
+const ImageContainer = styled.img`
+	width: 12em;
+	height: 12em;
+`
+
+const ActionContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	margin-top: 1.5em;
+	margin-bottom: 1em;
+`
+const Username = styled(Typography)({
+	alignSelf: "start",
+	marginTop: "0.5vh",
+	marginLeft: "4vw",
+});
+
+const Biography = styled(Typography)({
+	maxWidth: "20em",
+	fontSize: "8px",
+
+});
+
+
 function Match() {
 	// const classes = useStyles();
 	// const { user, setUser } = useContext(UserContext);
-	const [match, setMatch] = useState({});
+	const [match, setMatch] = useState();
 	
 	const getMatch = () => {
 		api.get('/user/match')
-		.then((res) => {setMatch(res.data);})
+		.then((res) => {
+			setMatch(res.data);
+		})
 		.catch((err) => {console.log(err);})
+		console.log("match", match);
 	};
 
 
 	return (
-		<div id="match-small">
-			<Header />
-			<Paper id="match-main-container" component='div'>
-				<img src={logo} id="profile-picture" alt="profile" onClick={() => getMatch()}/>
-				<Typography id="username">Nico</Typography>
-				<Typography id="bio">
+		<>
+		<Header />
+		<MatchContainer>
+			<CustomPaper component='div'>
+				<ImageContainer src={logo} alt="profile" onClick={() => getMatch()}/>
+				<Username>Nico</Username>
+				<Biography>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
 				    ut labore et dolore magna aliqua.
-				</Typography>
-				<div id="button-container">
+				</Biography>
+				<ActionContainer>
 					<ArrowBackIosIcon htmlColor='#FAE3D9' />
 					<FavoriteIcon htmlColor='#FAE3D9' className="icon-btn" />
 					<ArrowForwardIosIcon htmlColor='#FAE3D9' className="icon-btn" />
-				</div>
-			</Paper>
-			<Footer />
-		</div>
+				</ActionContainer>
+			</CustomPaper>
+		</MatchContainer>
+		<Footer />
+		</>
 	);
 }
 

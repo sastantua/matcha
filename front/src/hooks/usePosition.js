@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import localisation from './locationGoogle';
 import axios from 'axios'
 
 export const usePosition = () => {

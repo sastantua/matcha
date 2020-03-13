@@ -19,7 +19,6 @@ import NoMatch from '../containers/NoMatch/NoMatch';
 import { UserContext } from '../context/UserContext'
 
 import { usePosition } from '../hooks/usePosition';
-import localisation from './localisation'
 import api from '../api/api';
 
 dotenv.config();
@@ -45,18 +44,17 @@ function App() {
 	useEffect(() => {
 		if (user) {
 			api.post('/user/location', {lat: latitude, lng: longitude})
-			.then(res => console.log(res.data))
 			.catch(err => console.log(err))
 		}
 	}, [user]);
+	
+	// console.log("latitude", latitude);
+	// console.log("longitude", longitude);
 
 	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 		api.get('/user/me').then((res) => {setUser(res.data);}).catch(err => console.log(err));
 	}
-
-	console.log("latitude", latitude);
-	console.log("longitude", longitude);
 
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >

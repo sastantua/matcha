@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import api from '../../../api/api'
 
@@ -104,6 +104,12 @@ function UserImages() {
 	const [selectedFile, setSelectedFile] = useState();
 	const [selectedPicture, setSelectedPicture] = useState(undefined);
 
+	const pictures = [];
+
+	useEffect(() => {
+		getUserPictures();
+	}, []);
+
 	// Add a picture in the application state
 	const addPictureFile = (e) => {
 		setSelectedFile({
@@ -146,6 +152,7 @@ function UserImages() {
 	}
 
 	const deleteUserPicture = (id) => {
+		setSelectedPicture();
 		api.delete('/user/picture', { data: { _id: id } })
 		.then((res) => {getUserPictures();})
 		.catch((err) => {console.log(err);})
@@ -204,11 +211,6 @@ function UserImages() {
 			</FlickityComponent>
 		);
 	}
-
-
-
-	if (!userPictures.length)
-		getUserPictures();
 
 	return (
 		<div id="container-user-image-small">

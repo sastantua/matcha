@@ -1,56 +1,10 @@
 /* ACCOUNT SMALL */
 
-#match-small {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: auto;
-	height: 88vh;
-	margin-top: 6vh;
-	margin-bottom: 6vh;
-	background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
-}
-
-#match-small #match-main-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	background-color: #ff3860;
-	padding-top: 0.5em;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-	padding-bottom: 0.5em;
-}
-
-#match-small #match-main-container #profile-picture {
-	width: 12em;
-	height: 12em;
-}
-
-#match-small #match-main-container #profile-picture:hover {
+ #profile-picture:hover {
 	opacity: 0.8;
 }
 
-#match-small #match-main-container #username {
-	align-self: start;
-	margin-top: 0.5vh;
-	margin-left: 4vw;
-}
-
-#match-small #match-main-container #bio {
-	max-width: 20em;
-	font-size: 8px;
-}
-
-#match-small #match-main-container #button-container {
-	display: flex;
-	flex-direction: row;
-	margin-top: 1.5em;
-	margin-bottom: 1em;
-}
-
-#match-small #match-main-container #button-container .icon-btn {
+.icon-btn {
 	margin-left: 1.5em;
 }
 

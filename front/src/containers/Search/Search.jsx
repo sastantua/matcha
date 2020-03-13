@@ -56,24 +56,30 @@ function Search() {
 		distance: 5,
 		age: {
 			min: 18,
-			max: 50,
+			max: 50
 		},
 		popularity: {
 			min: 20,
-			max: 80,
+			max: 80
 		},
-		hobbies: [],
+		hobbies: []
 	});
 	
 	const handleSubmit = () => {
 		setIsLoading(true);
+		console.log('MTB18');
+		console.log("request", request);
 		api.get('/user/search', request)
 		.then((res) => {
+			console.log('MTB19');
+			console.log("result", res.data);
 			setResult(res.data)
 			setIsLoading(false);
+			console.log('MTB20');
 		})
 		.catch((err) => {
-			console.log(err);
+			console.log('MTB21');
+			console.error(err);
 			setIsLoading(false);
 		})
 	}
@@ -93,7 +99,8 @@ function Search() {
 							<Popularity/>
 							<ButtonWrapper onClick={handleSubmit}>Search</ButtonWrapper>
 						</SearchRequestContext.Provider>
-						{ isLoading ? <CircularProgress/> : <Result result={result}/>}
+						<Result result={result}/>
+						{/* { isLoading ? <CircularProgress/> : <Result result={result}/>} */}
 					</MainContainer>
 				</Container>
 			<Footer />
