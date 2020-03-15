@@ -99,8 +99,8 @@ function Search() {
 							<Popularity/>
 							<ButtonWrapper onClick={handleSubmit}>Search</ButtonWrapper>
 						</SearchRequestContext.Provider>
-						<Result result={result}/>
-						{/* { isLoading ? <CircularProgress/> : <Result result={result}/>} */}
+						{/* <Result result={result}/> */}
+						{ isLoading ? <CircularProgress/> : <Result result={result}/>}
 					</MainContainer>
 				</Container>
 			<Footer />

@@ -40,7 +40,6 @@ function UserImages(props) {
 			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={index} />
 		);
 		// onClick={() => openModal(text._id)}
-
 		const UserImagesJsx = () => {
 			return (
 				<ImagesContainer>

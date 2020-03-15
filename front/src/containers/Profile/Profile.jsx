@@ -35,6 +35,7 @@ const PaperContainer = styled(Paper)({
 	paddingLeft: '0.5em',
 	paddingRight: '0.5em',
 	paddingBottom: '0.5em',
+	minWidth: '50vw',
 	maxWidth: '70vw',
 });
 
@@ -62,11 +63,10 @@ function Profile(props) {
 	const age = findAge(user.birthdate);
 
 	console.log(user);
-	console.log(user.hobbies);
 
 	return (
 		<>
-			<Header />
+			<Header/>
 				<MainContainer>
 					<PaperContainer component="div">
 						<UserPictures pictures={user.pictures}/>

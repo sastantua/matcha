@@ -76,12 +76,12 @@ function User(props) {
 function Result(props) {
 
 	const users = props.result.map(user => user);
-	let test = sortAge(users);
+	users.sort((a, b) => new Date(a.birthdate)new Date(b.birthdate));
 	console.log(users);
 
 	const Users = () => {
 		return (
-			test.map((user, index) =>
+			users.map((user, index) =>
 				<User user={user} key={index}/>
 		));
 	}

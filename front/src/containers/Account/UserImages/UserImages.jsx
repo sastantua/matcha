@@ -203,6 +203,7 @@ function UserImages() {
 			</ModalContainer>
 		);
 	}
+	console.log("userImagesArray", userImagesArray);
 	
 	const UserImagesJsx = () => {
 		return (
