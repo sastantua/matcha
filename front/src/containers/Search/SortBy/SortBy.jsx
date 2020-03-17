@@ -39,19 +39,19 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function Filter(props) {
+function SortBy(props) {
 	const classes = useStyles();
 
-	const [filterList, setFilterList] = useState(["age", "proximity", "popularity", "hobby"]);
-	const [openFilter, setOpenFilter] = useState(false);
+	const [sortList, setSortList] = useState(["age", "proximity", "popularity", "hobby"]);
+	const [openSort, setOpenSort] = useState(false);
 	
-	const handleOpenFilter = () => {setOpenFilter(!openFilter);};
-	const handleChooseFilter = (name) => {props.setFilter(name);};
+	const handleOpenSort = () => {setOpenSort(!openSort);};
+	const handleChooseSort = (name) => {props.setSort(name);};
 
-	const FilterList = () => {
+	const SortList = () => {
 		return (
-			filterList.map(text =>
-				<ListItem button key={text} value={text} onClick={() => handleChooseFilter(text)} >
+			sortList.map(text =>
+				<ListItem button key={text} value={text} onClick={() => handleChooseSort(text)} >
 					<ListItemText primary={text} />
 				</ListItem>
 			)
@@ -61,13 +61,13 @@ function Filter(props) {
 	return (
 		<MainContainer>
 			<StyledList component="nav" aria-labelledby="nested-StyledList-subheader" >
-				<ListItem button onClick={handleOpenFilter}>
-					<ListItemText primary={"filters"} />
-					{openFilter ? <ExpandLess /> : <ExpandMore />}
+				<ListItem button onClick={handleOpenSort}>
+					<ListItemText primary={"sort by ..."} />
+					{openSort ? <ExpandLess /> : <ExpandMore />}
 				</ListItem>
-				<Collapse in={openFilter} timeout="auto" unmountOnExit>
+				<Collapse in={openSort} timeout="auto" unmountOnExit>
 					<List component="div" disablePadding>
-						{!!filterList.length && <FilterList />}
+						{!!sortList.length && <SortList />}
 					</List>
 				</Collapse>
 			</StyledList>
@@ -75,4 +75,4 @@ function Filter(props) {
 	);
 }
 
-export default Filter;
+export default SortBy;

@@ -80,7 +80,9 @@ function Result(props) {
 	if (props.filter === "age") {
 		users.sort((a, b) => new Date(a.birthdate)new Date(b.birthdate));
 	}
-	// else if (props.filter === "proximity") {}
+	// else if (props.filter === "proximity") {
+		// users.sort((a, b) => a.pro);
+	// }
 	// else if (props.filter === "popularity") {}
 	// else if (props.filter === "hobby") {}
 

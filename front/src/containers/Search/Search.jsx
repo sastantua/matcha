@@ -11,7 +11,7 @@ import SearchRequestContext from '../../context/SearchRequestContext';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
-import Filter from './Filter/Filter';
+import SortBy from './SortBy/SortBy';
 import Age from './Age/Age';
 import Hobby from './Hobby/Hobby';
 import Popularity from './Popularity/Popularity';
@@ -46,7 +46,7 @@ const ButtonWrapper = styledMaterial(Button)({
 
 function Search() {
 	// const { user, setUser } = useContext(UserContext);
-	const [filter, setFilter] = useState();
+	const [sort, setSort] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 	const [result, setResult] = useState([]);
 	const [request, setRequest] = useState({
@@ -82,14 +82,15 @@ function Search() {
 	}
 	
 	console.log(request);
-	console.log("filter\n", filter);
+	console.log("sort by");
+	console.log(sort);
 	
 	return (
 		<div id="search-small">
 			<Header />
 				<MainContainer>
 					<TextWrapper>Select your preferences</TextWrapper>
-					<Filter setFilter={setFilter}/>
+					<SortBy setSort={setSort}/>
 					<SearchRequestContext.Provider value={[request, setRequest]}>
 						<Distance/>
 						<Age/>
@@ -97,7 +98,7 @@ function Search() {
 						<Hobby/>
 						<ButtonWrapper onClick={handleSubmit}>Search</ButtonWrapper>
 					</SearchRequestContext.Provider>
-					{ isLoading ? <CircularProgress/> : <Result result={result} filter={filter}/>}
+					{ isLoading ? <CircularProgress/> : <Result result={result} sort={sort}/>}
 				</MainContainer>
 			<Footer />
 		</div>
