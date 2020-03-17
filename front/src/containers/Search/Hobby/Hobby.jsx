@@ -78,10 +78,7 @@ function Hobby() {
 	};
 
 	const deleteUserHobby = (hobbyToDelete) => {
-		console.log(hobbyToDelete);
-		console.log(requestHobbyList);
 		let newRequestHobbyList = requestHobbyList.filter(hobby => hobby.id !== hobbyToDelete.id);
-		console.log(newRequestHobbyList);
 		setRequestHobbyList(newRequestHobbyList);
 	}
 

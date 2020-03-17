@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components'
 
 import FlickityComponent from 'react-flickity-component'
@@ -33,6 +34,9 @@ const flickityOptions = {
 }
 
 function UserPictures(props) {
+	// useEffect(() => {
+	// }, [props.pictures]);
+
 	if (props.pictures) {
 		console.log("here", props.pictures);
 		const userPicturesArray = props.pictures.map((text, index) => 

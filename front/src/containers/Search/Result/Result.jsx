@@ -76,7 +76,14 @@ function User(props) {
 function Result(props) {
 
 	const users = props.result.map(user => user);
-	users.sort((a, b) => new Date(a.birthdate)new Date(b.birthdate));
+	
+	if (props.filter === "age") {
+		users.sort((a, b) => new Date(a.birthdate)new Date(b.birthdate));
+	}
+	// else if (props.filter === "proximity") {}
+	// else if (props.filter === "popularity") {}
+	// else if (props.filter === "hobby") {}
+
 	console.log(users);
 
 	const Users = () => {
