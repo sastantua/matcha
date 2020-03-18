@@ -8,7 +8,6 @@ export const usePosition = () => {
 	const getIp = new Promise((s, f) => {
 		axios.get('https://www.cloudflare.com/cdn-cgi/trace')
 		.then(res => {
-			// console.log(res.data.split("\n")[2].split("=")[1]);
 			return (s(res.data.split("\n")[2].split("=")[1]));
 		})
 		.catch(err => f(err))
@@ -47,8 +46,6 @@ export const usePosition = () => {
 	};
 
 	useEffect(() => {
-		console.log("navigator is blocked");
-		
 		if (!navigator.geolocation) {
 			console.log("locationFromIp from useEffect")
 			locationFromIp();
