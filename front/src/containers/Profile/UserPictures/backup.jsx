@@ -2,8 +2,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import styled from 'styled-components'
 
-import { Carousel } from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+import FlickityComponent from 'react-flickity-component'
+import 'flickity/css/flickity.css'
 
 const ImagesContainer = styled.div`
     display: flex;
@@ -12,37 +12,45 @@ const ImagesContainer = styled.div`
     align-items: center;
 `
 
+const flickityOptions = {
+	initialIndex: 2,
+	draggable: '>1',
+	freeScroll: false,
+	wrapAround: false,
+	groupCells: true,
+	autoPlay: 6000,
+	fullscreen: true,
+	adaptiveHeight: true,
+	lazyLoad: true,
+	prevNextButtons: true,
+	pageDots: true,
+	fade: false,
+	arrowShape: { 
+		x0: 10,
+		x1: 60, y1: 50,
+		x2: 70, y2: 40,
+		x3: 30
+	}
+}
+
 function UserPictures(props) {
 	// useEffect(() => {
 	// }, [pictures]);
 
 	let pictures = props.pictures;
-	var settings = {
-		dots: true,
-		infinite: true,
-		speed: 500,
-		slidesToShow: 1,
-		slidesToScroll: 1
-	};
-
 	console.log("pictures", pictures);
-	
 	if (pictures) {
-		const userPicturesArray = pictures.map((text, index) => {
-			return (
-				<div>
-					<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} /> 
-				</div>
-			);
-		});
+		const userPicturesArray = pictures.map((text, index) => 
+			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} /> // onClick={() => openModal(text._id)}
+		);
 		// src="http://matchapi.guillaumerx.fr/images/image-1584066883258.png"
 		console.log("userPicturesArray", userPicturesArray);
 
 		const UserImagesJsx = () => {
 			return (
-				<Carousel showArrows={true} onChange={onChange} onClickItem={onClickItem} onClickThumb={onClickThumb}>
+				<FlickityComponent className={'carousel'} elementType={'div'} options={flickityOptions}>
 					{ userPicturesArray }
-				</Carousel>
+				</FlickityComponent>
 			);
 		}
 

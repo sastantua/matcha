@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 
-import SearchRequestContext from '../../../context/SearchRequestContext';
-
 import { List, ListItem, ListItemText, Collapse, Chip } from '@material-ui/core';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 

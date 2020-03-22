@@ -81,7 +81,7 @@ function Search() {
 		})
 	}
 	
-	console.log("request = ", request);
+	// console.log("request = ", request);
 	
 	return (
 		<div id="search-small">
