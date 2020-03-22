@@ -81,9 +81,7 @@ function Search() {
 		})
 	}
 	
-	console.log(request);
-	console.log("sort by");
-	console.log(sort);
+	console.log("request = ", request);
 	
 	return (
 		<div id="search-small">

@@ -11,6 +11,8 @@ import api from '../../../api/api'
 import { usePosition } from '../../../hooks/usePosition'
 import { Typography, Paper } from '@material-ui/core'
 import findAge from './Helper/findAge.js'
+import sortHobby from './Helper/sortHobby.js'
+import sortProximity from './Helper/sortProximity.js'
 
 const ResultContainer = styled.div`
 	display: flex;
@@ -79,54 +81,32 @@ function User(props) {
 }
 
 function Result(props) {
-	const [userHobbies, setUserHobbies] = useState();
-	// const { user, setUser } = useContext(UserContext);
-	
 	const userPosition = usePosition();
+	const [userHobbies, setUserHobbies] = useState();
 
 	let users = props.result.map(user => user);
 
 	useEffect(() => {
-		const getUserHobbies = async () => {
-			const result = await api.get('/user/hobby')
-			.then((res) => {setUserHobbies(res.data);})
-			.catch((err) => {console.log(err);})
-		};
+		api.get('/user/hobby')
+		.then((res) => {setUserHobbies(res.data);})
+		.catch((err) => {console.log(err);})
 	}, []);
 	
 	
-	// console.log("userPosition = ", userPosition);
 	// console.log("sort type = ", props.sort);
 	// console.log("users in result before sort = ", users);
 	
 	if (props.sort !== undefined) {
-		if (props.sort === "age") {
+		if (props.sort === "age")
 			users.sort((a, b) => new Date(a.birthdate)new Date(b.birthdate));
-		}
-		else if (props.sort === "popularity") {
+		else if (props.sort === "popularity")
 			users.sort((a, b) => a.populairtyb.populairty);
-		}
-		else if (props.sort === "proximity") {
-			users.sort((a, b) => {
-				let latDiff_A = userPosition.latitudea.location.lat;
-				let lngDiff_A = userPosition.longitudea.location.lng;
-				let latDiff_B = userPosition.latitudeb.location.lat;
-				let lngDiff_B = userPosition.longitudeb.location.lng;
-				
-				let scoreA = latDiff_A + lngDiff_A;
-				let scoreB = latDiff_B + lngDiff_B;
-
-				if (scoreA >= scoreB)
-					return (1);
-				else
-					return (-1);
-			});
-		}
-		else if (props.sort === "hobby") {
-			console.log("user herrrrre", userHobbies);
-		}
+		else if (props.sort === "proximity")
+			users.sort((a, b) => sortProximity(userPosition, a, b));
+		else if (props.sort === "hobby")
+			users.sort((a, b) => sortHobby(userHobbies, a, b));
 	}
-	console.log("users in result after sort = ", users);
+	// console.log("users in result after sort = ", users);
 
 	const Users = () => {
 		return (
