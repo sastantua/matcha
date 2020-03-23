@@ -12,21 +12,15 @@ const ImagesContainer = styled.div`
     align-items: center;
 `
 
+const CarouselContainer = styled.div`
+	width: 100%;
+	height: 100%;
+`
+
+
 function UserPictures(props) {
-	// useEffect(() => {
-	// }, [pictures]);
-
 	let pictures = props.pictures;
-	var settings = {
-		dots: true,
-		infinite: true,
-		speed: 500,
-		slidesToShow: 1,
-		slidesToScroll: 1
-	};
 
-	console.log("pictures", pictures);
-	
 	if (pictures) {
 		const userPicturesArray = pictures.map((text, index) => {
 			return (
@@ -35,14 +29,14 @@ function UserPictures(props) {
 				</div>
 			);
 		});
-		// src="http://matchapi.guillaumerx.fr/images/image-1584066883258.png"
-		console.log("userPicturesArray", userPicturesArray);
 
 		const UserImagesJsx = () => {
 			return (
-				<Carousel showArrows={true} onChange={onChange} onClickItem={onClickItem} onClickThumb={onClickThumb}>
-					{ userPicturesArray }
-				</Carousel>
+				<CarouselContainer>
+					<Carousel showThumbs={false} showArrows={true} useKeyboardArrows={true} emulateTouch={true}>
+						{ userPicturesArray }
+					</Carousel>
+				</CarouselContainer>
 			);
 		}
 

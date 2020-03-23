@@ -68,8 +68,8 @@ function Profile(props) {
 		<>
 			<Header/>
 				<MainContainer>
-					<UserPictures pictures={user.pictures}/>
-					{/* <PaperContainer component="div">
+					<PaperContainer component="div">
+						<UserPictures pictures={user.pictures}/>
 						<TextWrapper>{user.firstname}{age}</TextWrapper>
 						<HobbyContainer>
 							{
@@ -78,7 +78,7 @@ function Profile(props) {
 								)
 							}
 						</HobbyContainer>
-					</PaperContainer> */}
+					</PaperContainer>
 				</MainContainer>
 			<Footer />
 		</>
