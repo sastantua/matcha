@@ -45,7 +45,11 @@ function UserPictures(props) {
 			</ImagesContainer>
 		);	
 	} else {
-		return ;
+		return (
+			<ImagesContainer>
+				Empty
+			</ImagesContainer>
+		);
 	}
 }
 

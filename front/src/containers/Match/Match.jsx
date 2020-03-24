@@ -9,7 +9,7 @@ import UserImages from './UserImages/UserImages';
 
 import { Typography, Paper } from '@material-ui/core';
 import { Favorite as FavoriteIcon, ArrowForwardIos as ArrowForwardIosIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
-import logo from '../../media/cerisier.jpg';
+import LoadingPage from './LoadingPage';
 import './Match.css'
 
 const MatchContainer = styled.div`
@@ -60,10 +60,8 @@ const Biography = styled(Typography)({
 
 
 function Match() {
-	// const classes = useStyles();
-	// const { user, setUser } = useContext(UserContext);
-	const [fetchState, setFetchState] = useState(false);
 	const [match, setMatch] = useState();
+	const [fetchState, setFetchState] = useState(false);
 	
 	useEffect(() => {
 		api.get('/user/match')
@@ -102,7 +100,7 @@ function Match() {
 	}
 	else {
 		return (
-			<div>Fetching employees....</div>
+			<LoadingPage/>
 		);
 	}
 }

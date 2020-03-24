@@ -5,8 +5,8 @@ import api from '../../../api/api'
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button, styled as styledMaterial} from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import FlickityComponent from 'react-flickity-component'
-import 'flickity/css/flickity.css'
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const ModalContainer = styled.div`
 	position: absolute;
@@ -52,29 +52,21 @@ const IsProfilePic = styled.div`
 	border-radius: 30%;
 `
 
+const ImagesContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`
+
+const CarouselContainer = styled.div`
+	width: 100%;
+	height: 100%;
+`
+
+
 function UserImages(props) {
 	const [selectedPicture, setSelectedPicture] = useState(undefined);
-
-	const flickityOptions = {
-		initialIndex: 2,
-		draggable: '>1',
-		freeScroll: false,
-		wrapAround: false,
-		groupCells: true,
-		autoPlay: 6000,
-		fullscreen: true,
-		adaptiveHeight: true,
-		lazyLoad: true,
-		prevNextButtons: true,
-		pageDots: true,
-		fade: false,
-		arrowShape: { 
-			x0: 10,
-			x1: 60, y1: 50,
-			x2: 70, y2: 40,
-			x3: 30
-		}
-	}
 
 	const userImagesArray = props.match.map((text, index) =>
 		<img id={`profile-image-${index}`} src={text.pictures.url} alt={text.pictures.name} key={text.pictures.name} onClick={() => openModal(text.pictures._id)}/>
@@ -94,9 +86,11 @@ function UserImages(props) {
 	
 	const UserImagesJsx = () => {
 		return (
-			<FlickityComponent className={'carousel'} elementType={'div'} options={flickityOptions}>
-				{ userImagesArray }
-			</FlickityComponent>
+			<CarouselContainer>
+				<Carousel showThumbs={false} showArrows={true} useKeyboardArrows={true} emulateTouch={true}>
+					{ userImagesArray }
+				</Carousel>
+			</CarouselContainer>
 		);
 	}
 
@@ -104,7 +98,8 @@ function UserImages(props) {
 		<div id="container-user-image-small">
 			{ selectedPicture && <PictureModal image={selectedPicture}/> }
 			<div id="user-images-display-small">
-				{ !!props.match && <UserImagesJsx /> }
+				{ <UserImagesJsx /> }
+				{/* { !!props.match && <UserImagesJsx /> } */}
 			</div>
 		</div>
 	);
