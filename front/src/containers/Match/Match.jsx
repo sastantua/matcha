@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import { styled as styledMaterial } from '@material-ui/core/styles';
 import api from '../../api/api'
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
+import UserImages from './UserImages/UserImages';
 
 import { Typography, Paper } from '@material-ui/core';
 import { Favorite as FavoriteIcon, ArrowForwardIos as ArrowForwardIosIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
@@ -61,39 +62,49 @@ const Biography = styled(Typography)({
 function Match() {
 	// const classes = useStyles();
 	// const { user, setUser } = useContext(UserContext);
+	const [fetchState, setFetchState] = useState(false);
 	const [match, setMatch] = useState();
 	
-	const getMatch = () => {
+	useEffect(() => {
 		api.get('/user/match')
 		.then((res) => {
 			setMatch(res.data);
+			setFetchState(true);
+			console.log(res.data);
 		})
 		.catch((err) => {console.log(err);})
-		console.log("match", match);
-	};
+	}, []);
+	
+	console.log("match", match);
 
-
-	return (
-		<>
-		<Header />
-		<MatchContainer>
-			<CustomPaper component='div'>
-				<ImageContainer src={logo} alt="profile" onClick={() => getMatch()}/>
-				<Username>Nico</Username>
-				<Biography>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-				    ut labore et dolore magna aliqua.
-				</Biography>
-				<ActionContainer>
-					<ArrowBackIosIcon htmlColor='#FAE3D9' />
-					<FavoriteIcon htmlColor='#FAE3D9' className="icon-btn" />
-					<ArrowForwardIosIcon htmlColor='#FAE3D9' className="icon-btn" />
-				</ActionContainer>
-			</CustomPaper>
-		</MatchContainer>
-		<Footer />
-		</>
-	);
+	if (fetchState) {
+		return (
+			<>
+			<Header />
+			<MatchContainer>
+				<CustomPaper component='div'>
+					<UserImages match={match}/>
+					<Username>Nico</Username>
+					<Biography>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+					    ut labore et dolore magna aliqua.
+					</Biography>
+					<ActionContainer>
+						<ArrowBackIosIcon htmlColor='#FAE3D9' />
+						<FavoriteIcon htmlColor='#FAE3D9' className="icon-btn" />
+						<ArrowForwardIosIcon htmlColor='#FAE3D9' className="icon-btn" />
+					</ActionContainer>
+				</CustomPaper>
+			</MatchContainer>
+			<Footer />
+			</>
+		);
+	}
+	else {
+		return (
+			<div>Fetching employees....</div>
+		);
+	}
 }
 
 export default Match;

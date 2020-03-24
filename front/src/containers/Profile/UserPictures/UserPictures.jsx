@@ -17,7 +17,6 @@ const CarouselContainer = styled.div`
 	height: 100%;
 `
 
-
 function UserPictures(props) {
 	let pictures = props.pictures;
 

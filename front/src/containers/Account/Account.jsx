@@ -8,7 +8,6 @@ import Footer from '../../components/Footer/Footer';
 import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
 import { TextField } from '@material-ui/core';
 
-// import logo from '../../media/cerisier.jpg';
 import UserImages from './UserImages/UserImages'
 import Birthdate from './Birthdate/Birthdate'
 import GenderDropdown from './GenderDropdown/GenderDropdown'

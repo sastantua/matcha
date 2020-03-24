@@ -5,11 +5,8 @@ import api from '../../../api/api'
 import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button, styled as styledMaterial} from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-// import Actions from './Actions/Actions';
-// import logo from '../../../media/cerisier.jpg';
 import FlickityComponent from 'react-flickity-component'
 import 'flickity/css/flickity.css'
-// import 'flickity-fullscreen/fullscreen.css'
 
 import './UserImages.css'
 
@@ -203,7 +200,6 @@ function UserImages() {
 			</ModalContainer>
 		);
 	}
-	console.log("userImagesArray", userImagesArray);
 	
 	const UserImagesJsx = () => {
 		return (

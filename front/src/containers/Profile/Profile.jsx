@@ -28,8 +28,6 @@ const MainContainer = styled.div`
 const PaperContainer = styled(Paper)({
 	display: 'flex',
 	flexDirection: 'column',
-	// justifyContent: 'center',
-	// alignItems: 'center',
 	backgroundColor: '#ff3860',
 	paddingTop: '0.5em',
 	paddingLeft: '0.5em',
@@ -61,6 +59,19 @@ function Profile(props) {
 
 	const user = props.history.location.state.user;
 	const age = findAge(user.birthdate);
+	let hobbiesArray = [];
+	
+	if (user.hobbies.length <= 5)
+		hobbiesArray = user.hobbies;
+	else
+		hobbiesArray = user.hobbies.splice(5, user.hobbies.length);
+	
+	const userHobbies = hobbiesArray.map((hobby, index) => {
+		if (index < hobbiesArray.length1)
+			return (hobby.name + ", ")
+		else
+			return (hobby.name)
+	})
 
 	console.log(user);
 
@@ -71,13 +82,8 @@ function Profile(props) {
 					<PaperContainer component="div">
 						<UserPictures pictures={user.pictures}/>
 						<TextWrapper>{user.firstname}{age}</TextWrapper>
-						<HobbyContainer>
-							{
-								user.hobbies.map((hobby, index) =>
-									<SmallTextWrapper key={index}>{hobby.name}</SmallTextWrapper>
-								)
-							}
-						</HobbyContainer>
+						<SmallTextWrapper>Hobbies: { userHobbies }</SmallTextWrapper>
+						<SmallTextWrapper>Biography: { user.biography }</SmallTextWrapper>
 					</PaperContainer>
 				</MainContainer>
 			<Footer />

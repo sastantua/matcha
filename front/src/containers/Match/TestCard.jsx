@@ -1,43 +1,100 @@
-import React from 'react';
-import { InputWrapper, InputWrapperSmall } from '../../components/Wrapper/Wrapper.jsx';
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia } from '@material-ui/core';
+import React, { useState } from 'react';
+import styled from "styled-components";
+import { styled as styledMaterial } from '@material-ui/core/styles';
+import api from '../../api/api'
 
-import profilePicture from '../../media/frogs.jpg'
-import logo from '../../media/reactlogoblue.svg';
-import useStyles from '../../helper/useStyles'
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
+
+import { Typography, Paper } from '@material-ui/core';
+import { Favorite as FavoriteIcon, ArrowForwardIos as ArrowForwardIosIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
+import logo from '../../media/cerisier.jpg';
 import './Match.css'
 
-function TestCard() {
-	const classes = useStyles();
+const MatchContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	height: 88vh;
+	margin-top: 6vh;
+	margin-bottom: 6vh;
+	background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
+`
+
+const CustomPaper = styledMaterial(Paper)({
+	display: "flex",
+	flexDirection: "column",
+	justifyContent: "center",
+	alignItems: "center",
+	backgroundColor: "#ff3860",
+	paddingTop: "0.5em",
+	paddingLeft: "0.5em",
+	paddingRight: "0.5em",
+	paddingBottom: "0.5em",
+});
+
+const ImageContainer = styled.img`
+	width: 12em;
+	height: 12em;
+`
+
+const ActionContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	margin-top: 1.5em;
+	margin-bottom: 1em;
+`
+const Username = styled(Typography)({
+	alignSelf: "start",
+	marginTop: "0.5vh",
+	marginLeft: "4vw",
+});
+
+const Biography = styled(Typography)({
+	maxWidth: "20em",
+	fontSize: "8px",
+
+});
+
+
+function Match() {
+	// const classes = useStyles();
+	// const { user, setUser } = useContext(UserContext);
+	const [match, setMatch] = useState();
+	
+	const getMatch = () => {
+		api.get('/user/match')
+		.then((res) => {
+			setMatch(res.data);
+			console.log(res.data);
+		})
+		.catch((err) => {console.log(err);})
+		console.log("match", match);
+	};
+
 
 	return (
-		<Card className={classes.root}>
-		<CardActionArea>
-		   <img src={profilePicture}/>
-		   <CardMedia
-			   className={classes.media}
-			   // image={profilePicture}
-			   title="Contemplative Reptile"
-		   />
-		   <CardContent>
-			   <InputWrapper  variant="h5" component="h2">
-				   Lizard
-			   </InputWrapper>
-			   <InputWrapperSmall stylvariant="body2" color="textSecondary" component="p">
-				   all continents except Antarctica
-			   </InputWrapperSmall>
-		   </CardContent>
-		</CardActionArea>
-		<CardActions>
-		   	<Button size="small" style={{ color: '#FFF' }}>
-				   Like
-		   	</Button>
-		   <Button size="small" color="primary">
-			   Next
-		   </Button>
-		</CardActions>
-		</Card>
+		<>
+		<Header />
+		<MatchContainer>
+			<CustomPaper component='div'>
+				<ImageContainer src={logo} alt="profile" onClick={() => getMatch()}/>
+				<Username>Nico</Username>
+				<Biography>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
+				    ut labore et dolore magna aliqua.
+				</Biography>
+				<ActionContainer>
+					<ArrowBackIosIcon htmlColor='#FAE3D9' />
+					<FavoriteIcon htmlColor='#FAE3D9' className="icon-btn" />
+					<ArrowForwardIosIcon htmlColor='#FAE3D9' className="icon-btn" />
+				</ActionContainer>
+			</CustomPaper>
+		</MatchContainer>
+		<Footer />
+		</>
 	);
 }
 
-export default TestCard;
+export default Match;
