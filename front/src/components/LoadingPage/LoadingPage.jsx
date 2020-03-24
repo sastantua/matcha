@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { styled as styledMaterial } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 const LoaderContainer = styled.div`
 	display: flex;
