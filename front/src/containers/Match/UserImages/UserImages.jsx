@@ -65,11 +65,13 @@ const CarouselContainer = styled.div`
 `
 
 
+// le probleme c'est que ce composant gere tous les utilisateurs en même temps au lieu de les fetch un par un ...
+
 function UserImages(props) {
 	const [selectedPicture, setSelectedPicture] = useState(undefined);
 
-	const userImagesArray = props.match.map((text, index) =>
-		<img id={`profile-image-${index}`} src={text.pictures.url} alt={text.pictures.name} key={text.pictures.name} onClick={() => openModal(text.pictures._id)}/>
+	const userImagesArray = props.match[props.matchIndex].pictures.map((text, index) =>
+		<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text._id} onClick={() => openModal(text._id)}/>
 	);
 
 	const openModal = (id) => {
@@ -94,6 +96,8 @@ function UserImages(props) {
 		);
 	}
 
+	console.log("here");
+	
 	return (
 		<div id="container-user-image-small">
 			{ selectedPicture && <PictureModal image={selectedPicture}/> }

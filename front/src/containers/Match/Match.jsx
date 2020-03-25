@@ -61,6 +61,7 @@ const Biography = styled(Typography)({
 
 function Match() {
 	const [match, setMatch] = useState();
+	const [matchIndex, setMatchIndex] = useState(0);
 	const [fetchState, setFetchState] = useState(false);
 	
 	useEffect(() => {
@@ -72,7 +73,17 @@ function Match() {
 		})
 		.catch((err) => {console.log(err);})
 	}, []);
-	
+
+	const previousMatch = () => {
+		if (matchIndex > 0)
+			setMatchIndex(matchIndex1);
+	}
+
+	const nextMatch = () => {
+		if (matchIndex < match.length1)
+			setMatchIndex(matchIndex + 1);
+	}
+
 	console.log("match", match);
 
 	if (fetchState) {
@@ -81,16 +92,16 @@ function Match() {
 			<Header />
 			<MatchContainer>
 				<CustomPaper component='div'>
-					<UserImages match={match}/>
+					<UserImages match={match} matchIndex={matchIndex}/>
 					<Username>Nico</Username>
 					<Biography>
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
 					    ut labore et dolore magna aliqua.
 					</Biography>
 					<ActionContainer>
-						<ArrowBackIosIcon htmlColor='#FAE3D9' />
+						<ArrowBackIosIcon onClick={previousMatch} htmlColor='#FAE3D9' />
 						<FavoriteIcon htmlColor='#FAE3D9' className="icon-btn" />
-						<ArrowForwardIosIcon htmlColor='#FAE3D9' className="icon-btn" />
+						<ArrowForwardIosIcon onClick={nextMatch} htmlColor='#FAE3D9' className="icon-btn" />
 					</ActionContainer>
 				</CustomPaper>
 			</MatchContainer>
