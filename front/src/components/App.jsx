@@ -11,6 +11,7 @@ import Account from '../containers/Account/Account';
 import Match from '../containers/Match/Match';
 import Search from '../containers/Search/Search';
 import Profile from '../containers/Profile/Profile';
+import Chat from '../containers/Chat';
 
 import Signup from '../containers/Signup/Signup';
 import Login from '../containers/Login/Login';
@@ -71,6 +72,7 @@ function App() {
 						<AuthenticatedRoute exact path="/match" component={Match} />
 						<AuthenticatedRoute exact path="/search" component={Search} />
 						<AuthenticatedRoute exact path="/profile" component={Profile} />
+						<AuthenticatedRoute exact path="/chat" component={Chat} />
 						<Route path="*" component={NoMatch} />
 					</Switch>
 				</BrowserRouter>
