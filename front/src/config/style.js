@@ -6,3 +6,12 @@ export const SPACING = {
 	LG: '50px',
 	XL: '100px'
 }
+
+export const BREAK_POINTS = {
+	SCREEN_XS: '512px',
+	SCREEN_SM: '850px',
+	SCREEN_MD: '1080px',
+	SCREEN_LG: '1280px',
+	SCREEN_XL: '1440px',
+	SCREEN_XXL: '1600px'
+  };
