@@ -96,8 +96,6 @@ function UserImages(props) {
 		);
 	}
 
-	console.log("here");
-	
 	return (
 		<div id="container-user-image-small">
 			{ selectedPicture && <PictureModal image={selectedPicture}/> }

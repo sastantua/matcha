@@ -20,7 +20,7 @@ const MatchContainer = styled.div`
 	height: 88vh;
 	margin-top: 6vh;
 	margin-bottom: 6vh;
-	background-image: linear-gradient(315deg, #3f0d12 0%, #a71d31 74%);
+	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
 
 const CustomPaper = styledMaterial(Paper)({
@@ -33,6 +33,7 @@ const CustomPaper = styledMaterial(Paper)({
 	paddingLeft: "0.5em",
 	paddingRight: "0.5em",
 	paddingBottom: "0.5em",
+	maxWidth: "70vw",
 });
 
 const ImageContainer = styled.img`
