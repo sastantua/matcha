@@ -430,8 +430,8 @@ export const getLikes = async (user) => {
 			let like = undefined;
 			like = record._fields[1].properties;
 			like.user = record._fields[0].properties;
-			delete user.password;
-			delete user.email;
+			delete like.user.password;
+			delete like.user.email;
 			likes.push(like);
 		})
 		return likes;

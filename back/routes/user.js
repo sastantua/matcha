@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, getLikes, blocks, unblock, block, getBlocked, activateAccount, requestPassword, changePassword, editPassword, saw, hasSeen, editSaw, getSeen, regex} from '../models/user';
+import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, likes, getLikes, blocks, unblock, block, getBlocked, activateAccount, requestPassword, changePassword, editPassword, saw, hasSeen, editSaw, getSeen, regex} from '../models/user';
 import { getGender, setGender, verifyGender } from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby } from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
@@ -381,6 +381,20 @@ userRouter.get('/match', auth, async (req, res, next) => {
 		if (!await hasExtendedProfile(req.user)) throw new ErrorHandler(403, 'Please fill your extended profile');
 		const users = await match(req.user);
 		res.status(200).json(users);
+	} catch (err) {
+		next(err);
+	}
+})
+
+userRouter.get('/contacts', auth, async (req, res, next) => {
+	try {
+		const likeList = await getLikes(req.user);
+		likeList.filter(async like => await likes(req.user, like.user._id));
+		const contacts = likeList.map(like => like.user);
+		for (let contact of contacts) {
+			contact.pictures = await getPictures(contact);
+		}
+		res.status(200).json(contacts);
 	} catch (err) {
 		next(err);
 	}

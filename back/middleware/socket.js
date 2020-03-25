@@ -16,6 +16,10 @@ socket.on('connection', socket => {
 		console.log(`user connected`, id);
 		users[id] = socket.id
 	});
+
+	socket.on('send_message', (data) => {
+		socket.to(users[data.receiver]).emit("new_message", data);
+	})
 })
 
 export default socket;
