@@ -47,7 +47,7 @@ export const getGender = async (user) => {
 
 export const setGender = async (user, genderId) => {
 	const dbSession = session(mode.WRITE);
-	const query = 'MATCH (u:User) WHERE u._id = $userId MATCH (g:Gender) WHERE g._id = $genderId CREATE (g)-[:TYPE]->(u)';
+	const query = 'MATCH (u:User) WHERE u._id = $userId MATCH (g:Gender) WHERE g._id = $genderId CREATE (u)-[:TYPE]->(g)';
 	await dbSession.session.run(query, {userId: user._id, genderId: genderId}).then(res => closeBridge(dbSession))
 	.catch (e => console.log(e));
 }

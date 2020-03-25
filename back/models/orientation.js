@@ -47,7 +47,7 @@ export const getOrientation = async (user) => {
 
 export const setOrientation = async (user, orientationId) => {
 	const dbSession = session(mode.WRITE);
-	const query = 'MATCH (u:User) WHERE u._id = $userId MATCH (o:Orientation) WHERE o._id = $orientationId CREATE (o)-[:ATTRACT]->(u)';
+	const query = 'MATCH (u:User) WHERE u._id = $userId MATCH (o:Orientation) WHERE o._id = $orientationId CREATE (u)-[:ATTRACT]->(o)';
 	await dbSession.session.run(query, {userId: user._id, orientationId: orientationId}).then(res => closeBridge(dbSession))
 	.catch (e => console.log(e));
 }

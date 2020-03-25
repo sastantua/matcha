@@ -5,6 +5,7 @@ import { retriveGenders, initGenders } from './gender';
 import { retriveHobbies, initHobbies } from './hobby';
 import { retriveOrientations, initOrientations } from './orientation';
 import { toBirthdate } from './match';
+import { getPreciseDistance } from 'geolib';
 
 export const isEmpty = (obj) => {
 	for (var key in obj) {
@@ -17,8 +18,6 @@ export const generateGenders = async () => {
 	const genders = [
 		{ _id: uuidv1(), name: 'male' },
 		{ _id: uuidv1(), name: 'female' },
-		{ _id: uuidv1(), name: 'alien' },
-		{ _id: uuidv1(), name: 'helicopter' }
 	]
 	const dbGenders =  await retriveGenders();
 	
@@ -51,9 +50,7 @@ export const generateOrientations = async () => {
 	const orientations = [
 		{ _id: uuidv1(), name: 'gay' },
 		{ _id: uuidv1(), name: 'straight' },
-		{ _id: uuidv1(), name: 'bisexual' },
-		{ _id: uuidv1(), name: 'asexual' },
-		{ _id: uuidv1(), name: 'pansexual' }
+		{ _id: uuidv1(), name: 'bisexual' }
 	]
 	const dbOrientations = await retriveOrientations();
 	if (!dbOrientations.length) {
@@ -69,4 +66,25 @@ export const isEighteen = (birthdate) => {
 	now[0] = now[0]18;
 	const legalDate = now.join('-');
 	return new Date(birthdate) > new Date(legalDate) ? false : true;
+}
+
+export const distance = (user_a, user_b) => {
+	return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001
+}
+
+const matchingHobbies = (user_a, user_b) => {
+	var count = 0;
+	for (let hobby_a of user_a.hobbies) {
+		for (let hobby_b of user_b.hobbies) {
+			if (hobby_a._id == hobby_b._id) count++;
+		}
+	}
+	return count;
+}
+
+export const score = (loggedUser, user) => {
+	const proximity = (500 / loggedUser.proximity) * (loggedUser.proximitydistance(loggedUser, user));
+	const hobbies = (340 / loggedUser.hobbies.length) * matchingHobbies(loggedUser, user);
+	const popularity = (160 / 100) * user.popularity;
+	return Math.round(proximity + hobbies + popularity);
 }

@@ -107,7 +107,7 @@ dist
 .vscode-test
 
 # Public images from upload
-./public/images
+public/images
 
 # bordel
 bordel.js
