@@ -3,17 +3,13 @@ import styled from 'styled-components'
 import api from '../../../api/api'
 
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button, styled as styledMaterial} from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import FlickityComponent from 'react-flickity-component'
-import 'flickity/css/flickity.css'
+import { Button, styled as styledMaterial} from '@material-ui/core';
+import { AccountCircle } from '@material-ui/icons';
+
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import './UserImages.css'
-
-const InputWrapper = styledMaterial(TextField)({
-	fontSize: '1rem',
-	color: '#OOB7FF'
-});
 
 const useStyles = makeStyles({
 	root: {
@@ -48,6 +44,11 @@ const useStyles = makeStyles({
 		borderRadius: '30%',
 	}
 });
+
+const InputTest = styled.input`
+	font-size: '1rem';
+	color: '#OOB7FF';
+`
 
 const ModalContainer = styled.div`
 	position: absolute;
@@ -93,15 +94,18 @@ const IsProfilePic = styled.div`
 	border-radius: 30%;
 `
 
+const CarouselContainer = styled.div`
+	width: 100%;
+	height: 100%;
+`
+
 function UserImages() {
 	const classes = useStyles();
 	
-	// const { user, setUser } = useContext(UserContext);
+	const [test, setTest] = useState(0);
 	const [userPictures, setUserPictures] = useState([]);
 	const [selectedFile, setSelectedFile] = useState();
 	const [selectedPicture, setSelectedPicture] = useState(undefined);
-
-	const pictures = [];
 
 	useEffect(() => {
 		getUserPictures();
@@ -109,6 +113,7 @@ function UserImages() {
 
 	// Add a picture in the application state
 	const addPictureFile = (e) => {
+		if (e.target.files[0].name)
 		setSelectedFile({
 			...selectedFile, 
 			file: e.target.files[0],
@@ -140,7 +145,7 @@ function UserImages() {
 		api.post('/user/profile', { _id: id })
 		.then((res) => {
 			getUserPictures();
-			setSelectedPicture(id);
+			setSelectedPicture();
 			console.log(res);
 		})
 		.catch((err) => {
@@ -155,29 +160,10 @@ function UserImages() {
 		.catch((err) => {console.log(err);})
 	}
 
-	const flickityOptions = {
-		initialIndex: 2,
-		draggable: '>1',
-		freeScroll: false,
-		wrapAround: false,
-		groupCells: true,
-		autoPlay: 6000,
-		fullscreen: true,
-		adaptiveHeight: true,
-		lazyLoad: true,
-		prevNextButtons: true,
-		pageDots: true,
-		fade: false,
-		arrowShape: { 
-			x0: 10,
-			x1: 60, y1: 50,
-			x2: 70, y2: 40,
-			x3: 30
-		}
-	}
-
 	const userImagesArray = userPictures.map((text, index) =>
-		<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} onClick={() => openModal(text._id)}/>
+		<div onClick={() => openModal(text._id)}>
+			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} />
+		</div>
 	);
 
 	const openModal = (id) => {
@@ -203,9 +189,11 @@ function UserImages() {
 	
 	const UserImagesJsx = () => {
 		return (
-			<FlickityComponent className={'carousel'} elementType={'div'} options={flickityOptions}>
-				{ userImagesArray }
-			</FlickityComponent>
+			<CarouselContainer>
+					<Carousel showThumbs={false} showArrows={true} useKeyboardArrows={true} emulateTouch={true}>
+						{ userImagesArray }
+					</Carousel>
+			</CarouselContainer>
 		);
 	}
 
@@ -216,7 +204,7 @@ function UserImages() {
 				{ !!userPictures.length && <UserImagesJsx /> }
 			</div>
 			<div id="user-images-upload-small">
-				{ userPictures.length < 5 && <InputWrapper type="file" name="file" label="" onChange={addPictureFile} variant="filled"/> }
+				{ userPictures.length < 5 && <InputTest type="file" accept="image/*" name="file" label="" onChange={addPictureFile} variant="filled"/> }
 				{ userPictures.length < 5 && <Button type="button" className={classes.root} onClick={uploadPicture}>Upload</Button> }
 			</div>
 		</div>

@@ -21,6 +21,9 @@ import { UserContext } from '../context/UserContext'
 import { usePosition } from '../hooks/usePosition';
 import api from '../api/api';
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 dotenv.config();
 
 const AuthenticatedRoute = ({ component: Component, ...rest}) => {

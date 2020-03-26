@@ -1,56 +1,29 @@
 # Todo
 
 	Objectif du jour:
-		- clean up
-		- check with new accounts
-		- sort account in search
-		- read useEffect
-
-	/user/search 
-	/user/match
-
-
-	Account
-		- proximity slider
-
-	Match:
-		- getuserinfo
-
-	Search:
-
-	Chat:
-
-	Notif:
+		- sort account in search ascending vs descending
+		- sort add info (name / lastname / popularity / gender)
+		- sort add like / unlike
+		- sort add city
+		- add link return to search (history go back)
+		- why modal is bug?
+		- is profile liked or not?
+		- block account
+		- report as fake account
+		- 
 
 	Login / Signup:
 		- problem with default route (nomatch)
-		- view mobile
 
-	Learn:
-		- useEffect micka post
-	
-	Components:
-		- switch button	https://material-ui.com/components/switches/
-		- picture list https://material-ui.com/components/grid-list/
 
 	Others:
-		- faire un carousel pour les photos
-		- faire la vue mobile signup
-		- faire la vue mobile login
 		- utiliser la snackbar de material ui ?
 
 
 	Ask Guillaume:
-		- comment wait un console.log dans un call a l api
 		- wtf with react dev tool
-		- help with useStyle() https://material-ui.com/styles/basics/
 
 	Color:
-		- #FF3860
-
-		faire une div 150px / 150px
-		img height / width = 150px
-		overflow hidden
 
 # React Hooks
 
