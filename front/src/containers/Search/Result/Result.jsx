@@ -63,6 +63,25 @@ const NameAgeContainer = styled.div`
 	align-items: center;
 `
 
+const sortUsers = (users, userPosition, userHobbies, sort, ascending, descending) => {
+	console.log("Entering sort function");
+	console.log("users = ", users);
+	console.log("sort = ", sort);
+	console.log("ascending = ", ascending);
+	console.log("descending = ", descending);
+	if (sort !== undefined && ascending !== undefined && descending !== undefined) {
+		if (sort === "age")
+			users.sort((a, b) => sortAge(ascending, descending, a, b));
+		else if (sort === "popularity")
+			users.sort((a, b) => sortPopularity(ascending, descending, a, b));
+		else if (sort === "proximity")
+			users.sort((a, b) => sortProximity(userPosition, ascending, descending, a, b));
+		else if (sort === "hobby")
+			users.sort((a, b) => sortHobby(userHobbies, a, b));
+	}
+	console.log("users after sort = ", users);
+}
+
 function User(props) {
 	const age = findAge(props.user.birthdate);
 
@@ -90,25 +109,13 @@ function Result(props) {
 
 	useEffect(() => {
 		api.get('/user/hobby')
-		.then((res) => {setUserHobbies(res.data);})
-		.catch((err) => {console.log(err);})
-	}, []);
+		.then((res) => {setUserHobbies(res.data)})
+		.catch((err) => {console.log(err)})
+	});
 	
-	
-	// console.log("sort type = ", props.sort);
-	// console.log("users in result before sort = ", users);
-	
-	if (props.sort !== undefined && props.ascending && props.descending) {
-		if (props.sort === "age")
-			users.sort((a, b) => sortAge(props.ascending, props.descending, a, b));
-		else if (props.sort === "popularity")
-			users.sort((a, b) => sortPopularity(props.ascending, props.descending, a, b));
-		else if (props.sort === "proximity")
-			users.sort((a, b) => sortProximity(userPosition, props.ascending, props.descending, a, b));
-		else if (props.sort === "hobby")
-			users.sort((a, b) => sortHobby(userHobbies, a, b));
-	}
-	// console.log("users in result after sort = ", users);
+	useEffect(() => {
+		sortUsers(users, userPosition, userHobbies, props.sort, props.ascending, props.descending);
+	}, [props.sort, props.ascending, props.descending])
 
 	const Users = () => {
 		return (

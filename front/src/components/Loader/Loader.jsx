@@ -17,7 +17,7 @@ const LoaderContainer = styled.div`
 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
 
-function LoadingPage() {
+function Loader() {
 
 	return (
 		<>
@@ -30,4 +30,4 @@ function LoadingPage() {
 	);
 }
 
-export default LoadingPage;
+export default Loader;

@@ -19,17 +19,17 @@ const CheckboxContainer = styled.div`
 function OrderCheckbox(props) {
 	
 	const handleAscending = (e) => {!props.ascending && !props.descending ? props.setAscending(true) : props.setAscending(false);}
-	const handleDescending = (e) => {!props.descending && !props.ascending ? props.setNo(true) : props.setNo(false);}
+	const handleDescending = (e) => {!props.descending && !props.ascending ? props.setDescending(true) : props.setDescending(false);}
 
 	return (
 		<MainContainer>
 			<CheckboxContainer>
-				<TextWrapper id="placeholder">ascending</TextWrapper>
-				<Checkbox id="checkbox" checked={props.Ascending} onChange={handleAscending} value="test" style={{color: "#FFF", marginLeft: "auto"}}/>
+				<TextWrapper>ascending</TextWrapper>
+				<Checkbox checked={props.ascending} onChange={handleAscending} value="test" style={{color: "#FFF", marginLeft: "auto"}}/>
 			</CheckboxContainer>
 			<CheckboxContainer>
-				<TextWrapper id="placeholder">descending</TextWrapper>
-				<Checkbox id="checkbox" checked={props.descending} onChange={handleDescending} value="test" style={{color: "#FFF", marginLeft: "auto"}}/>
+				<TextWrapper>descending</TextWrapper>
+				<Checkbox checked={props.descending} onChange={handleDescending} value="test" style={{color: "#FFF", marginLeft: "auto"}}/>
 			</CheckboxContainer>
 		</MainContainer>
 	);

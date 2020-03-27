@@ -9,7 +9,7 @@ import UserImages from './UserImages/UserImages';
 
 import { Typography, Paper } from '@material-ui/core';
 import { Favorite as FavoriteIcon, ArrowForwardIos as ArrowForwardIosIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
-import LoadingPage from '../../components/LoadingPage/LoadingPage';
+import Loader from '../../components/Loader/Loader';
 import './Match.css'
 
 const MatchContainer = styled.div`
@@ -112,7 +112,7 @@ function Match() {
 	}
 	else {
 		return (
-			<LoadingPage/>
+			<Loader/>
 		);
 	}
 }

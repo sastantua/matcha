@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { Typography } from '@material-ui/core'
+import { Typography, Button, CircularProgress } from '@material-ui/core'
 
 import api from '../../api/api'
 import SearchRequestContext from '../../context/SearchRequestContext';
@@ -19,7 +18,8 @@ import Popularity from './Popularity/Popularity';
 import Distance from './Distance/Distance';
 import Result from './Result/Result';
 
-import { Button } from '@material-ui/core';
+import Loader from '../../components/Loader/Loader'
+
 
 const MainContainer = styled.div`
 	display: flex;
@@ -46,10 +46,9 @@ const ButtonWrapper = styledMaterial(Button)({
 });
 
 function Search() {
-	// const { user, setUser } = useContext(UserContext);
+	const [sort, setSort] = useState("age");
 	const [ascending, setAscending] = useState(true);
 	const [descending, setDescending] = useState(false);
-	const [sort, setSort] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 	const [result, setResult] = useState([]);
 	const [request, setRequest] = useState({
@@ -67,42 +66,40 @@ function Search() {
 	
 	const handleSubmit = () => {
 		setIsLoading(true);
-		// console.log('MTB18');
-		// console.log("request", request);
 		api.get('/user/search', request)
 		.then((res) => {
-			// console.log('MTB19');
-			// console.log("result", res.data);
 			setResult(res.data)
 			setIsLoading(false);
-			// console.log('MTB20');
 		})
 		.catch((err) => {
-			// console.log('MTB21');
 			console.error(err);
 			setIsLoading(false);
 		})
 	}
 	
-	return (
-		<div id="search-small">
-			<Header />
-				<MainContainer>
-					<TextWrapper>Select your preferences</TextWrapper>
-					<SortBy setSort={setSort}/>
-					<OrderCheckbox descending={descending} ascending={ascending} setDescending={setDescending} setAscending={setAscending}/>
-					<SearchRequestContext.Provider value={[request, setRequest]}>
-						<Distance/>
-						<Age/>
-						<Popularity/>
-						<Hobby/>
-						<ButtonWrapper onClick={handleSubmit}>Search</ButtonWrapper>
-					</SearchRequestContext.Provider>
-					{ isLoading ? <CircularProgress/> : <Result result={result} sort={sort} descending={descending} ascending={ascending}/>}
-				</MainContainer>
-			<Footer />
-		</div>
-	);
+	if (!isLoading) {	
+		return (
+			<>
+				<Header />
+					<MainContainer>
+						<TextWrapper>Select your preferences</TextWrapper>
+						<SortBy setSort={setSort}/>
+						<OrderCheckbox descending={descending} ascending={ascending} setDescending={setDescending} setAscending={setAscending}/>
+						<SearchRequestContext.Provider value={[request, setRequest]}>
+							<Distance/>
+							<Age/>
+							<Popularity/>
+							<Hobby/>
+							<ButtonWrapper onClick={handleSubmit}>Search</ButtonWrapper>
+						</SearchRequestContext.Provider>
+						<Result result={result} sort={sort} descending={descending} ascending={ascending}/>
+					</MainContainer>
+				<Footer />
+			</>
+		);
+	}
+	else
+		return (<Loader/>);
 }
 
 export default Search;
