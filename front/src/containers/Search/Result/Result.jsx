@@ -11,8 +11,10 @@ import api from '../../../api/api'
 import { usePosition } from '../../../hooks/usePosition'
 import { Typography, Paper } from '@material-ui/core'
 import findAge from './Helper/findAge.js'
+import sortAge from './Helper/sortAge.js'
 import sortHobby from './Helper/sortHobby.js'
 import sortProximity from './Helper/sortProximity.js'
+import sortPopularity from './Helper/sortPopularity.js'
 
 const ResultContainer = styled.div`
 	display: flex;
@@ -96,13 +98,13 @@ function Result(props) {
 	// console.log("sort type = ", props.sort);
 	// console.log("users in result before sort = ", users);
 	
-	if (props.sort !== undefined) {
+	if (props.sort !== undefined && props.ascending && props.descending) {
 		if (props.sort === "age")
-			users.sort((a, b) => new Date(a.birthdate)new Date(b.birthdate));
+			users.sort((a, b) => sortAge(props.ascending, props.descending, a, b));
 		else if (props.sort === "popularity")
-			users.sort((a, b) => a.populairtyb.populairty);
+			users.sort((a, b) => sortPopularity(props.ascending, props.descending, a, b));
 		else if (props.sort === "proximity")
-			users.sort((a, b) => sortProximity(userPosition, a, b));
+			users.sort((a, b) => sortProximity(userPosition, props.ascending, props.descending, a, b));
 		else if (props.sort === "hobby")
 			users.sort((a, b) => sortHobby(userHobbies, a, b));
 	}

@@ -33,7 +33,7 @@ const CustomPaper = styledMaterial(Paper)({
 	paddingLeft: "0.5em",
 	paddingRight: "0.5em",
 	paddingBottom: "0.5em",
-	maxWidth: "70vw",
+	width: "70vw",
 });
 
 const ImageContainer = styled.img`

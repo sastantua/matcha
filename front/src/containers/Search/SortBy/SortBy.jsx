@@ -39,11 +39,12 @@ const useStyles = makeStyles(theme => ({
 function SortBy(props) {
 	const classes = useStyles();
 
-	const [sortList, setSortList] = useState(["age", "proximity", "popularity", "hobby"]);
 	const [openSort, setOpenSort] = useState(false);
 	
-	const handleOpenSort = () => {setOpenSort(!openSort);};
-	const handleChooseSort = (name) => {props.setSort(name);};
+	const sortList = ["age", "proximity", "popularity", "hobby"];
+
+	const handleOpenSort = () => {setOpenSort(!openSort)};
+	const handleChooseSort = (name) => {props.setSort(name)};
 
 	const SortList = () => {
 		return (

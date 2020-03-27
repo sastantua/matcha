@@ -6,11 +6,9 @@
 		- sort add like / unlike
 		- sort add city
 		- add link return to search (history go back)
-		- why modal is bug?
 		- is profile liked or not?
 		- block account
 		- report as fake account
-		- 
 
 	Login / Signup:
 		- problem with default route (nomatch)

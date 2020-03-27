@@ -15,6 +15,7 @@ const MainContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: auto;
+	margin-top: 3vh;
 	margin-bottom: 3vh;
 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `

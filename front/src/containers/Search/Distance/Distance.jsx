@@ -12,7 +12,8 @@ const DistanceContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+	align-items: center;
+	margin-top: 3vh;
 `
 
 const TextWrapper = styledMaterial(Typography)({
