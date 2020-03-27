@@ -16,7 +16,6 @@ function sortHobby(userHobbies, a, b) {
 			})
 
 		}
-		console.log(resultAresultB);
 		return (resultAresultB);
 }
 

@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core/styles';
+import { usePosition } from '../../hooks/usePosition'
+import { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
 
-import { Typography, Button, CircularProgress } from '@material-ui/core'
+import { Typography, Button } from '@material-ui/core'
 
 import api from '../../api/api'
 import SearchRequestContext from '../../context/SearchRequestContext';
@@ -20,6 +23,10 @@ import Result from './Result/Result';
 
 import Loader from '../../components/Loader/Loader'
 
+import sortAge from './Helper/sortAge.js'
+import sortHobby from './Helper/sortHobby.js'
+import sortProximity from './Helper/sortProximity.js'
+import sortPopularity from './Helper/sortPopularity.js'
 
 const MainContainer = styled.div`
 	display: flex;
@@ -45,7 +52,26 @@ const ButtonWrapper = styledMaterial(Button)({
 	marginBottom: '3vh',
 });
 
+const sortUsers = (users, userPosition, userHobbies, sort, ascending, descending) => {
+	// console.log("Entering sort function");
+	// console.log("users = ", users);
+	// console.log("sort = ", sort);
+	// console.log("ascending = ", ascending);
+	// console.log("descending = ", descending);
+	if (sort !== undefined && ascending !== undefined && descending !== undefined) {
+		if (sort === "age")
+			return (users.sort((a, b) => sortAge(ascending, descending, a, b)));
+		else if (sort === "popularity")
+			return (users.sort((a, b) => sortPopularity(ascending, descending, a, b)));
+		else if (sort === "proximity")
+			return (users.sort((a, b) => sortProximity(userPosition, ascending, descending, a, b)));
+		else if (sort === "hobby")
+			return (users.sort((a, b) => sortHobby(userHobbies, a, b)));
+	}
+}
+
 function Search() {
+	const { user, setUser } = useContext(UserContext);
 	const [sort, setSort] = useState("age");
 	const [ascending, setAscending] = useState(true);
 	const [descending, setDescending] = useState(false);
@@ -63,12 +89,27 @@ function Search() {
 		},
 		hobbies: []
 	});
-	
+
+	const [userHobbies, setUserHobbies] = useState();
+	const userPosition = usePosition();
+
+	console.log("user context = ", user);
+
+	useEffect(() => {
+		api.get('/user/hobby')
+		.then((res) => {setUserHobbies(res.data)})
+		.catch((err) => {console.log(err)})
+	}, []);
+
+	useEffect(() => {
+		setResult(sortUsers(result, userPosition, userHobbies, sort, ascending, descending));
+	}, [sort, ascending, descending])
+
 	const handleSubmit = () => {
 		setIsLoading(true);
 		api.get('/user/search', request)
 		.then((res) => {
-			setResult(res.data)
+			setResult(sortUsers(res.data, userPosition, userHobbies, sort, ascending, descending))
 			setIsLoading(false);
 		})
 		.catch((err) => {
@@ -77,7 +118,7 @@ function Search() {
 		})
 	}
 	
-	if (!isLoading) {	
+	if (!isLoading) {
 		return (
 			<>
 				<Header />
