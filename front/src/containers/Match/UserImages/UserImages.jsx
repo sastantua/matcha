@@ -98,9 +98,9 @@ function UserImages(props) {
 
 	return (
 		<div id="container-user-image-small">
-			{ selectedPicture && <PictureModal image={selectedPicture}/> }
+			{/* { selectedPicture && <PictureModal image={selectedPicture}/> } */}
 			<div id="user-images-display-small">
-				{ <UserImagesJsx /> }
+				<UserImagesJsx/>
 				{/* { !!props.match && <UserImagesJsx /> } */}
 			</div>
 		</div>

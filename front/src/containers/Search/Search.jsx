@@ -53,11 +53,6 @@ const ButtonWrapper = styledMaterial(Button)({
 });
 
 const sortUsers = (users, userPosition, userHobbies, sort, ascending, descending) => {
-	// console.log("Entering sort function");
-	// console.log("users = ", users);
-	// console.log("sort = ", sort);
-	// console.log("ascending = ", ascending);
-	// console.log("descending = ", descending);
 	if (sort !== undefined && ascending !== undefined && descending !== undefined) {
 		if (sort === "age")
 			return (users.sort((a, b) => sortAge(ascending, descending, a, b)));
@@ -71,7 +66,7 @@ const sortUsers = (users, userPosition, userHobbies, sort, ascending, descending
 }
 
 function Search() {
-	const { user, setUser } = useContext(UserContext);
+	// const { user, setUser } = useContext(UserContext);
 	const [sort, setSort] = useState("age");
 	const [ascending, setAscending] = useState(true);
 	const [descending, setDescending] = useState(false);
@@ -92,8 +87,6 @@ function Search() {
 
 	const [userHobbies, setUserHobbies] = useState();
 	const userPosition = usePosition();
-
-	console.log("user context = ", user);
 
 	useEffect(() => {
 		api.get('/user/hobby')

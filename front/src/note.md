@@ -1,7 +1,6 @@
 # Todo
 
 	Objectif du jour:
-		- sort account in search ascending vs descending
 		- sort add info (name / lastname / popularity / gender)
 		- sort add like / unlike
 		- sort add city

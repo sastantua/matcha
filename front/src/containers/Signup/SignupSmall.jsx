@@ -80,7 +80,7 @@ function SignupSmall() {
 		api.post('/user/register', user)
 		.then((res) => {
 			enqueueSnackbar(`Welcome ${username}\ngo login`, {variant: 'success'});
-		    history.push("/login");
+			history.push("/login");
 		})
 		.catch((err) => {
 			(err && err.response && err.response.message) ? enqueueSnackbar(`${err.response.message}`,  {variant: 'error'}) : enqueueSnackbar(`error`,  {variant: 'error'});				

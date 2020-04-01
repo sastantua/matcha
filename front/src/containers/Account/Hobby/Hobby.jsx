@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../../context/UserContext';
 import api from '../../../api/api'
 
 import { TextField, Button, Chip } from '@material-ui/core';
@@ -42,10 +43,14 @@ const useStyles = makeStyles(theme => ({
 function Hobby(props) {
 	const classes = useStyles();
 
+	const { user, setUser } = useContext(UserContext);
+
 	const [hobbyList, setHobbyList] = useState([]);
 	const [userHobbyList, setUserHobbyList] = useState([]);
 	const [newHobbyName, setNewHobbyName] = useState("");
 	
+	let hobbyArray = [];
+
 	// HOBBIES DROPDOWN
 
 	useEffect(() => {
@@ -67,7 +72,9 @@ function Hobby(props) {
 		.catch((err) => {console.log(err);})
 	};
 
-	const handleChooseHobby = (id) => {
+	const handleChooseHobby = (id, name) => {
+		hobbyArray.push(name);
+		setUser({...user, hobby: hobbyArray});
 		api.post('/user/hobby', { hobbies: [id] })
 		.then((res) => {
 			handleOpenHobby();
@@ -77,6 +84,8 @@ function Hobby(props) {
 			console.log(err);
 		})
 	};
+
+	console.log(user);
 
 	const deleteUserHobby = (id) => {
 		api.delete('/user/hobby', {data: {_id: id}})
@@ -108,7 +117,7 @@ function Hobby(props) {
 	const HobbyList = () => {
 		return (
 			hobbyList.map(text =>
-				<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseHobby(text._id)} >
+				<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseHobby(text._id, text.name)} >
 					<ListItemText primary={text.name} />
 				</ListItem>
 			)

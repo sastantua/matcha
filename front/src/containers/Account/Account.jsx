@@ -31,10 +31,11 @@ const useStyles = makeStyles(theme => ({
 function Account() {
 	const classes = useStyles();
 	
+	const { user, setUser } = useContext(UserContext);
+
 	const [openGender, setOpenGender] = useState(false);
 	const [openOrientation, setOpenOrientation] = useState(false);	
 	const [openHobby, setOpenHobby] = useState(false);
-	const { user, setUser } = useContext(UserContext);
 
 	const dropdowns = {
 		openGender: openGender, 
@@ -44,7 +45,7 @@ function Account() {
 		openHobby: openHobby,
 		setOpenHobby: setOpenHobby,	
 	}
-	
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		api.post('/user/edit', user)
@@ -58,7 +59,7 @@ function Account() {
 	const handleLastname = (e) => {setUser({...user, lastname: e.target.value});}
 	const handleBirthdate = (e) => {setUser({...user, birthdate: e.target.value});}
 	const handleBiography = (e) => {setUser({...user, biography: e.target.value});}
-	
+
 	return (
 		<div id="account-small">
 			<Header />
@@ -74,7 +75,7 @@ function Account() {
 					<GenderDropdown user={user} dropdowns={dropdowns} />
 					<OrientationDropdown user={user} dropdowns={dropdowns}/>
 					<Hobby dropdowns={dropdowns}/>
-					<SubmitForm />
+					<SubmitForm/>
 				</form>
 			</div>
 			<Footer />
