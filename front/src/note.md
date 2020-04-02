@@ -1,7 +1,7 @@
 # Todo
 
 	Objectif du jour:
-		- sort add info (name / lastname / popularity / gender)
+		- sort add info (orientation, ask guillaume if really sent)
 		- sort add like / unlike
 		- sort add city
 		- add link return to search (history go back)

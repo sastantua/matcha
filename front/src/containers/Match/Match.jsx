@@ -111,6 +111,8 @@ function Match() {
 			setMatchIndex(matchIndex + 1);
 	}
 
+	// if (match !== undefined)
+	// 	console.log("actual match: ", match[matchIndex]);
 
 	let hobbiesArray = [];
 
@@ -131,6 +133,8 @@ function Match() {
 	})
 
 	if (fetchState) {
+		// console.log("matchIndex", matchIndex);
+		// console.log("match[matchIndex]", match[matchIndex]);
 		return (
 			<>
 			<Header />
