@@ -14,4 +14,4 @@ export const BREAK_POINTS = {
 	SCREEN_LG: '1280px',
 	SCREEN_XL: '1440px',
 	SCREEN_XXL: '1600px'
-  };
+};
