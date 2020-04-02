@@ -5,14 +5,6 @@ export default () => {
 	const [position, setPosition] = useState({});
 	const [error, setError] = useState(null);
 
-	const getIp = new Promise((s, f) => {
-		axios.get('https://www.cloudflare.com/cdn-cgi/trace')
-			.then(res => {
-				return (s(res.data.split("\n")[2].split("=")[1]));
-			})
-			.catch(err => f(err))
-	})
-
 	const getLocation = (ip) => {
 		return new Promise((s, f) => {
 			axios.get(`http://api.ipstack.com/${ip}?access_key=32340123d14b195dc9a8865d9d53de09&format=1`)
@@ -29,6 +21,14 @@ export default () => {
 	};
 
 	useEffect(() => {
+		const getIp = new Promise((s, f) => {
+			axios.get('https://www.cloudflare.com/cdn-cgi/trace')
+				.then(res => {
+					return (s(res.data.split("\n")[2].split("=")[1]));
+				})
+				.catch(err => f(err))
+		})
+		
 		const locationFromIp = () => {
 			getIp.then(ip => {
 				getLocation(ip)
