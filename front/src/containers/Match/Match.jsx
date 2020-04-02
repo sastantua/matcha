@@ -12,8 +12,6 @@ import { Favorite as FavoriteIcon, Cancel as CancelIcon, ArrowForwardIos as Arro
 import Loader from '../../components/Loader/Loader';
 import findAge from './findAge.js'
 
-import './Match.css'
-
 const MatchContainer = styled.div`
 	display: flex;
 	flex-direction: column;
