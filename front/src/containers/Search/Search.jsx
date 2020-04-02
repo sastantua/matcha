@@ -110,7 +110,7 @@ function Search() {
 			setIsLoading(false);
 		})
 	}
-	
+
 	if (!isLoading) {
 		return (
 			<>

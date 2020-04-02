@@ -69,6 +69,14 @@ const GenderAge = styled(Typography)({
 	color: "#000",
 });
 
+const Hobbies = styled(Typography)({
+	alignSelf: "start",
+	marginTop: "0.5vh",
+	marginLeft: "2vw",
+	fontSize: "10px",
+	color: "#000",
+})
+
 const Biography = styled(Typography)({
 	marginTop: "2vh",
 	marginLeft: "2vw",
@@ -103,8 +111,24 @@ function Match() {
 			setMatchIndex(matchIndex + 1);
 	}
 
-	if (match !== undefined)
-		console.log("actual match: ", match[matchIndex]);
+
+	let hobbiesArray = [];
+
+	if (match !== undefined) {
+		if (match[matchIndex].hobbies.length <= 5)
+			hobbiesArray = match[matchIndex].hobbies;
+		else
+			hobbiesArray = match[matchIndex].hobbies.splice(5, match[matchIndex].hobbies.length);
+	}
+	
+	const userHobbies = hobbiesArray.map((hobby, index) => {
+		if (index < hobbiesArray.length1)
+			return (hobby.name + " and ")
+		else if (index < hobbiesArray.length2)
+			return (hobby.name + ", ")
+		else
+			return (hobby.name)
+	})
 
 	if (fetchState) {
 		return (
@@ -116,6 +140,7 @@ function Match() {
 					<Username>@{match[matchIndex].username}</Username>
 					<Realname>{match[matchIndex].firstname} {match[matchIndex].lastname}</Realname>
 					<GenderAge>{match[matchIndex].gender.name.charAt(0).toUpperCase() + match[matchIndex].gender.name.slice(1)} {findAge(match[matchIndex].birthdate)} years old</GenderAge>
+					<Hobbies>Interested in {userHobbies}</Hobbies>
 					<Biography>{match[matchIndex].biography}</Biography>
 					<ActionContainer>
 						<ArrowBackIosIcon onClick={previousMatch} htmlColor='#FAE3D9' />
