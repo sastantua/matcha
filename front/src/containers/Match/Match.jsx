@@ -8,7 +8,7 @@ import Footer from '../../components/Footer/Footer';
 import UserImages from './UserImages/UserImages';
 
 import { Typography, Paper } from '@material-ui/core';
-import { Favorite as FavoriteIcon, ArrowForwardIos as ArrowForwardIosIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
+import { Favorite as FavoriteIcon, Cancel as CancelIcon, ArrowForwardIos as ArrowForwardIosIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
 import Loader from '../../components/Loader/Loader';
 import findAge from './findAge.js'
 
@@ -87,6 +87,7 @@ const Biography = styled(Typography)({
 
 
 function Match() {
+	const [like, setLike] = useState(false);
 	const [match, setMatch] = useState();
 	const [matchIndex, setMatchIndex] = useState(0);
 	const [fetchState, setFetchState] = useState(false);
@@ -102,13 +103,29 @@ function Match() {
 	}, []);
 
 	const previousMatch = () => {
-		if (matchIndex > 0)
+		if (matchIndex > 0) {
+			setLike(false);
 			setMatchIndex(matchIndex1);
+		}
 	}
 
 	const nextMatch = () => {
-		if (matchIndex < match.length1)
+		if (matchIndex < match.length1) {
+			setLike(false);
 			setMatchIndex(matchIndex + 1);
+		}
+	}
+
+	const likeMatch = () => {
+		api.post(`/user/like/${match[matchIndex]._id}`)
+		.then((res) => {setLike(true)})
+		.catch((err) => {console.log(err)})
+	}
+
+	const unlikeMatch = () => {
+		api.post(`/user/unlike/${match[matchIndex]._id}`)
+		.then((res) => {setLike(false)})
+		.catch((err) => {console.log(err)})
 	}
 
 	// if (match !== undefined)
@@ -125,11 +142,11 @@ function Match() {
 	
 	const userHobbies = hobbiesArray.map((hobby, index) => {
 		if (index < hobbiesArray.length1)
-			return (hobby.name + " and ")
+			return ("#" + hobby.name + " and ")
 		else if (index < hobbiesArray.length2)
-			return (hobby.name + ", ")
+			return ("#" + hobby.name + ", ")
 		else
-			return (hobby.name)
+			return ("#" + hobby.name)
 	})
 
 	if (fetchState) {
@@ -148,8 +165,8 @@ function Match() {
 					<Biography>{match[matchIndex].biography}</Biography>
 					<ActionContainer>
 						<ArrowBackIosIcon onClick={previousMatch} htmlColor='#FAE3D9' />
-						<FavoriteIcon htmlColor='#FAE3D9' className="icon-btn" />
-						<ArrowForwardIosIcon onClick={nextMatch} htmlColor='#FAE3D9' className="icon-btn" />
+						{ like === false ? <FavoriteIcon onClick={likeMatch} htmlColor='#FAE3D9' style={{marginLeft: "1.5em"}} /> : <CancelIcon onClick={unlikeMatch} htmlColor='#FAE3D9' style={{marginLeft: "1.5em"}} />}
+						<ArrowForwardIosIcon onClick={nextMatch} htmlColor='#FAE3D9' style={{marginLeft: "1.5em"}} />
 					</ActionContainer>
 				</CustomPaper>
 			</MatchContainer>

@@ -54,7 +54,7 @@ export default () => {
 		}
 		const watcher = navigator.geolocation.watchPosition(onChange, onError);
 		return () => navigator.geolocation.clearWatch(watcher);
-	}, [getIp]);
+	}, []);
 	
 	return {...position, error};
 }

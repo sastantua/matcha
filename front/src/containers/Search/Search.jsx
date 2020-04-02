@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core/styles';
-import { usePosition } from '../../hooks/usePosition'
+import usePosition from '../../hooks/usePosition'
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 

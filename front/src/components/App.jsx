@@ -19,7 +19,7 @@ import NoMatch from '../containers/NoMatch/NoMatch';
 
 import { UserContext } from '../context/UserContext'
 
-import { usePosition } from '../hooks/usePosition';
+import usePosition from '../hooks/usePosition';
 import api from '../api/api';
 
 dotenv.config();
