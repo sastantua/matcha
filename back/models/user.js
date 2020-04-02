@@ -522,7 +522,17 @@ export const alreadySaw = async (user, _id) => {
 
 export const hasSeen = async (user, _id) => {
 	const dbSession = session(mode.READ);
-	const query = `MATCH (a:User)-[s:SAW]-(b:User) WHERE a._id = $_id AND b._id = $sawId RETURN s`;
+	const query = `MATCH (a:User)-[s:SAW]->(b:User) WHERE a._id = $_id AND b._id = $sawId RETURN s`;
+	return await dbSession.session.run(query, { _id: user._id, sawId: _id, date: Date.now() }).then(res => {
+		closeBridge(dbSession);
+		if (res.records.length) return true;
+		return false;
+	}).catch(e => console.log(e));
+}
+
+export const isSeen = async (user, _id) => {
+	const dbSession = session(mode.READ);
+	const query = `MATCH (a:User)<-[s:SAW]-(b:User) WHERE a._id = $_id AND b._id = $sawId RETURN s`;
 	return await dbSession.session.run(query, { _id: user._id, sawId: _id, date: Date.now() }).then(res => {
 		closeBridge(dbSession);
 		if (res.records.length) return true;
@@ -591,11 +601,14 @@ export const getByOrientation = async (user) => {
 	}
 	for (let aUser of users) {
 		aUser.gender = await getGender(aUser);
+		aUser.orientation = await getOrientation(aUser);
 		aUser.hobbies = await getHobbies(aUser);
 		aUser.pictures = await getPictures(aUser);
 		aUser.popularity = await getPopularityScore(aUser);
 		aUser.location = await getLocation(aUser);
 		aUser.likes = await likes(user, aUser._id);
+		aUser.liked = await isLiked(user, aUser._id);
+		aUser.isSeen = await isSeen(user, aUser._id);
 		delete aUser.password;
 		delete aUser.email;
 	}

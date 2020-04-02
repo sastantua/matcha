@@ -18,6 +18,7 @@ socket.on('connection', socket => {
 	});
 
 	socket.on('send_message', (data) => {
+		console.log(data.message);
 		socket.to(users[data.receiver]).emit("new_message", data);
 	})
 })

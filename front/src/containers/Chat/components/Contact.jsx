@@ -16,10 +16,10 @@ const Typography = styled.h4`
 	margin-left: ${SPACING.BASE};
 `
 
-export default ({ user }) => {
+export default ({ user, handleClick }) => {
 	const picture = user.pictures.filter(picture => picture.isPP)[0];
 	return (
-		<Wrapper>
+		<Wrapper onClick={(e) => handleClick(user)}>
 			<Picture width={'70px'} src={picture.url} round={true}/>
 			<Typography>{user.username}</Typography>
 		</Wrapper>
