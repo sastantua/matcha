@@ -38,7 +38,7 @@ export default () => {
 				.catch(err => console.log(err))
 		}
 
-		const onError = (error) => {
+		const onError = () => {
 			console.log("locationFromIp from onError")
 			locationFromIp();
 			// if (error.code == error.PERMISSION_DENIED)
