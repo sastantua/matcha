@@ -296,7 +296,7 @@ userRouter.post('/like/:_id', auth, async (req, res, next) => {
 		const { _id } = req.params;
 
 		await like(req.user, _id);
-		if (await likes(user, _id)) await createChat(user, _id);
+		if (await likes(req.user, _id)) await createChat(req.user, _id);
 		res.status(200).send();
 	} catch (err) {
 		next(err);
