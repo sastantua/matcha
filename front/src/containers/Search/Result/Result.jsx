@@ -43,7 +43,14 @@ const TextWrapper = styledMaterial(Typography)({
 	marginBottom: '1vh',
 });
 
-const SmallTextWrapper = styledMaterial(Typography)({
+const Hobbies = styledMaterial(Typography)({
+	fontSize: '0.7rem',
+	color: "#FFF",
+	marginBottom: '1vh',
+});
+
+
+const Biography = styledMaterial(Typography)({
 	fontSize: '0.5rem',
 	color: "#FFF",
 	marginBottom: '1vh',
@@ -59,6 +66,23 @@ const NameAgeContainer = styled.div`
 function User(props) {
 	const age = findAge(props.user.birthdate);
 	
+	let hobbiesArray = [];
+	
+	if (props.user.hobbies.length <= 5)
+		hobbiesArray = props.user.hobbies; 
+	else 
+		hobbiesArray = props.user.hobbies.splice(5, props.user.hobbies.length);
+	
+	console.log("props.user.hobbies", props.user.hobbies);
+	const userHobbies = hobbiesArray.map((hobby, index) => {
+		if (index < hobbiesArray.length1)
+			return ("#" + hobby.name + " and ")
+		else if (index < hobbiesArray.length2)
+			return ("#" + hobby.name + ", ")
+		else
+			return ("#" + hobby.name)
+	})
+
 	return (
 		<Link to={{pathname: '/profile', state: { user: props.user }}} style={{ textDecoration: 'none' }}>
 			<UserContainer>
@@ -68,7 +92,8 @@ function User(props) {
 						<TextWrapper>{props.user.firstname} {props.user.lastname}</TextWrapper>
 						<TextWrapper style={{marginLeft: '2vw'}}>{age}</TextWrapper>
 					</NameAgeContainer>
-					<SmallTextWrapper>{props.user.biography}</SmallTextWrapper>
+					<Hobbies>Interested in {userHobbies}</Hobbies>
+					<Biography>{props.user.biography}</Biography>
 				</PaperContainer>
 			</UserContainer>
 		</Link>

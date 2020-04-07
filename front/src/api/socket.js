@@ -1,3 +1,3 @@
 import socketClient from "socket.io-client";
 
-export default socketClient("http://localhost:4242");
+export default socketClient("http://matchapi.guillaumerx.fr:4242");
