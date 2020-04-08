@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { styled as styledMaterial } from '@material-ui/core/styles';
 
 import api from '../../../api/api'
+import { Favorite as FavoriteIcon, Cancel as CancelIcon, ArrowForwardIos as ArrowForwardIosIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
 import { Typography, Paper } from '@material-ui/core'
 import findAge from '../Helper/findAge.js'
 
@@ -20,14 +21,12 @@ const UserContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	margin-top: 3vh;
+	margin-top: 4vh;
 `
 
 const PaperContainer = styled(Paper)({
 	display: 'flex',
 	flexDirection: 'column',
-	justifyContent: 'center',
-	alignItems: 'center',
 	backgroundColor: '#ff3860',
 	paddingTop: '0.5em',
 	paddingLeft: '0.5em',
@@ -36,11 +35,26 @@ const PaperContainer = styled(Paper)({
 	maxWidth: '70vw',
 });
 
-const TextWrapper = styledMaterial(Typography)({
+const GenderAgeContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+`
+
+const Username = styledMaterial(Typography)({
 	fontSize: '1rem',
 	color: "#FFF",
 	marginTop: '2vh',
-	marginBottom: '1vh',
+});
+
+const Name = styledMaterial(Typography)({
+	fontSize: '1rem',
+	color: "#FFF",
+});
+
+const GenderAge = styledMaterial(Typography)({
+	fontSize: '0.7rem',
+	color: "#FFF",
 });
 
 const Hobbies = styledMaterial(Typography)({
@@ -49,21 +63,16 @@ const Hobbies = styledMaterial(Typography)({
 	marginBottom: '1vh',
 });
 
-
 const Biography = styledMaterial(Typography)({
 	fontSize: '0.5rem',
 	color: "#FFF",
 	marginBottom: '1vh',
 });
 
-const NameAgeContainer = styled.div`
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-`
 
 function User(props) {
+	const [like, setLike] = useState(false);
+
 	const age = findAge(props.user.birthdate);
 	
 	let hobbiesArray = [];
@@ -76,9 +85,7 @@ function User(props) {
 	console.log("props.user.hobbies", props.user.hobbies);
 	const userHobbies = hobbiesArray.map((hobby, index) => {
 		if (index < hobbiesArray.length1)
-			return ("#" + hobby.name + " and ")
-		else if (index < hobbiesArray.length2)
-			return ("#" + hobby.name + ", ")
+			return ("#" + hobby.name + "")
 		else
 			return ("#" + hobby.name)
 	})
@@ -88,10 +95,12 @@ function User(props) {
 			<UserContainer>
 				<PaperContainer elevation={3} component="div">
 					<img src={props.user.pictures[0].url} alt={props.user.pictures[0].name} key={props.user.pictures[0].name} style={{width: '70vw'}}/>
-					<NameAgeContainer>
-						<TextWrapper>{props.user.firstname} {props.user.lastname}</TextWrapper>
-						<TextWrapper style={{marginLeft: '2vw'}}>{age}</TextWrapper>
-					</NameAgeContainer>
+					{/* <Username>@{props.user.username}</Username> */}
+					<Name>{props.user.firstname} {props.user.lastname}</Name>
+					<GenderAgeContainer>
+						<GenderAge>{props.user.gender.name.charAt(0).toUpperCase() + props.user.gender.name.slice(1)}</GenderAge>
+						<GenderAge style={{marginLeft: '2vw'}}>{findAge(props.user.birthdate)} years old</GenderAge>
+					</GenderAgeContainer>
 					<Hobbies>Interested in {userHobbies}</Hobbies>
 					<Biography>{props.user.biography}</Biography>
 				</PaperContainer>

@@ -140,9 +140,7 @@ function Match() {
 	
 	const userHobbies = hobbiesArray.map((hobby, index) => {
 		if (index < hobbiesArray.length1)
-			return ("#" + hobby.name + " and ")
-		else if (index < hobbiesArray.length2)
-			return ("#" + hobby.name + ", ")
+			return ("#" + hobby.name + "")
 		else
 			return ("#" + hobby.name)
 	})
