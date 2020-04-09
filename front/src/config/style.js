@@ -27,6 +27,7 @@ export const device = {
 };
 
 export const SPACING = {
+	XXS: '5px',
 	XS: '10px',
 	SM: '15px',
 	BASE: '20px',

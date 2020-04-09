@@ -12,6 +12,7 @@ import socket from './middleware/socket';
 import userRouter from './routes/user';
 import genderRouter from './routes/gender';
 import hobbyRouter from './routes/hobby';
+import chatRouter from './routes/chat';
 import orientationRouter from './routes/orientation';
 import { generateGenders, generateHobbies, generateOrientations } from './models/utils';
 
@@ -34,6 +35,7 @@ app.use('/user', userRouter);
 app.use('/gender', genderRouter);
 app.use('/orientation', orientationRouter);
 app.use('/hobby', hobbyRouter);
+app.use('/chat', chatRouter);
 
 app.use(handleError)
 

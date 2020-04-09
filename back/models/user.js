@@ -9,6 +9,7 @@ import { getOrientation } from './orientation';
 import { getHobbies } from './hobby';
 import { getGender } from './gender';
 import { registerMail, passwordMail } from './mail';
+import { initChat } from './chat';
 
 export const regex = {
 	email: new RegExp(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g),
@@ -385,6 +386,7 @@ export const like = async (user, _id) => {
 	const query = 'MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $likedId MERGE (a)-[:LOVE {_id: $likeId, date: $date}]->(b)';
 	await dbSession.session.run(query, {_id: user._id, likeId: uuidv1(),likedId: _id, date: Date.now()}).then(res => {
 		closeBridge(dbSession)
+		initChat(user, id);
 	}).catch(e => console.log(e));
 }
 

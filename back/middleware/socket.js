@@ -1,6 +1,6 @@
 import io from 'socket.io';
 import { createServer } from 'http';
-import { getChats, initChat } from '../models/chat';
+import { addMessage } from '../models/chat';
 
 const app = require('../app');
 
@@ -17,8 +17,9 @@ socket.on('connection', socket => {
 		users[id] = socket.id
 	});
 
-	socket.on('send_message', (data) => {
+	socket.on('send_message', async data => {
 		console.log(data.message);
+		await addMessage(data);
 		socket.to(users[data.receiver]).emit("new_message", data);
 	})
 })
