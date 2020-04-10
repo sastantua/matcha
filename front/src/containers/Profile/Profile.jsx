@@ -52,6 +52,7 @@ const Username = styledMaterial(Typography)({
 const Name = styledMaterial(Typography)({
 	fontSize: '1rem',
 	color: "#FFF",
+	marginTop: '2vh',
 });
 
 const GenderAge = styledMaterial(Typography)({
