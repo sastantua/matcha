@@ -37,13 +37,6 @@ const CustomPaper = styledMaterial(Paper)({
 	width: "70vw",
 });
 
-const ActionContainer = styled.div`
-	display: flex;
-	flex-direction: row;
-	margin-top: 1.5em;
-	margin-bottom: 1em;
-`
-
 const Username = styled(Typography)({
 	alignSelf: "start",
 	marginTop: "2vh",
@@ -83,6 +76,12 @@ const Biography = styled(Typography)({
 	color: "#000"
 });
 
+const ActionContainer = styled.div`
+	display: flex;
+	flex-direction: row;
+	margin-top: 1.5em;
+	margin-bottom: 1em;
+`
 
 function Match() {
 	const [like, setLike] = useState(false);
