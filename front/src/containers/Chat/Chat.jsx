@@ -7,6 +7,7 @@ import api from '../../api/api';
 import { Contact, DialogBox } from '.';
 import socket from '../../api/socket';
 import { useImmer } from 'use-immer';
+import { SPACING } from '../../config';
 
 const SContainer = styled.div`
 	display: flex;
@@ -18,7 +19,17 @@ const SContainer = styled.div`
 const ContactContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 30%;
+	align-items: center;
+	width: 400px;
+	border-right: 1px solid lightgrey;
+`
+
+const Heading = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 22px;
+	padding: ${SPACING.XS};
 `
 
 export default () => {	
@@ -34,6 +45,7 @@ export default () => {
 			setLoading(true);
 			const res = await api.get('/user/contacts');
 			setContacts(res.data);
+			console.log(res.data);
 			setLoading(false);
 		}
 		const fetchHistory = async () => {
@@ -45,6 +57,10 @@ export default () => {
 		fetchContact();
 		fetchHistory();
 	}, [user]);
+
+	useEffect(() => {
+		selectUser(contacts[0]);
+	}, [contacts])
 
 	useEffect(() => {
 		socket.on("new_message", data => 
@@ -62,7 +78,8 @@ export default () => {
 	return (
 		<SContainer>
 			<ContactContainer>
-				{!loading && contacts.map((contact, index) => <Contact key={index} user={contact} handleClick={selectUser} />)}
+				<Heading>Contacts</Heading>
+				{!loading && contacts.map((contact, index) => <Contact key={index} user={contact} handleClick={selectUser} selected={selectedUser && contact._id === selectedUser._id}/>)}
 			</ContactContainer>
 			{selectedUser && <DialogBox loggedUser={user} user={selectedUser} messages={messages.filter(message => ( message.sender === selectedUser._id ) || ( message.sender === user._id && message.receiver === selectedUser._id ))} pushMessage={pushMessage}/>}
 		</SContainer>

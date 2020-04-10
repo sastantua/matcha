@@ -13,14 +13,16 @@ const users = [];
 
 socket.on('connection', socket => {
 	socket.on('connected', id => {
-		console.log(`user connected`, id);
 		users[id] = socket.id
 	});
 
 	socket.on('send_message', async data => {
-		console.log(data.message);
 		await addMessage(data);
 		socket.to(users[data.receiver]).emit("new_message", data);
+	})
+
+	socket.on('typing', data => {
+		socket.to(users[data.receiver]).emit("typing", data);
 	})
 })
 

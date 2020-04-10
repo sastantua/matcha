@@ -4,13 +4,12 @@ import SendIcon from '@material-ui/icons/Send';
 import { animateScroll } from "react-scroll";
 
 import socket from '../../../api/socket';
-import Message from './Message';
+import Message, { LoaderMessage } from './Message';
 import { SPACING } from '../../../config';
 
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-	border-left: 1px solid lightgrey;
 	width: 100%;
 	height: 100vh;
 `
@@ -21,7 +20,6 @@ const Header = styled.div`
 	align-items: center;
 	font-size: 22px;
 	padding: ${SPACING.XS};
-	border-bottom: 1px solid lightgrey;
 `
 const ContentWrapper = styled.div`
 	flex: 1;
@@ -60,6 +58,7 @@ const SInput = styled.input`
 
 export default ({ loggedUser, user, messages, pushMessage }) => {
 	const [message, setMessage] = useState('');
+	const [typing, isTyping] = useState(false);
 
 	const scrollToBottom = () => {
 		animateScroll.scrollToBottom({
@@ -72,6 +71,25 @@ export default ({ loggedUser, user, messages, pushMessage }) => {
 	useEffect(() => {
 		scrollToBottom();
 	})
+
+	useEffect(() => {
+		socket.on('typing', data => {
+			isTyping(true);
+			console.log("typing")
+			setTimeout(() => {
+				isTyping(false);
+				console.log('no more typing');
+			}, 6000);
+		});
+	}, [isTyping])
+
+	const handleChange = (e) => {
+		socket.emit('typing', {
+			sender: loggedUser._id,
+			receiver: user._id
+		});
+		setMessage(e.target.value)
+	}
 
 	const sendMessage = () => {
 		if (message === '')
@@ -95,10 +113,11 @@ export default ({ loggedUser, user, messages, pushMessage }) => {
 			<ContentWrapper id="chat">
 				<Content>
 					{messages.map((message, index) => <Message key={index} content={message} self={message.sender === loggedUser._id}/>) }
+					{typing && <LoaderMessage />}
 				</Content>
 			</ContentWrapper>
 			<TextInput>
-				<SInput type="text" placeholder="Write a message..." onChange={(e) => setMessage(e.target.value)} value={message}/>
+				<SInput type="text" placeholder="Write a message..." onChange={handleChange} value={message} onKeyDown={(e) => e.keyCode === 13 && sendMessage()}/>
 				<SendIcon style={{color: message === '' ? 'lightgrey' : '#0084ff'}} onClick={sendMessage} />
 			</TextInput>
 		</Wrapper>

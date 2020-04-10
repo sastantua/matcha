@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 import { SPACING } from '../../../config/style';
 
+import loaderIcn from '../../../media/loader.svg';
+
 const Container = styled.div`
 	display: flex;
 	justify-content: center;
@@ -16,6 +18,14 @@ const Container = styled.div`
 	background-color: ${p => p.self ? '#0084ff' : '#f1f0f0'};
 	color: ${p => p.self ? '#f1f0f0' : 'black'};
 `
+
+export const LoaderMessage = () => {
+	return (
+		<Container>
+			<img width={'20px'} src={loaderIcn} alt="loader"/>
+		</Container>
+	)
+}
 
 export default ({ content, self }) => {
 	return (
