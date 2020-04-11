@@ -34,8 +34,9 @@
 	height: 280vh;
 	margin-top: 6vh;
 	margin-bottom: 8vh;
-	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
-	/* background-color: #FFF; */
+	background-image: linear-gradient(90deg, rgba(255, 102, 91, 0.11) 30%, rgba(255, 88, 99, 0.082) 90%);
+	/* background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%); */
+	/* background-color: transparent; */
 	/* background-color: #eb3349; */
 }
 

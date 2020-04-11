@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
 		maxHeight: 300,
 		overflow: 'auto',
 		background: '#FF3860',
-		opacity: 0.6,
 		color: "#000",
 	},
 	nested: {

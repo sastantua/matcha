@@ -1,9 +1,6 @@
 # Todo
 
 	Objectif du jour:
-		- mettre le like
-		- mettre le block
-		- mettre a niveau le profile
 
 
 		- sort add info (orientation, ask guillaume if really sent)

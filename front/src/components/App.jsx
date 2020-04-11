@@ -11,6 +11,7 @@ import Account from '../containers/Account/Account';
 import Match from '../containers/Match/Match';
 import Search from '../containers/Search/Search';
 import Profile from '../containers/Profile/Profile';
+import Reset from '../containers/Reset/Reset';
 import Chat from '../containers/Chat';
 
 import Signup from '../containers/Signup/Signup';
@@ -64,6 +65,7 @@ function App() {
 					<Switch>
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/signup" component={Signup} />
+						<Route exact path="/reset" component={Reset} />
 					</Switch>
 					<Switch>
 						<AuthenticatedRoute exact path="/" component={Homepage} />

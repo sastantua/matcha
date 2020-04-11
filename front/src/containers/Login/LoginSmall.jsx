@@ -40,12 +40,19 @@ const InputWrapper = styledMaterial(TextField)({
 	color: '#OOB7FF'
 });
 
-const RedirectionSignup = styled.div`
+const SignupLink = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	margin-top: 20vh;
+`
+
+const ResetPasswordLink = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 `
 
 function LoginSmall() {
@@ -84,12 +91,14 @@ function LoginSmall() {
 				<InputWrapper variant="outlined" label="password" name="password" onChange={handlePassword}/>
 				<Button color="secondary" type='submit'>submit</Button>
 			</LoginForm>
-			<RedirectionSignup>
+			<SignupLink>
 				<Typography>Don't have an account?</Typography>
-				<Button color="secondary">
-					<Link to="/signup">sign up</Link>
-				</Button>
-			</RedirectionSignup>
+				<Button color="secondary"><Link to="/signup">sign up</Link></Button>
+			</SignupLink>
+			<ResetPasswordLink>
+				<Typography>Forgot your password?</Typography>
+				<Button color="secondary"><Link to="/reset">reset</Link></Button>
+			</ResetPasswordLink>
 		</LoginContainer>
 	);
 }

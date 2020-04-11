@@ -20,7 +20,6 @@ const useStyles = makeStyles(theme => ({
 		maxHeight: 300,
 		overflow: 'auto',
 		background: '#FF3860',
-		opacity: 0.6,
 		color: "#000",
 	},
 	nested: {
@@ -38,7 +37,6 @@ const useStyles = makeStyles(theme => ({
 		marginTop: '1em',
 	},
 }));
-
 
 function Hobby(props) {
 	const classes = useStyles();
@@ -146,7 +144,7 @@ function Hobby(props) {
 				</Collapse>
 			</List>
 			<TextField className={classes.field} variant="outlined" placeholder="add hobby" value={newHobbyName} name="createHobby" onChange={handleNewHobby} />
-			<Button onClick={createHobby} className={classes.root}>add</Button>
+			<Button onClick={createHobby} className={classes.root} style={{marginTop: "2vh"}}>add</Button>
 			{!!userHobbyList.length && <UserHobbies />}
 		</div>
 	);

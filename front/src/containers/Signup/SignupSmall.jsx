@@ -39,7 +39,7 @@ const InputWrapper = styledMaterial(TextField)({
 	color: '#OOB7FF'
 });
 
-const RedirectionSignup = styled.div`
+const LoginLink = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -87,7 +87,6 @@ function SignupSmall() {
 		})
 	}
 
-
 	return (
 		<SignupContainer>
 			<SignupTitle>Matcha</SignupTitle>	
@@ -100,12 +99,10 @@ function SignupSmall() {
 				<InputWrapper label="confirm_password" name="confirm_password" onChange={handleConfirmPassword} variant="outlined" />
 				<Button color="secondary" type='submit'>submit</Button>
 			</SignupForm>
-			<RedirectionSignup>
+			<LoginLink>
 				<Typography>Already have an account?</Typography>
-				<Button color="secondary">
-				<Link to="/login">login</Link>
-				</Button>
-			</RedirectionSignup>
+				<Button color="secondary"><Link to="/login">login</Link></Button>
+			</LoginLink>
 		</SignupContainer>
 	);
 }
