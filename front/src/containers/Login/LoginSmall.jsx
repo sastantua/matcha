@@ -24,9 +24,9 @@ const LoginTitle = styledMaterial(Typography)({
 });
 
 const LoginForm = styled.form`
-	& * {
-		margin-top: 2vh;
-	},
+	/* & * { */
+		/* margin-top: 2vh; */
+	/* }, */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

@@ -12,6 +12,7 @@ import Match from '../containers/Match/Match';
 import Search from '../containers/Search/Search';
 import Profile from '../containers/Profile/Profile';
 import Reset from '../containers/Reset/Reset';
+import Password from '../containers/Password/Password';
 import Chat from '../containers/Chat';
 
 import Signup from '../containers/Signup/Signup';
@@ -71,6 +72,7 @@ function App() {
 						<AuthenticatedRoute exact path="/" component={Homepage} />
 						<AuthenticatedRoute exact path="/home" component={Homepage} />
 						<AuthenticatedRoute exact path="/account" component={Account} />
+						<AuthenticatedRoute exact path="/password" component={Password} />
 						<AuthenticatedRoute exact path="/match" component={Match} />
 						<AuthenticatedRoute exact path="/search" component={Search} />
 						<AuthenticatedRoute exact path="/profile" component={Profile} />

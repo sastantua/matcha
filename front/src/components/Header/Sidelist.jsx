@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
-import { Email as EmailIcon, Favorite as FavoriteIcon, BrightnessHigh as BrightnessHighIcon } from '@material-ui/icons';
+import { Email as EmailIcon, Favorite as FavoriteIcon, BrightnessHigh as BrightnessHighIcon, Lock as LockIcon } from '@material-ui/icons';
 import { AccountCircle as AccountCircleIcon, Notifications as NotificationsIcon, ExitToApp as ExitToAppIcon, Search as SearchIcon } from '@material-ui/icons';
 
 export const SideList = (side, props) => {
@@ -63,6 +63,10 @@ export const SideList = (side, props) => {
 		</List>
 		<Divider />
 		<List>
+			<ListItem button component={Link} to="/password">
+				<ListItemIcon><LockIcon style={{ color: "#FFF" }} /></ListItemIcon>
+				<ListItemText primary='Change Password' />
+			</ListItem>
 			<ListItem button onClick={props.handleClick}>
 				<ListItemIcon><ExitToAppIcon style={{ color: "#FFF" }} /></ListItemIcon>
 				<ListItemText primary='Logout' />
