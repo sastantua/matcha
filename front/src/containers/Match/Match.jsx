@@ -155,7 +155,7 @@ function Match() {
 					<UserImages match={match} matchIndex={matchIndex}/>
 					<Username>@{match[matchIndex].username}</Username>
 					<Realname>{match[matchIndex].firstname} {match[matchIndex].lastname}</Realname>
-					<GenderAge>{match[matchIndex].gender.name.charAt(0).toUpperCase() + match[matchIndex].gender.name.slice(1)} {findAge(match[matchIndex].birthdate)} years old</GenderAge>
+					<GenderAge>{match[matchIndex].gender.name.charAt(0).toUpperCase() + match[matchIndex].gender.name.slice(1)} {findAge(match[matchIndex].birthdate)} years old {match[matchIndex].orientation.name}</GenderAge>
 					<Hobbies>Interested in {userHobbies}</Hobbies>
 					<Biography>{match[matchIndex].biography}</Biography>
 					<ActionContainer>

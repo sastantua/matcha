@@ -35,7 +35,7 @@ const PaperContainer = styled(Paper)({
 	maxWidth: '70vw',
 });
 
-const GenderAgeContainer = styled.div`
+const InfoContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: flex-start;
@@ -53,7 +53,7 @@ const Name = styledMaterial(Typography)({
 	marginTop: '2vh',
 });
 
-const GenderAge = styledMaterial(Typography)({
+const Info = styledMaterial(Typography)({
 	fontSize: '0.7rem',
 	color: "#FFF",
 });
@@ -128,10 +128,11 @@ function User(props) {
 						<img src={props.user.pictures[0].url} alt={props.user.pictures[0].name} key={props.user.pictures[0].name} style={{width: '70vw'}}/>
 						{/* <Username>@{props.user.username}</Username> */}
 						<Name>{props.user.firstname} {props.user.lastname}</Name>
-						<GenderAgeContainer>
-							<GenderAge>{props.user.gender.name.charAt(0).toUpperCase() + props.user.gender.name.slice(1)}</GenderAge>
-							<GenderAge style={{marginLeft: '2vw'}}>{findAge(props.user.birthdate)} years old</GenderAge>
-						</GenderAgeContainer>
+						<InfoContainer>
+							<Info>{props.user.gender.name.charAt(0).toUpperCase() + props.user.gender.name.slice(1)}</Info>
+							<Info style={{marginLeft: '2vw'}}>{findAge(props.user.birthdate)} years old</Info>
+							<Info style={{marginLeft: '2vw'}}>{props.user.orientation.name}</Info>
+						</InfoContainer>
 						<Hobbies>Interested in {userHobbies}</Hobbies>
 						<Biography>{props.user.biography}</Biography>
 					</Link>

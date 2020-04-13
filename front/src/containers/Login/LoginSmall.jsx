@@ -40,15 +40,16 @@ const InputWrapper = styledMaterial(TextField)({
 	color: '#OOB7FF'
 });
 
-const SignupLink = styled.div`
+
+const ResetPasswordLink = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	margin-top: 20vh;
+	margin-top: 32vh;
 `
 
-const ResetPasswordLink = styled.div`
+const SignupLink = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -88,17 +89,17 @@ function LoginSmall() {
 			<LoginTitle>Matcha</LoginTitle>	
 			<LoginForm noValidate autoComplete="off" onSubmit={handleSubmit}>
 				<InputWrapper variant="outlined" label="email" name="email" onChange={handleEmail}/>
-				<InputWrapper variant="outlined" label="password" name="password" onChange={handlePassword}/>
+				<InputWrapper variant="outlined" label="password" name="password" onChange={handlePassword} style={{marginTop: "1vh"}}/>
 				<Button color="secondary" type='submit'>submit</Button>
 			</LoginForm>
-			<SignupLink>
-				<Typography>Don't have an account?</Typography>
-				<Button color="secondary"><Link to="/signup">sign up</Link></Button>
-			</SignupLink>
 			<ResetPasswordLink>
 				<Typography>Forgot your password?</Typography>
 				<Button color="secondary"><Link to="/reset">reset</Link></Button>
 			</ResetPasswordLink>
+			<SignupLink>
+				<Typography>Don't have an account?</Typography>
+				<Button color="secondary"><Link to="/signup">sign up</Link></Button>
+			</SignupLink>
 		</LoginContainer>
 	);
 }
