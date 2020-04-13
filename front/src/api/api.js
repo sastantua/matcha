@@ -22,6 +22,10 @@ const api = axios.create({ baseURL: 'http://matchapi.guillaumerx.fr' });
 //   config
 // ).then(console.log('then')).catch(console.log('catch'));
 
+
+// guillaumeroux123@gmail.com
+// Guillaume-123
+
 // ssh root@matchapi.guillaumerx.fr && cd matcha/back && docker-compose up
 // username: neo4jpassword: 42
 // bolt://matchapi.guillaumerx.fr:7687

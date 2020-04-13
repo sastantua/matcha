@@ -57,8 +57,8 @@ const ResetPasswordLink = styled.div`
 
 function LoginSmall() {
 	const history = useHistory();
-	const [email, setEmail] = useState("test@test.com");
-	const [password, setPassword] = useState("test42");
+	const [email, setEmail] = useState("guillaumeroux123@gmail.com");
+	const [password, setPassword] = useState("Guillaume-123");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const handleEmail = (e) => {setEmail(e.target.value);}
