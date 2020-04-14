@@ -10,6 +10,7 @@ import { Menu as MenuIcon } from '@material-ui/icons';
 import { Mail as MailIcon, Notifications as NotificationsIcon } from '@material-ui/icons';
 
 import api from '../../api/api'
+import { colors } from '../../config/style'
 
 const useStyles = makeStyles({
 	list: {
@@ -30,7 +31,7 @@ const HeaderContainer = styled(AppBar)({
 	zIndex: "2",
 	height: "10vh",
 	width: "100vw",
-	backgroundColor: "#FF3860"
+	backgroundColor: `${colors.two}`
 });
 
 const HeaderRightContainer = styled.div

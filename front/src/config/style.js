@@ -1,8 +1,8 @@
 export const colors = {
-	pink: '#EFB1FF',
-	purple: '#481380',
-	lightpink: '#FFE2FF',
-	lightpurple: '#7F78D2',
+	one: '#FFE2FF',
+	two: '#EFB1FF',
+	three: '#7F78D2',
+	four: '#481380',
 }
 
 const size = {

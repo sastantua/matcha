@@ -1,8 +1,28 @@
 import React from 'react';
+import styled from "styled-components";
+import { styled as styledMaterial } from '@material-ui/core/styles';
 
 import EmojiButton from './EmojiButton/EmojiButton'
 import Clock from './Clock/Clock';
-import './Footer.css';
+
+const FooterContainer = styled.div
+`
+	position: fixed;
+	height: 8vh;
+	width: 100vw;
+	bottom: 0;
+	background-color: #FF3860;
+`
+
+const FooterComponent = styled.footer
+`
+	height: 8vh;
+	width: 100vw;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+`
 
 class Footer extends React.Component {
 	render() {
@@ -22,14 +42,12 @@ class Footer extends React.Component {
 		}
 
 		return (
-			<div id="footerMainDiv">
-				<footer id="footer">
-					<div id="flex_row_container">
-						<Clock />
-						<EmojiButton id="react-logo" changeDuration={changeDuration} />
-					</div>
-				</footer>
-			</div>
+			<FooterContainer>
+				<FooterComponent>
+					<Clock />
+					<EmojiButton style={{marginLeft: "20vw"}} changeDuration={changeDuration} />
+				</FooterComponent>
+			</FooterContainer>
 		)
 	}
 }

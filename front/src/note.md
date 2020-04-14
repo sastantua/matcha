@@ -1,7 +1,12 @@
 # Todo
 
 	Objectif du jour:
+		faire styled footer
+		faire color footer
+		faire style account
+		faire color account
 
+		check match profile search responsive
 
 		- sort add info (orientation, ask guillaume if really sent)
 		- sort add like / unlike
