@@ -1,29 +1,49 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+import { styled as styledMaterial } from '@material-ui/core/styles';
+import { Link, useHistory } from 'react-router-dom';
+import { SideList } from "./Sidelist";
 import { makeStyles } from '@material-ui/core/styles';
-import HeaderLarge from './HeaderLarge';
-import HeaderMedium from './HeaderMedium';
-import HeaderSmall from './HeaderSmall';
+import { AppBar, Toolbar, IconButton } from '@material-ui/core';
+import { Badge, Drawer } from '@material-ui/core';
+import { Menu as MenuIcon } from '@material-ui/icons';
+import { Mail as MailIcon, Notifications as NotificationsIcon } from '@material-ui/icons';
+
 import api from '../../api/api'
-import './Header.css';
+
+const useStyles = makeStyles({
+	list: {
+		width: 250,
+	},
+	fullList: {
+		width: 'auto',
+	},
+	paper: {
+		background: "#ff3860",
+		color: 'white'
+	}
+});
+
+const HeaderContainer = styled(AppBar)({
+	position: "fixed",
+	top: "0",
+	zIndex: "2",
+	height: "10vh",
+	width: "100vw",
+	backgroundColor: "#FF3860"
+});
+
+const HeaderRightContainer = styled.div
+`
+	right: 0;
+	position: fixed;
+	margin-right: 1vw;
+`
+
 
 function Header() {
-	let windowWidth = window.innerWidth;
-
+	const classes = useStyles();
 	const history = useHistory();
-
-	const useStyles = makeStyles({
-		list: {
-			width: 250,
-		},
-		fullList: {
-			width: 'auto',
-		},
-		paper: {
-			background: "#ff3860",
-			color: 'white'
-		}
-	});
 
 	const [state, setState] = React.useState({
 		top: false,
@@ -50,14 +70,31 @@ function Header() {
 		.catch((err) => console.log(`${err.response.data.message}`));
 	}
 
-	// if (windowWidth >= 1024)
-		// return (<HeaderLarge handleClick={handleClick} toggleDrawer={toggleDrawer} state={state} useStyles={useStyles} />);
-	// else if (windowWidth >= 720)
-		// return (<HeaderMedium handleClick={handleClick}/>);
-	// else
-		return (<HeaderSmall handleClick={handleClick}/>);
+	return (
+		<HeaderContainer position="static">
+			<Toolbar style={{height: "10vh"}}>
+				<IconButton onClick={toggleDrawer('left', true)} edge="start" color="inherit" aria-label="menu">
+					<MenuIcon />
+				</IconButton>
+				<Drawer classes={{ paper: classes.paper }} open={state.left} onClose={toggleDrawer('left', false)} style={{background: "#FFF"}}>
+					{SideList('left', handleClick)}
+				</Drawer>
+				<HeaderRightContainer>
+					<IconButton component={Link} to="/message" className="mail" edge="start" color="inherit" aria-label="menu">
+						<Badge badgeContent={4} color="secondary">
+							<MailIcon size="small" />
+						</Badge>
+					</IconButton>
+					<IconButton component={Link} to="/notification" className="notif" edge="start" color="inherit" aria-label="menu">
+						<Badge badgeContent={10} color="secondary">
+							<NotificationsIcon size="small" />
+						</Badge>
+					</IconButton>
+				</HeaderRightContainer>
+			</Toolbar>
+		</HeaderContainer>
+	);
+
 }
 
 export default Header;
-
-// https://neo4j.com/download-thanks/?edition=community&release=4.0.0&flavour=unix
