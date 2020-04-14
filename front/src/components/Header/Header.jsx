@@ -50,11 +50,11 @@ function Header() {
 		.catch((err) => console.log(`${err.response.data.message}`));
 	}
 
-	if (windowWidth >= 1024)
-		return (<HeaderLarge handleClick={handleClick} toggleDrawer={toggleDrawer} state={state} useStyles={useStyles} />);
-	else if (windowWidth >= 720)
-		return (<HeaderMedium handleClick={handleClick}/>);
-	else
+	// if (windowWidth >= 1024)
+		// return (<HeaderLarge handleClick={handleClick} toggleDrawer={toggleDrawer} state={state} useStyles={useStyles} />);
+	// else if (windowWidth >= 720)
+		// return (<HeaderMedium handleClick={handleClick}/>);
+	// else
 		return (<HeaderSmall handleClick={handleClick}/>);
 }
 

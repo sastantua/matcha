@@ -5,6 +5,8 @@ import { styled as styledMaterial } from '@material-ui/core/styles';
 
 import api from '../../api/api'
 import { device, color } from '../../config/style';
+import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 
 import { useSnackbar } from 'notistack';
 import { Typography, TextField, Button } from '@material-ui/core';
@@ -13,19 +15,17 @@ const PasswordContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 100vh;
+	height: 82vh;
+	margin-top: 10vh;
+	margin-bottom: 8vh;
 	width: 100vw;
 	color: white;
 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
-	@media ${device.laptop} {
-		flex-direction: row;
-		background-image: linear-gradient(90deg, #FFF 30%, #FFF 90%);
-	}
 `
 
 const PasswordTitle = styledMaterial(Typography)({
 	fontSize: "2rem",
-	marginTop: "10vh",
+	marginTop: "15vh",
 });
 
 const PasswordForm = styled.form`
@@ -48,10 +48,16 @@ const LoginLink = styled.div`
 	justify-content: center;
 	align-items: center;
 	@media ${device.mobileS} {
-	margin-top: 40vh;
+	margin-top: 10vh;
+	}
+	@media ${device.mobileM} {
+		margin-top: 18vh;
 	}
 	@media ${device.mobileL} {
-		margin-top: 55vh;
+		margin-top: 25vh;
+	}
+	@media ${device.laptop} {
+		margin-top: 15vh;
 	}
 `
 
@@ -83,18 +89,22 @@ function Password() {
 	}
 
 	return (
-		<PasswordContainer>
-			<PasswordTitle>Change password</PasswordTitle>	
-			<PasswordForm noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<PasswordInput variant="outlined" label="password" name="password" onChange={handlePassword}/>
-				<PasswordInput variant="outlined" label="confirmPassword" name="confirmPassword" onChange={handleConfirmPassword} style={{marginTop: "2vh"}}/>
-				<Button color="secondary" style={{marginTop: "2vh"}} type='submit'>submit</Button>
-			</PasswordForm>
-			<LoginLink>
-				<Typography>You've miss clicked?</Typography>
-				<Button color="secondary"><Link to="/login">login</Link></Button>
-			</LoginLink>
-		</PasswordContainer>
+		<>
+		<Header />
+			<PasswordContainer>
+				<PasswordTitle>Change password</PasswordTitle>	
+				<PasswordForm noValidate autoComplete="off" onSubmit={handleSubmit}>
+					<PasswordInput variant="outlined" label="password" name="password" onChange={handlePassword}/>
+					<PasswordInput variant="outlined" label="confirmPassword" name="confirmPassword" onChange={handleConfirmPassword} style={{marginTop: "2vh"}}/>
+					<Button color="secondary" style={{marginTop: "2vh"}} type='submit'>submit</Button>
+				</PasswordForm>
+				<LoginLink>
+					<Typography>You've miss clicked?</Typography>
+					<Button color="secondary"><Link to="/login">login</Link></Button>
+				</LoginLink>
+			</PasswordContainer>
+		<Footer />
+		</>
 	);
 }
 
