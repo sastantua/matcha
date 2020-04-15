@@ -384,9 +384,10 @@ export const getPopularityScore = async (user) => {
 export const like = async (user, _id) => {
 	const dbSession = session(mode.WRITE);
 	const query = 'MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $likedId MERGE (a)-[:LOVE {_id: $likeId, date: $date}]->(b)';
-	await dbSession.session.run(query, {_id: user._id, likeId: uuidv1(),likedId: _id, date: Date.now()}).then(res => {
+	await dbSession.session.run(query, {_id: user._id, likeId: uuidv1(),likedId: _id, date: Date.now()}).then(async res => {
 		closeBridge(dbSession)
-		initChat(user, id);
+		if (await likes(user, _id))
+			initChat(user, _id);
 	}).catch(e => console.log(e));
 }
 

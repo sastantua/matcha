@@ -1,81 +1,68 @@
-<<<<<<< HEAD
-import React from 'react';
-import styled from "styled-components";
-import { styled as styledMaterial } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Link, useHistory } from 'react-router-dom';
-import { SideList } from "./Sidelist";
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton } from '@material-ui/core';
-import { Badge, Drawer } from '@material-ui/core';
-import { Menu as MenuIcon } from '@material-ui/icons';
-import { Mail as MailIcon, Notifications as NotificationsIcon } from '@material-ui/icons';
-
-import api from '../../api/api'
-import { colors, device } from '../../config/style'
-=======
 import React, { useEffect, useContext } from 'react';
-import { useHistory } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
-import { UserContext } from '../../context/UserContext';
-import HeaderLarge from './HeaderLarge';
-import HeaderMedium from './HeaderMedium';
-import HeaderSmall from './HeaderSmall';
+import styled from "styled-components";
+import { useHistory, Link } from 'react-router-dom';
 import api from '../../api/api'
+import { COLORS, SPACING } from '../../config/style'
+import { UserContext } from '../../context/UserContext';
 import { notifSocket } from '../../api/socket';
-import './Header.css';
 import { useImmer } from 'use-immer';
->>>>>>> Notifications going on
+import NotificationsIcon from '@material-ui/icons/Notifications';
 
-const useStyles = makeStyles({
-	list: {
-		width: 250,
-	},
-	fullList: {
-		width: 'auto',
-	},
-	paper: {
-		background: "#ff3860",
-		color: 'white'
+const HeaderContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 ${SPACING.BASE};
+	width: 100%;
+	height: 80px;
+	background-color: ${COLORS.PINK};
+	& > div:first-child {
+		justify-content: flex-start;
 	}
-});
-
-<<<<<<< HEAD
-// const matches = useMediaQuery(device.mobileS);
-// @media ${device.mobileS} {
-// 	height: 8vh;
-// }
-// @media ${device.tablet} {
-// 	height: 5vh;
-// }
-=======
-	const history = useHistory();
-	const { user } = useContext(UserContext);
-	const [notifications, addNotification] = useImmer();
->>>>>>> Notifications going on
-
-const HeaderContainer = styled(AppBar)({
-	position: "fixed",
-	top: "0",
-	zIndex: "2",
-	height: "10vh",
-	width: "100vw",
-	backgroundColor: `${colors.two}`
-});
-
-const HeaderRightContainer = styled.div`
-	right: 0;
-	position: fixed;
-	margin-right: 1vw;
+	& > div:last-child {
+		justify-content: flex-end;
+	}
 `
 
-function Header() {
-	const classes = useStyles();
-	const history = useHistory();
+const HeaderContent = styled.div`
+	display: flex;
+	width: 30%;
+	justify-content: center;
+	align-items: center;
+`
 
-	useEffect(() => {
-		user && notifSocket.emit('connected', user._id);
-	})
+const HeaderLogo = styled(Link)`
+	color: ${COLORS.WHITE};
+	font-size: 1.1em;
+	font-weight: bold;
+	text-transform: uppercase;
+`
+
+const HeaderLink = styled(Link)`
+	color: ${COLORS.WHITE};
+	margin: 0 ${SPACING.SM};
+`
+
+const HeaderPills = styled.div`
+	display: flex;
+	align-items: center;
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PURPLE_LIGHT};
+	padding: ${SPACING.XXS};
+	border-radius: 50%;
+	text-transform: uppercase;
+	font-size: 0.75em;
+	font-weight: 600;
+	cursor: pointer;
+`
+
+function Header({ isLogged }) {
+	const history = useHistory();
+	const [notifications, addNotification] = useImmer([]);
+
+	// useEffect(() => {
+	// 	user && notifSocket.emit('connected', user._id);
+	// })
 
 	useEffect(() => {
 		notifSocket.on('notification', data => 
@@ -85,59 +72,40 @@ function Header() {
 		)
 	}, [addNotification])
 
-	const [state, setState] = React.useState({
-		top: false,
-		left: false,
-		bottom: false,
-		right: false,
-	});	
-	
-	const toggleDrawer = (side, open) => event => {
-		if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-			return ;
-		}
-	
-		setState({ ...state, [side]: open });
-	};
-
 	const handleClick = () => {
-		api.post('/user/logout')
-		.then(() => {
-			localStorage.removeItem("token");
-			delete api.defaults.headers.common['Authorization'];
-			history.push("/login");
-		})
-		.catch((err) => console.log(`${err.response.data.message}`));
+		if (isLogged) {
+			api.post('/user/logout')
+			.then(() => {
+				localStorage.removeItem("token");
+				delete api.defaults.headers.common['Authorization'];
+				history.push("/login");
+			})
+			.catch((err) => console.log(`${err.response.data.message}`));
+		} else {
+			history.push('/login');
+		}
 	}
 
 	return (
-		<HeaderContainer position="static">
-			<Toolbar style={{height: "10vh"}}>
-				<IconButton onClick={toggleDrawer('left', true)} edge="start" color="inherit" aria-label="menu">
-					<MenuIcon />
-				</IconButton>
-				<Drawer classes={{ paper: classes.paper }} open={state.left} onClose={toggleDrawer('left', false)} style={{background: "#FFF"}}>
-					{SideList('left', handleClick)}
-				</Drawer>
-				<HeaderRightContainer>
-					<IconButton component={Link} to="/message" className="mail" edge="start" color="inherit" aria-label="menu">
-						<Badge badgeContent={4} color="secondary">
-							<MailIcon size="small" />
-						</Badge>
-					</IconButton>
-					<IconButton component={Link} to="/notification" className="notif" edge="start" color="inherit" aria-label="menu">
-						<Badge badgeContent={10} color="secondary">
-							<NotificationsIcon size="small" />
-						</Badge>
-					</IconButton>
-				</HeaderRightContainer>
-			</Toolbar>
+		<HeaderContainer>
+			<HeaderContent>
+				<HeaderLogo to={'/home'}>Matcha</HeaderLogo>
+			</HeaderContent>
+			<HeaderContent>
+				<HeaderLink to={'/match'}>Match</HeaderLink>
+				<HeaderLink to={'/search'}>Search</HeaderLink>
+				<HeaderLink to={'/account'}>Account</HeaderLink>
+				<HeaderLink to={'/chat'}>Chat</HeaderLink>
+			</HeaderContent>
+			<HeaderContent>
+				<HeaderPills onClick={handleClick}>
+					<NotificationsIcon fontSize="small"/>
+				</HeaderPills>
+				<HeaderLink to={'/logout'}>Logout</HeaderLink>
+			</HeaderContent>
 		</HeaderContainer>
 	);
 
-<<<<<<< HEAD
 }
 
-=======
->>>>>>> Notifications going on
 export default Header;

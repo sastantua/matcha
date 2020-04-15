@@ -128,7 +128,6 @@ function Profile(props) {
 
 	return (
 		<>
-			<Header/>
 				<UserContainer>
 					<PaperContainer component="div">
 						<UserPictures pictures={user.pictures}/>
@@ -143,11 +142,10 @@ function Profile(props) {
 						<Biography>{user.biography}</Biography>
 						<ActionContainer>
 							{ like === false ? <FavoriteIcon onClick={likeMatch} htmlColor='#FAE3D9' /> : <CancelIcon onClick={unlikeMatch} htmlColor='#FAE3D9' />}
-							{ block == false ? <BlockIcon onClick={blockMatch} style={{marginLeft: "1.5em"}}></BlockIcon> : <ReplayIcon onClick={unblockMatch} style={{marginLeft: "1.5em"}}></ReplayIcon>}
+							{ block === false ? <BlockIcon onClick={blockMatch} style={{marginLeft: "1.5em"}}></BlockIcon> : <ReplayIcon onClick={unblockMatch} style={{marginLeft: "1.5em"}}></ReplayIcon>}
 						</ActionContainer>
 					</PaperContainer>
 				</UserContainer>
-			<Footer />
 		</>
 	);
 }

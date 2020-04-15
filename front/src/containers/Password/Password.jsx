@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { styled as styledMaterial } from '@material-ui/core/styles';
 
 import api from '../../api/api'
-import { device, color } from '../../config/style';
+import { device, color, BREAK_POINTS } from '../../config/style';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 
@@ -47,16 +47,13 @@ const LoginLink = styled.div`
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	@media ${device.mobileS} {
-	margin-top: 10vh;
-	}
-	@media ${device.mobileM} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 		margin-top: 18vh;
 	}
-	@media ${device.mobileL} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		margin-top: 25vh;
 	}
-	@media ${device.laptop} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_MD}) {
 		margin-top: 15vh;
 	}
 `
@@ -90,7 +87,6 @@ function Password() {
 
 	return (
 		<>
-		<Header />
 			<PasswordContainer>
 				<PasswordTitle>Change password</PasswordTitle>	
 				<PasswordForm noValidate autoComplete="off" onSubmit={handleSubmit}>
@@ -103,7 +99,6 @@ function Password() {
 					<Button color="secondary"><Link to="/login">login</Link></Button>
 				</LoginLink>
 			</PasswordContainer>
-		<Footer />
 		</>
 	);
 }

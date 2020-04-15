@@ -35,8 +35,8 @@ notifications.on('connection', socket => {
 		users[id] = socket.id;
 	})
 
-	notification.on('notification', data => {
-		notification.to(users[data.to]).emit('notification', data);
+	notifications.on('notification', data => {
+		notifications.to(users[data.to]).emit('notification', data);
 	})
 })
 

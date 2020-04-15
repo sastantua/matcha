@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from "styled-components"
 import GoogleMapReact from 'google-map-react';
-import { colors, device } from '../../config/style'
+import { COLORS, device } from '../../config/style'
 
 // import usePosition from '../../hooks/usePosition'
 

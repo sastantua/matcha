@@ -1,29 +1,29 @@
 import React from 'react';
 import styled from "styled-components";
 import { styled as styledMaterial } from '@material-ui/core/styles';
-import { colors, device } from '../../config/style'
+import { COLORS, BREAK_POINTS } from '../../config/style'
 
 import EmojiButton from './EmojiButton/EmojiButton'
 import Clock from './Clock/Clock';
 
 const FooterContainer = styled.div`
 	position: fixed;
-	@media ${device.mobileS} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 		height: 8vh;
 	}
-	@media ${device.tablet} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		height: 5vh;
 	}
 	width: 100vw;
 	bottom: 0;
-	background-color: ${colors.two};
+	background-color: ${COLORS.PINK};
 `
 
 const FooterComponent = styled.footer`
-	@media ${device.mobileS} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 		height: 8vh;
 	}
-	@media ${device.tablet} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		height: 5vh;
 	}
 	width: 100vw;

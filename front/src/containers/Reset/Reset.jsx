@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { styled as styledMaterial } from '@material-ui/core/styles';
 
 import api from '../../api/api'
-import { device, color } from '../../config/style';
+import { BREAK_POINTS } from '../../config/style';
 
 import { useSnackbar } from 'notistack';
 import { Typography, TextField, Button } from '@material-ui/core';
@@ -17,7 +17,7 @@ const ResetContainer = styled.div`
 	width: 100vw;
 	color: white;
 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
-	@media ${device.laptop} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_MD}) {
 		flex-direction: row;
 		background-image: linear-gradient(90deg, #FFF 30%, #FFF 90%);
 	}
@@ -47,10 +47,10 @@ const LoginLink = styled.div`
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	@media ${device.mobileS} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 	margin-top: 40vh;
 	}
-	@media ${device.mobileL} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_MD}) {
 		margin-top: 55vh;
 	}
 `

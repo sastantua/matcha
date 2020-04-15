@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import { colors, device } from '../../config/style'
+import { COLORS, BREAK_POINTS } from '../../config/style'
 
 import SimpleMap from './SimpleMap';
 
@@ -12,12 +12,12 @@ const HomepageSmallContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	width: auto;
-	@media ${device.mobileS} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 		height: 82vh;
 		margin-top: 10vh;
 		margin-bottom: 8vh;
 	}
-	@media ${device.tablet} {
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		height: 85vh;
 		margin-top: 10vh;
 		margin-bottom: 5vh;
@@ -27,11 +27,9 @@ const HomepageSmallContainer = styled.div`
 function Homepage() {
 	return (
 		<>
-		<Header/>
 			<HomepageSmallContainer>
 				<SimpleMap/>
 			</HomepageSmallContainer>
-		<Footer/>
 		</>
 	);
 }

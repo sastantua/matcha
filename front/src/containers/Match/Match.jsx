@@ -149,7 +149,6 @@ function Match() {
 		// console.log("match[matchIndex]", match[matchIndex]);
 		return (
 			<>
-			<Header />
 			<MatchContainer>
 				<CustomPaper component='div'>
 					<UserImages match={match} matchIndex={matchIndex}/>
@@ -165,7 +164,6 @@ function Match() {
 					</ActionContainer>
 				</CustomPaper>
 			</MatchContainer>
-			<Footer />
 			</>
 		);
 	}

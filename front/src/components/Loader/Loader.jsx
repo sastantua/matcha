@@ -21,11 +21,9 @@ function Loader() {
 
 	return (
 		<>
-		<Header />
 			<LoaderContainer>
 				<CircularProgress style={{color: "#FFF"}}/>
 			</LoaderContainer>
-		<Footer />
 		</>
 	);
 }

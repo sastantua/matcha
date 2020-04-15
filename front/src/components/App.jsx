@@ -65,15 +65,13 @@ function App() {
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
 			<UserContext.Provider value={ userMemo }>
 				<BrowserRouter>
-				{user && <Header />}
+				<Header isLogged={!!user}/>
 					<Switch>
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/signup" component={Signup} />
 						<Route exact path="/reset" component={Reset} />
-					</Switch>
-					<Switch>
-						<AuthenticatedRoute exact path="/" component={Homepage} />
-						<AuthenticatedRoute exact path="/home" component={Homepage} />
+						<Route exact path="/" component={Homepage} />
+						<Route exact path="/home" component={Homepage} />
 						<AuthenticatedRoute exact path="/account" component={Account} />
 						<AuthenticatedRoute exact path="/password" component={Password} />
 						<AuthenticatedRoute exact path="/match" component={Match} />
@@ -82,7 +80,7 @@ function App() {
 						<AuthenticatedRoute exact path="/chat" component={Chat} />
 						<Route path="*" component={NoMatch} />
 					</Switch>
-				{user && <Footer />}
+				<Footer />
 				</BrowserRouter>
 			</UserContext.Provider>
 		</SnackbarProvider>

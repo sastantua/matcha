@@ -114,7 +114,6 @@ function Search() {
 	if (!isLoading) {
 		return (
 			<>
-				<Header />
 					<MainContainer>
 						<TextWrapper>Select your preferences</TextWrapper>
 						<SortBy setSort={setSort}/>
@@ -128,7 +127,6 @@ function Search() {
 						</SearchRequestContext.Provider>
 						<Result result={result} sort={sort} descending={descending} ascending={ascending}/>
 					</MainContainer>
-				<Footer />
 			</>
 		);
 	}

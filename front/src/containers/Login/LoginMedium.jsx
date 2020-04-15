@@ -69,7 +69,7 @@ function LoginSmall() {
 			localStorage.token = res.data.token;
 			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
-		    history.push("/");
+			history.push("/");
 		})
 		.catch((err) => {
 			enqueueSnackbar(`${err.response.data.message}`, {variant: 'error'});

@@ -76,7 +76,6 @@ function Match() {
 
 	return (
 		<>
-		<Header />
 		<MatchContainer>
 			<CustomPaper component='div'>
 				<ImageContainer src={logo} alt="profile" onClick={() => getMatch()}/>
@@ -92,7 +91,6 @@ function Match() {
 				</ActionContainer>
 			</CustomPaper>
 		</MatchContainer>
-		<Footer />
 		</>
 	);
 }

@@ -9,6 +9,9 @@ import api from '../../../api/api'
 import { Favorite as FavoriteIcon, Cancel as CancelIcon, Block as BlockIcon, Replay as ReplayIcon } from '@material-ui/icons';
 import { Typography, Paper } from '@material-ui/core'
 import findAge from '../Helper/findAge.js'
+import { notifSocket } from '../../../api/socket';
+import { useContext } from 'react';
+import { UserContext } from '../../../context/UserContext';
 
 const ResultContainer = styled.div`
 	display: flex;
@@ -80,6 +83,7 @@ const ActionContainer = styled.div`
 `
 
 function User(props) {
+	const { user } = useContext(UserContext);
 	const [like, setLike] = useState(false);
 	const [block, setBlock] = useState(false);
 
@@ -87,6 +91,11 @@ function User(props) {
 		api.post(`/user/like/${props.user._id}`)
 		.then((res) => {setLike(true)})
 		.catch((err) => {console.log(err)})
+		notifSocket.emit('notification', {
+			type: 'like',
+			to: props.user._id,
+			from: user._id
+		})
 	}
 
 	const unlikeMatch = () => {

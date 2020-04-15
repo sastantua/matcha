@@ -4,7 +4,7 @@ import { styled as styledMaterial } from '@material-ui/core/styles';
 import { UserContext } from '../../context/UserContext';
 
 import api from '../../api/api'
-import { colors, device } from '../../config/style'
+import { COLORS, device } from '../../config/style'
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -38,7 +38,7 @@ const AccountContainer = styled.div`
 	height: 280vh;
 	margin-top: 6vh;
 	margin-bottom: 8vh;
-	background-image: linear-gradient(90deg, ${colors.one} 30%, ${colors.one} 90%);
+	background-image: linear-gradient(90deg, ${COLORS.PINK_LIGHT} 30%, ${COLORS.PINK_LIGHT} 90%);
 `
 
 const AccountSubContainer = styled.div`
@@ -90,7 +90,6 @@ function Account() {
 
 	return (
 		<>
-		<Header />
 		<AccountContainer>
 			<AccountSubContainer className={classes.root}>
 				<UserImages />
@@ -108,7 +107,6 @@ function Account() {
 				</UserForm>
 			</AccountSubContainer>
 		</AccountContainer>
-		<Footer />
 		</>
 	);
 }

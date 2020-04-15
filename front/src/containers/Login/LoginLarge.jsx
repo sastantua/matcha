@@ -35,7 +35,7 @@ function LoginLarge() {
 		    history.push("/");
 		})
 		.catch((err) => {
-			enqueueSnackbar(`${err.response.data.message}`,  {variant: 'error'});
+			enqueueSnackbar(`${err.response.data.message}`, {variant: 'error'});
 		})
 	}
 
