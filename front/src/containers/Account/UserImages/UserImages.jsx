@@ -9,8 +9,6 @@ import { AccountCircle } from '@material-ui/icons';
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-import './UserImages.css'
-
 const useStyles = makeStyles({
 	root: {
 		background: '#FF3860',
@@ -97,6 +95,22 @@ const IsProfilePic = styled.div`
 const CarouselContainer = styled.div`
 	width: 100%;
 	height: 100%;
+`
+
+const MainContainer = styled.div`
+    display: flex;
+    flex-direction: column;  
+`
+
+const UserImagesJsxContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const UploadContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 4em;
 `
 
 function UserImages() {
@@ -198,16 +212,16 @@ function UserImages() {
 	}
 
 	return (
-		<div id="container-user-image-small">
+		<MainContainer>
 			{ selectedPicture && <PictureModal image={selectedPicture}/> }
-			<div id="user-images-display-small">
+			<UserImagesJsxContainer>
 				{ !!userPictures.length && <UserImagesJsx /> }
-			</div>
-			<div id="user-images-upload-small">
+			</UserImagesJsxContainer>
+			<UploadContainer>
 				{ userPictures.length < 5 && <InputTest type="file" accept="image/*" name="file" label="" onChange={addPictureFile} variant="filled"/> }
 				{ userPictures.length < 5 && <Button type="button" className={classes.root} onClick={uploadPicture}>Upload</Button> }
-			</div>
-		</div>
+			</UploadContainer>
+		</MainContainer>
 	);
 }
 

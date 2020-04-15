@@ -43,13 +43,11 @@ const HeaderContainer = styled(AppBar)({
 	backgroundColor: `${colors.two}`
 });
 
-const HeaderRightContainer = styled.div
-`
+const HeaderRightContainer = styled.div`
 	right: 0;
 	position: fixed;
 	margin-right: 1vw;
 `
-
 
 function Header() {
 	const classes = useStyles();

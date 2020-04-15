@@ -1,6 +1,10 @@
 import React, { useState, useContext } from 'react';
+import styled from "styled-components";
+import { styled as styledMaterial } from '@material-ui/core/styles';
 import { UserContext } from '../../context/UserContext';
+
 import api from '../../api/api'
+import { colors, device } from '../../config/style'
 
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
@@ -16,8 +20,6 @@ import Hobby from './Hobby/Hobby'
 import SubmitForm from './SubmitForm/SubmitForm'
 
 import { makeStyles } from '@material-ui/core/styles';
-import './Account.css'
-
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -27,6 +29,32 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 }));
+
+const AccountContainer = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	height: 280vh;
+	margin-top: 6vh;
+	margin-bottom: 8vh;
+	background-image: linear-gradient(90deg, ${colors.one} 30%, ${colors.one} 90%);
+`
+
+const AccountSubContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow: scroll;
+`
+
+const UserForm = styled.form`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-top: 2em;
+`
 
 function Account() {
 	const classes = useStyles();
@@ -61,11 +89,12 @@ function Account() {
 	const handleBiography = (e) => {setUser({...user, biography: e.target.value});}
 
 	return (
-		<div id="account-small">
-			<Header />
-			<div id="account-main-container" className={classes.root}>
+		<>
+		<Header />
+		<AccountContainer>
+			<AccountSubContainer className={classes.root}>
 				<UserImages />
-				<form id="edit-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
+				<UserForm id="edit-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<InputWrapper variant="outlined" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
 					<InputWrapper variant="outlined" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
 					<InputWrapper variant="outlined" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
@@ -76,10 +105,11 @@ function Account() {
 					<OrientationDropdown user={user} dropdowns={dropdowns}/>
 					<Hobby dropdowns={dropdowns}/>
 					<SubmitForm/>
-				</form>
-			</div>
-			<Footer />
-		</div>
+				</UserForm>
+			</AccountSubContainer>
+		</AccountContainer>
+		<Footer />
+		</>
 	);
 }
 
