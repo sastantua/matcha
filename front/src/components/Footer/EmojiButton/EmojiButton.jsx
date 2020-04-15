@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import logo from '../../../media/reactlogoblue.svg';
+import logo from '../../../media/reactLogoLove.png';
 // import btc from './bitcoin.svg';
 
 const ReactLogoContainer = styled.div
@@ -12,8 +12,12 @@ const ReactLogoContainer = styled.div
 	width: 3em;
 `
 
-
-
+const ReactLogo = styled.img
+`
+	height: 1.5em;
+	width: 1.5em;
+	margin-left: 5vw;
+`
 
 class EmojiButton extends React.Component {
 	constructor (props) {
@@ -29,7 +33,7 @@ class EmojiButton extends React.Component {
 
 		return (
 			<ReactLogoContainer>
-				<img src={logo} onClick={handleClick} id="App-logo" alt="logo" />
+				<ReactLogo src={logo} onClick={handleClick} id="App-logo" alt="logo" />
 			</ReactLogoContainer>
 		)
 	}

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import { styled as styledMaterial } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Link, useHistory } from 'react-router-dom';
 import { SideList } from "./Sidelist";
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,7 +11,7 @@ import { Menu as MenuIcon } from '@material-ui/icons';
 import { Mail as MailIcon, Notifications as NotificationsIcon } from '@material-ui/icons';
 
 import api from '../../api/api'
-import { colors } from '../../config/style'
+import { colors, device } from '../../config/style'
 
 const useStyles = makeStyles({
 	list: {
@@ -24,6 +25,14 @@ const useStyles = makeStyles({
 		color: 'white'
 	}
 });
+
+// const matches = useMediaQuery(device.mobileS);
+// @media ${device.mobileS} {
+// 	height: 8vh;
+// }
+// @media ${device.tablet} {
+// 	height: 5vh;
+// }
 
 const HeaderContainer = styled(AppBar)({
 	position: "fixed",

@@ -1,7 +1,6 @@
 # Todo
 
 	Objectif du jour:
-		faire styled footer
 		faire color footer
 		faire style account
 		faire color account
