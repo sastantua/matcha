@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 import styled from "styled-components";
 import { styled as styledMaterial } from '@material-ui/core/styles';
@@ -12,6 +13,19 @@ import { Mail as MailIcon, Notifications as NotificationsIcon } from '@material-
 
 import api from '../../api/api'
 import { colors, device } from '../../config/style'
+=======
+import React, { useEffect, useContext } from 'react';
+import { useHistory } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import { UserContext } from '../../context/UserContext';
+import HeaderLarge from './HeaderLarge';
+import HeaderMedium from './HeaderMedium';
+import HeaderSmall from './HeaderSmall';
+import api from '../../api/api'
+import { notifSocket } from '../../api/socket';
+import './Header.css';
+import { useImmer } from 'use-immer';
+>>>>>>> Notifications going on
 
 const useStyles = makeStyles({
 	list: {
@@ -26,6 +40,7 @@ const useStyles = makeStyles({
 	}
 });
 
+<<<<<<< HEAD
 // const matches = useMediaQuery(device.mobileS);
 // @media ${device.mobileS} {
 // 	height: 8vh;
@@ -33,6 +48,11 @@ const useStyles = makeStyles({
 // @media ${device.tablet} {
 // 	height: 5vh;
 // }
+=======
+	const history = useHistory();
+	const { user } = useContext(UserContext);
+	const [notifications, addNotification] = useImmer();
+>>>>>>> Notifications going on
 
 const HeaderContainer = styled(AppBar)({
 	position: "fixed",
@@ -52,6 +72,18 @@ const HeaderRightContainer = styled.div`
 function Header() {
 	const classes = useStyles();
 	const history = useHistory();
+
+	useEffect(() => {
+		user && notifSocket.emit('connected', user._id);
+	})
+
+	useEffect(() => {
+		notifSocket.on('notification', data => 
+			addNotification(draft => {
+				draft.push(data);
+			})
+		)
+	}, [addNotification])
 
 	const [state, setState] = React.useState({
 		top: false,
@@ -103,6 +135,9 @@ function Header() {
 		</HeaderContainer>
 	);
 
+<<<<<<< HEAD
 }
 
+=======
+>>>>>>> Notifications going on
 export default Header;

@@ -9,20 +9,34 @@ socketServer.listen(4242);
 
 const socket = io(socketServer);
 
-const users = [];
+const chatUsers = [];
+const users = []
 
-socket.on('connection', socket => {
-	socket.on('connected', id => {
-		users[id] = socket.id
+const chat = socket.of('/chat');
+const notifications = socket.of('/notifications');
+
+chat.on('connection', socket => {
+	chat.on('connected', id => {
+		chatUsers[id] = socket.id;
 	});
 
-	socket.on('send_message', async data => {
+	chat.on('send_message', async data => {
 		await addMessage(data);
-		socket.to(users[data.receiver]).emit("new_message", data);
+		chat.to(chatUsers[data.receiver]).emit("new_message", data);
 	})
 
-	socket.on('typing', data => {
-		socket.to(users[data.receiver]).emit("typing", data);
+	chat.on('typing', data => {
+		chat.to(chatUsers[data.receiver]).emit("typing", data);
+	})
+})
+
+notifications.on('connection', socket => {
+	notifications.on('connected', id => {
+		users[id] = socket.id;
+	})
+
+	notification.on('notification', data => {
+		notification.to(users[data.to]).emit('notification', data);
 	})
 })
 

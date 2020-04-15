@@ -5,7 +5,7 @@ import { UserContext } from '../../context/UserContext';
 import api from '../../api/api';
 
 import { Contact, DialogBox } from '.';
-import socket from '../../api/socket';
+import { chatSocket } from '../../api/socket';
 import { useImmer } from 'use-immer';
 import { SPACING } from '../../config';
 
@@ -40,7 +40,7 @@ export default () => {
 	const [ loading, setLoading ] = useState(false);
 
 	useEffect(() => {
-		user && socket.emit('connected', user._id);
+		user && chatSocket.emit('connected', user._id);
 		const fetchContact = async () => {
 			setLoading(true);
 			const res = await api.get('/user/contacts');
@@ -59,11 +59,11 @@ export default () => {
 	}, [user]);
 
 	useEffect(() => {
-		selectUser(contacts[0]);
+		selectUser(contacts[0])
 	}, [contacts])
 
 	useEffect(() => {
-		socket.on("new_message", data => 
+		chatSocket.on("new_message", data => 
 		setMessages(draft => { 
 			draft.push(data);
 		}))

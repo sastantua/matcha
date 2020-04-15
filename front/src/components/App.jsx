@@ -23,6 +23,8 @@ import { UserContext } from '../context/UserContext'
 
 import usePosition from '../hooks/usePosition';
 import api from '../api/api';
+import Header from './Header/Header';
+import Footer from './Footer/Footer';
 
 dotenv.config();
 
@@ -63,6 +65,7 @@ function App() {
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
 			<UserContext.Provider value={ userMemo }>
 				<BrowserRouter>
+				{user && <Header />}
 					<Switch>
 						<Route exact path="/login" component={Login} />
 						<Route exact path="/signup" component={Signup} />
@@ -79,6 +82,7 @@ function App() {
 						<AuthenticatedRoute exact path="/chat" component={Chat} />
 						<Route path="*" component={NoMatch} />
 					</Switch>
+				{user && <Footer />}
 				</BrowserRouter>
 			</UserContext.Provider>
 		</SnackbarProvider>

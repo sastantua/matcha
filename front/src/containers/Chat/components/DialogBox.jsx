@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SendIcon from '@material-ui/icons/Send';
 import { animateScroll } from "react-scroll";
 
-import socket from '../../../api/socket';
+import { chatSocket } from '../../../api/socket';
 import Message, { LoaderMessage } from './Message';
 import { SPACING } from '../../../config';
 
@@ -73,7 +73,7 @@ export default ({ loggedUser, user, messages, pushMessage }) => {
 	})
 
 	useEffect(() => {
-		socket.on('typing', data => {
+		chatSocket.on('typing', data => {
 			isTyping(true);
 			console.log("typing")
 			setTimeout(() => {
@@ -84,7 +84,7 @@ export default ({ loggedUser, user, messages, pushMessage }) => {
 	}, [isTyping])
 
 	const handleChange = (e) => {
-		socket.emit('typing', {
+		chatSocket.emit('typing', {
 			sender: loggedUser._id,
 			receiver: user._id
 		});
@@ -99,7 +99,7 @@ export default ({ loggedUser, user, messages, pushMessage }) => {
 			receiver: user._id,
 			message: message
 		}
-		socket.emit('send_message', data);
+		chatSocket.emit('send_message', data);
 		pushMessage(data);
 		setMessage('');
 		scrollToBottom();
