@@ -35,10 +35,6 @@ const AccountContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	width: auto;
-	height: 280vh;
-	margin-top: 6vh;
-	margin-bottom: 8vh;
-	background-image: linear-gradient(90deg, ${COLORS.PINK_LIGHT} 30%, ${COLORS.PINK_LIGHT} 90%);
 `
 
 const AccountSubContainer = styled.div`

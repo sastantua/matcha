@@ -34,10 +34,6 @@ const MainContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	width: auto;
-	min-height: 88vh;
-	margin-top: 10vh;
-	margin-bottom: 8vh;
-	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
 
 const TextWrapper = styledMaterial(Typography)({

@@ -11,76 +11,69 @@ import { Typography, Paper } from '@material-ui/core';
 import { Favorite as FavoriteIcon, Cancel as CancelIcon, ArrowForwardIos as ArrowForwardIosIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
 import Loader from '../../components/Loader/Loader';
 import findAge from './findAge.js'
+import { COLORS, SPACING } from '../../config/style';
 
 const MatchContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-evenly;
 	align-items: center;
-	width: auto;
-	height: 88vh;
-	margin-top: 6vh;
-	margin-bottom: 6vh;
-	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
+	width: 100%;
+	height: 100%;
 `
 
-const CustomPaper = styledMaterial(Paper)({
-	display: "flex",
-	flexDirection: "column",
-	justifyContent: "center",
-	alignItems: "center",
-	backgroundColor: "#ff3860",
-	paddingTop: "0.5em",
-	paddingLeft: "0.5em",
-	paddingRight: "0.5em",
-	paddingBottom: "0.5em",
-	width: "70vw",
-});
+const Card = styled.div`
+	width: 50%;
+	height: 60%;
+	border-radius: 15px;
+	padding: ${SPACING.BASE};
+	background-color: ${COLORS.WHITE};
+	box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
+`
 
-const Username = styled(Typography)({
-	alignSelf: "start",
-	marginTop: "2vh",
-	marginLeft: "2vw",
-	fontSize: "12px",
-	color: "#000"
-});
-
-const Realname = styled(Typography)({
-	alignSelf: "start",
-	marginLeft: "2vw",
-	fontSize: "12px",
-	color: "#000"
-});
-
-const GenderAge = styled(Typography)({
-	alignSelf: "start",
-	marginTop: "0.5vh",
-	marginLeft: "2vw",
-	fontSize: "10px",
-	color: "#000",
-});
-
-const Hobbies = styled(Typography)({
-	alignSelf: "start",
-	marginTop: "0.5vh",
-	marginLeft: "2vw",
-	fontSize: "10px",
-	color: "#000",
-})
-
-const Biography = styled(Typography)({
-	marginTop: "2vh",
-	marginLeft: "2vw",
-	// maxWidth: "20em",
-	fontSize: "8px",
-	color: "#000"
-});
-
-const ActionContainer = styled.div`
+const ButtonsContainer = styled.div`
 	display: flex;
-	flex-direction: row;
-	margin-top: 1.5em;
-	margin-bottom: 1em;
+	justify-content: space-evenly;
+	align-items: center;
+	color: white;
+	width: 40%;
+	& > svg {
+		filter: grayscale(100%) opacity(.7);
+		transition: filter 600ms ease;
+	}
+	& > svg:nth-child(2) {
+		color: ${COLORS.PINK};
+	}
+	& > svg:hover {
+		filter: grayscale(0%) opacity(1);
+		transform: scale(1.1);
+	}
+`
+
+const RowContainer = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+`
+
+const NameContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+
+const Name = styled.span`
+	color: ${COLORS.BLACK};
+	font-weight: 600;
+	font-size: 1.3em;
+`
+const Username = styled.span`
+	color: ${COLORS.GREY};
+`
+
+const Age = styled.span`
+	color: ${COLORS.BLACK};
+	font-size: 1.6em;
+	font-weight: 600;
 `
 
 function Match() {
@@ -148,23 +141,22 @@ function Match() {
 		// console.log("matchIndex", matchIndex);
 		// console.log("match[matchIndex]", match[matchIndex]);
 		return (
-			<>
 			<MatchContainer>
-				<CustomPaper component='div'>
-					<UserImages match={match} matchIndex={matchIndex}/>
-					<Username>@{match[matchIndex].username}</Username>
-					<Realname>{match[matchIndex].firstname} {match[matchIndex].lastname}</Realname>
-					<GenderAge>{match[matchIndex].gender.name.charAt(0).toUpperCase() + match[matchIndex].gender.name.slice(1)} {findAge(match[matchIndex].birthdate)} years old {match[matchIndex].orientation.name}</GenderAge>
-					<Hobbies>Interested in {userHobbies}</Hobbies>
-					<Biography>{match[matchIndex].biography}</Biography>
-					<ActionContainer>
-						<ArrowBackIosIcon onClick={previousMatch} htmlColor='#FAE3D9' />
-						{ like === false ? <FavoriteIcon onClick={likeMatch} htmlColor='#FAE3D9' style={{marginLeft: "1.5em"}} /> : <CancelIcon onClick={unlikeMatch} htmlColor='#FAE3D9' style={{marginLeft: "1.5em"}} />}
-						<ArrowForwardIosIcon onClick={nextMatch} htmlColor='#FAE3D9' style={{marginLeft: "1.5em"}} />
-					</ActionContainer>
-				</CustomPaper>
+				<Card>
+				<RowContainer>
+					<NameContainer>
+						<Name>{`${match[matchIndex].firstname} ${match[matchIndex].lastname}`}</Name>
+						<Username>{`@${match[matchIndex].username}`}</Username>
+					</NameContainer>
+					<Age>{`${findAge(match[matchIndex].birthdate)} Yo`}</Age>
+				</RowContainer>
+				</Card>
+				<ButtonsContainer>
+				<i class="fas fa-chevron-left fa-3x"></i>
+				<i class="fas fa-heart fa-3x"></i>
+				<i class="fas fa-chevron-right fa-3x"></i>
+				</ButtonsContainer>
 			</MatchContainer>
-			</>
 		);
 	}
 	else {

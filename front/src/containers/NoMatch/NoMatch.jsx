@@ -4,8 +4,7 @@ import styled from "styled-components";
 
 import pinguin from '../../media/404pinguin.png';
 
-const PinguinWrapper = styled.div
-`
+const PinguinWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;

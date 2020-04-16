@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import '@fortawesome/fontawesome-free/js/all'
 import App from './components/App.jsx';
 
 // import Typography from '@material-ui/core';

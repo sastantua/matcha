@@ -10,11 +10,8 @@ const LoaderContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: auto;
-	height: 88vh;
-	margin-top: 6vh;
-	margin-bottom: 6vh;
-	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
+	height: 100%;
+	width: 100%;
 `
 
 function Loader() {
