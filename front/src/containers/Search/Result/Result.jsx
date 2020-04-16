@@ -84,8 +84,7 @@ const ActionContainer = styled.div`
 
 function User(props) {
 	const { user } = useContext(UserContext);
-	const [like, setLike] = useState(false);
-	const [block, setBlock] = useState(false);
+	const [like, setLike] = useState(props.user.liked);
 
 	const likeMatch = () => {
 		api.post(`/user/like/${props.user._id}`)
@@ -106,7 +105,9 @@ function User(props) {
 
 	const blockMatch = () => {
 		api.post(`/user/block/${props.user._id}`)
-		.then((res) => {setBlock(true)})
+		.then((res) => {
+			console.log("succeeeeeess");
+			setBlock(true)})
 		.catch((err) => {console.log(err)})
 	}
 
@@ -147,7 +148,7 @@ function User(props) {
 					</Link>
 					<ActionContainer>
 						{ like === false ? <FavoriteIcon onClick={likeMatch} htmlColor='#FAE3D9' /> : <CancelIcon onClick={unlikeMatch} htmlColor='#FAE3D9' />}
-						{ block == false ? <BlockIcon onClick={blockMatch} style={{marginLeft: "1.5em"}}></BlockIcon> : <ReplayIcon onClick={unblockMatch} style={{marginLeft: "1.5em"}}></ReplayIcon>}
+						{ block === false ? <BlockIcon onClick={blockMatch} style={{marginLeft: "1.5em"}}></BlockIcon> : <ReplayIcon onClick={unblockMatch} style={{marginLeft: "1.5em"}}></ReplayIcon>}
 					</ActionContainer>
 				</PaperContainer>
 			</UserContainer>
@@ -157,8 +158,10 @@ function User(props) {
 function Result(props) {
 	const Users = () => {
 		return (
-			props.result.map((user, index) =>
-				<User user={user} key={index}/>
+			props.result.map((user, index) => {
+				if (block === false)
+					return (<User user={user} key={index}/>);
+			}
 		));
 	}
 
