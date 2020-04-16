@@ -26,12 +26,14 @@ import api from '../api/api';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import styled from 'styled-components';
-import { COLORS } from '../config/style';
+import { COLORS, BREAK_POINTS } from '../config/style';
 
 dotenv.config();
 
 const AppContainer = styled.div`
-	margin-left: 5rem;
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
+		margin-left: 5rem;
+	}
 	background-color: ${COLORS.BLACK_LIGHT};
 	width: 100%;
 	height: 100%;
