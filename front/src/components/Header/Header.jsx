@@ -180,8 +180,8 @@ function Header({ isLogged }) {
 						<Typography>Account</Typography>
 					</SLink>
 				</Element>
-				<Element>
-					<SLink to="/logout">
+				<Element onClick={handleClick}>
+					<SLink to="/">
 						<Icon className="fas fa-sign-out-alt fa-lg"></Icon>
 						<Typography>Logout</Typography>
 					</SLink>

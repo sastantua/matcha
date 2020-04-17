@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import { styled as styledMaterial } from '@material-ui/core/styles';
 import api from '../../api/api'
-
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import UserImages from './UserImages/UserImages';
 
-import { Typography, Paper } from '@material-ui/core';
-import { Favorite as FavoriteIcon, Cancel as CancelIcon, ArrowForwardIos as ArrowForwardIosIcon, ArrowBackIos as ArrowBackIosIcon } from '@material-ui/icons';
+import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import Loader from '../../components/Loader/Loader';
 import findAge from './findAge.js'
 import { COLORS, SPACING } from '../../config/style';
@@ -37,14 +32,19 @@ const ButtonsContainer = styled.div`
 	align-items: center;
 	color: white;
 	width: 40%;
-	& > svg {
+	& > div {
 		filter: grayscale(100%) opacity(.7);
 		transition: filter 600ms ease;
+		cursor: pointer;
 	}
-	& > svg:nth-child(2) {
+	& > div:nth-child(2) {
 		color: ${COLORS.PINK};
 	}
-	& > svg:hover {
+	& > div:nth-child(2) > svg {
+		height: 48px;
+		width: auto;
+	}
+	& > div:hover {
 		filter: grayscale(0%) opacity(1);
 		transform: scale(1.1);
 	}
@@ -53,7 +53,7 @@ const ButtonsContainer = styled.div`
 const RowContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
-	align-items: flex-end;
+	align-items: baseline;
 `
 
 const NameContainer = styled.div`
@@ -76,12 +76,53 @@ const Age = styled.span`
 	font-weight: 600;
 `
 
+const Biography = styled.span`
+	display: flex;
+	justify-content: stretch;
+	min-height: 50px;
+	padding: ${SPACING.XXS} ${SPACING.XS};
+	border-radius: 15px;
+	background-color: ${COLORS.GREY_LIGHT};
+`;
+
+const Chip = styled.div`
+	display: flex;
+	align-items: center;
+	background-color: ${COLORS.PINK_LIGHT};
+	color: white;
+	padding: ${SPACING.XXS} ${SPACING.XS};
+	border-radius: 32px;
+	margin: ${SPACING.XXS};
+	font-weight: 600;
+`
+
+const Icon = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 28px;
+	width: 28px;
+	border-radius: 50%;
+	background-color: ${COLORS.GREY};
+	opacity: .7;
+	box-shadow: 0px 0px 102px -20px rgba(0,0,0,0.75);
+	margin-right: ${SPACING.XS};
+`
+
+const ChipsContainer = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	margin: ${SPACING.BASE} 0;
+	& > ${Chip}:first-child {
+		margin-left: 0;
+	}
+`
 function Match() {
 	const [like, setLike] = useState(false);
 	const [match, setMatch] = useState();
 	const [matchIndex, setMatchIndex] = useState(0);
 	const [fetchState, setFetchState] = useState(false);
-	
+
 	useEffect(() => {
 		api.get('/user/match')
 		.then((res) => {
@@ -107,40 +148,21 @@ function Match() {
 	}
 
 	const likeMatch = () => {
+		if (like) {
+			api.post(`/user/unlike/${match[matchIndex]._id}`)
+			.then((res) => {setLike(false)})
+			.catch((err) => {console.log(err)})
+		} else {
 		api.post(`/user/like/${match[matchIndex]._id}`)
 		.then((res) => {setLike(true)})
 		.catch((err) => {console.log(err)})
-	}
-
-	const unlikeMatch = () => {
-		api.post(`/user/unlike/${match[matchIndex]._id}`)
-		.then((res) => {setLike(false)})
-		.catch((err) => {console.log(err)})
+		}
 	}
 
 	// if (match !== undefined)
 	// 	console.log("actual match: ", match[matchIndex]);
-
-	let hobbiesArray = [];
-
-	if (match !== undefined) {
-		if (match[matchIndex].hobbies.length <= 5)
-			hobbiesArray = match[matchIndex].hobbies;
-		else
-			hobbiesArray = match[matchIndex].hobbies.splice(5, match[matchIndex].hobbies.length);
-	}
-	
-	const userHobbies = hobbiesArray.map((hobby, index) => {
-		if (index < hobbiesArray.length1)
-			return ("#" + hobby.name + "")
-		else
-			return ("#" + hobby.name)
-	})
-
-	if (fetchState) {
-		// console.log("matchIndex", matchIndex);
-		// console.log("match[matchIndex]", match[matchIndex]);
-		return (
+	return (
+		fetchState ?
 			<MatchContainer>
 				<Card>
 				<RowContainer>
@@ -148,22 +170,42 @@ function Match() {
 						<Name>{`${match[matchIndex].firstname} ${match[matchIndex].lastname}`}</Name>
 						<Username>{`@${match[matchIndex].username}`}</Username>
 					</NameContainer>
-					<Age>{`${findAge(match[matchIndex].birthdate)} Yo`}</Age>
+					<Name>{match[matchIndex].gender.name}</Name>
+					<Name>{match[matchIndex].orientation.name}</Name>
+					<Name>{`${findAge(match[matchIndex].birthdate)} Yo`}</Name>
 				</RowContainer>
+				<RowContainer>
+					<ChipsContainer>
+					{
+						match[matchIndex].hobbies.map(hobby =>
+							<Chip>
+								<Icon>
+									<i class="fab fa-slack-hash"></i>
+								</Icon>
+								<span>{hobby.name}</span>
+							</Chip>
+						)
+					}
+					</ChipsContainer>
+				</RowContainer>
+				<Biography>
+					{`${match[matchIndex].biography}`}
+				</Biography>
 				</Card>
 				<ButtonsContainer>
-				<i class="fas fa-chevron-left fa-3x"></i>
-				<i class="fas fa-heart fa-3x"></i>
-				<i class="fas fa-chevron-right fa-3x"></i>
+					<div onClick={previousMatch}>
+						<i className="fas fa-chevron-left fa-3x"></i>
+					</div>
+					<div onClick={likeMatch}>
+						{like ? <Favorite fontSize="large"/> : <FavoriteBorder fontSize="large"/>}
+					</div>
+					<div onClick={nextMatch}>
+						<i className="fas fa-chevron-right fa-3x"></i>
+					</div>
 				</ButtonsContainer>
 			</MatchContainer>
-		);
-	}
-	else {
-		return (
-			<Loader/>
-		);
-	}
+		: <Loader/>
+	);
 }
 
 export default Match;
