@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import styled from "styled-components"
 import { UserContext } from '../../../context/UserContext';
 import api from '../../../api/api'
-import { COLORS, device } from '../../../config/style'
 
 import { TextField, Button, Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,10 +14,11 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles(theme => ({
 	root: {
 		width: '100%',
-		background: COLORS.PURPLE_LIGHT,
-		color: COLORS.PURPLE,
-		borderRadius: '10px',
+		maxWidth: 360,
+		maxHeight: 300,
 		overflow: 'auto',
+		background: '#FF3860',
+		color: "#000",
 	},
 	nested: {
 		paddingLeft: theme.spacing(4),
@@ -36,31 +35,6 @@ const useStyles = makeStyles(theme => ({
 		marginTop: '1em',
 	},
 }));
-
-
-const StyledInput = styled.input`
-	display: inline-block;
-	width: 100%;
-	margin: 8px 0;
-	padding: 12px 20px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-sizing: border-box;
-`
-
-const StyleButton = styled.button`
-	width: 100%;
-	color: ${COLORS.WHITE};
-	background-color: ${COLORS.PURPLE_LIGHT};
-	padding: 14px 20px;
-	margin: 8px 0;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	:hover {
-		transform: scale(1.05);
-	}
-`
 
 function Hobby(props) {
 	const classes = useStyles();
@@ -167,8 +141,8 @@ function Hobby(props) {
 					</List>
 				</Collapse>
 			</List>
-			<StyledInput type="text" placeholder="add hobby" value={newHobbyName} name="createHobby" onChange={handleNewHobby}/>
-			<StyleButton onClick={createHobby}>Add a new hobby to the list</StyleButton>
+			<TextField className={classes.field} variant="outlined" placeholder="add hobby" value={newHobbyName} name="createHobby" onChange={handleNewHobby} />
+			<Button onClick={createHobby} className={classes.root} style={{marginTop: "2vh"}}>add</Button>
 			{!!userHobbyList.length && <UserHobbies />}
 		</div>
 	);

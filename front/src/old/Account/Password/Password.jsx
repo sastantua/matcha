@@ -13,6 +13,7 @@ const PasswordForm = styled.form`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	width: 40%;
 	margin-top: 2vh;
 	& > :nth-child(2) {
 		margin-top: 2vh;
@@ -32,7 +33,7 @@ const InputWrapper = styled.input`
 const SubmitButton = styled.button`
 	width: 100%;
 	color: ${COLORS.WHITE};
-	background-color: ${COLORS.PURPLE_LIGHT};
+	background-color: ${COLORS.GREEN};
 	padding: 14px 20px;
 	margin: 8px 0;
 	border: none;
@@ -81,7 +82,7 @@ function Password() {
 			<InputWrapper placeholder="password" label="oldpassword" value={ oldPassword ? oldPassword : "" } name="password" onChange={handleOldPassword}/>
 			<InputWrapper placeholder="new passord" label="password" value={ password ? password : "" } name="password" onChange={handlePassword}/>
 			<InputWrapper placeholder="confirm new password" label="confirmpassword" value={ confirmPassword ? confirmPassword : "" } name="password" onChange={handleConfirmPassword}/>
-			<SubmitButton type='submit'>Edit Password</SubmitButton>
+			<SubmitButton type='submit'>Save</SubmitButton>
 		</PasswordForm>
 	);	
 }

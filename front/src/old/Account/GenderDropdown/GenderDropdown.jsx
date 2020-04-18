@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import api from '../../../api/api'
-import { COLORS, device } from '../../../config/style'
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -13,10 +12,11 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles(theme => ({
 	root: {
 		width: '100%',
+		maxWidth: 360,
+		maxHeight: 300,
 		overflow: 'auto',
-		background: COLORS.PURPLE_LIGHT,
-		color: COLORS.PURPLE,
-		borderRadius: '10px',
+		background: '#FF3860',
+		color: "#000",
 	},
 	nested: {
 		paddingLeft: theme.spacing(4),
