@@ -160,8 +160,7 @@ function Result(props) {
 	const Users = () => {
 		return (
 			props.result.map((user, index) => {
-				// if (block === false)
-					return (<User user={user} key={index}/>);
+				return (<User user={user} key={index}/>);
 			}
 		));
 	}
