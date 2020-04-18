@@ -137,6 +137,7 @@ function Header({ isLogged }) {
 		if (isLogged) {
 			api.post('/user/logout')
 			.then(() => {
+				console.log("teeeeest");
 				localStorage.removeItem("token");
 				delete api.defaults.headers.common['Authorization'];
 				history.push("/login");
@@ -181,7 +182,7 @@ function Header({ isLogged }) {
 					</SLink>
 				</Element>
 				<Element>
-					<SLink to="/logout">
+					<SLink to="/logout" onClick={handleClick}>
 						<Icon className="fas fa-sign-out-alt fa-lg"></Icon>
 						<Typography>Logout</Typography>
 					</SLink>

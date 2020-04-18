@@ -7,6 +7,7 @@ export const COLORS = {
 	PINK: '#EFB1FF',
 	PURPLE: '#481380',
 	PURPLE_LIGHT: '#7F78D2',
+	GREEN: '#4CAF50',
 	WHITE: '#FFFFFF'
 }
 

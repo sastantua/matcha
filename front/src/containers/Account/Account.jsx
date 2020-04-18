@@ -6,10 +6,6 @@ import { UserContext } from '../../context/UserContext';
 import api from '../../api/api'
 import { COLORS, device } from '../../config/style'
 
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
-
-import { InputWrapper } from '../../components/Wrapper/Wrapper.jsx';
 import { TextField } from '@material-ui/core';
 
 import UserImages from './UserImages/UserImages'
@@ -17,44 +13,65 @@ import Birthdate from './Birthdate/Birthdate'
 import GenderDropdown from './GenderDropdown/GenderDropdown'
 import OrientationDropdown from './OrientationDropdown/OrientationDropdown'
 import Hobby from './Hobby/Hobby'
-import SubmitForm from './SubmitForm/SubmitForm'
-
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({
-	root: {
-		'& > *': {
-			margin: theme.spacing(1),
-			width: 200,
-		},
-	},
-}));
+import Password from './Password/Password'
 
 const AccountContainer = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: auto;
-`
-
-const AccountSubContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	overflow: scroll;
+	width: 100%;
+	/* background-color: #FFF; */
 `
 
 const UserForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	width: 40%;
 	margin-top: 2em;
+	& > * {
+		margin-top: 2vh;
+	}
 `
 
+const InputWrapper = styled.input`
+	display: inline-block;
+	width: 100%;
+	margin: 8px 0;
+	padding: 12px 20px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+`
+
+const Biography = styled.textarea`
+	display: inline-block;
+	width: 100%;
+	margin: 8px 0;
+	padding: 12px 20px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+`
+
+const SubmitButton = styled.button`
+	width: 100%;
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.GREEN};
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
+	}
+`
+
+
 function Account() {
-	const classes = useStyles();
-	
 	const { user, setUser } = useContext(UserContext);
 
 	const [openGender, setOpenGender] = useState(false);
@@ -62,7 +79,7 @@ function Account() {
 	const [openHobby, setOpenHobby] = useState(false);
 
 	const dropdowns = {
-		openGender: openGender, 
+		openGender: openGender,
 		setOpenGender: setOpenGender,
 		openOrientation: openOrientation,
 		setOpenOrientation : setOpenOrientation,
@@ -85,25 +102,22 @@ function Account() {
 	const handleBiography = (e) => {setUser({...user, biography: e.target.value});}
 
 	return (
-		<>
 		<AccountContainer>
-			<AccountSubContainer className={classes.root}>
-				<UserImages />
-				<UserForm id="edit-form" className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-					<InputWrapper variant="outlined" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
-					<InputWrapper variant="outlined" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
-					<InputWrapper variant="outlined" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
-					<InputWrapper variant="outlined" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
-					<TextField placeholder="biography" multiline rows={2} rowsMax={4} value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
-					<Birthdate update={handleBirthdate}/>
-					<GenderDropdown user={user} dropdowns={dropdowns} />
-					<OrientationDropdown user={user} dropdowns={dropdowns}/>
-					<Hobby dropdowns={dropdowns}/>
-					<SubmitForm/>
-				</UserForm>
-			</AccountSubContainer>
+			{/* <UserImages /> */}
+			<UserForm noValidate autoComplete="off" onSubmit={handleSubmit}>
+				<InputWrapper placeholder="email" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
+				<InputWrapper placeholder="username" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
+				<InputWrapper placeholder="firstname" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
+				<InputWrapper placeholder="lastname" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
+				<Biography placeholder="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
+				<Birthdate update={handleBirthdate}/>
+				<GenderDropdown user={user} dropdowns={dropdowns} />
+				<OrientationDropdown user={user} dropdowns={dropdowns}/>
+				<Hobby dropdowns={dropdowns}/>
+				<SubmitButton>Submit</SubmitButton>
+			</UserForm>
+			<Password/>
 		</AccountContainer>
-		</>
 	);
 }
 

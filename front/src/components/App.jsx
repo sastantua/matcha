@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import styled from 'styled-components';
+
+import usePosition from '../hooks/usePosition';
+import { UserContext } from '../context/UserContext'
+import api from '../api/api';
+import { COLORS, BREAK_POINTS } from '../config/style';
+
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import { SnackbarProvider } from 'notistack';
 import dotenv from 'dotenv';
-
-import 'react-bulma-components/dist/react-bulma-components.min.css';
 
 import Homepage from '../containers/Homepage/Homepage';
 import Account from '../containers/Account/Account';
@@ -12,21 +17,13 @@ import Match from '../containers/Match/Match';
 import Search from '../containers/Search/Search';
 import Profile from '../containers/Profile/Profile';
 import Reset from '../containers/Reset/Reset';
-import Password from '../containers/Password/Password';
 import Chat from '../containers/Chat';
 
 import Signup from '../containers/Signup/Signup';
 import Login from '../containers/Login/Login';
 import NoMatch from '../containers/NoMatch/NoMatch';
-
-import { UserContext } from '../context/UserContext'
-
-import usePosition from '../hooks/usePosition';
-import api from '../api/api';
 import Header from './Header/Header';
-import Footer from './Footer/Footer';
-import styled from 'styled-components';
-import { COLORS, BREAK_POINTS } from '../config/style';
+
 
 dotenv.config();
 
@@ -64,9 +61,6 @@ function App() {
 		}
 	}, [user]);
 	
-	// console.log("latitude", latitude);
-	// console.log("longitude", longitude);
-
 	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 		api.get('/user/me').then((res) => {setUser(res.data);}).catch(err => console.log(err));
@@ -76,44 +70,26 @@ function App() {
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
 			<UserContext.Provider value={ userMemo }>
 				<BrowserRouter>
-				<Header />
-					<AppContainer>
-					<Switch>
-						<Route exact path="/login" component={Login} />
-						<Route exact path="/signup" component={Signup} />
-						<Route exact path="/reset" component={Reset} />
-						<Route exact path="/" component={Homepage} />
-						<Route exact path="/home" component={Homepage} />
-						<AuthenticatedRoute exact path="/account" component={Account} />
-						<AuthenticatedRoute exact path="/password" component={Password} />
-						<AuthenticatedRoute exact path="/match" component={Match} />
-						<AuthenticatedRoute exact path="/search" component={Search} />
-						<AuthenticatedRoute exact path="/profile" component={Profile} />
-						<AuthenticatedRoute exact path="/chat" component={Chat} />
-						<Route path="*" component={NoMatch} />
-					</Switch>
-					</AppContainer>
-				</BrowserRouter>
+					<Header />
+						<AppContainer>
+							<Switch>
+								<Route exact path="/login" component={Login} />
+								<Route exact path="/signup" component={Signup} />
+								<Route exact path="/reset" component={Reset} />
+								<Route exact path="/" component={Homepage} />
+								<Route exact path="/home" component={Homepage} />
+								<AuthenticatedRoute exact path="/account" component={Account} />
+								<AuthenticatedRoute exact path="/match" component={Match} />
+								<AuthenticatedRoute exact path="/search" component={Search} />
+								<AuthenticatedRoute exact path="/profile" component={Profile} />
+								<AuthenticatedRoute exact path="/chat" component={Chat} />
+								<Route path="*" component={NoMatch} />
+							</Switch>
+						</AppContainer>
+					</BrowserRouter>
 			</UserContext.Provider>
 		</SnackbarProvider>
 	)
 }
 
 export default App;
-
-/*
-use ...state because setState overwrite ancient state ()
-	const eventHandler = (value) => {
-		setState({ ...state, property: value})
-	}
-*/
-
-	// 	if (userIsLog == false && localStorage.token)
-	// 		setUserIsLog(true);
-	
-	// 	if (userIsLog === false)	
-	// 		return <Connexion />;
-	// 	else if (userIsLog === true)
-	// 		return <Application />;
-	// 	return <Application />;
-	

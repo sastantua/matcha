@@ -100,6 +100,7 @@ function Match() {
 	}
 
 	const nextMatch = () => {
+		console.log("yipikai")
 		if (matchIndex < match.length1) {
 			setLike(false);
 			setMatchIndex(matchIndex + 1);
@@ -143,18 +144,18 @@ function Match() {
 		return (
 			<MatchContainer>
 				<Card>
-				<RowContainer>
-					<NameContainer>
-						<Name>{`${match[matchIndex].firstname} ${match[matchIndex].lastname}`}</Name>
-						<Username>{`@${match[matchIndex].username}`}</Username>
-					</NameContainer>
-					<Age>{`${findAge(match[matchIndex].birthdate)} Yo`}</Age>
-				</RowContainer>
+					<RowContainer>
+						<NameContainer>
+							<Name>{`${match[matchIndex].firstname} ${match[matchIndex].lastname}`}</Name>
+							<Username>{`@${match[matchIndex].username}`}</Username>
+						</NameContainer>
+						<Age>{`${findAge(match[matchIndex].birthdate)} Yo`}</Age>
+					</RowContainer>
 				</Card>
 				<ButtonsContainer>
-				<i class="fas fa-chevron-left fa-3x"></i>
-				<i class="fas fa-heart fa-3x"></i>
-				<i class="fas fa-chevron-right fa-3x"></i>
+					<i class="fas fa-chevron-left fa-3x"></i>
+					<i class="fas fa-heart fa-3x"></i>
+					<i class="fas fa-chevron-right fa-3x" onClick={nextMatch}></i>
 				</ButtonsContainer>
 			</MatchContainer>
 		);

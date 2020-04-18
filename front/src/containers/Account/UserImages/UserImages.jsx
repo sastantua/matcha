@@ -53,14 +53,13 @@ const ModalContainer = styled.div`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 280vh;
-	margin-top: 10vh;
-	margin-bottom: 8vh;
+	height: 100vh;
 	z-index: 999;
 	background-color: rgba(0, 0, 0, 0.8);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 `
 
 const ButtonContainer = styled.div`
@@ -74,8 +73,8 @@ const ButtonContainer = styled.div`
 const ExitButton = styled.button`
 	position: absolute;
 	background: #FF3860;
-	top: 1.5%;
-	left: 90%;
+	top: 2.5%;
+	right: 2.5%;
 	border: solid;
 	border-radius: 30%;
 `
