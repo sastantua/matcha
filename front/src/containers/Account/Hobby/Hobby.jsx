@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import styled from "styled-components"
 import { UserContext } from '../../../context/UserContext';
 import api from '../../../api/api'
-import { COLORS, device } from '../../../config/style'
+import { COLORS, SPACING } from '../../../config/style'
 
-import { TextField, Button, Chip } from '@material-ui/core';
+// import { TextField, Button, Chip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,33 +15,23 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles(theme => ({
 	root: {
-		width: '100%',
 		background: COLORS.PURPLE_LIGHT,
 		color: COLORS.PURPLE,
 		borderRadius: '10px',
-		overflow: 'auto',
-	},
-	nested: {
-		paddingLeft: theme.spacing(4),
-	},
-	field: {
-		width: '100%',
-		color: "#000",
-		marginTop: '1em',
-	},
+		overflow: 'auto',},
 	chip: {
 		width: '100%',
 		background: '#FF3860',
-		color: "#000",
-		marginTop: '1em',
+		color: COLORS.WHITE
 	},
+	field: {color: COLORS.WHITE},
 }));
 
 
 const StyledInput = styled.input`
 	display: inline-block;
 	width: 100%;
-	margin: 8px 0;
+	margin-top: 2vh;
 	padding: 12px 20px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
@@ -53,13 +43,46 @@ const StyleButton = styled.button`
 	color: ${COLORS.WHITE};
 	background-color: ${COLORS.PURPLE_LIGHT};
 	padding: 14px 20px;
-	margin: 8px 0;
+	margin-top: 2vh;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
 	:hover {
 		transform: scale(1.05);
 	}
+`
+
+const Chip = styled.div`
+	display: flex;
+	align-items: center;
+	background-color: ${COLORS.PINK_LIGHT};
+	color: white;
+	padding: ${SPACING.XXS} ${SPACING.XS};
+	border-radius: 32px;
+	margin: ${SPACING.XXS};
+	font-weight: 600;
+`
+
+const ChipsContainer = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	margin: ${SPACING.BASE} 0;
+	& > ${Chip}:first-child {
+		margin-left: 0;
+	}
+`
+
+const Icon = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 28px;
+	width: 28px;
+	border-radius: 50%;
+	background-color: ${COLORS.GREY};
+	opacity: .7;
+	box-shadow: 0px 0px 102px -20px rgba(0,0,0,0.75);
+	margin-right: ${SPACING.XS};
 `
 
 function Hobby(props) {
@@ -139,7 +162,7 @@ function Hobby(props) {
 	const HobbyList = () => {
 		return (
 			hobbyList.map(text =>
-				<ListItem button key={text._id} className={classes.nested} value={text._id} onClick={() => handleChooseHobby(text._id, text.name)} >
+				<ListItem button key={text._id} value={text._id} onClick={() => handleChooseHobby(text._id, text.name)} >
 					<ListItemText primary={text.name} />
 				</ListItem>
 			)
@@ -149,7 +172,9 @@ function Hobby(props) {
 	const UserHobbies = () => {
 		return (
 			userHobbyList.map(text =>
-				<Chip className={classes.chip} variant="outlined" size="small" key={text._id} label={text.name} onClick={() => deleteUserHobby(text._id)} />
+				<Chip key={text._id} onClick={() => deleteUserHobby(text._id)}>
+					{text.name}
+				</Chip>
 			)
 		)
 	};
@@ -169,7 +194,19 @@ function Hobby(props) {
 			</List>
 			<StyledInput type="text" placeholder="add hobby" value={newHobbyName} name="createHobby" onChange={handleNewHobby}/>
 			<StyleButton onClick={createHobby}>Add a new hobby to the list</StyleButton>
-			{!!userHobbyList.length && <UserHobbies />}
+			{/* {!!userHobbyList.length && <UserHobbies />} */}
+			<ChipsContainer>
+			{
+				hobbyList.map(hobby =>
+					<Chip>
+						<Icon>
+							<i class="fab fa-slack-hash"></i>
+						</Icon>
+						<span>{hobby.name}</span>
+					</Chip>
+				)
+			}
+			</ChipsContainer>
 		</div>
 	);
 }

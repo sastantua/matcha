@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function OrientationDropdown(props) {
+function Orientation(props) {
 	const classes = useStyles();
 	
 	const [orientation, setOrientation] = useState(null);
@@ -96,4 +96,4 @@ function OrientationDropdown(props) {
 	);
 }
 
-export default OrientationDropdown;
+export default Orientation;

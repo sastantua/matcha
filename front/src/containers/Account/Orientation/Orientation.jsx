@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function OrientationDropdown(props) {
+function Orientation(props) {
 	const classes = useStyles();
 	
 	const [orientation, setOrientation] = useState(null);
@@ -80,7 +80,7 @@ function OrientationDropdown(props) {
 	getOrientation();
 
 	return (
-		<>
+		<div>
 			<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
 				<ListItem button onClick={handleOpenOrientation}>
 					<ListItemText primary={ orientation ? orientation : "orientation" } /> 
@@ -92,8 +92,8 @@ function OrientationDropdown(props) {
 					</List>
 				</Collapse>
 			</List>
-		</>
+		</div>
 	);
 }
 
-export default OrientationDropdown;
+export default Orientation;

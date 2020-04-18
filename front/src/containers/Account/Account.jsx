@@ -4,13 +4,13 @@ import { styled as styledMaterial } from '@material-ui/core/styles';
 import { UserContext } from '../../context/UserContext';
 
 import api from '../../api/api'
-import { COLORS, device } from '../../config/style'
+import { COLORS } from '../../config/style'
 
 import { TextField } from '@material-ui/core';
 
 import UserImages from './UserImages/UserImages'
-import GenderDropdown from './GenderDropdown/GenderDropdown'
-import OrientationDropdown from './OrientationDropdown/OrientationDropdown'
+import Gender from './Gender/Gender'
+import Orientation from './Orientation/Orientation'
 import Hobby from './Hobby/Hobby'
 import Password from './Password/Password'
 
@@ -21,7 +21,7 @@ const AccountContainer = styled.div`
 	align-items: center;
 	overflow: scroll;
 	width: 100%;
-	/* background-color: #FFF; */
+	/* background-color: ${COLORS.WHITE}; */
 `
 
 const UserForm = styled.form`
@@ -108,8 +108,8 @@ function Account() {
 				<StyledInput type="text" placeholder="lastname" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
 				<StyledInput type="date" placeholder="birthdate" label="birthdate" value={ user && user.birthdate ? user && user.birthdate : "" } name="birthdate" onChange={handleBirthdate}/>
 				<StyledTextarea placeholder="biography" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
-				<GenderDropdown user={user} dropdowns={dropdowns} />
-				<OrientationDropdown user={user} dropdowns={dropdowns}/>
+				<Gender user={user} dropdowns={dropdowns} />
+				<Orientation user={user} dropdowns={dropdowns}/>
 				<Hobby dropdowns={dropdowns}/>
 				<StyleButton>Save changes</StyleButton>
 			</UserForm>

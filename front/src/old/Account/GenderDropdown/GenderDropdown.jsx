@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function GenderDropdown(props) {
+function Gender(props) {
 	const classes = useStyles();
 	
 	const [gender, setGender] = useState(null);
@@ -96,4 +96,4 @@ function GenderDropdown(props) {
 	);
 }
 
-export default GenderDropdown;
+export default Gender;

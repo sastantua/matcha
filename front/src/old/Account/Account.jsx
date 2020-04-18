@@ -4,14 +4,14 @@ import { styled as styledMaterial } from '@material-ui/core/styles';
 import { UserContext } from '../../context/UserContext';
 
 import api from '../../api/api'
-import { COLORS, device } from '../../config/style'
+import { COLORS } from '../../config/style'
 
 import { TextField } from '@material-ui/core';
 
 import UserImages from './UserImages/UserImages'
 import Birthdate from './Birthdate/Birthdate'
-import GenderDropdown from './GenderDropdown/GenderDropdown'
-import OrientationDropdown from './OrientationDropdown/OrientationDropdown'
+import Gender from './Gender/Gender'
+import Orientation from './Orientation/Orientation'
 import Hobby from './Hobby/Hobby'
 import Password from './Password/Password'
 
@@ -111,8 +111,8 @@ function Account() {
 				<InputWrapper placeholder="lastname" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
 				<Biography placeholder="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
 				<Birthdate update={handleBirthdate}/>
-				<GenderDropdown user={user} dropdowns={dropdowns} />
-				<OrientationDropdown user={user} dropdowns={dropdowns}/>
+				<Gender user={user} dropdowns={dropdowns} />
+				<Orientation user={user} dropdowns={dropdowns}/>
 				<Hobby dropdowns={dropdowns}/>
 				<SubmitButton>Submit</SubmitButton>
 			</UserForm>

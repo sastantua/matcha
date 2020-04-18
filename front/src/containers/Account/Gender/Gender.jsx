@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-function GenderDropdown(props) {
+function Gender(props) {
 	const classes = useStyles();
 	
 	const [gender, setGender] = useState(null);
@@ -80,20 +80,20 @@ function GenderDropdown(props) {
 	getGender();
 
 	return (
-		<>
-		<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
-			<ListItem button onClick={handleOpenGender}>
-				<ListItemText primary={ gender ? gender : "gender" } />
-				{props.dropdowns.openGender ? <ExpandLess /> : <ExpandMore />}
-			</ListItem>
-			<Collapse in={props.dropdowns.openGender} timeout="auto" unmountOnExit>
-				<List component="div" disablePadding>
-					{ genderListJsx }
-				</List>
-			</Collapse>
-		</List>
-		</>
+		<div>
+			<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
+				<ListItem button onClick={handleOpenGender}>
+					<ListItemText primary={ gender ? gender : "gender" } />
+					{props.dropdowns.openGender ? <ExpandLess /> : <ExpandMore />}
+				</ListItem>
+				<Collapse in={props.dropdowns.openGender} timeout="auto" unmountOnExit>
+					<List component="div" disablePadding>
+						{ genderListJsx }
+					</List>
+				</Collapse>
+			</List>
+		</div>
 	);
 }
 
-export default GenderDropdown;
+export default Gender;
