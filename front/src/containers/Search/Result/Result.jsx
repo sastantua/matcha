@@ -85,6 +85,7 @@ const ActionContainer = styled.div`
 function User(props) {
 	const { user } = useContext(UserContext);
 	const [like, setLike] = useState(props.user.liked);
+	const [block, setBlock] = useState(false);
 
 	const likeMatch = () => {
 		api.post(`/user/like/${props.user._id}`)
@@ -106,7 +107,7 @@ function User(props) {
 	const blockMatch = () => {
 		api.post(`/user/block/${props.user._id}`)
 		.then((res) => {
-			console.log("succeeeeeess");
+			document.getElementById(props.user.username).style.display = "none";
 			setBlock(true)})
 		.catch((err) => {console.log(err)})
 	}
@@ -132,7 +133,7 @@ function User(props) {
 	})
 
 	return (
-		<UserContainer>
+		<UserContainer id={props.user.username}>
 				<PaperContainer elevation={3} component="div">
 					<Link to={{pathname: '/profile', state: { user: props.user }}} style={{ textDecoration: 'none' }}>
 						<img src={props.user.pictures[0].url} alt={props.user.pictures[0].name} key={props.user.pictures[0].name} style={{width: '70vw'}}/>
@@ -159,7 +160,7 @@ function Result(props) {
 	const Users = () => {
 		return (
 			props.result.map((user, index) => {
-				if (block === false)
+				// if (block === false)
 					return (<User user={user} key={index}/>);
 			}
 		));

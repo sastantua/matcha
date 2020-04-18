@@ -141,6 +141,7 @@ function Match() {
 	}
 
 	const nextMatch = () => {
+		console.log("yipikai")
 		if (matchIndex < match.length1) {
 			setLike(false);
 			setMatchIndex(matchIndex + 1);

@@ -15,10 +15,6 @@ const PasswordContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 82vh;
-	margin-top: 10vh;
-	margin-bottom: 8vh;
-	width: 100vw;
 	color: white;
 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
@@ -35,6 +31,9 @@ const PasswordForm = styled.form`
 	align-items: center;
 	max-width: 50vw;
 	margin-top: 15vh;
+	& > :nth-child(2) {
+		margin-top: 2vh;
+	}
 `
 
 const PasswordInput = styledMaterial(TextField)({
@@ -60,10 +59,12 @@ const LoginLink = styled.div`
 
 function Password() {
 	const history = useHistory();
+	const [oldPassword, setOldPassword] = useState();
 	const [password, setPassword] = useState();
 	const [confirmPassword, setConfirmPassword] = useState();
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
+	const handleOldPassword = (e) => {setOldPassword(e.target.value);}
 	const handlePassword = (e) => {setPassword(e.target.value);}
 	const handleConfirmPassword = (e) => {setConfirmPassword(e.target.value);}
 
@@ -71,7 +72,8 @@ function Password() {
 		e.preventDefault();
 		if (password === confirmPassword) {
 				const request = {
-					password: password
+					new_password: password,
+					old_password: oldPassword
 				};
 				api.post('/user/editPassword', request)
 				.then((res) => {
@@ -90,6 +92,7 @@ function Password() {
 			<PasswordContainer>
 				<PasswordTitle>Change password</PasswordTitle>	
 				<PasswordForm noValidate autoComplete="off" onSubmit={handleSubmit}>
+					<PasswordInput variant="outlined" label="oldpassword" name="oldpassword" onChange={handleOldPassword}/>
 					<PasswordInput variant="outlined" label="password" name="password" onChange={handlePassword}/>
 					<PasswordInput variant="outlined" label="confirmPassword" name="confirmPassword" onChange={handleConfirmPassword} style={{marginTop: "2vh"}}/>
 					<Button color="secondary" style={{marginTop: "2vh"}} type='submit'>submit</Button>
