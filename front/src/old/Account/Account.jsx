@@ -9,6 +9,7 @@ import { COLORS, device } from '../../config/style'
 import { TextField } from '@material-ui/core';
 
 import UserImages from './UserImages/UserImages'
+import Birthdate from './Birthdate/Birthdate'
 import GenderDropdown from './GenderDropdown/GenderDropdown'
 import OrientationDropdown from './OrientationDropdown/OrientationDropdown'
 import Hobby from './Hobby/Hobby'
@@ -28,13 +29,14 @@ const UserForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	margin-top: 2vh;
+	width: 40%;
+	margin-top: 2em;
 	& > * {
 		margin-top: 2vh;
 	}
 `
 
-const StyledInput = styled.input`
+const InputWrapper = styled.input`
 	display: inline-block;
 	width: 100%;
 	margin: 8px 0;
@@ -44,7 +46,7 @@ const StyledInput = styled.input`
 	box-sizing: border-box;
 `
 
-const StyledTextarea = styled.textarea`
+const Biography = styled.textarea`
 	display: inline-block;
 	width: 100%;
 	margin: 8px 0;
@@ -54,10 +56,10 @@ const StyledTextarea = styled.textarea`
 	box-sizing: border-box;
 `
 
-const StyleButton = styled.button`
+const SubmitButton = styled.button`
 	width: 100%;
 	color: ${COLORS.WHITE};
-	background-color: ${COLORS.PURPLE_LIGHT};
+	background-color: ${COLORS.GREEN};
 	padding: 14px 20px;
 	margin: 8px 0;
 	border: none;
@@ -67,6 +69,7 @@ const StyleButton = styled.button`
 		transform: scale(1.05);
 	}
 `
+
 
 function Account() {
 	const { user, setUser } = useContext(UserContext);
@@ -102,16 +105,16 @@ function Account() {
 		<AccountContainer>
 			{/* <UserImages /> */}
 			<UserForm noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<StyledInput type="text" placeholder="email" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
-				<StyledInput type="text" placeholder="username" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
-				<StyledInput type="text" placeholder="firstname" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
-				<StyledInput type="text" placeholder="lastname" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
-				<StyledInput type="date" placeholder="birthdate" label="birthdate" value={ user && user.birthdate ? user && user.birthdate : "" } name="birthdate" onChange={handleBirthdate}/>
-				<StyledTextarea placeholder="biography" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
+				<InputWrapper placeholder="email" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
+				<InputWrapper placeholder="username" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
+				<InputWrapper placeholder="firstname" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
+				<InputWrapper placeholder="lastname" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
+				<Biography placeholder="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
+				<Birthdate update={handleBirthdate}/>
 				<GenderDropdown user={user} dropdowns={dropdowns} />
 				<OrientationDropdown user={user} dropdowns={dropdowns}/>
 				<Hobby dropdowns={dropdowns}/>
-				<StyleButton>Save changes</StyleButton>
+				<SubmitButton>Submit</SubmitButton>
 			</UserForm>
 			<Password/>
 		</AccountContainer>
