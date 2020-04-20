@@ -26,7 +26,6 @@ const useStyles = makeStyles(theme => ({
 	field: {color: COLORS.WHITE},
 }));
 
-
 const StyledInput = styled.input`
 	display: inline-block;
 	width: 100%;
@@ -54,9 +53,9 @@ const StyleButton = styled.button`
 const Chip = styled.div`
 	display: flex;
 	align-items: center;
-	background-color: ${COLORS.PINK_LIGHT};
+	background-color: ${COLORS.PURPLE};
 	color: white;
-	padding: ${SPACING.XXS} ${SPACING.XS};
+	padding: ${SPACING.XXS} ${SPACING.XXS};
 	border-radius: 32px;
 	margin: ${SPACING.XXS};
 	font-weight: 600;
@@ -64,6 +63,8 @@ const Chip = styled.div`
 
 const ChipsContainer = styled.div`
 	display: flex;
+	justify-content: center;
+	align-items: center;
 	flex-wrap: wrap;
 	margin: ${SPACING.BASE} 0;
 	& > ${Chip}:first-child {
@@ -173,16 +174,6 @@ function Hobby(props) {
 		)
 	}
 
-	// const UserHobbies = () => {
-	// 	return (
-	// 		userHobbyList.map(text =>
-	// 			<Chip  >
-	// 				{text.name}
-	// 			</Chip>
-	// 		)
-	// 	)
-	// };
-
 	return (
 		<div>
 			<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root}>
@@ -198,7 +189,6 @@ function Hobby(props) {
 			</List>
 			<StyledInput type="text" placeholder="add hobby" value={newHobbyName} name="createHobby" onChange={handleNewHobby}/>
 			<StyleButton onClick={createHobby}>Add a new hobby to the list</StyleButton>
-			{/* {!!userHobbyList.length && <UserHobbies />} */}
 			<ChipsContainer>
 			{
 				userHobbyList.length && userHobbyList.map(hobby =>

@@ -29,8 +29,8 @@ const SubAccountContainer = styled.div`
 `
 
 const Teeest = styled.div`
-	width: 100px;
-	height: 100px;
+	width: 20%;
+	height: auto;
 `
 
 const UserForm = styled.form`
@@ -67,7 +67,7 @@ const StyledTextarea = styled.textarea`
 const StyleButton = styled.button`
 	width: 100%;
 	color: ${COLORS.WHITE};
-	background-color: ${COLORS.PURPLE_LIGHT};
+	background-color: ${COLORS.PINK_FLASHY};
 	padding: 14px 20px;
 	margin: 8px 0;
 	border: none;
@@ -110,23 +110,23 @@ function Account() {
 
 	return (
 		<AccountContainer>
-		<SubAccountContainer>
-			<Teeest>
-				<UserImages />
-			</Teeest>
-			<UserForm noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<StyledInput type="text" placeholder="email" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
-				<StyledInput type="text" placeholder="username" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
-				<StyledInput type="text" placeholder="firstname" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
-				<StyledInput type="text" placeholder="lastname" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
-				<StyledInput type="date" placeholder="birthdate" label="birthdate" value={ user && user.birthdate ? user && user.birthdate : "" } name="birthdate" onChange={handleBirthdate}/>
-				<StyledTextarea placeholder="biography" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
-				<Gender user={user} dropdowns={dropdowns} />
-				<Orientation user={user} dropdowns={dropdowns}/>
-				<Hobby dropdowns={dropdowns}/>
-				<StyleButton>Save changes</StyleButton>
-			</UserForm>
-			<Password/>
+			<SubAccountContainer>
+				<Teeest>
+					<UserImages />
+				</Teeest>
+				<UserForm noValidate autoComplete="off" onSubmit={handleSubmit}>
+					<StyledInput type="text" placeholder="email" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
+					<StyledInput type="text" placeholder="username" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
+					<StyledInput type="text" placeholder="firstname" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
+					<StyledInput type="text" placeholder="lastname" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
+					<StyledInput type="date" placeholder="birthdate" label="birthdate" value={ user && user.birthdate ? user && user.birthdate : "" } name="birthdate" onChange={handleBirthdate}/>
+					<StyledTextarea placeholder="biography" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
+					<Gender user={user} dropdowns={dropdowns} />
+					<Orientation user={user} dropdowns={dropdowns}/>
+					<Hobby dropdowns={dropdowns}/>
+					<StyleButton>Save changes</StyleButton>
+				</UserForm>
+				<Password/>
 			</SubAccountContainer>
 		</AccountContainer>
 	);
