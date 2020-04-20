@@ -18,28 +18,11 @@ const useStyles = makeStyles({
 		color: 'white',
 		height: 48,
 		padding: '0 30px',
-	}, img: {
-		marginTop: '2em',
-	}, imageContainerStyle: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-around',
-		overflow: 'hidden',
-		// backgroundColor: theme.palette.background.paper,
-	}, imageStyle: {
-		// width: 500,
-		// height: 450,
-	}, setProfile: {
+	},
+	setProfile: {
 		background: '#FF3860',
 	}, delete: {
 		background: '#FF3860',
-	}, exitBtn: {
-		position: 'absolute',
-		background: '#FF3860',
-		top: '10%',
-		left: '90%',
-		border: 'solid',
-		borderRadius: '30%',
 	}
 });
 
@@ -97,19 +80,20 @@ const CarouselContainer = styled.div`
 `
 
 const MainContainer = styled.div`
-    display: flex;
-    flex-direction: column;  
+	display: flex;
+	flex-direction: column;
+	height: 20%;
 `
 
 const UserImagesJsxContainer = styled.div`
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 `
 
 const UploadContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-top: 4em;
+	display: flex;
+	flex-direction: column;
+	margin-top: 4em;
 `
 
 function UserImages() {

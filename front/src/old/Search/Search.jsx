@@ -30,7 +30,6 @@ const MainContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	overflow: scroll;
 	min-height: 100vh;
 	color: "#000";
 	background-color: ${COLORS.GREEN};

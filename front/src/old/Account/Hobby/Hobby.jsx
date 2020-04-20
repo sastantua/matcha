@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
 		width: '100%',
 		maxWidth: 360,
 		maxHeight: 300,
-		overflow: 'auto',
 		background: '#FF3860',
 		color: "#000",
 	},

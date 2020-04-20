@@ -20,7 +20,6 @@ const StyledList = styledMaterial(List)({
 	width: '150%',
 	maxWidth: 360,
 	maxHeight: 300,
-	overflow: 'auto',
 	background: '#FF3860',
 	opacity: 0.6,
 	color: "#000",

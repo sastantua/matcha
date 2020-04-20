@@ -17,9 +17,9 @@ const useStyles = makeStyles(theme => ({
 		background: COLORS.PURPLE_LIGHT,
 		color: COLORS.PURPLE,
 		borderRadius: '10px',
-		overflow: 'auto',},
+	},
 	chip: {
-		width: '100%',
+		// width: '100%',
 		background: '#FF3860',
 		color: COLORS.WHITE
 	},
@@ -135,9 +135,11 @@ function Hobby(props) {
 		api.delete('/user/hobby', {data: {_id: id}})
 		.then((res => {
 			getUserHobbies();
-			console.log(id);
 		}))
-		.catch((err => {console.log(err);}))
+		.catch((err => {
+			console.log(id);
+			console.log(err);
+		}))
 	}
 
 	const handleNewHobby = (e) => {setNewHobbyName(e.target.value);}
@@ -199,7 +201,7 @@ function Hobby(props) {
 			{/* {!!userHobbyList.length && <UserHobbies />} */}
 			<ChipsContainer>
 			{
-				userHobbyList && userHobbyList.map(hobby =>
+				userHobbyList.length && userHobbyList.map(hobby =>
 					<Chip onClick={() => deleteUserHobby(hobby._id)} key={hobby._id}>
 						<Icon>
 							<i class="fab fa-slack-hash"></i>

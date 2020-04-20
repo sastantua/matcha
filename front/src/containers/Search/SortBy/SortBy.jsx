@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
 		background: COLORS.PURPLE_LIGHT,
 		color: COLORS.PURPLE,
 		borderRadius: '10px',
-		overflow: 'auto',},
+	},
 	chip: {
 		width: '100%',
 		background: '#FF3860',
