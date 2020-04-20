@@ -17,6 +17,7 @@ const AccountContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
+	width: 100%;
 	/* max-width: 100vw; */
 	/* padding: 0 10vw; */
 	/* background-color: ${COLORS.WHITE}; */

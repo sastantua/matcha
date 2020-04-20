@@ -33,8 +33,12 @@ const AppContainer = styled.div`
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
 		margin-left: 5rem;
 	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
+		margin-bottom: 5rem;
+	}
 	width: auto;
 	height: auto;
+	min-height: 100vh;
 `
 
 const AuthenticatedRoute = ({ component: Component, ...rest}) => {

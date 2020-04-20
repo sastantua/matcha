@@ -6,20 +6,25 @@ import UserImages from './UserImages/UserImages';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import Loader from '../../components/Loader/Loader';
 import findAge from './findAge.js'
-import { COLORS, SPACING } from '../../config/style';
+import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
 
 const MatchContainer = styled.div`
+	padding: ${SPACING.BASE};
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
 	width: 100%;
-	height: 100%;
 `
 
 const Card = styled.div`
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
 	width: 50%;
-	height: 60%;
+	min-height: 60%;
 	border-radius: 15px;
 	padding: ${SPACING.BASE};
 	background-color: ${COLORS.WHITE};
@@ -30,6 +35,7 @@ const ButtonsContainer = styled.div`
 	display: flex;
 	justify-content: space-evenly;
 	align-items: center;
+	margin-top: ${SPACING.BASE};
 	color: white;
 	width: 40%;
 	& > div {
@@ -56,13 +62,48 @@ const RowContainer = styled.div`
 	align-items: baseline;
 `
 
+const HeadContainer = styled.div`
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		flex-direction: column;
+		align-items: center;
+	}
+	display: flex;
+`
+
+const ImagesContainer = styled.div`
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		width: auto;
+	}
+	width: 40%;
+`
+
+const Infos = styled.div`
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		flex-direction: column;
+		align-items: center;
+	}
+	display: flex;
+	margin-left: ${SPACING.BASE};
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: 100%;
+`
+
 const NameContainer = styled.div`
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		width: auto;
+	}
 	display: flex;
 	flex-direction: column;
+	width: 50%;
 `
 
 const Name = styled.span`
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		width: auto;
+	}
 	color: ${COLORS.BLACK};
+	width: 50%;
 	font-weight: 600;
 	font-size: 1.3em;
 `
@@ -110,6 +151,9 @@ const Icon = styled.div`
 `
 
 const ChipsContainer = styled.div`
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		flex-direction: column;
+	}
 	display: flex;
 	flex-wrap: wrap;
 	margin: ${SPACING.BASE} 0;
@@ -117,6 +161,21 @@ const ChipsContainer = styled.div`
 		margin-left: 0;
 	}
 `
+const Bottom = styled.div`
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		flex-direction: column;
+		align-items: center;
+	}
+	margin-top: ${SPACING.BASE};
+	display: flex;
+	justify-content: space-evenly;
+`
+const Box = styled.div`
+	padding: ${SPACING.XXS} ${SPACING.XS};
+	background-color: ${COLORS.GREY};
+	border-radius: 32px;
+`
+
 function Match() {
 	const [like, setLike] = useState(false);
 	const [match, setMatch] = useState();
@@ -166,15 +225,20 @@ function Match() {
 		fetchState ?
 			<MatchContainer>
 				<Card>
-				<RowContainer>
-					<NameContainer>
-						<Name>{`${match[matchIndex].firstname} ${match[matchIndex].lastname}`}</Name>
-						<Username>{`@${match[matchIndex].username}`}</Username>
-					</NameContainer>
-					<Name>{match[matchIndex].gender.name}</Name>
-					<Name>{match[matchIndex].orientation.name}</Name>
-					<Name>{`${findAge(match[matchIndex].birthdate)} Yo`}</Name>
-				</RowContainer>
+				<HeadContainer>
+					<ImagesContainer>
+						<UserImages match={match[matchIndex]}/>
+					</ImagesContainer>
+					<Infos>
+						<NameContainer>
+							<Name>{`${match[matchIndex].firstname} ${match[matchIndex].lastname}`}</Name>
+							<Username>{`@${match[matchIndex].username}`}</Username>
+						</NameContainer>
+						<Name>{match[matchIndex].gender.name}</Name>
+						<Name>{match[matchIndex].orientation.name}</Name>
+						<Name>{`${findAge(match[matchIndex].birthdate)} Yo`}</Name>
+					</Infos>
+				</HeadContainer>
 				<RowContainer>
 					<ChipsContainer>
 					{
@@ -192,6 +256,10 @@ function Match() {
 				<Biography>
 					{`${match[matchIndex].biography}`}
 				</Biography>
+				<Bottom>
+					{match[matchIndex].likes && <Box>{"Already likes you"}</Box>}
+					{match[matchIndex].isSeen && <Box>{"Already saw your profile"}</Box>}
+				</Bottom>
 				</Card>
 				<ButtonsContainer>
 					<div onClick={previousMatch}>
@@ -205,7 +273,8 @@ function Match() {
 					</div>
 				</ButtonsContainer>
 			</MatchContainer>
-		: <Loader/>
+		: 
+		<Loader/>
 	);
 }
 

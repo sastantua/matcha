@@ -61,7 +61,7 @@ const ImagesContainer = styled.div`
 
 const CarouselContainer = styled.div`
 	width: 100%;
-	height: 100%;
+	height: auto;
 `
 
 
@@ -70,7 +70,7 @@ const CarouselContainer = styled.div`
 function UserImages(props) {
 	const [selectedPicture, setSelectedPicture] = useState(undefined);
 
-	const userImagesArray = props.match[props.matchIndex].pictures.map((text, index) =>
+	const userImagesArray = props.match.pictures.map((text, index) =>
 		<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text._id} onClick={() => openModal(text._id)}/>
 	);
 
