@@ -28,12 +28,13 @@ import Header from './Header/Header';
 dotenv.config();
 
 const AppContainer = styled.div`
+	display: flex;
+	flex: 1;
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
 		margin-left: 5rem;
 	}
-	background-color: ${COLORS.BLACK_LIGHT};
-	width: 100%;
-	height: 100%;
+	width: auto;
+	height: auto;
 `
 
 const AuthenticatedRoute = ({ component: Component, ...rest}) => {

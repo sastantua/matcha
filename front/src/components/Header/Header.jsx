@@ -182,7 +182,7 @@ function Header({ isLogged }) {
 					</SLink>
 				</Element>
 				<Element>
-					<SLink to="/logout" onClick={handleClick}>
+					<SLink as="a" onClick={handleClick}>
 						<Icon className="fas fa-sign-out-alt fa-lg"></Icon>
 						<Typography>Logout</Typography>
 					</SLink>

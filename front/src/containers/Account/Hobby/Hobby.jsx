@@ -199,7 +199,7 @@ function Hobby(props) {
 			{/* {!!userHobbyList.length && <UserHobbies />} */}
 			<ChipsContainer>
 			{
-				hobbyList.map(hobby =>
+				userHobbyList && userHobbyList.map(hobby =>
 					<Chip onClick={() => deleteUserHobby(hobby._id)} key={hobby._id}>
 						<Icon>
 							<i class="fab fa-slack-hash"></i>

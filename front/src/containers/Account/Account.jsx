@@ -16,7 +16,6 @@ const AccountContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	overflow: scroll;
 	min-height: 100vh;
 	/* max-width: 100vw; */
 	/* padding: 0 10vw; */
