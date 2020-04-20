@@ -23,11 +23,15 @@ const AccountContainer = styled.div`
 	/* background-color: ${COLORS.WHITE}; */
 `
 
-// const SubAccountContainer = styled.div`
-// 	width: 80%;
-// 	height: 80%;
-// `
+const SubAccountContainer = styled.div`
+	width: 80%;
+	height: 80%;
+`
 
+const Teeest = styled.div`
+	width: 100px;
+	height: 100px;
+`
 
 const UserForm = styled.form`
 	display: flex;
@@ -57,6 +61,7 @@ const StyledTextarea = styled.textarea`
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	box-sizing: border-box;
+	resize: none;
 `
 
 const StyleButton = styled.button`
@@ -105,8 +110,10 @@ function Account() {
 
 	return (
 		<AccountContainer>
-		{/* <SubAccountContainer> */}
-			{/* <UserImages /> */}
+		<SubAccountContainer>
+			<Teeest>
+				<UserImages />
+			</Teeest>
 			<UserForm noValidate autoComplete="off" onSubmit={handleSubmit}>
 				<StyledInput type="text" placeholder="email" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
 				<StyledInput type="text" placeholder="username" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
@@ -120,7 +127,7 @@ function Account() {
 				<StyleButton>Save changes</StyleButton>
 			</UserForm>
 			<Password/>
-			{/* </SubAccountContainer> */}
+			</SubAccountContainer>
 		</AccountContainer>
 	);
 }

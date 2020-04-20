@@ -12,8 +12,6 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles(theme => ({
 	root: {
-		width: '100%',
-		overflow: 'auto',
 		background: COLORS.PURPLE_LIGHT,
 		color: COLORS.PURPLE,
 		borderRadius: '10px',

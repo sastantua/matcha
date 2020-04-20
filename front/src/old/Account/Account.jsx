@@ -20,7 +20,6 @@ const AccountContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	overflow: scroll;
 	width: 100%;
 	/* background-color: #FFF; */
 `
