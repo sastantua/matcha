@@ -8,12 +8,16 @@ import { Contact, DialogBox } from '.';
 import { chatSocket } from '../../api/socket';
 import { useImmer } from 'use-immer';
 import { SPACING } from '../../config';
+import { COLORS } from '../../config/style';
 
 const SContainer = styled.div`
 	display: flex;
 	flex-direction: row;
-	width: 100vw;
+	width: 100%;
 	height: 100vh;
+	& * {
+		color: ${COLORS.WHITE};
+	}
 `
 
 const ContactContainer = styled.div`

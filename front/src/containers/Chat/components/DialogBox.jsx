@@ -24,7 +24,18 @@ const Header = styled.div`
 const ContentWrapper = styled.div`
 	flex: 1;
 	height: 100%;
-	overflow: scroll;
+	overflow-y: scroll;
+	&::-webkit-scrollbar {
+  		width: 0.25rem;
+  		height: 0.25rem;
+	}
+	&::-webkit-scrollbar-track {
+	  background: #1e1e24;
+	}
+	&::-webkit-scrollbar-thumb {
+  		background: #FFE2FF;
+	}
+
 `
 
 const Content = styled.div`
