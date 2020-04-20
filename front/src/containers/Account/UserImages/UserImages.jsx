@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import api from '../../../api/api'
+import {COLORS} from '../../../config/style'
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, styled as styledMaterial} from '@material-ui/core';
 import { AccountCircle } from '@material-ui/icons';
 
 import { Carousel } from 'react-responsive-carousel';
@@ -26,9 +26,25 @@ const useStyles = makeStyles({
 	}
 });
 
-const InputTest = styled.input`
-	font-size: '1rem';
-	color: '#OOB7FF';
+const MainContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+
+const UserImagesJsxContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+`
+
+const StyledInput = styled.input`
+	display: inline-block;
+	width: 100%;
+	margin: 8px 0;
+	padding: 12px 20px;
+	border: 1px solid;
+	border-radius: 4px;
+	box-sizing: border-box;
+	background-color: ${COLORS.PURPLE_LIGHT};
 `
 
 const ModalContainer = styled.div`
@@ -51,6 +67,23 @@ const ButtonContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	margin-top: 1.5em;
+`
+
+const StyledButton = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
+	}
 `
 
 const ExitButton = styled.button`
@@ -79,17 +112,6 @@ const CarouselContainer = styled.div`
 	height: 100%;
 `
 
-const MainContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	height: 20%;
-`
-
-const UserImagesJsxContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-`
-
 const UploadContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -99,7 +121,6 @@ const UploadContainer = styled.div`
 function UserImages() {
 	const classes = useStyles();
 	
-	const [test, setTest] = useState(0);
 	const [userPictures, setUserPictures] = useState([]);
 	const [selectedFile, setSelectedFile] = useState();
 	const [selectedPicture, setSelectedPicture] = useState(undefined);
@@ -172,8 +193,8 @@ function UserImages() {
 			<ModalContainer>
 				<img src={props.image.url} alt=""/>
 				<ButtonContainer>
-					<Button type="button" className={classes.setProfile} onClick={() => setProfilePicture(props.image._id)}>set as profile</Button> 
-					<Button type="button" className={classes.delete} style={{marginTop: '1em'}} onClick={() => deleteUserPicture(props.image._id)}>delete</Button> 
+					<StyledButton type="button" className={classes.setProfile} onClick={() => setProfilePicture(props.image._id)}>Set as profile</StyledButton> 
+					<StyledButton type="button" className={classes.delete} style={{marginTop: '1em'}} onClick={() => deleteUserPicture(props.image._id)}>Delete</StyledButton> 
 					{!!props.image.isPP && 
 					<IsProfilePic>
 						<AccountCircle/>
@@ -201,8 +222,8 @@ function UserImages() {
 				{ !!userPictures.length && <UserImagesJsx /> }
 			</UserImagesJsxContainer>
 			<UploadContainer>
-				{ userPictures.length < 5 && <InputTest type="file" accept="image/*" name="file" label="" onChange={addPictureFile} variant="filled"/> }
-				{ userPictures.length < 5 && <Button type="button" className={classes.root} onClick={uploadPicture}>Upload</Button> }
+				{ userPictures.length < 5 && <StyledInput type="file" accept="image/*" name="file" label="" onChange={addPictureFile} variant="filled"/> }
+				{ userPictures.length < 5 && <StyledButton type="button" className={classes.root} onClick={uploadPicture}>Upload</StyledButton> }
 			</UploadContainer>
 		</MainContainer>
 	);

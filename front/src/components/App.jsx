@@ -35,6 +35,7 @@ const AppContainer = styled.div`
 	}
 	width: auto;
 	height: auto;
+	min-height: 100vh;
 `
 
 const AuthenticatedRoute = ({ component: Component, ...rest}) => {

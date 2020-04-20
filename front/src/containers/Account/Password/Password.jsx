@@ -28,7 +28,7 @@ const InputWrapper = styled.input`
 const SubmitButton = styled.button`
 	width: 100%;
 	color: ${COLORS.WHITE};
-	background-color: ${COLORS.PURPLE_LIGHT};
+	background-color: ${COLORS.PINK_FLASHY};
 	padding: 14px 20px;
 	margin: 8px 0;
 	border: none;
