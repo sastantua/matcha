@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from "styled-components"
+import { makeStyles } from '@material-ui/core/styles';
 import { UserContext } from '../../../context/UserContext';
 import api from '../../../api/api'
 import { COLORS, SPACING } from '../../../config/style'
 
-// import { TextField, Button, Chip } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -130,11 +129,14 @@ function Hobby(props) {
 		})
 	};
 
-	console.log(user);
+	// console.log(user);
 
 	const deleteUserHobby = (id) => {
 		api.delete('/user/hobby', {data: {_id: id}})
-		.then((res => {getUserHobbies();}))
+		.then((res => {
+			getUserHobbies();
+			console.log(id);
+		}))
 		.catch((err => {console.log(err);}))
 	}
 
@@ -169,19 +171,19 @@ function Hobby(props) {
 		)
 	}
 
-	const UserHobbies = () => {
-		return (
-			userHobbyList.map(text =>
-				<Chip key={text._id} onClick={() => deleteUserHobby(text._id)}>
-					{text.name}
-				</Chip>
-			)
-		)
-	};
+	// const UserHobbies = () => {
+	// 	return (
+	// 		userHobbyList.map(text =>
+	// 			<Chip  >
+	// 				{text.name}
+	// 			</Chip>
+	// 		)
+	// 	)
+	// };
 
 	return (
 		<div>
-			<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root} >
+			<List component="nav" aria-labelledby="nested-list-subheader" className={classes.root}>
 				<ListItem button onClick={handleOpenHobby}>
 					<ListItemText primary={"hobbies list"} />
 					{props.dropdowns.openHobby ? <ExpandLess /> : <ExpandMore />}
@@ -198,7 +200,7 @@ function Hobby(props) {
 			<ChipsContainer>
 			{
 				hobbyList.map(hobby =>
-					<Chip>
+					<Chip onClick={() => deleteUserHobby(hobby._id)} key={hobby._id}>
 						<Icon>
 							<i class="fab fa-slack-hash"></i>
 						</Icon>

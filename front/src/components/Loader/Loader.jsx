@@ -10,6 +10,8 @@ const LoaderContainer = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	min-height: 100vh;
+	min-width: 100vw;
 	height: 100%;
 	width: 100%;
 `
@@ -17,11 +19,9 @@ const LoaderContainer = styled.div`
 function Loader() {
 
 	return (
-		<>
-			<LoaderContainer>
-				<CircularProgress style={{color: "#FFF"}}/>
-			</LoaderContainer>
-		</>
+		<LoaderContainer>
+			<CircularProgress style={{color: "#FFF"}}/>
+		</LoaderContainer>
 	);
 }
 

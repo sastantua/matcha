@@ -13,10 +13,6 @@ const PasswordForm = styled.form`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin-top: 2vh;
-	& > :nth-child(2) {
-		margin-top: 2vh;
-	}
 `
 
 const InputWrapper = styled.input`

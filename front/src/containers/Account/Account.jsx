@@ -1,12 +1,9 @@
 import React, { useState, useContext } from 'react';
 import styled from "styled-components";
-import { styled as styledMaterial } from '@material-ui/core/styles';
 import { UserContext } from '../../context/UserContext';
 
 import api from '../../api/api'
 import { COLORS } from '../../config/style'
-
-import { TextField } from '@material-ui/core';
 
 import UserImages from './UserImages/UserImages'
 import Gender from './Gender/Gender'
@@ -20,9 +17,17 @@ const AccountContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	overflow: scroll;
-	width: 100%;
+	min-height: 100vh;
+	/* max-width: 100vw; */
+	/* padding: 0 10vw; */
 	/* background-color: ${COLORS.WHITE}; */
 `
+
+// const SubAccountContainer = styled.div`
+// 	width: 80%;
+// 	height: 80%;
+// `
+
 
 const UserForm = styled.form`
 	display: flex;
@@ -100,6 +105,7 @@ function Account() {
 
 	return (
 		<AccountContainer>
+		{/* <SubAccountContainer> */}
 			{/* <UserImages /> */}
 			<UserForm noValidate autoComplete="off" onSubmit={handleSubmit}>
 				<StyledInput type="text" placeholder="email" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
@@ -114,6 +120,7 @@ function Account() {
 				<StyleButton>Save changes</StyleButton>
 			</UserForm>
 			<Password/>
+			{/* </SubAccountContainer> */}
 		</AccountContainer>
 	);
 }

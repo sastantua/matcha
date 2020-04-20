@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components'
+import { styled as styledMaterial } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { COLORS } from '../../../config/style'
 
 import { List, ListItem, ListItemText, Collapse, Chip } from '@material-ui/core';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 
+const MainContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	margin-bottom: 3vh;
+	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
+`
+
+const StyledList = styledMaterial(List)({
+	width: '150%',
+	maxWidth: 360,
+	maxHeight: 300,
+	overflow: 'auto',
+	background: '#FF3860',
+	opacity: 0.6,
+	color: "#000",
+})
+
 const useStyles = makeStyles(theme => ({
-	root: {
-		background: COLORS.PURPLE_LIGHT,
-		color: COLORS.PURPLE,
-		borderRadius: '10px',
-		overflow: 'auto',},
+	root: {color: "#000"},
 	chip: {
-		width: '100%',
+		width: '150%',
 		background: '#FF3860',
-		color: COLORS.WHITE
+		color: "#000",
+		marginTop: '1em',
 	},
-	field: {color: COLORS.WHITE},
 }));
 
 function SortBy(props) {
@@ -42,8 +57,8 @@ function SortBy(props) {
 	}
 
 	return (
-		<div>
-			<List component="nav" aria-labelledby="nested-StyledList-subheader" className={classes.root}>
+		<MainContainer>
+			<StyledList component="nav" aria-labelledby="nested-StyledList-subheader" >
 				<ListItem button onClick={handleOpenSort}>
 					<ListItemText primary={"sort by ..."} />
 					{openSort ? <ExpandLess /> : <ExpandMore />}
@@ -53,8 +68,8 @@ function SortBy(props) {
 						{!!sortList.length && <SortList />}
 					</List>
 				</Collapse>
-			</List>
-		</div>
+			</StyledList>
+		</MainContainer>
 	);
 }
 

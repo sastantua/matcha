@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
+import { styled as styledMaterial } from '@material-ui/core/styles';
 
 import { COLORS } from '../../config/style'
 import usePosition from '../../hooks/usePosition'
@@ -22,6 +23,8 @@ import sortHobby from './Helper/sortHobby.js'
 import sortProximity from './Helper/sortProximity.js'
 import sortPopularity from './Helper/sortPopularity.js'
 
+import { Typography, Button } from '@material-ui/core'
+
 const MainContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -33,26 +36,15 @@ const MainContainer = styled.div`
 	background-color: ${COLORS.GREEN};
 `
 
-const SearchTitle = styled.p`
-	color: ${COLORS.BLACK};
-	font-weight: 600;
-	font-size: 1.3em;
-`
+const SearchTitle = styledMaterial(Typography)({
+	fontSize: '1.5rem',
+	color: "#FFF",
+});
 
-
-const StyleButton = styled.button`
-	width: 100%;
-	color: ${COLORS.WHITE};
-	background-color: ${COLORS.PURPLE_LIGHT};
-	padding: 14px 20px;
-	margin: 8px 0;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	:hover {
-		transform: scale(1.05);
-	}
-`
+const ButtonWrapper = styledMaterial(Button)({
+	marginTop: '3vh',
+	marginBottom: '3vh',
+});
 
 const sortUsers = (users, userPosition, userHobbies, sort, ascending, descending) => {
 	if (sort !== undefined && ascending !== undefined && descending !== undefined) {
@@ -68,6 +60,7 @@ const sortUsers = (users, userPosition, userHobbies, sort, ascending, descending
 }
 
 function Search() {
+	// const { user, setUser } = useContext(UserContext);
 	const [sort, setSort] = useState("age");
 	const [ascending, setAscending] = useState(true);
 	const [descending, setDescending] = useState(false);
@@ -123,7 +116,7 @@ function Search() {
 					<Age/>
 					<Popularity/>
 					<Hobby/>
-					<StyleButton onClick={handleSubmit}>Search</StyleButton>
+					<ButtonWrapper onClick={handleSubmit}>Search</ButtonWrapper>
 				</SearchRequestContext.Provider>
 				<Result result={result} sort={sort} descending={descending} ascending={ascending}/>
 			</MainContainer>
