@@ -67,6 +67,8 @@ const ChipsContainer = styled.div`
 	align-items: center;
 	flex-wrap: wrap;
 	margin: ${SPACING.BASE} 0;
+	/* background-color: ${COLORS.PURPLE}; */
+	border-radius: 4px;
 	& > ${Chip}:first-child {
 		margin-left: 0;
 	}
@@ -79,7 +81,7 @@ const Icon = styled.div`
 	height: 28px;
 	width: 28px;
 	border-radius: 50%;
-	background-color: ${COLORS.GREY};
+	background-color: ${COLORS.PINK_FLASHY};
 	opacity: .7;
 	box-shadow: 0px 0px 102px -20px rgba(0,0,0,0.75);
 	margin-right: ${SPACING.XS};
