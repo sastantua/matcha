@@ -16,9 +16,7 @@ const AccountContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	min-height: 100vh;
 	width: 100%;
-	/* max-width: 100vw; */
 	/* padding: 0 10vw; */
 	/* background-color: ${COLORS.WHITE}; */
 `
@@ -33,9 +31,9 @@ const SubAccountContainer = styled.div`
 	height: 80%;
 `
 
-const ImageWrapper = styled.div`
-	height: auto;
+const Teeest = styled.div`
 	width: 20%;
+	height: auto;
 `
 
 const UserForm = styled.form`
