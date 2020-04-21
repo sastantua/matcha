@@ -22,29 +22,32 @@ import sortHobby from './Helper/sortHobby.js'
 import sortProximity from './Helper/sortProximity.js'
 import sortPopularity from './Helper/sortPopularity.js'
 
-const MainContainer = styled.div`
+const SearchContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	min-height: 100vh;
-	color: "#000";
-	background-color: ${COLORS.GREEN};
 `
 
-const SearchTitle = styled.p`
-	color: ${COLORS.BLACK};
-	font-weight: 600;
-	font-size: 1.3em;
+const SubSearchContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 10vh 0;
+	width: 80%;
+	height: 80%;
+	& > * {
+		width: 50%;
+	}
 `
-
 
 const StyleButton = styled.button`
-	width: 100%;
 	color: ${COLORS.WHITE};
-	background-color: ${COLORS.PURPLE_LIGHT};
+	background-color: ${COLORS.PINK_FLASHY};
 	padding: 14px 20px;
 	margin: 8px 0;
+	margin-top: 2vh;
 	border: none;
 	border-radius: 4px;
 	cursor: pointer;
@@ -113,19 +116,20 @@ function Search() {
 
 		return (
 			!isLoading ? 
-			<MainContainer>
-				<SearchTitle>Select your preferences</SearchTitle>
-				<SortBy setSort={setSort}/>
-				<OrderCheckbox descending={descending} ascending={ascending} setDescending={setDescending} setAscending={setAscending}/>
-				<SearchRequestContext.Provider value={[request, setRequest]}>
-					<Distance/>
-					<Age/>
-					<Popularity/>
-					<Hobby/>
-					<StyleButton onClick={handleSubmit}>Search</StyleButton>
-				</SearchRequestContext.Provider>
-				<Result result={result} sort={sort} descending={descending} ascending={ascending}/>
-			</MainContainer>
+			<SearchContainer>
+				<SubSearchContainer>
+					<SearchRequestContext.Provider value={[request, setRequest]}>
+						<Distance/>
+						<Age/>
+						<Popularity/>
+						<OrderCheckbox descending={descending} ascending={ascending} setDescending={setDescending} setAscending={setAscending}/>
+						<SortBy sort={sort} setSort={setSort}/>
+						<Hobby/>
+						<StyleButton onClick={handleSubmit}>Search</StyleButton>
+					</SearchRequestContext.Provider>
+					<Result result={result} sort={sort} descending={descending} ascending={ascending}/>
+				</SubSearchContainer>
+			</SearchContainer>
 			: <Loader/>
 		);
 }

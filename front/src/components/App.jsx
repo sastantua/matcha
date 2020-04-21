@@ -36,7 +36,9 @@ const AppContainer = styled.div`
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 		margin-bottom: 5rem;
 	}
-	width: auto;
+	& > * {
+		width: 100%;
+	}
 	height: auto;
 	min-height: 100vh;
 `

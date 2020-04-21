@@ -14,6 +14,7 @@ const useStyles = makeStyles(theme => ({
 		background: COLORS.PURPLE_LIGHT,
 		color: COLORS.PURPLE,
 		borderRadius: '10px',
+		marginTop: '2vh',
 	},
 	chip: {
 		width: '100%',

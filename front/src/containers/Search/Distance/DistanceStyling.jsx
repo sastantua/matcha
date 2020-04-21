@@ -1,8 +1,9 @@
+import { COLORS } from '../../../config/style';
 import { Slider, withStyles } from '@material-ui/core';
 
 const ProximitySlider = withStyles({
 	root: {
-		color: '#000',
+		color: COLORS.PURPLE,
 		height: 8,
 		width: 200,
 	}, thumb: {

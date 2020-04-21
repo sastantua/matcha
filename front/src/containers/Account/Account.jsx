@@ -16,9 +16,6 @@ const AccountContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
-	/* padding: 0 10vw; */
-	/* background-color: ${COLORS.WHITE}; */
 `
 
 const SubAccountContainer = styled.div`

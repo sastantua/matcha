@@ -7,7 +7,6 @@ import { Checkbox } from "@material-ui/core";
 const MainContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 50vw;
 `
 
 const CheckboxContainer = styled.div`
