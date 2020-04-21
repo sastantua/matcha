@@ -87,23 +87,6 @@ const StyledButton = styled.div`
 	}
 `
 
-const StyledButton = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	color: ${COLORS.WHITE};
-	background-color: ${COLORS.PINK_FLASHY};
-	padding: 14px 20px;
-	margin: 8px 0;
-	border: none;
-	border-radius: 4px;
-	cursor: pointer;
-	:hover {
-		transform: scale(1.05);
-	}
-`
-
 const ExitButton = styled.button`
 	position: absolute;
 	background: #FF3860;

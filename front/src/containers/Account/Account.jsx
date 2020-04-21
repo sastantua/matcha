@@ -31,7 +31,7 @@ const SubAccountContainer = styled.div`
 	height: 80%;
 `
 
-const Teeest = styled.div`
+const ImageWrapper = styled.div`
 	width: 20%;
 	height: auto;
 `
