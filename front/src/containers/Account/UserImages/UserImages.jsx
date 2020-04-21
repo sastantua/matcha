@@ -29,11 +29,14 @@ const useStyles = makeStyles({
 const MainContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 `
 
 const UserImagesJsxContainer = styled.div`
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 `
 
 const StyledInput = styled.input`
@@ -52,7 +55,7 @@ const ModalContainer = styled.div`
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100vh;
+	height: 100%;
 	z-index: 999;
 	background-color: rgba(0, 0, 0, 0.8);
 	display: flex;
@@ -66,14 +69,12 @@ const ButtonContainer = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin-top: 1.5em;
 `
 
 const StyledButton = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100%;
 	color: ${COLORS.WHITE};
 	background-color: ${COLORS.PINK_FLASHY};
 	padding: 14px 20px;
@@ -115,7 +116,7 @@ const CarouselContainer = styled.div`
 const UploadContainer = styled.div`
 	display: flex;
 	flex-direction: column;
-	margin-top: 4em;
+	margin-top: 1em;
 `
 
 function UserImages() {
@@ -222,7 +223,7 @@ function UserImages() {
 				{ !!userPictures.length && <UserImagesJsx /> }
 			</UserImagesJsxContainer>
 			<UploadContainer>
-				{ userPictures.length < 5 && <StyledInput type="file" accept="image/*" name="file" label="" onChange={addPictureFile} variant="filled"/> }
+				{ userPictures.length < 5 && <StyledInput type="file" accept="image/*" name="file" label="pic" onChange={addPictureFile}/> }
 				{ userPictures.length < 5 && <StyledButton type="button" className={classes.root} onClick={uploadPicture}>Upload</StyledButton> }
 			</UploadContainer>
 		</MainContainer>

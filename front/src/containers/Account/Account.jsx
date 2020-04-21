@@ -24,13 +24,18 @@ const AccountContainer = styled.div`
 `
 
 const SubAccountContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 10vh 0;
 	width: 80%;
 	height: 80%;
 `
 
-const Teeest = styled.div`
-	width: 20%;
+const ImageWrapper = styled.div`
 	height: auto;
+	width: 20%;
 `
 
 const UserForm = styled.form`
@@ -111,9 +116,9 @@ function Account() {
 	return (
 		<AccountContainer>
 			<SubAccountContainer>
-				<Teeest>
+				<ImageWrapper>
 					<UserImages />
-				</Teeest>
+				</ImageWrapper>
 				<UserForm noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<StyledInput type="text" placeholder="email" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
 					<StyledInput type="text" placeholder="username" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
