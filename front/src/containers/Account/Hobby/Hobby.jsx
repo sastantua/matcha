@@ -17,9 +17,10 @@ const useStyles = makeStyles(theme => ({
 		background: COLORS.PURPLE_LIGHT,
 		color: COLORS.PURPLE,
 		borderRadius: '10px',
+		maxHeight: '40vh',
+		overflow: 'scroll',
 	},
 	chip: {
-		// width: '100%',
 		background: '#FF3860',
 		color: COLORS.WHITE
 	},

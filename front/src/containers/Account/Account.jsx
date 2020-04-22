@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { UserContext } from '../../context/UserContext';
 
 import api from '../../api/api'
-import { COLORS } from '../../config/style'
+import { COLORS, BREAK_POINTS } from '../../config/style'
 
 import UserImages from './UserImages/UserImages'
 import Gender from './Gender/Gender'
@@ -24,10 +24,16 @@ const SubAccountContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	padding: 10vh 0;
-	width: 80%;
-	height: 80%;
 	& > * {
 		width: 50%;
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		width: 100%;
+		height: 100%;
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		width: 80%;
+		height: 80%;
 	}
 `
 
@@ -47,8 +53,14 @@ const GroupInput = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-	& > :nth-child(2) {
-		margin-left: 1vw;
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		flex-direction: column;
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		flex-direction: row;
+		& > :nth-child(2) {
+			margin-left: 1vw;
+		}
 	}
 `
 
