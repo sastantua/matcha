@@ -84,7 +84,17 @@ function App() {
 	}
 
 	return (
+<<<<<<< HEAD
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} classes={{like: {backgroundColor: COLORS.PINK}}} iconVariant={{like: '❤️'}}>
+=======
+		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} classes={{
+			like: {backgroundColor: COLORS.PINK}
+		}}
+		iconVariant={{
+			like: '❤️'
+		}}
+		>
+>>>>>>> work on notification
 			<UserContext.Provider value={ userMemo }>
 				<BrowserRouter>
 					<Header />

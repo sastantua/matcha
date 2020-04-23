@@ -4,12 +4,12 @@ import styled from "styled-components";
 import api from '../../api/api'
 import { notifSocket } from '../../api/socket';
 import { UserContext } from '../../context/UserContext';
+import UserImages from './UserImages/UserImages';
 
 import Loader from '../../components/Loader/Loader';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
 
-import UserImages from '../../helper/UserImages';
 import findAge from '../../helper/findAge.js'
 
 const MatchContainer = styled.div`
@@ -82,6 +82,15 @@ const ImagesContainer = styled.div`
 
 const Infos = styled.div`
 	display: flex;
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		flex-direction: column;
+		align-items: center;
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		margin-left: ${SPACING.BASE};
+	}
+	display: flex;
+	flex-direction: row;
 	flex-wrap: wrap;
 	width: 100%;
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
