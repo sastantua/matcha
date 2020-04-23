@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import api from '../../api/api'
-import UserImages from './UserImages/UserImages';
 
-import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import Loader from '../../components/Loader/Loader';
-import findAge from './findAge.js'
+import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
+
+import UserImages from '../../helper/UserImages/UserImages';
+import findAge from '../../helper/findAge.js'
 
 const MatchContainer = styled.div`
 	padding: ${SPACING.BASE};
@@ -18,7 +19,7 @@ const MatchContainer = styled.div`
 `
 
 const Card = styled.div`
-	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -124,7 +125,7 @@ const Biography = styled.span`
 	padding: ${SPACING.XXS} ${SPACING.XS};
 	border-radius: 15px;
 	background-color: ${COLORS.GREY_LIGHT};
-`;
+`
 
 const Chip = styled.div`
 	display: flex;
@@ -219,8 +220,6 @@ function Match() {
 		}
 	}
 
-	// if (match !== undefined)
-	// 	console.log("actual match: ", match[matchIndex]);
 	return (
 		fetchState ?
 			<MatchContainer>

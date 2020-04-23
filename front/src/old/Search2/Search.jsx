@@ -35,8 +35,8 @@ const SubSearchContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	padding: 10vh 0;
-	width: 100%;
-	height: auto;
+	width: 80%;
+	height: 80%;
 	& > * {
 		width: 50%;
 	}
