@@ -1,12 +1,17 @@
 # Todo
 
 	Objectif du jour:
-		- profile => pas de carte
-		- 
 
-		- sort add info (orientation, ask guillaume if really sent)
-		- sort add like / unlike
-		- sort add city
+		- Style Login
+		- Style Register
+		- Style Password
+		- Style Result
+		- Style Profile
+
+		- Do Unblock
+		- Call when profile is seen
+
+
 		- add link return to search (history go back)
 		- is profile liked or not?
 		- block account
