@@ -10,7 +10,9 @@ export const COLORS = {
 	PURPLE: '#481380',
 	PURPLE_LIGHT: '#7F78D2',
 	GREEN: '#4CAF50',
-	WHITE: '#FFFFFF'
+	WHITE: '#FFFFFF',
+	PINK_GRADIENT: '#FF5864',
+	ORANGE_GRADIENT: '#FF655B',
 }
 
 export const SPACING = {

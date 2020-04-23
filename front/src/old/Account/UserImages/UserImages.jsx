@@ -20,26 +20,11 @@ const useStyles = makeStyles({
 		padding: '0 30px',
 	}, img: {
 		marginTop: '2em',
-	}, imageContainerStyle: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-around',
-		// backgroundColor: theme.palette.background.paper,
-	}, imageStyle: {
-		// width: 500,
-		// height: 450,
 	}, setProfile: {
 		background: '#FF3860',
 	}, delete: {
 		background: '#FF3860',
-	}, exitBtn: {
-		position: 'absolute',
-		background: '#FF3860',
-		top: '10%',
-		left: '90%',
-		border: 'solid',
-		borderRadius: '30%',
-	}
+	}, 
 });
 
 const InputTest = styled.input`
@@ -48,10 +33,10 @@ const InputTest = styled.input`
 `
 
 const ModalContainer = styled.div`
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
-	width: 100%;
+	width: 100vw;
 	height: 100vh;
 	z-index: 999;
 	background-color: rgba(0, 0, 0, 0.8);

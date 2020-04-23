@@ -117,12 +117,6 @@ const Username = styled.span`
 	color: ${COLORS.GREY};
 `
 
-const Age = styled.span`
-	color: ${COLORS.BLACK};
-	font-size: 1.6em;
-	font-weight: 600;
-`
-
 const Biography = styled.span`
 	display: flex;
 	justify-content: stretch;

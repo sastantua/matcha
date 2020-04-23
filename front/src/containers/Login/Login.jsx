@@ -56,7 +56,7 @@ const SignupLink = styled.div`
 	align-items: center;
 `
 
-function LoginSmall() {
+function Login() {
 	const history = useHistory();
 	const [email, setEmail] = useState("guillaumeroux123@gmail.com");
 	const [password, setPassword] = useState("Guillaume-123");
@@ -104,4 +104,4 @@ function LoginSmall() {
 	);
 }
 
-export default LoginSmall;
+export default Login;
