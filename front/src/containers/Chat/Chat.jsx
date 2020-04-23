@@ -63,7 +63,7 @@ export default () => {
 	}, [user]);
 
 	useEffect(() => {
-		selectUser(contacts[0])
+		contacts.length && selectUser(contacts[0])
 	}, [contacts])
 
 	useEffect(() => {

@@ -143,15 +143,15 @@ function Account() {
 				</ImageWrapper>
 				<UserForm noValidate autoComplete="off" onSubmit={handleSubmit}>
 					<GroupInput>
-						<StyledInput type="text" placeholder="email" label="email" value={ user && user.email ? user && user.email : "" } name="email" onChange={handleEmail}/>
-						<StyledInput type="text" placeholder="username" label="username" value={ user && user.username ? user && user.username : "" } name="username" onChange={handleUsername}/>
+						<StyledInput type="text" placeholder="email" label="email" value={ user && user.email} name="email" onChange={handleEmail}/>
+						<StyledInput type="text" placeholder="username" label="username" value={ user && user.username} name="username" onChange={handleUsername}/>
 					</GroupInput>
 					<GroupInput>
-						<StyledInput type="text" placeholder="firstname" label="firstname" value={ user && user.firstname ? user && user.firstname : "" } name="firstname" onChange={handleFirstname}/>
-						<StyledInput type="text" placeholder="lastname" label="lastname" value={ user && user.lastname ? user && user.lastname : "" } name="lastname" onChange={handleLastname}/>
+						<StyledInput type="text" placeholder="firstname" label="firstname" value={ user && user.firstname} name="firstname" onChange={handleFirstname}/>
+						<StyledInput type="text" placeholder="lastname" label="lastname" value={ user && user.lastname} name="lastname" onChange={handleLastname}/>
 					</GroupInput>
-					<StyledInput type="date" placeholder="birthdate" label="birthdate" value={ user && user.birthdate ? user && user.birthdate : "" } name="birthdate" onChange={handleBirthdate}/>
-					<StyledTextarea placeholder="biography" label="biography" value={ user && user.biography ? user && user.biography : "" } name="biography" onChange={handleBiography}/>
+					<StyledInput type="date" placeholder="birthdate" label="birthdate" value={ user && user.birthdate} name="birthdate" onChange={handleBirthdate}/>
+					<StyledTextarea placeholder="biography" label="biography" value={ user && user.biography} name="biography" onChange={handleBiography}/>
 					<GroupDropdowns>
 						<Gender user={user} dropdowns={dropdowns} />
 						<Orientation user={user} dropdowns={dropdowns}/>

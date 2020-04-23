@@ -1,11 +1,13 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import styled from "styled-components";
 import { useHistory, Link } from 'react-router-dom';
-import api from '../../api/api'
-import { COLORS, BREAK_POINTS } from '../../config/style'
-import { UserContext } from '../../context/UserContext';
-import { notifSocket } from '../../api/socket';
+import { useSnackbar } from 'notistack';
 import { useImmer } from 'use-immer';
+
+import api from '../../api/api'
+import { notifSocket } from '../../api/socket';
+import { COLORS, BREAK_POINTS } from '../../config/style'
+
 
 const Typography = styled.span`
 	display: none;
@@ -117,35 +119,41 @@ const Icon = styled.i`
   	margin: 0 1.5rem;
 `
 
-function Header({ isLogged }) {
+function Header() {
 	const history = useHistory();
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const [notifications, addNotification] = useImmer([]);
 
-	// useEffect(() => {
-	// 	user && notifSocket.emit('connected', user._id);
-	// })
-
 	useEffect(() => {
-		notifSocket.on('notification', data => 
+		const notificationHandler = (notification) => {		
+			switch (notification.type) {
+				case "like" :
+					enqueueSnackbar('Someone liked you', {variant: 'like'})
+					break;
+				default :
+					break;
+			}
+		}
+		notifSocket.on('notifications', data => 
+			addNotification(() => data)
+		)
+		notifSocket.on('notification', data => {
 			addNotification(draft => {
 				draft.push(data);
 			})
-		)
+			notificationHandler(data);
+		})
 	}, [addNotification])
+	
 
 	const handleClick = () => {
-		if (isLogged) {
-			api.post('/user/logout')
-			.then(() => {
-				console.log("teeeeest");
-				localStorage.removeItem("token");
-				delete api.defaults.headers.common['Authorization'];
-				history.push("/login");
-			})
-			.catch((err) => console.log(`${err.response.data.message}`));
-		} else {
-			history.push('/login');
-		}
+		api.post('/user/logout')
+		.then(() => {
+			localStorage.removeItem("token");
+			delete api.defaults.headers.common['Authorization'];
+			history.push("/");
+		})
+		.catch((err) => console.log(`${err.response.data.message}`));
 	}
 
 	return (
@@ -173,6 +181,12 @@ function Header({ isLogged }) {
 					<SLink to="/chat">
 						<Icon className="fas fa-comment-dots fa-lg"></Icon>
 						<Typography>Chat</Typography>
+					</SLink>
+				</Element>
+				<Element>
+					<SLink>
+							<Icon className="fas fa-bell fa-lg"></Icon>
+						<Typography>Notifications</Typography>
 					</SLink>
 				</Element>
 				<Element>

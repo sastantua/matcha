@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from "styled-components";
 import api from '../../api/api'
+import { notifSocket } from '../../api/socket';
+import { UserContext } from '../../context/UserContext';
 import UserImages from './UserImages/UserImages';
 
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
@@ -82,8 +84,10 @@ const Infos = styled.div`
 		flex-direction: column;
 		align-items: center;
 	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		margin-left: ${SPACING.BASE};
+	}
 	display: flex;
-	margin-left: ${SPACING.BASE};
 	flex-direction: row;
 	flex-wrap: wrap;
 	width: 100%;
@@ -177,6 +181,7 @@ const Box = styled.div`
 `
 
 function Match() {
+	const { user, setUser } = useContext(UserContext);
 	const [like, setLike] = useState(false);
 	const [match, setMatch] = useState();
 	const [matchIndex, setMatchIndex] = useState(0);
@@ -216,6 +221,11 @@ function Match() {
 		api.post(`/user/like/${match[matchIndex]._id}`)
 		.then((res) => {setLike(true)})
 		.catch((err) => {console.log(err)})
+		notifSocket.emit('notification', {
+			type: 'like',
+			to: match[matchIndex]._id,
+			from: user._id
+		})
 		}
 	}
 

@@ -2,7 +2,7 @@ import { mode, session, closeBridge } from '../middleware/session';
 
 export const initChat = async (user, _id) => {
 	const dbSession = session(mode.WRITE);
-	const query = 'MERGE (f:User)-[c:CHAT {history:"[]"}]-(t:User) WHERE f._id = $_id AND WHERE t._id = $u_id';
+	const query = 'MATCH (f:User) WHERE f._id = $_id MATCH (t:User) WHERE t._id = $u_id MERGE (f)-[c:CHAT { history:"[]" }]-(t)';
 	
 		await dbSession.session.run(query, {_id: user._id, u_id: _id}).then(res => {
 			closeBridge(dbSession);

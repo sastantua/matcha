@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import usePosition from '../hooks/usePosition';
 import { UserContext } from '../context/UserContext'
 import api from '../api/api';
-import { COLORS, BREAK_POINTS } from '../config/style';
+import { BREAK_POINTS, COLORS } from '../config/style';
+import { notifSocket } from '../api/socket';
 
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
@@ -60,21 +61,32 @@ function App() {
 	const [user, setUser] = useState(null);
 	const {latitude, longitude} = usePosition();
 	const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
+
 	
 	useEffect(() => {
 		if (user) {
 			api.post('/user/location', {lat: latitude, lng: longitude})
 			.catch(err => console.log(err))
+			notifSocket.emit('connected', user._id);
 		}
 	}, [user]);
-	
+
 	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
-		api.get('/user/me').then((res) => {setUser(res.data);}).catch(err => console.log(err));
+		api.get('/user/me').then((res) => {setUser(res.data);}).catch(err => {
+			delete api.defaults.headers.common['Authorization'];
+			console.log(err);
+		});
 	}
 
 	return (
-		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} >
+		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} classes={{
+			like: {backgroundColor: COLORS.PINK}
+		}}
+		iconVariant={{
+			like: '❤️'
+		}}
+		>
 			<UserContext.Provider value={ userMemo }>
 				<BrowserRouter>
 					<Header />

@@ -441,13 +441,6 @@ export const getLikes = async (user) => {
 	}).catch(e => console.log(e));
 }
 
-export const createChat = async (user, _id) => {
-	const dbSession = session(mode.WRITE);
-	const query = `MATCH (a:User) WHERE a._id = a_id MATCH (b:User) WHERE b._id = b_id MERGE (a)-(:CHAT {history:"[]"})->(b)`;
-	await dbSession.session.run(query, {a_id: user.id, b_id: _id}).then(res => closeBridge(dbSession))
-	.catch(e => console.log(e));
-}
-
 export const getBlocked = async (user) => {
 	const dbSession = session(mode.READ);
 	const query = 'MATCH (y:User)-[b:BLOCK]->(u:User) WHERE y._id = $_id RETURN u';

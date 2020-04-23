@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 import auth from '../middleware/auth';
 import upload from '../middleware/pictures';
 
-import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, likes, getLikes, blocks, unblock, block, getBlocked, activateAccount, requestPassword, changePassword, editPassword, saw, hasSeen, editSaw, getSeen, regex, createChat} from '../models/user';
+import { userExists, registerUser, sendActivation, findByCreditentials, generateAuthToken, logoutUser, logoutAll, editUser, savePicture, getPictures, verifyPicture, deletePicture, setLocation, getLocation, getToken, getPopularityScore, setAsProfilePicture, getByOrientation, hasExtendedProfile, match, sortByParams, like, unlike, isLiked, likes, getLikes, blocks, unblock, block, getBlocked, activateAccount, requestPassword, changePassword, editPassword, saw, hasSeen, editSaw, getSeen, regex } from '../models/user';
 import { getGender, setGender, verifyGender } from '../models/gender';
 import { getHobbies, setHobbies, verifyHobbies, userHasHooby, unsetHobby } from '../models/hobby';
 import { ErrorHandler } from '../middleware/errors';
@@ -296,7 +296,6 @@ userRouter.post('/like/:_id', auth, async (req, res, next) => {
 		const { _id } = req.params;
 
 		await like(req.user, _id);
-		if (await likes(req.user, _id)) await createChat(req.user, _id);
 		res.status(200).send();
 	} catch (err) {
 		next(err);

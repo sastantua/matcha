@@ -1,43 +1,47 @@
 import io from 'socket.io';
 import { createServer } from 'http';
 import { addMessage } from '../models/chat';
+import { saveNotification, getNotifications } from '../models/notification';
 
 const app = require('../app');
 
 const socketServer = createServer(app);
 socketServer.listen(4242);
 
-const socket = io(socketServer);
+const sockets = io(socketServer);
 
 const chatUsers = [];
 const users = []
 
-const chat = socket.of('/chat');
-const notifications = socket.of('/notifications');
-
-chat.on('connection', socket => {
-	chat.on('connected', id => {
+export const chat = sockets.of('/chat').on('connection', socket => {
+	socket.on('connected', id => {
 		chatUsers[id] = socket.id;
 	});
 
-	chat.on('send_message', async data => {
-		await addMessage(data);
-		chat.to(chatUsers[data.receiver]).emit("new_message", data);
+	socket.on('send_message', data => {
+		addMessage(data);
+		socket.to(chatUsers[data.receiver]).emit("new_message", data);
 	})
 
-	chat.on('typing', data => {
-		chat.to(chatUsers[data.receiver]).emit("typing", data);
+	socket.on('typing', data => {
+		socket.to(chatUsers[data.receiver]).emit("typing", data);
 	})
 })
 
-notifications.on('connection', socket => {
-	notifications.on('connected', id => {
+export const notifications = sockets.of('/notifications').on('connection', socket => {
+	socket.on('connected', async id => {
 		users[id] = socket.id;
+		const notifications = await getNotifications(id);
+		socket.to(users[id]).emit('notifications', notifications);
 	})
 
-	notifications.on('notification', data => {
-		notifications.to(users[data.to]).emit('notification', data);
+	socket.on('notification', data => {
+		socket.to(users[data.to]).emit('notification', data);
+		saveNotification(data);
+		
+	})
+
+	socket.on('read', _id => {
+		deleteNotification(_id);
 	})
 })
-
-export default socket;

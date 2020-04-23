@@ -37,12 +37,6 @@
 		"eject": "react-scripts eject",
 		"lint": "eslint src --fix"
 	},
-	"husky": {
-		"hooks": {
-			"pre-commit": "npm run lint",
-			"pre-push": "npm run lint"
-		}
-	},
 	"eslintConfig": {
 		"extends": "react-app"
 	},
@@ -59,6 +53,7 @@
 		]
 	},
 	"devDependencies": {
+		"babel-plugin-styled-components": "^1.10.7",
 		"eslint-plugin-react-hooks": "^3.0.0",
 		"husky": "^4.2.3"
 	}
