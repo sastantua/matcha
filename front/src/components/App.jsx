@@ -21,6 +21,7 @@ import Chat from '../containers/Chat';
 
 import Signup from '../containers/Signup/Signup';
 import Login from '../containers/Login/Login';
+import Verify from '../containers/Verify/Verify';
 import NoMatch from '../containers/NoMatch/NoMatch';
 import Header from './Header/Header';
 
@@ -82,9 +83,10 @@ function App() {
 							<Switch>
 								<Route exact path="/login" component={Login} />
 								<Route exact path="/signup" component={Signup} />
+								<Route exact path="/verify/:token" component={Verify} />
 								<Route exact path="/reset" component={Reset} />
-								<Route exact path="/" component={Homepage} />
 								<Route exact path="/home" component={Homepage} />
+								<Route exact path="/" component={Homepage} />
 								<AuthenticatedRoute exact path="/account" component={Account} />
 								<AuthenticatedRoute exact path="/match" component={Match} />
 								<AuthenticatedRoute exact path="/search" component={Search} />

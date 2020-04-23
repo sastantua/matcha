@@ -37,8 +37,15 @@ const SubSearchContainer = styled.div`
 	padding: 10vh 0;
 	width: 80%;
 	height: 80%;
-	& > * {
-		width: 50%;
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		& > * {
+			width: 50%;
+		}
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		& > * {
+			width: 80%;
+		}
 	}
 `
 

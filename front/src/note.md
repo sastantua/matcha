@@ -2,14 +2,16 @@
 
 	Objectif du jour:
 
+		- Style Result
+		- Style Profile
 		- Style Login
 		- Style Register
 		- Style Password
-		- Style Result
-		- Style Profile
+		- Style Verify
 
 		- Do Unblock
 		- Call when profile is seen
+
 
 
 		- add link return to search (history go back)

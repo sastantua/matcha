@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 
-import { COLORS } from '../../config/style'
+import { COLORS, BREAK_POINTS } from '../../config/style'
 import usePosition from '../../hooks/usePosition'
 
 import api from '../../api/api'
@@ -37,8 +37,15 @@ const SubSearchContainer = styled.div`
 	padding: 10vh 0;
 	width: 100%;
 	height: auto;
-	& > * {
-		width: 50%;
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		& > * {
+			width: 80%;
+		}
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		& > * {
+			width: 50%;
+		}
 	}
 `
 
