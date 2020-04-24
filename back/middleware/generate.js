@@ -37,10 +37,6 @@ export const newUser = async () => {
 				hobbies[3]._id
 			],
 			pictures: [
-				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") },
-				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") },
-				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") },
-				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") },
 				{ url: faker.image.avatar(), name: faker.system.fileName("jpg") }
 			],
 			location: {
@@ -77,4 +73,4 @@ const generate = async (amount) => {
 	}
 }
 
-generate(50);
+generate(500);

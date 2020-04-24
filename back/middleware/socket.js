@@ -38,7 +38,6 @@ export const notifications = sockets.of('/notifications').on('connection', socke
 	socket.on('notification', data => {
 		socket.to(users[data.to]).emit('notification', data);
 		saveNotification(data);
-		
 	})
 
 	socket.on('read', _id => {
