@@ -19,6 +19,7 @@ import Search from '../containers/Search/Search';
 import Profile from '../containers/Profile/Profile';
 import Reset from '../containers/Reset/Reset';
 import Chat from '../containers/Chat';
+import Unblock from '../containers/Unblock/Unblock';
 
 import Signup from '../containers/Signup/Signup';
 import Login from '../containers/Login/Login';
@@ -104,6 +105,7 @@ function App() {
 								<AuthenticatedRoute exact path="/search" component={Search} />
 								<AuthenticatedRoute exact path="/profile" component={Profile} />
 								<AuthenticatedRoute exact path="/chat" component={Chat} />
+								<AuthenticatedRoute exact path="/unblock" component={Unblock} />
 								<Route path="*" component={NoMatch} />
 							</Switch>
 						</AppContainer>
