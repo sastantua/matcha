@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
-import { styled as styledMaterial } from '@material-ui/core/styles';
 
+import api from '../../api/api'
+import findAge from '../../helper/findAge';
+import UserPictures from '../../helper/UserImages/UserImages';
+
+import { styled as styledMaterial } from '@material-ui/core/styles';
 import { Typography, Paper } from '@material-ui/core';
 import { Favorite as FavoriteIcon, Cancel as CancelIcon, Block as BlockIcon, Replay as ReplayIcon } from '@material-ui/icons';
 
-import api from '../../api/api'
-
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
-
-import findAge from './Helper/findAge';
-import UserPictures from './UserPictures/UserPictures';
 
 const UserContainer = styled.div`
  	display: flex;
@@ -131,7 +128,7 @@ function Profile(props) {
 				<UserContainer>
 					<PaperContainer component="div">
 						<UserPictures pictures={user.pictures}/>
-						{/* <Username>@{props.user.username}</Username> */}
+						<Username>@{user.username}</Username>
 						<Name>{user.firstname} {user.lastname}</Name>
 						<InfoContainer>
 							<Info>{user.gender.name.charAt(0).toUpperCase() + user.gender.name.slice(1)}</Info>

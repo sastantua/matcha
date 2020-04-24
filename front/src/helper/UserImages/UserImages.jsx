@@ -9,9 +9,18 @@ const CarouselContainer = styled.div`
 `
 
 function UserImages(props) {
-	const userImagesArray = props.match.pictures.map((text, index) =>
-		<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text._id}/>
-	);
+	let userImagesArray = [];
+
+	if (props.match === undefined) {
+		userImagesArray = props.pictures.map((text, index) =>
+			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text._id}/>
+		);
+	}
+	else {
+		userImagesArray = props.match.pictures.map((text, index) =>
+			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text._id}/>
+		);
+	}
 
 	const UserImagesJsx = () => {
 		return (
