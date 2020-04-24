@@ -33,11 +33,7 @@ function UserImages(props) {
 	}
 
 	return (
-		<div id="container-user-image-small">
-			<div id="user-images-display-small">
-				<UserImagesJsx/>
-			</div>
-		</div>
+		<UserImagesJsx/>
 	);
 }
 

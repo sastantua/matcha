@@ -1,13 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import api from '../../../api/api'
-import { notifSocket } from '../../../api/socket';
-import { COLORS, SPACING, BREAK_POINTS } from '../../../config/style';
-import { UserContext } from '../../../context/UserContext';
 import findAge from '../../../helper/findAge'
 import UserImages from '../../../helper/UserImages/UserImages';
+import { COLORS, SPACING, BREAK_POINTS } from '../../../config/style';
 
 const ResultContainer = styled.div`
 	display: flex;
@@ -177,20 +174,6 @@ const Box = styled.div`
 `
 
 function User(props) {
-	let hobbiesArray = [];
-	
-	if (props.user.hobbies.length <= 5)
-		hobbiesArray = props.user.hobbies; 
-	else 
-		hobbiesArray = props.user.hobbies.splice(5, props.user.hobbies.length);
-	
-	const userHobbies = hobbiesArray.map((hobby, index) => {
-		if (index < hobbiesArray.length1)
-			return ("#" + hobby.name + "")
-		else
-			return ("#" + hobby.name)
-	})
-
 	return (
 		<UserContainer id={props.user.username}>
 			<Link to={{pathname: '/profile', state: { user: props.user }}} style={{ textDecoration: 'none' }}>
