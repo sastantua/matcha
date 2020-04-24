@@ -4,78 +4,65 @@ import styled from 'styled-components'
 import api from '../../api/api'
 import findAge from '../../helper/findAge';
 import UserPictures from '../../helper/UserImages/UserImages';
+import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
 
-import { styled as styledMaterial } from '@material-ui/core/styles';
-import { Typography, Paper } from '@material-ui/core';
-import { Favorite as FavoriteIcon, Cancel as CancelIcon, Block as BlockIcon, Replay as ReplayIcon } from '@material-ui/icons';
+// import { styled as styledMaterial } from '@material-ui/core/styles';
+// import { Typography, Paper } from '@material-ui/core';
+// import { Favorite as FavoriteIcon, Cancel as CancelIcon, Block as BlockIcon, Replay as ReplayIcon } from '@material-ui/icons';
 
 
-const UserContainer = styled.div`
+const ProfileContainer = styled.div`
  	display: flex;
- 	flex: auto;
  	flex-direction: column;
  	align-items: center;
- 	justify-content: center;
  	width: auto;
- 	min-height: 88vh;
- 	margin-top: 10vh;
- 	margin-bottom: 8vh;
- 	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
+	margin-top: 10vh;
 `
 
-const PaperContainer = styled(Paper)({
-	display: 'flex',
-	flexDirection: 'column',
-	backgroundColor: '#ff3860',
-	paddingTop: '0.5em',
-	paddingLeft: '0.5em',
-	paddingRight: '0.5em',
-	paddingBottom: '0.5em',
-	maxWidth: '70vw',
-});
+const UserPicturesContainer = styled.div`
+	height: auto;
+	width: auto;
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		min-height: 15vh;
+		min-width: 15vw;
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		min-height: 30vh;
+		min-width: 30vw;
+	}
+`
+
+const Text = styled.span`
+	color: ${COLORS.BLACK};
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		font-weight: 600;
+		font-size: 1.3em;
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		font-weight: 400;
+		font-size: 0.8em;
+	}
+`
 
 const InfoContainer = styled.div`
-	display: flex;
-	flex-direction: row;
-	align-items: flex-start;
+
 `
 
-const Username = styledMaterial(Typography)({
-	fontSize: '1rem',
-	color: "#FFF",
-	marginTop: '2vh',
-});
+const HobbyContainer = styled.div`
 
-const Name = styledMaterial(Typography)({
-	fontSize: '1rem',
-	color: "#FFF",
-	marginTop: '2vh',
-});
+`
 
-const Info = styledMaterial(Typography)({
-	fontSize: '0.7rem',
-	color: "#FFF",
-});
+const BiographyContainer = styled.div`
 
-const Hobbies = styledMaterial(Typography)({
-	fontSize: '0.7rem',
-	color: "#FFF",
-	marginBottom: '1vh',
-});
-
-const Biography = styledMaterial(Typography)({
-	fontSize: '0.5rem',
-	color: "#FFF",
-	marginBottom: '1vh',
-});
+`
 
 const ActionContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	margin-top: 1.5em;
-	margin-bottom: 1em;
+	/* margin-top: 1.5em; */
+	/* margin-bottom: 1em; */
 `
 
 function Profile(props) {
@@ -124,26 +111,40 @@ function Profile(props) {
 	console.log(user);
 
 	return (
-		<>
-				<UserContainer>
-					<PaperContainer component="div">
-						<UserPictures pictures={user.pictures}/>
-						<Username>@{user.username}</Username>
-						<Name>{user.firstname} {user.lastname}</Name>
-						<InfoContainer>
-							<Info>{user.gender.name.charAt(0).toUpperCase() + user.gender.name.slice(1)}</Info>
-							<Info style={{marginLeft: '2vw'}}>{findAge(user.birthdate)} years old</Info>
-							<Info style={{marginLeft: '2vw'}}>{user.orientation.name}</Info>
-						</InfoContainer>
-						<Hobbies>Interested in {userHobbies}</Hobbies>
-						<Biography>{user.biography}</Biography>
-						<ActionContainer>
-							{ like === false ? <FavoriteIcon onClick={likeMatch} htmlColor='#FAE3D9' /> : <CancelIcon onClick={unlikeMatch} htmlColor='#FAE3D9' />}
-							{ block === false ? <BlockIcon onClick={blockMatch} style={{marginLeft: "1.5em"}}></BlockIcon> : <ReplayIcon onClick={unblockMatch} style={{marginLeft: "1.5em"}}></ReplayIcon>}
-						</ActionContainer>
-					</PaperContainer>
-				</UserContainer>
-		</>
+		<ProfileContainer>
+			<UserPicturesContainer>
+				<UserPictures pictures={user.pictures}/>
+			</UserPicturesContainer>
+			<InfoContainer>
+
+			</InfoContainer>
+			
+			<HobbyContainer>
+
+			</HobbyContainer>
+			
+			<BiographyContainer>
+
+			</BiographyContainer>
+			
+			<ActionContainer>
+
+			</ActionContainer>
+
+			{/* <Username>@{user.username}</Username>
+			<Name>{user.firstname} {user.lastname}</Name>
+			<InfoContainer>
+				<Info>{user.gender.name.charAt(0).toUpperCase() + user.gender.name.slice(1)}</Info>
+				<Info style={{marginLeft: '2vw'}}>{findAge(user.birthdate)} years old</Info>
+				<Info style={{marginLeft: '2vw'}}>{user.orientation.name}</Info>
+			</InfoContainer>
+			<Hobbies>Interested in {userHobbies}</Hobbies>
+			<Biography>{user.biography}</Biography>
+			<ActionContainer>
+				{ like === false ? <FavoriteIcon onClick={likeMatch} htmlColor='#FAE3D9' /> : <CancelIcon onClick={unlikeMatch} htmlColor='#FAE3D9' />}
+				{ block === false ? <BlockIcon onClick={blockMatch} style={{marginLeft: "1.5em"}}></BlockIcon> : <ReplayIcon onClick={unblockMatch} style={{marginLeft: "1.5em"}}></ReplayIcon>}
+			</ActionContainer> */}
+		</ProfileContainer>
 	);
 }
 

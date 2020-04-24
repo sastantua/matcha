@@ -4,14 +4,30 @@ import { useSnackbar } from 'notistack';
 import styled from "styled-components";
 
 import api from '../../api/api'
+import { COLORS } from '../../config/style'
 
 
 const LoginContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	color: white;
-	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.BLACK_LIGHT};
+`
+
+const StyledButton = styled.button`
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 14px 20px;
+	margin: 8px 0;
+	margin-top: 2vh;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
+	}
 `
 
 function Verify() {
@@ -35,7 +51,7 @@ function Verify() {
 
 	return (
 		<LoginContainer>
-			<button onClick={handleSubmit}>Activate</button>
+			<StyledButton onClick={handleSubmit}>Activate your account</StyledButton>
 		</LoginContainer>
 	);
 }
