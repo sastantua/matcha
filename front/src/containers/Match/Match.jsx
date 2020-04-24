@@ -250,6 +250,11 @@ function Match() {
 			api.post(`/user/unlike/${match[matchIndex]._id}`)
 			.then((res) => {setLike(false)})
 			.catch((err) => {console.log(err)})
+			notifSocket.emit('notification', {
+				type: 'unlike',
+				to: match[matchIndex]._id,
+				from: user._id
+			})
 		} else {
 		api.post(`/user/like/${match[matchIndex]._id}`)
 		.then((res) => {setLike(true)})
