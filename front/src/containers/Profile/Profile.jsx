@@ -147,9 +147,17 @@ const ActionContainer = styled.div`
 `
 
 function Profile(props) {
-	const user = props.history.location.state.user;
+
 	const [like, setLike] = useState(false);
 	const [block, setBlock] = useState(false);
+
+	if (props.history.location.state === undefined) {
+		return (
+			<div></div>
+		);
+	}
+
+	const user = props.history.location.state.user;
 	const age = findAge(user.birthdate);
 
 	const likeMatch = () => {

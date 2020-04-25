@@ -2,7 +2,6 @@
 
 	Objectif du jour:
 
-		- Style Profile
 		- Style Login
 		- Style Register
 		- Style Password
@@ -12,7 +11,8 @@
 		- Report as fake account
 
 		- Optional:
-			picture modal on profile
+			Profile: add picture modal
+			Profile: style for IpadPro
 
 	Login / Signup:
 		- problem with default route (nomatch)
