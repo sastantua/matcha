@@ -5,6 +5,7 @@
 		- Style Login
 		- Style Register
 		- Style Password
+		- Style Unblock
 
 		- Do Unblock
 		- Call when profile is seen on profile and match

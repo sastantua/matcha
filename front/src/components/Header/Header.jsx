@@ -196,6 +196,12 @@ function Header() {
 					</SLink>
 				</Element>
 				<Element>
+					<SLink to="/unblock">
+						<Icon className="fas fa-unlock"></Icon>
+						<Typography>Unblock</Typography>
+					</SLink>
+				</Element>
+				<Element>
 					<SLink as="a" onClick={handleClick}>
 						<Icon className="fas fa-sign-out-alt fa-lg"></Icon>
 						<Typography>Logout</Typography>
