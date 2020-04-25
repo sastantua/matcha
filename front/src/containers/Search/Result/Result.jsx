@@ -105,7 +105,7 @@ const Biography = styled.span`
 	display: flex;
 	justify-content: stretch;
 	min-height: 50px;
-	padding: ${SPACING.XXS} ${SPACING.XS};
+	padding: ${SPACING.XXS} ${SPACING.XXS};
 	border-radius: 15px;
 	background-color: ${COLORS.GREY_LIGHT};
 `
@@ -142,7 +142,7 @@ const Chip = styled.div`
 	color: white;
 	background-color: ${COLORS.PURPLE};
 	margin: ${SPACING.XXS};
-	padding: ${SPACING.XXS} ${SPACING.XS};
+	padding: ${SPACING.XXS} ${SPACING.XXS};
 	font-size: 0.5em;
 	font-weight: 300;
 	border-radius: 32px;
@@ -168,7 +168,7 @@ const Bottom = styled.div`
 	}
 `
 const Box = styled.div`
-	padding: ${SPACING.XXS} ${SPACING.XS};
+	padding: ${SPACING.XXS} ${SPACING.XXS};
 	background-color: ${COLORS.GREY};
 	border-radius: 32px;
 `

@@ -3,7 +3,6 @@ import styled from "styled-components";
 import api from '../../api/api'
 import { notifSocket } from '../../api/socket';
 import { UserContext } from '../../context/UserContext';
-import UserImages from './UserImages/UserImages';
 
 import Loader from '../../components/Loader/Loader';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
@@ -121,7 +120,7 @@ const Biography = styled.span`
 	display: flex;
 	justify-content: stretch;
 	min-height: 50px;
-	padding: ${SPACING.XXS} ${SPACING.XS};
+	padding: ${SPACING.XXS} ${SPACING.XXS};
 	border-radius: 15px;
 	background-color: ${COLORS.GREY_LIGHT};
 `
@@ -131,7 +130,7 @@ const Chip = styled.div`
 	align-items: center;
 	background-color: ${COLORS.PINK_LIGHT};
 	color: white;
-	padding: ${SPACING.XXS} ${SPACING.XS};
+	padding: ${SPACING.XXS} ${SPACING.XXS};
 	border-radius: 32px;
 	margin: ${SPACING.XXS};
 	font-weight: 600;
@@ -171,7 +170,7 @@ const Bottom = styled.div`
 	justify-content: space-evenly;
 `
 const Box = styled.div`
-	padding: ${SPACING.XXS} ${SPACING.XS};
+	padding: ${SPACING.XXS} ${SPACING.XXS};
 	background-color: ${COLORS.GREY};
 	border-radius: 32px;
 `

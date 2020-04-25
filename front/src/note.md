@@ -8,14 +8,11 @@
 		- Style Password
 
 		- Do Unblock
-		- Call when profile is seen
+		- Call when profile is seen on profile and match
+		- Report as fake account
 
-
-
-		- add link return to search (history go back)
-		- is profile liked or not?
-		- block account
-		- report as fake account
+		- Optional:
+			picture modal on profile
 
 	Login / Signup:
 		- problem with default route (nomatch)

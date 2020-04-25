@@ -58,7 +58,7 @@ const SInput = styled.input`
 	border: none;
 	height: 30px;
 	font-size: 1em;
-	padding: ${SPACING.XXS} ${SPACING.XS};
+	padding: ${SPACING.XXS} ${SPACING.XXS};
 	background-color: rgba(0, 0, 0, .05);
 	border-radius: 18px;
 	margin-right: ${SPACING.BASE};

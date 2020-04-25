@@ -32,6 +32,7 @@ dotenv.config();
 
 const AppContainer = styled.div`
 	display: flex;
+	justify-content: center;
 	flex: 1;
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
 		margin-left: 5rem;
@@ -82,29 +83,23 @@ function App() {
 	}
 
 	return (
-		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} classes={{
-			like: {backgroundColor: COLORS.PINK}
-		}}
-		iconVariant={{
-			like: '❤️'
-		}}
-		>
+		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} classes={{like: {backgroundColor: COLORS.PINK}}} iconVariant={{like: '❤️'}}>
 			<UserContext.Provider value={ userMemo }>
 				<BrowserRouter>
 					<Header />
 						<AppContainer>
 							<Switch>
+								<Route exact path="/" component={Homepage} />
+								<Route exact path="/home" component={Homepage} />
 								<Route exact path="/login" component={Login} />
+								<Route exact path="/reset" component={Reset} />
 								<Route exact path="/signup" component={Signup} />
 								<Route exact path="/verify/:token" component={Verify} />
-								<Route exact path="/reset" component={Reset} />
-								<Route exact path="/home" component={Homepage} />
-								<Route exact path="/" component={Homepage} />
-								<AuthenticatedRoute exact path="/account" component={Account} />
+								<AuthenticatedRoute exact path="/chat" component={Chat} />
 								<AuthenticatedRoute exact path="/match" component={Match} />
 								<AuthenticatedRoute exact path="/search" component={Search} />
+								<AuthenticatedRoute exact path="/account" component={Account} />
 								<AuthenticatedRoute exact path="/profile" component={Profile} />
-								<AuthenticatedRoute exact path="/chat" component={Chat} />
 								<AuthenticatedRoute exact path="/unblock" component={Unblock} />
 								<Route path="*" component={NoMatch} />
 							</Switch>
