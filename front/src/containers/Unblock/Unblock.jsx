@@ -23,12 +23,18 @@ const RowContainer = styled.div`
 	flex-direction: row;
 	justify-content: space-evenly;
 	align-items: center;
-	width: 80%;
+	width: 50%;
 	& > :last-child {
 		margin-left: ${SPACING.XS};
 	}
 `
 
+const Cell = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50%;
+`
 
 const Text = styled.span`
 	color: ${COLORS.WHITE};
@@ -85,8 +91,12 @@ function Unblock() {
 			users.map((user, index) => {
 				return (
 					<RowContainer id={user._id}>
-						<Text>{user.username}</Text>
-						<StyledButton onClick={() => handleUnblock(user._id)}>Unblock</StyledButton>
+						<Cell>
+							<Text>{user.username}</Text>
+						</Cell>
+						<Cell>
+							<StyledButton onClick={() => handleUnblock(user._id)}>Unblock</StyledButton>
+						</Cell>
 					</RowContainer>
 				);
 			}

@@ -101,15 +101,6 @@ const Text = styled.span`
 	}
 `
 
-const Biography = styled.span`
-	display: flex;
-	justify-content: stretch;
-	min-height: 50px;
-	padding: ${SPACING.XXS} ${SPACING.XXS};
-	border-radius: 15px;
-	background-color: ${COLORS.GREY_LIGHT};
-`
-
 const RowContainer = styled.div`
 	display: flex;
 	justify-content: space-between;
@@ -156,6 +147,15 @@ const ChipsContainer = styled.div`
 		flex-direction: row;
 		margin: ${SPACING.XS} 0;
 	}
+`
+
+const Biography = styled.span`
+	display: flex;
+	justify-content: stretch;
+	min-height: 50px;
+	padding: ${SPACING.XXS} ${SPACING.XXS};
+	border-radius: 15px;
+	background-color: ${COLORS.GREY_LIGHT};
 `
 
 const Bottom = styled.div`

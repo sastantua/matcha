@@ -7,11 +7,14 @@
 		- Style Password
 		- Style Unblock
 
+
 		- Do Unblock
 		- Call when profile is seen on profile and match
 		- Report as fake account
 
 		- Optional:
+			Match: upgrade style
+			Match: add profile link?
 			Profile: add picture modal
 			Profile: style for IpadPro
 
