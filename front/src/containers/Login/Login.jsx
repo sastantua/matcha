@@ -2,51 +2,85 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import styled from "styled-components";
-import { styled as styledMaterial } from '@material-ui/core/styles';
 
 import api from '../../api/api'
+import { COLORS } from '../../config/style'
 
-import { Typography, TextField, Button } from '@material-ui/core';
 
 const LoginContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 100vh;
-	width: 100vw;
 	color: white;
-	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
 
-const LoginTitle = styledMaterial(Typography)({
-	fontSize: "2rem",
-	marginTop: "10vh",
-});
+const LoginTitle = styled.p`
+	font-size: 2rem;
+	margin-top: auto;
+`
 
 const LoginForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin-top: auto;
 	max-width: 50vw;
-	margin-top: 15vh;
 	& * {
 		margin-top: 2vh;
 	};
 `
 
-const InputWrapper = styledMaterial(TextField)({
-	fontSize: '2rem',
-	color: '#OOB7FF'
-});
+const StyledInput = styled.input`
+	display: inline-block;
+	width: 100%;
+	margin: 8px 0;
+	padding: 12px 20px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+`
 
+const SubmitButton = styled.button`
+	width: 100%;
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
+	}
+`
 
-const ResetPasswordLink = styled.div`
+const RedirectionContainer = styled.div`
+	margin-top: auto;
+`
+
+const ResetPwdLink = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	margin-top: 32vh;
+`
+
+const ResetPwdText = styled.p`
+	font-size: 1rem;
+`
+
+const ResetPwdButton = styled.button`
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 5px 10px;
+	margin: 0 8px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
+	}
 `
 
 const SignupLink = styled.div`
@@ -54,6 +88,25 @@ const SignupLink = styled.div`
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
+	margin-top: auto;
+	margin-bottom: 2vh;
+`
+
+const SignupText = styled.p`
+	font-size: 1rem;
+`
+
+const SignupButton = styled.button`
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 5px 10px;
+	margin: 0 8px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
+	}
 `
 
 function Login() {
@@ -88,18 +141,20 @@ function Login() {
 		<LoginContainer>
 			<LoginTitle>Matcha</LoginTitle>	
 			<LoginForm noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<InputWrapper variant="outlined" label="email" name="email" onChange={handleEmail}/>
-				<InputWrapper variant="outlined" label="password" name="password" onChange={handlePassword} style={{marginTop: "1vh"}}/>
-				<Button color="secondary" type='submit'>submit</Button>
+				<StyledInput placeholder="email" label="email" name="email" onChange={handleEmail}/>
+				<StyledInput placeholder="password" label="password" name="password" onChange={handlePassword} style={{marginTop: "1vh"}}/>
+				<SubmitButton color="secondary" type='submit'>submit</SubmitButton>
 			</LoginForm>
-			<ResetPasswordLink>
-				<Typography>Forgot your password?</Typography>
-				<Button color="secondary"><Link to="/reset">reset</Link></Button>
-			</ResetPasswordLink>
-			<SignupLink>
-				<Typography>Don't have an account?</Typography>
-				<Button color="secondary"><Link to="/signup">sign up</Link></Button>
-			</SignupLink>
+			<RedirectionContainer>
+				<ResetPwdLink>
+					<ResetPwdText>Forgot your password?</ResetPwdText>
+					<ResetPwdButton><Link to="/reset" style={{color: "#FFF", textDecoration: "none"}}>reset</Link></ResetPwdButton>
+				</ResetPwdLink>
+				<SignupLink>
+					<SignupText>Don't have an account?</SignupText>
+					<SignupButton><Link to="/signup" style={{color: "#FFF", textDecoration: "none"}}>sign up</Link></SignupButton>
+				</SignupLink>
+			</RedirectionContainer>
 		</LoginContainer>
 	);
 }

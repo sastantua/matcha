@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack';
 import styled from "styled-components";
 
 import api from '../../api/api'
-import { COLORS, BREAK_POINTS } from '../../config/style'
+import { COLORS } from '../../config/style'
 
 const SignupContainer = styled.div`
 	display: flex;
@@ -79,8 +79,6 @@ const LoginButton = styled.button`
 		transform: scale(1.05);
 	}
 `
-
-
 
 function Signup() {
 	const history = useHistory();
