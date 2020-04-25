@@ -91,7 +91,7 @@ const GroupDropdowns = styled.div`
 	}
 `
 
-const StyleButton = styled.button`
+const SubmitButton = styled.button`
 	width: 100%;
 	color: ${COLORS.WHITE};
 	background-color: ${COLORS.PINK_FLASHY};
@@ -157,7 +157,7 @@ function Account() {
 						<Orientation user={user} dropdowns={dropdowns}/>
 						<Hobby dropdowns={dropdowns}/>
 					</GroupDropdowns>
-					<StyleButton>Save changes</StyleButton>
+					<SubmitButton>Save changes</SubmitButton>
 				</UserForm>
 				<Password/>
 			</SubAccountContainer>

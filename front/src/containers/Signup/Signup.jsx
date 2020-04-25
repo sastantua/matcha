@@ -2,50 +2,85 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import styled from "styled-components";
-import { styled as styledMaterial } from '@material-ui/core/styles';
 
 import api from '../../api/api'
-
-import { Typography, TextField, Button } from '@material-ui/core';
+import { COLORS, BREAK_POINTS } from '../../config/style'
 
 const SignupContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	width: 100vw;
 	color: white;
-	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
 `
 
-const SignupTitle = styledMaterial(Typography)({
-	fontSize: "2rem",
-	marginTop: "10vh",
-});
+const SignupTitle = styled.p`
+	font-size: 2rem;
+	margin-top: auto;
+`
 
 const SignupForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	margin-top: auto;
 	max-width: 50vw;
-	margin-top: 7vh;
 	& * {
 		margin-top: 2vh;
 	};
 `
 
-const InputWrapper = styledMaterial(TextField)({
-	fontSize: '2rem',
-	color: '#OOB7FF'
-});
+const StyledInput = styled.input`
+	display: inline-block;
+	width: 100%;
+	margin: 8px 0;
+	padding: 12px 20px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+`
+
+const SubmitButton = styled.button`
+	width: 100%;
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
+	}
+`
 
 const LoginLink = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	margin-top: 20vh;
+	margin-top: auto;
+	margin-bottom: 2vh;
 `
+
+const LoginText = styled.p`
+	font-size: 1rem;
+`
+
+const LoginButton = styled.button`
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 5px 10px;
+	margin: 0 8px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
+	}
+`
+
+
 
 function Signup() {
 	const history = useHistory();
@@ -91,17 +126,17 @@ function Signup() {
 		<SignupContainer>
 			<SignupTitle>Matcha</SignupTitle>	
 			<SignupForm noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<InputWrapper label="firstname" name="firstname" onChange={handleFirstname} variant="outlined" />
-				<InputWrapper label="lastname" name="lastname" onChange={handleLastname} variant="outlined" />
-				<InputWrapper label="username" name="username" onChange={handleUsername} variant="outlined" />
-				<InputWrapper label="email" name="email" onChange={handleEmail} variant="outlined" />
-				<InputWrapper label="password" name="password" onChange={handlePassword} variant="outlined" />
-				<InputWrapper label="confirm_password" name="confirm_password" onChange={handleConfirmPassword} variant="outlined" />
-				<Button color="secondary" type='submit'>submit</Button>
+				<StyledInput placeholder="firstname" label="firstname" name="firstname" onChange={handleFirstname} variant="outlined" />
+				<StyledInput placeholder="lastname" label="lastname" name="lastname" onChange={handleLastname} variant="outlined" />
+				<StyledInput placeholder="username" label="username" name="username" onChange={handleUsername} variant="outlined" />
+				<StyledInput placeholder="email" label="email" name="email" onChange={handleEmail} variant="outlined" />
+				<StyledInput placeholder="password" label="password" name="password" onChange={handlePassword} variant="outlined" />
+				<StyledInput placeholder="confirm password" label="confirm_password" name="confirm_password" onChange={handleConfirmPassword} variant="outlined" />
+				<SubmitButton type='submit'>submit</SubmitButton>
 			</SignupForm>
 			<LoginLink>
-				<Typography>Already have an account?</Typography>
-				<Button color="secondary"><Link to="/login">login</Link></Button>
+				<LoginText>Already have an account?</LoginText>
+				<LoginButton><Link to="/login" style={{color: "#FFF", textDecoration: "none"}}>login</Link></LoginButton>
 			</LoginLink>
 		</SignupContainer>
 	);
