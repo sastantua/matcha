@@ -1,57 +1,87 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { styled as styledMaterial } from '@material-ui/core/styles';
+import { useSnackbar } from 'notistack';
 
 import api from '../../api/api'
-import { BREAK_POINTS } from '../../config/style';
-
-import { useSnackbar } from 'notistack';
-import { Typography, TextField, Button } from '@material-ui/core';
+import { COLORS, BREAK_POINTS } from '../../config/style'
 
 const ResetContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	height: 100vh;
-	width: 100vw;
 	color: white;
-	background-image: linear-gradient(90deg, #FF655B 30%, #FF5864 90%);
-	@media screen and (max-width: ${BREAK_POINTS.SCREEN_MD}) {
-		flex-direction: row;
-		background-image: linear-gradient(90deg, #FFF 30%, #FFF 90%);
-	}
 `
 
-const ResetTitle = styledMaterial(Typography)({
-	fontSize: "2rem",
-	marginTop: "10vh",
-});
+const ResetTitle = styled.p`
+	font-size: 2rem;
+	margin-top: 10vh;
+`
 
 const ResetForm = styled.form`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	max-width: 50vw;
-	margin-top: 15vh;
+	margin-top: auto;
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		width: 30%;
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		width: auto;
+	}
+	& * {
+		margin-top: 2vh;
+	};
 `
 
-const MailInput = styledMaterial(TextField)({
-	fontSize: '2rem',
-	color: '#OOB7FF'
-});
+const StyledInput = styled.input`
+	display: inline-block;
+	width: 100%;
+	margin: 8px 0;
+	padding: 12px 20px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+`
+
+const SubmitButton = styled.button`
+	width: 100%;
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
+	}
+`
 
 const LoginLink = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
-	margin-top: 40vh;
-	}
-	@media screen and (max-width: ${BREAK_POINTS.SCREEN_MD}) {
-		margin-top: 55vh;
+	margin-top: auto;
+	margin-bottom: 2vh;
+`
+
+const LoginText = styled.p`
+	font-size: 1rem;
+`
+
+const LoginButton = styled.button`
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 5px 10px;
+	margin: 0 8px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	:hover {
+		transform: scale(1.05);
 	}
 `
 
@@ -64,7 +94,6 @@ function Reset() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// const user = {email: email}
 		api.post('/user/forgot', {email: email})
 		.then((res) => {
 			enqueueSnackbar(`Check you mails`, {variant: 'success'});
@@ -80,12 +109,12 @@ function Reset() {
 		<ResetContainer>
 			<ResetTitle>Reset password</ResetTitle>	
 			<ResetForm noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<MailInput variant="outlined" label="email" name="email" onChange={handleEmail}/>
-				<Button color="secondary" style={{marginTop: "2vh"}} type='submit'>submit</Button>
+				<StyledInput placeholder="email" label="email" name="email" onChange={handleEmail}/>
+				<SubmitButton type='submit'>submit</SubmitButton>
 			</ResetForm>
 			<LoginLink>
-				<Typography>You've miss clicked?</Typography>
-				<Button color="secondary"><Link to="/login">login</Link></Button>
+				<LoginText>You've miss clicked?</LoginText>
+				<LoginButton><Link to="/login" style={{color: "#FFF", textDecoration: "none"}}>login</Link></LoginButton>
 			</LoginLink>
 		</ResetContainer>
 	);

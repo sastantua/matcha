@@ -6,7 +6,6 @@ import styled from "styled-components";
 import api from '../../api/api'
 import { COLORS } from '../../config/style'
 
-
 const LoginContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -112,7 +111,7 @@ const SignupButton = styled.button`
 function Login() {
 	const history = useHistory();
 	const [email, setEmail] = useState("guillaumeroux123@gmail.com");
-	const [password, setPassword] = useState("Guillaume-123");
+	const [password, setPassword] = useState("Guillaume-1234");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const handleEmail = (e) => {setEmail(e.target.value);}
