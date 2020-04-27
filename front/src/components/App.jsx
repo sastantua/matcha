@@ -10,7 +10,6 @@ import { notifSocket } from '../api/socket';
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import { SnackbarProvider } from 'notistack';
-import dotenv from 'dotenv';
 
 import Homepage from '../containers/Homepage/Homepage';
 import Account from '../containers/Account/Account';
@@ -27,9 +26,6 @@ import Login from '../containers/Login/Login';
 import Verify from '../containers/Verify/Verify';
 import NoMatch from '../containers/NoMatch/NoMatch';
 import Header from './Header/Header';
-
-
-dotenv.config();
 
 const AppContainer = styled.div`
 	display: flex;
@@ -66,7 +62,6 @@ function App() {
 	const {latitude, longitude} = usePosition();
 	const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
 
-	
 	useEffect(() => {
 		if (user) {
 			api.post('/user/location', {lat: latitude, lng: longitude})
@@ -84,17 +79,7 @@ function App() {
 	}
 
 	return (
-<<<<<<< HEAD
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} classes={{like: {backgroundColor: COLORS.PINK}}} iconVariant={{like: '❤️'}}>
-=======
-		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} classes={{
-			like: {backgroundColor: COLORS.PINK}
-		}}
-		iconVariant={{
-			like: '❤️'
-		}}
-		>
->>>>>>> work on notification
 			<UserContext.Provider value={ userMemo }>
 				<BrowserRouter>
 					<Header />

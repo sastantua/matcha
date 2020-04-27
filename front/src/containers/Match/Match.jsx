@@ -4,7 +4,7 @@ import styled from "styled-components";
 import api from '../../api/api'
 import { notifSocket } from '../../api/socket';
 import { UserContext } from '../../context/UserContext';
-import UserImages from './UserImages/UserImages';
+import UserImages from '../../helper/UserImages';
 
 import Loader from '../../components/Loader/Loader';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';

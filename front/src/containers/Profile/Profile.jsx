@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
+=======
+import React, { useState, useContext } from 'react';
+>>>>>>> base notifications
 import styled from 'styled-components'
 
 import api from '../../api/api'
@@ -8,6 +12,8 @@ import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
 
 import { Block, Replay } from '@material-ui/icons';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
+import { notifSocket } from '../../api/socket';
+import { UserContext } from '../../context/UserContext';
 
 const ProfileContainer = styled.div`
  	display: flex;
@@ -162,7 +168,7 @@ const ActionContainer = styled.div`
 `
 
 function Profile(props) {
-
+	const { user, setUser } = useContext(UserContext);
 	const [like, setLike] = useState(false);
 	const [block, setBlock] = useState(false);
 
@@ -172,55 +178,74 @@ function Profile(props) {
 		);
 	}
 
-	const user = props.history.location.state.user;
-	const age = findAge(user.birthdate);
+	const profile = props.history.location.state.user;
+	const age = findAge(profile.birthdate);
 
 	const likeMatch = () => {
-		api.post(`/user/like/${user._id}`)
-		.then((res) => {setLike(true)})
+		api.post(`/user/like/${profile._id}`)
+		.then((res) => {
+			setLike(true);
+			notifSocket.emit('notification', {
+				type: 'like',
+				to: profile._id,
+				from: user._id
+			})
+		})
 		.catch((err) => {console.log(err)})
 	}
 
 	const unlikeMatch = () => {
-		api.post(`/user/unlike/${user._id}`)
-		.then((res) => {setLike(false)})
+		api.post(`/user/unlike/${profile._id}`)
+		.then((res) => {
+			setLike(false);
+			notifSocket.emit('notification', {
+				type: 'unlike',
+				to: profile._id,
+				from: user._id
+			})
+		})
 		.catch((err) => {console.log(err)})
 	}
 
 	const blockMatch = () => {
-		api.post(`/user/block/${user._id}`)
-		.then((res) => {setBlock(true)})
+		api.post(`/user/block/${profile._id}`)
+		.then((res) => {
+			setBlock(true);
+			notifSocket.emit('notification', {
+				type: 'block',
+				to: profile._id,
+				from: user._id
+			})
+		})
 		.catch((err) => {console.log(err)})
 	}
 
 	const unblockMatch = () => {
-		api.post(`/user/unblock/${user._id}`)
+		api.post(`/user/unblock/${profile._id}`)
 		.then((res) => {setBlock(false)})
 		.catch((err) => {console.log(err)})
 	}
 
-	console.log(user);
-
 	return (
 		<ProfileContainer id="ProfileContainer">
 			<UserPicturesContainer id="UserPicturesContainer">
-				<UserPictures pictures={user.pictures} id="UserPictures"/>
+				<UserPictures pictures={profile.pictures} id="UserPictures"/>
 			</UserPicturesContainer>
 			<InfoContainer id="InfoContainer">
-				<InfoText>@{user.username.charAt(0).toUpperCase() + user.username.slice(1)}</InfoText>
+				<InfoText>@{profile.username.charAt(0).toUpperCase() + profile.username.slice(1)}</InfoText>
 				<InfoRowContainer id="InfoRowContainer">
-					<InfoText>{user.firstname.charAt(0).toUpperCase() + user.firstname.slice(1)}</InfoText>
-					<InfoText>{user.lastname.charAt(0).toUpperCase() + user.lastname.slice(1)}</InfoText>
+					<InfoText>{profile.firstname.charAt(0).toUpperCase() + profile.firstname.slice(1)}</InfoText>
+					<InfoText>{profile.lastname.charAt(0).toUpperCase() + profile.lastname.slice(1)}</InfoText>
 				</InfoRowContainer>
 				<InfoRowContainer id="InfoRowContainer">
-					<InfoText>{user.gender.name.charAt(0).toUpperCase() + user.gender.name.slice(1)}</InfoText>
-					<InfoText>{user.orientation.name.charAt(0).toUpperCase() + user.orientation.name.slice(1)}</InfoText>
+					<InfoText>{profile.gender.name.charAt(0).toUpperCase() + profile.gender.name.slice(1)}</InfoText>
+					<InfoText>{profile.orientation.name.charAt(0).toUpperCase() + profile.orientation.name.slice(1)}</InfoText>
 					<InfoText>{age} year old</InfoText>
 				</InfoRowContainer>
 			</InfoContainer>
 			<HobbyContainer id="HobbyContainer">
 				{
-					user.hobbies.map(hobby =>
+					profile.hobbies.map(hobby =>
 						<Chip>
 							<Icon>
 								<i class="fab fa-slack-hash"></i>
@@ -232,12 +257,12 @@ function Profile(props) {
 			</HobbyContainer>
 			<BiographyContainer id="BiographyContainer">
 				<BiographyText>
-					{user.biography}
+					{profile.biography}
 				</BiographyText>
 			</BiographyContainer>
 			<Bottom>
-					{user.likes && <Box>{"Already likes you"}</Box>}
-					{user.isSeen && <Box>{"Already saw your profile"}</Box>}
+					{profile.likes && <Box>{"Already likes you"}</Box>}
+					{profile.isSeen && <Box>{"Already saw your profile"}</Box>}
 			</Bottom>
 			<ActionContainer id="ActionContainer">
 				{like ? <FavoriteBorder onClick={unlikeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></FavoriteBorder> : <Favorite onClick={likeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"/>}

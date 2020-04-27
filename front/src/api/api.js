@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({ baseURL: 'http://localhost:3000' });
+const api = axios.create({ baseURL: process.env.REACT_APP_API_URL});
 
 // headers: {'Access-Control-Allow-Origin': '*'}
 

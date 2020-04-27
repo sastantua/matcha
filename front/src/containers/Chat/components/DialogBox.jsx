@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SendIcon from '@material-ui/icons/Send';
 import { animateScroll } from "react-scroll";
 
-import { chatSocket } from '../../../api/socket';
+import { chatSocket, notifSocket } from '../../../api/socket';
 import Message, { LoaderMessage } from './Message';
 import { SPACING } from '../../../config';
 
@@ -109,6 +109,11 @@ export default ({ loggedUser, user, messages, pushMessage }) => {
 			message: message
 		}
 		chatSocket.emit('send_message', data);
+		notifSocket.emit('notification', {
+			type: 'message',
+			to: user._id,
+			from: loggedUser._id
+		})
 		pushMessage(data);
 		setMessage('');
 		scrollToBottom();

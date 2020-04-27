@@ -128,8 +128,22 @@ function Header() {
 		const notificationHandler = (notification) => {		
 			switch (notification.type) {
 				case "like" :
-					enqueueSnackbar('Someone liked you', {variant: 'like'})
-					setTimeout(closeSnackbar(), 1000);
+					enqueueSnackbar('Someone liked you', {variant: notification.type});
+					break;
+				case "unlike" :
+					enqueueSnackbar('Someone unliked you', {variant: notification.type});
+					break;
+				case "block" :
+					enqueueSnackbar('Someone blocked you', {variant: notification.type});
+					break;
+				case "visit" :
+					enqueueSnackbar('Someone visited your profile', {variant: notification.type});
+					break;
+				case "match" :
+					enqueueSnackbar('Someone you liked likes you', {variant: notification.type});
+					break;
+				case "message" :
+					enqueueSnackbar("You've got a new message", {variant: notification.type});
 					break;
 				default :
 					break;
@@ -203,7 +217,7 @@ function Header() {
 				</Element>
 				<Element>
 					<SLink to="/unblock">
-						<Icon className="fas fa-unlock"></Icon>
+						<Icon className="fas fa-unlock fa-lg"></Icon>
 						<Typography>Unblock</Typography>
 					</SLink>
 				</Element>
