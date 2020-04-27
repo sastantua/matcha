@@ -12,20 +12,7 @@
 			Match: add profile link?
 			Profile: style for IpadPro
 			Profile: add picture modal
-			Helper: Move card from match and search to helper?
-
-	Login / Signup:
-		- problem with default route (nomatch)
-
-
-	Others:
-		- utiliser la snackbar de material ui ?
-
-
-	Ask Guillaume:
-		- wtf with react dev tool
-
-	Color:
+			Helper: Move card from match and search to helper? (no style already differ ...)
 
 # React Hooks
 

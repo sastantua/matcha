@@ -2,19 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import findAge from '../../../helper/findAge'
-import UserImages from '../../../helper/UserImages';
-import { COLORS, SPACING, BREAK_POINTS } from '../../../config/style';
-
-const ResultContainer = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	& > * {
-		margin-top: 4vh;
-	}
-`
+import findAge from './findAge'
+import UserImages from './UserImages';
+import { COLORS, SPACING, BREAK_POINTS } from '../config/style';
 
 const UserContainer = styled.div`
 	width: auto;
@@ -219,20 +209,4 @@ function User(props) {
 	);
 }
 
-function Result(props) {
-	const Users = () => {
-		return (
-			props.result.map((user, index) => {
-				return (<User user={user} key={index}/>);
-			}
-		));
-	}
-
-	return (
-		<ResultContainer id="ResultContainer">
-			<Users/>
-		</ResultContainer>
-	);
-}
-
-export default Result;
+export default User;

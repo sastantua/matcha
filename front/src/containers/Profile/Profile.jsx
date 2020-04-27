@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import api from '../../api/api'
 import findAge from '../../helper/findAge';
-import UserPictures from '../../helper/UserImages/UserImages';
+import UserPictures from '../../helper/UserImages';
 import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
 
 import { Block, Replay } from '@material-ui/icons';
@@ -128,6 +128,21 @@ const BiographyText = styled.span`
 	}
 `
 
+const Bottom = styled.div`
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
+		flex-direction: column;
+		align-items: center;
+	}
+	margin-top: ${SPACING.BASE};
+	display: flex;
+	justify-content: space-evenly;
+`
+const Box = styled.div`
+	padding: ${SPACING.XXS} ${SPACING.XXS};
+	background-color: ${COLORS.GREY};
+	border-radius: 32px;
+`
+
 const ActionContainer = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -220,6 +235,10 @@ function Profile(props) {
 					{user.biography}
 				</BiographyText>
 			</BiographyContainer>
+			<Bottom>
+					{user.likes && <Box>{"Already likes you"}</Box>}
+					{user.isSeen && <Box>{"Already saw your profile"}</Box>}
+			</Bottom>
 			<ActionContainer id="ActionContainer">
 				{like ? <FavoriteBorder onClick={unlikeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></FavoriteBorder> : <Favorite onClick={likeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"/>}
 				{block ? <Replay onClick={unblockMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></Replay> : <Block onClick={blockMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></Block>}
