@@ -433,6 +433,15 @@ export const getLikes = async (user) => {
 			let like = undefined;
 			like = record._fields[1].properties;
 			like.user = record._fields[0].properties;
+			like.user.gender = await getGender(like.user);
+			like.user.orientation = await getOrientation(like.user);
+			like.user.hobbies = await getHobbies(like.user);
+			like.user.pictures = await getPictures(like.user);
+			like.user.popularity = await getPopularityScore(like.user);
+			like.user.location = await getLocation(like.user);
+			like.user.likes = await likes(user, like.user);
+			like.user.liked = await isLiked(user, like.user);
+			like.user.isSeen = await isSeen(user, like.user);
 			delete like.user.password;
 			delete like.user.email;
 			likes.push(like);
