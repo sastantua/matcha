@@ -429,10 +429,16 @@ export const getLikes = async (user) => {
 	return await dbSession.session.run(query, user).then(res => {
 		closeBridge(dbSession)
 		let likes = []
-		res.records.map(async record => {
+		res.records.map(record => {
 			let like = undefined;
 			like = record._fields[1].properties;
 			like.user = record._fields[0].properties;
+			
+			delete like.user.password;
+			delete like.user.email;
+			likes.push(like);
+		})
+		for (let like of likes) {
 			like.user.gender = await getGender(like.user);
 			like.user.orientation = await getOrientation(like.user);
 			like.user.hobbies = await getHobbies(like.user);
@@ -442,10 +448,7 @@ export const getLikes = async (user) => {
 			like.user.likes = await likes(user, like.user);
 			like.user.liked = await isLiked(user, like.user);
 			like.user.isSeen = await isSeen(user, like.user);
-			delete like.user.password;
-			delete like.user.email;
-			likes.push(like);
-		})
+		}
 		return likes;
 	}).catch(e => console.log(e));
 }
@@ -505,10 +508,15 @@ export const getSeen = async (user) => {
 	return await dbSession.session.run(query, user).then(res => {
 		closeBridge(dbSession)
 		let saw = []
-		res.records.map(async record => {
+		res.records.map(record => {
 			let seen = undefined;
 			seen = record._fields[1].properties;
 			seen.user = record._fields[0].properties;
+			delete seen.user.password;
+			delete seen.user.email;
+			saw.push(seen);
+		})
+		for (let seen of saw) {
 			seen.user.gender = await getGender(seen.user);
 			seen.user.orientation = await getOrientation(seen.user);
 			seen.user.hobbies = await getHobbies(seen.user);
@@ -518,10 +526,7 @@ export const getSeen = async (user) => {
 			seen.user.likes = await likes(user, seen.user);
 			seen.user.liked = await isLiked(user, seen.user);
 			seen.user.isSeen = await isSeen(user, seen.user);
-			delete seen.user.password;
-			delete seen.user.email;
-			saw.push(seen);
-		})
+		}
 		return saw;
 	}).catch(e => console.log(e));
 }
