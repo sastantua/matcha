@@ -496,12 +496,21 @@ export const getSeen = async (user) => {
 	return await dbSession.session.run(query, user).then(res => {
 		closeBridge(dbSession)
 		let saw = []
-		res.records.map(record => {
+		res.records.map(async record => {
 			let seen = undefined;
 			seen = record._fields[1].properties;
 			seen.user = record._fields[0].properties;
-			delete user.password;
-			delete user.email;
+			seen.user.gender = await getGender(seen.user);
+			seen.user.orientation = await getOrientation(seen.user);
+			seen.user.hobbies = await getHobbies(seen.user);
+			seen.user.pictures = await getPictures(seen.user);
+			seen.user.popularity = await getPopularityScore(seen.user);
+			seen.user.location = await getLocation(seen.user);
+			seen.user.likes = await likes(user, seen.user);
+			seen.user.liked = await isLiked(user, seen.user);
+			seen.user.isSeen = await isSeen(user, seen.user);
+			delete seen.user.password;
+			delete seen.user.email;
 			saw.push(seen);
 		})
 		return saw;
