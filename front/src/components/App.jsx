@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import usePosition from '../hooks/usePosition';
 import { UserContext } from '../context/UserContext'
+import { NotificationsProvider } from '../context/NotificationsProvider';
 import api from '../api/api';
 import { BREAK_POINTS, COLORS } from '../config/style';
 import { notifSocket } from '../api/socket';
@@ -26,6 +27,7 @@ import Login from '../containers/Login/Login';
 import Verify from '../containers/Verify/Verify';
 import NoMatch from '../containers/NoMatch/NoMatch';
 import Header from './Header/Header';
+import Notifications from '../containers/Notifications/Notifications';
 
 const AppContainer = styled.div`
 	display: flex;
@@ -81,8 +83,9 @@ function App() {
 	return (
 		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} classes={{like: {backgroundColor: COLORS.PINK}}} iconVariant={{like: '❤️'}}>
 			<UserContext.Provider value={ userMemo }>
-				<BrowserRouter>
-					<Header />
+				<NotificationsProvider>
+					<BrowserRouter>
+						<Header />
 						<AppContainer>
 							<Switch>
 								<Route exact path="/" component={Homepage} />
@@ -98,10 +101,12 @@ function App() {
 								<AuthenticatedRoute exact path="/account" component={Account} />
 								<AuthenticatedRoute exact path="/profile" component={Profile} />
 								<AuthenticatedRoute exact path="/unblock" component={Unblock} />
+								<AuthenticatedRoute exact path="/notifications" component={Notifications} />
 								<Route path="*" component={NoMatch} />
 							</Switch>
 						</AppContainer>
 					</BrowserRouter>
+				</NotificationsProvider>
 			</UserContext.Provider>
 		</SnackbarProvider>
 	)

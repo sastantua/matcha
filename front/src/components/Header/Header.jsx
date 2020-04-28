@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { useHistory, Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
-import { useImmer } from 'use-immer';
 
 import api from '../../api/api'
 import { notifSocket } from '../../api/socket';
 import { COLORS, BREAK_POINTS } from '../../config/style'
+import { useContext } from 'react';
+import { NotificationsContext } from '../../context/NotificationsProvider';
 
 
 const Typography = styled.span`
@@ -54,6 +55,7 @@ const Navigation = styled.div`
 		bottom: 0;
 		width: 100vw;
 		height: 5rem;
+		overflow: scroll;
 		&:hover ${Typography} {
 			display: none;
 		}
@@ -93,6 +95,18 @@ const Container = styled.ul`
 	}
 `
 
+const shake = keyframes`
+  0% { transform: rotate(0); }
+  15% { transform: rotate(5deg); }
+  30% { transform: rotate(-5deg); }
+  45% { transform: rotate(4deg); }
+  60% { transform: rotate(-4deg); }
+  75% { transform: rotate(2deg); }
+  85% { transform: rotate(-2deg); }
+  92% { transform: rotate(1deg); }
+  100% { transform: rotate(0); }
+`
+
 const SLink = styled(Link)`
 	display: flex;
 	align-items: center;
@@ -109,6 +123,9 @@ const SLink = styled(Link)`
 	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 		justify-content: center;
 	}
+	& svg {
+		${p => p.animation && css`animation: ${shake} .7s cubic-bezier(.36,.07,.19,.97) infinite;`}
+	}
 `
 
 const Icon = styled.i`
@@ -122,7 +139,7 @@ const Icon = styled.i`
 function Header() {
 	const history = useHistory();
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-	const [notifications, addNotification] = useImmer([]);
+	const [notifications, addNotification] = useContext(NotificationsContext);
 
 	useEffect(() => {
 		const notificationHandler = (notification) => {		
@@ -210,8 +227,8 @@ function Header() {
 					</SLink>
 				</Element>
 				<Element>
-					<SLink>
-							<Icon className="fas fa-bell fa-lg"></Icon>
+					<SLink to="/notifications" animation={!!notifications.length}>
+								<Icon className="fas fa-bell fa-lg"></Icon>
 						<Typography>Notifications</Typography>
 					</SLink>
 				</Element>

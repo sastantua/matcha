@@ -426,7 +426,7 @@ export const likes = async (user, _id) => {
 export const getLikes = async (user) => {
 	const dbSession = session(mode.READ);
 	const query = 'MATCH (y:User)<-[l:LOVE]-(u:User) WHERE y._id = $_id RETURN u,l';
-	let likes = await dbSession.session.run(query, user).then(res => {
+	let alikes = await dbSession.session.run(query, user).then(res => {
 		closeBridge(dbSession)
 		let likes = []
 		res.records.map(record => {
@@ -440,7 +440,7 @@ export const getLikes = async (user) => {
 		})
 		return likes;
 	}).catch(e => console.log(e));
-	for (let like of likes) {
+	for (let like of alikes) {
 		like.user.gender = await getGender(like.user);
 		like.user.orientation = await getOrientation(like.user);
 		like.user.hobbies = await getHobbies(like.user);
@@ -451,7 +451,7 @@ export const getLikes = async (user) => {
 		like.user.liked = await isLiked(user, like.user);
 		like.user.isSeen = await isSeen(user, like.user);
 	}
-	return likes;
+	return alikes;
 }
 
 export const getBlocked = async (user) => {
