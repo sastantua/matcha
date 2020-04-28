@@ -429,7 +429,7 @@ export const getLikes = async (user) => {
 	return await dbSession.session.run(query, user).then(res => {
 		closeBridge(dbSession)
 		let likes = []
-		res.records.map(record => {
+		res.records.map(async record => {
 			let like = undefined;
 			like = record._fields[1].properties;
 			like.user = record._fields[0].properties;
