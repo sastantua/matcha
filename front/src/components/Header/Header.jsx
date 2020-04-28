@@ -166,6 +166,12 @@ function Header() {
 					</SLink>
 				</Logo>
 				<Element>
+					<SLink to="/account">
+						<Icon className="fas fa-user fa-lg"></Icon>
+						<Typography>Account</Typography>
+					</SLink>
+				</Element>
+				<Element>
 					<SLink to="/match">
 						<Icon className="fab fa-hotjar fa-lg"></Icon>
 						<Typography>Match</Typography>
@@ -178,6 +184,12 @@ function Header() {
 					</SLink>
 				</Element>
 				<Element>
+					<SLink to="/saw">
+						<Icon className="fas fa-eye"></Icon>
+						<Typography>Visitied</Typography>
+					</SLink>
+				</Element>
+				<Element>
 					<SLink to="/chat">
 						<Icon className="fas fa-comment-dots fa-lg"></Icon>
 						<Typography>Chat</Typography>
@@ -187,12 +199,6 @@ function Header() {
 					<SLink>
 							<Icon className="fas fa-bell fa-lg"></Icon>
 						<Typography>Notifications</Typography>
-					</SLink>
-				</Element>
-				<Element>
-					<SLink to="/account">
-						<Icon className="fas fa-user fa-lg"></Icon>
-						<Typography>Account</Typography>
 					</SLink>
 				</Element>
 				<Element>

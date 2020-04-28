@@ -16,6 +16,7 @@ import Homepage from '../containers/Homepage/Homepage';
 import Account from '../containers/Account/Account';
 import Match from '../containers/Match/Match';
 import Search from '../containers/Search/Search';
+import Saw from '../containers/Saw/Saw';
 import Profile from '../containers/Profile/Profile';
 import Reset from '../containers/Reset/Reset';
 import Chat from '../containers/Chat';
@@ -95,6 +96,7 @@ function App() {
 								<Route exact path="/reset" component={Reset} />
 								<Route exact path="/signup" component={Signup} />
 								<Route exact path="/verify/:token" component={Verify} />
+								<AuthenticatedRoute exact path="/saw" component={Saw} />
 								<AuthenticatedRoute exact path="/chat" component={Chat} />
 								<AuthenticatedRoute exact path="/match" component={Match} />
 								<AuthenticatedRoute exact path="/search" component={Search} />

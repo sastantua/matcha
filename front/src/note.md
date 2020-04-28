@@ -1,14 +1,26 @@
 # Todo
 
 	Objectif du jour:
+		- Get saw get likes
+		- Report fake profile
+		- When profile is visited (Match: card loaded, profile)
+		- Popularity
+		- Distance
 		- Do homepage
-		- Style Password
+		- Remove all console.log
 
 		- Call when profile is seen on profile and match
 		- Report as fake account
 
+		- Important:
+			Error:
+			Localisation:
+			Popularity Score:
+			Last VisitOnline:
+
+			L’utilisateur doit pouvoir consulter les personnes ayant consulté son profil, ainsi que les personnes qui l’ont “liké”.
+
 		- Optional:
-			Match: upgrade style
 			Match: add profile link?
 			Profile: style for IpadPro
 			Profile: add picture modal

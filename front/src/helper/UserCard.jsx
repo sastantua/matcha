@@ -6,7 +6,7 @@ import findAge from './findAge'
 import UserImages from './UserImages';
 import { COLORS, SPACING, BREAK_POINTS } from '../config/style';
 
-const UserContainer = styled.div`
+const UserCardContainer = styled.div`
 	width: auto;
 	min-height: 60%;
 	border-radius: 15px;
@@ -97,6 +97,27 @@ const RowContainer = styled.div`
 	align-items: baseline;
 `
 
+const ChipsContainer = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	margin: ${SPACING.BASE} 0;
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		flex-direction: row;
+		margin: ${SPACING.XS} 0;
+	}
+`
+
+const Chip = styled.div`
+	display: flex;
+	align-items: center;
+	color: white;
+	background-color: ${COLORS.PURPLE};
+	margin: ${SPACING.XXS};
+	padding: ${SPACING.XXS} ${SPACING.XXS};
+	font-weight: 300;
+	border-radius: 32px;
+`
+
 const Icon = styled.div`
 	display: flex;
 	justify-content: center;
@@ -114,28 +135,6 @@ const Icon = styled.div`
 		height: 28px;
 		width: 28px;
 		margin-right: ${SPACING.XS};
-	}
-`
-
-const Chip = styled.div`
-	display: flex;
-	align-items: center;
-	color: white;
-	background-color: ${COLORS.PURPLE};
-	margin: ${SPACING.XXS};
-	padding: ${SPACING.XXS} ${SPACING.XXS};
-	font-size: 0.5em;
-	font-weight: 300;
-	border-radius: 32px;
-`
-
-const ChipsContainer = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	margin: ${SPACING.BASE} 0;
-	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		flex-direction: row;
-		margin: ${SPACING.XS} 0;
 	}
 `
 
@@ -163,9 +162,9 @@ const Box = styled.div`
 	border-radius: 32px;
 `
 
-function User(props) {
+function UserCard(props) {
 	return (
-		<UserContainer id={props.user.username}>
+		<UserCardContainer id={props.user.username}>
 			<Link to={{pathname: '/profile', state: { user: props.user }}} style={{ textDecoration: 'none' }}>
 				<HeadContainer id="HeadContainer">
 					<ImagesContainer id="ImagesContainer">
@@ -188,8 +187,7 @@ function User(props) {
 					{
 						props.user.hobbies.map(hobby =>
 							<Chip id="Chip">
-								<Icon>
-									<i class="fab fa-slack-hash"></i>
+								<Icon className="fab fa-slack-hash">
 								</Icon>
 								<span>{hobby.name}</span>
 							</Chip>
@@ -205,8 +203,8 @@ function User(props) {
 					{props.user.isSeen && <Box>{"Already saw your profile"}</Box>}
 				</Bottom>
 			</Link>
-		</UserContainer>
+		</UserCardContainer>
 	);
 }
 
-export default User;
+export default UserCard;
