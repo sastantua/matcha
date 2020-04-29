@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-=======
 import React, { useState, useContext } from 'react';
->>>>>>> base notifications
 import styled from 'styled-components'
 
 import api from '../../api/api'
@@ -168,7 +164,7 @@ const ActionContainer = styled.div`
 `
 
 function Profile(props) {
-	const { user, setUser } = useContext(UserContext);
+	const { user } = useContext(UserContext);
 	const [like, setLike] = useState(false);
 	const [block, setBlock] = useState(false);
 

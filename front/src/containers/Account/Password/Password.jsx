@@ -41,9 +41,9 @@ function Password() {
 	const history = useHistory();
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-	const [oldPassword, setOldPassword] = useState();
-	const [password, setPassword] = useState();
-	const [confirmPassword, setConfirmPassword] = useState();
+	const [oldPassword, setOldPassword] = useState("");
+	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
 	
 	const handleOldPassword = (e) => {setOldPassword(e.target.value);}
 	const handlePassword = (e) => {setPassword(e.target.value);}
@@ -71,9 +71,9 @@ function Password() {
 
 	return (
 		<PasswordForm noValidate autoComplete="off" onSubmit={handleSubmit}>
-			<InputWrapper placeholder="password" label="oldpassword" value={ oldPassword ? oldPassword : "" } name="password" onChange={handleOldPassword}/>
-			<InputWrapper placeholder="new passord" label="password" value={ password ? password : "" } name="password" onChange={handlePassword}/>
-			<InputWrapper placeholder="confirm new password" label="confirmpassword" value={ confirmPassword ? confirmPassword : "" } name="password" onChange={handleConfirmPassword}/>
+			<InputWrapper placeholder="password" label="oldpassword" value={ oldPassword } name="password" onChange={handleOldPassword}/>
+			<InputWrapper placeholder="new passord" label="password" value={ password } name="password" onChange={handlePassword}/>
+			<InputWrapper placeholder="confirm new password" label="confirmpassword" value={ confirmPassword } name="password" onChange={handleConfirmPassword}/>
 			<SubmitButton type='submit'>Edit Password</SubmitButton>
 		</PasswordForm>
 	);	

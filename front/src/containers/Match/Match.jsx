@@ -290,8 +290,8 @@ function Match() {
 				<RowContainer id="RowContainer">
 					<ChipsContainer id="ChipsContainer">
 					{
-						match[matchIndex].hobbies.map(hobby =>
-							<Chip id="Chip">
+						match[matchIndex].hobbies.map((hobby, index) =>
+							<Chip id="Chip" key={index}>
 								<Icon className="fab fa-slack-hash">
 								</Icon>
 								<span>{hobby.name}</span>

@@ -158,8 +158,8 @@ function UserImages() {
 	}
 
 	const userImagesArray = userPictures.map((text, index) =>
-		<div onClick={() => openModal(text._id)}>
-			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} />
+		<div onClick={() => openModal(text._id)} key={index}>
+			<img id={`profile-image-${index}`} src={text.url} alt={text.name} />
 		</div>
 	);
 

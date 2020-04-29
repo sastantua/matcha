@@ -15,6 +15,7 @@ import hobbyRouter from './routes/hobby';
 import chatRouter from './routes/chat';
 import orientationRouter from './routes/orientation';
 import { generateGenders, generateHobbies, generateOrientations } from './models/utils';
+import notificationRouter from './routes/notification';
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/gender', genderRouter);
 app.use('/orientation', orientationRouter);
 app.use('/hobby', hobbyRouter);
 app.use('/chat', chatRouter);
+app.use('/notifications', notificationRouter);
 
 app.use(handleError)
 

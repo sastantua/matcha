@@ -197,7 +197,7 @@ function Hobby(props) {
 				userHobbyList.length && userHobbyList.map(hobby =>
 					<Chip onClick={() => deleteUserHobby(hobby._id)} key={hobby._id}>
 						<Icon>
-							<i class="fab fa-slack-hash"></i>
+							<i className="fab fa-slack-hash"></i>
 						</Icon>
 						<span>{hobby.name}</span>
 					</Chip>

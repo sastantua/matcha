@@ -1,7 +1,7 @@
 import io from 'socket.io';
 import { createServer } from 'http';
 import { addMessage } from '../models/chat';
-import { saveNotification, getNotifications } from '../models/notification';
+import { saveNotification, deleteNotification } from '../models/notification';
 
 const app = require('../app');
 
@@ -31,8 +31,6 @@ export const chat = sockets.of('/chat').on('connection', socket => {
 export const notifications = sockets.of('/notifications').on('connection', socket => {
 	socket.on('connected', async id => {
 		users[id] = socket.id;
-		const notifications = await getNotifications(id);
-		socket.to(users[id]).emit('notifications', notifications);
 	})
 
 	socket.on('notification', data => {

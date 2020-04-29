@@ -102,7 +102,7 @@ function Search() {
 		api.get('/user/hobby')
 		.then((res) => {setUserHobbies(res.data)})
 		.catch((err) => {console.log(err)})
-	}, [result, userHobbies, userPosition]);
+	}, [setUserHobbies]);
 
 	useEffect(() => {
 		setResult(sortUsers(result, userPosition, userHobbies, sort, ascending, descending));

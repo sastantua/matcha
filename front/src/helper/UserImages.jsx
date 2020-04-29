@@ -13,12 +13,12 @@ function UserImages(props) {
 
 	if (props.match === undefined) {
 		userImagesArray = props.pictures.map((text, index) =>
-			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text._id}/>
+			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={index}/>
 		);
 	}
 	else {
 		userImagesArray = props.match.pictures.map((text, index) =>
-			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text._id}/>
+			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={index}/>
 		);
 	}
 

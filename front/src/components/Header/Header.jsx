@@ -124,7 +124,7 @@ const SLink = styled(Link)`
 		justify-content: center;
 	}
 	& svg {
-		${p => p.animation && css`animation: ${shake} .7s cubic-bezier(.36,.07,.19,.97) infinite;`}
+		${p => p.notify && css`animation: ${shake} .7s cubic-bezier(.36,.07,.19,.97) infinite;`}
 	}
 `
 
@@ -140,6 +140,14 @@ function Header() {
 	const history = useHistory();
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const [notifications, addNotification] = useContext(NotificationsContext);
+
+	useEffect(() => {
+		const fetchNotifications = async () => {
+			const res = await api.get('/notifications');
+			addNotification(() => res.data);
+		}
+		fetchNotifications();
+	}, [addNotification])
 
 	useEffect(() => {
 		const notificationHandler = (notification) => {		
@@ -166,10 +174,8 @@ function Header() {
 					break;
 			}
 		}
-		notifSocket.on('notifications', data => 
-			addNotification(() => data)
-		)
 		notifSocket.on('notification', data => {
+			console.log(data);
 			addNotification(draft => {
 				draft.push(data);
 			})
@@ -227,7 +233,7 @@ function Header() {
 					</SLink>
 				</Element>
 				<Element>
-					<SLink to="/notifications" animation={!!notifications.length}>
+					<SLink to="/notifications" notify={!!notifications.length ? 1 : 0}>
 								<Icon className="fas fa-bell fa-lg"></Icon>
 						<Typography>Notifications</Typography>
 					</SLink>
