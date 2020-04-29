@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from "styled-components"
 
-import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
-import { COLORS, BREAK_POINTS } from '../../config/style'
+import { BREAK_POINTS } from '../../config/style'
 
 import SimpleMap from './SimpleMap';
 

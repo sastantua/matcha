@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from "styled-components";
+
 import api from '../../api/api'
 import { notifSocket } from '../../api/socket';
 import { UserContext } from '../../context/UserContext';
@@ -183,6 +184,9 @@ const Biography = styled.span`
 	padding: ${SPACING.XXS} ${SPACING.XXS};
 	border-radius: 15px;
 	background-color: ${COLORS.GREY_LIGHT};
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		font-size: 0.5rem;
+	}
 `
 
 const Bottom = styled.div`
@@ -201,7 +205,7 @@ const Box = styled.div`
 `
 
 function Match() {
-	const { user, setUser } = useContext(UserContext);
+	const { user } = useContext(UserContext);
 	const [like, setLike] = useState(false);
 	const [match, setMatch] = useState();
 	const [matchIndex, setMatchIndex] = useState(0);
@@ -274,8 +278,7 @@ function Match() {
 					{
 						match[matchIndex].hobbies.map(hobby =>
 							<Chip id="Chip">
-								<Icon>
-									<i class="fab fa-slack-hash"></i>
+								<Icon className="fab fa-slack-hash">
 								</Icon>
 								<span>{hobby.name}</span>
 							</Chip>

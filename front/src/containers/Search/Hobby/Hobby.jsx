@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import styled from 'styled-components'
 import { makeStyles } from '@material-ui/core/styles';
 
 import api from '../../../api/api'

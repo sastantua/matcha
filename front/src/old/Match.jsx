@@ -212,7 +212,6 @@ function Match() {
 		.then((res) => {
 			setMatch(res.data);
 			setFetchState(true);
-			console.log(res.data);
 		})
 		.catch((err) => {console.log(err);})
 	}, []);
@@ -225,7 +224,6 @@ function Match() {
 	}
 
 	const nextMatch = () => {
-		console.log("yipikai")
 		if (matchIndex < match.length1) {
 			setLike(false);
 			setMatchIndex(matchIndex + 1);

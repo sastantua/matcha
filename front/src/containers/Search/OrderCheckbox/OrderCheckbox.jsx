@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-import { TextWrapper } from "../../../components/Wrapper/Wrapper.jsx";
 import { Checkbox } from "@material-ui/core";
+import { TextWrapper } from "../../../components/Wrapper/Wrapper.jsx";
 
 const MainContainer = styled.div`
 	display: flex;

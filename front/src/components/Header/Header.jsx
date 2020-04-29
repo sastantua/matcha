@@ -129,6 +129,7 @@ function Header() {
 			switch (notification.type) {
 				case "like" :
 					enqueueSnackbar('Someone liked you', {variant: 'like'})
+					setTimeout(closeSnackbar(), 1000);
 					break;
 				default :
 					break;
@@ -143,8 +144,7 @@ function Header() {
 			})
 			notificationHandler(data);
 		})
-	}, [addNotification])
-	
+	}, [addNotification, enqueueSnackbar, closeSnackbar])
 
 	const handleClick = () => {
 		api.post('/user/logout')

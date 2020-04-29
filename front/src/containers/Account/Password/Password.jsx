@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import styled from "styled-components";
 
 import api from '../../../api/api'
-import { COLORS, device } from '../../../config/style'
+import { COLORS } from '../../../config/style'
 import { useSnackbar } from 'notistack';
-
-import { Typography, TextField, Button } from '@material-ui/core';
 
 const PasswordForm = styled.form`
 	display: flex;
@@ -62,7 +60,6 @@ function Password() {
 			.then((res) => {
 				enqueueSnackbar(`Password changed`, {variant: 'success'});
 				setTimeout(closeSnackbar, 1000)
-				// console.log("password = ", password);
 		    	history.push("/");
 			})
 			.catch((err) => {

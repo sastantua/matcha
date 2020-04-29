@@ -38,13 +38,10 @@ function UserPictures(props) {
 	// }, [pictures]);
 
 	let pictures = props.pictures;
-	console.log("pictures", pictures);
 	if (pictures) {
 		const userPicturesArray = pictures.map((text, index) => 
 			<img id={`profile-image-${index}`} src={text.url} alt={text.name} key={text.name} /> // onClick={() => openModal(text._id)}
 		);
-		// src="http://matchapi.guillaumerx.fr/images/image-1584066883258.png"
-		console.log("userPicturesArray", userPicturesArray);
 
 		const UserImagesJsx = () => {
 			return (

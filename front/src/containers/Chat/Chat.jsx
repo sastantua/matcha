@@ -49,7 +49,6 @@ export default () => {
 			setLoading(true);
 			const res = await api.get('/user/contacts');
 			setContacts(res.data);
-			console.log(res.data);
 			setLoading(false);
 		}
 		const fetchHistory = async () => {
@@ -60,7 +59,7 @@ export default () => {
 		}
 		fetchContact();
 		fetchHistory();
-	}, [user]);
+	}, [user, setMessages]);
 
 	useEffect(() => {
 		contacts.length && selectUser(contacts[0])

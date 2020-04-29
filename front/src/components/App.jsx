@@ -73,7 +73,7 @@ function App() {
 			.catch(err => console.log(err))
 			notifSocket.emit('connected', user._id);
 		}
-	}, [user]);
+	}, [user, latitude, longitude]);
 
 	if (localStorage.getItem('token') && !api.defaults.headers.common['Authorization']) {
 		api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;

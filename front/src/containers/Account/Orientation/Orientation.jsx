@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import api from '../../../api/api'
-import { COLORS, device } from '../../../config/style'
+import { COLORS } from '../../../config/style'
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';

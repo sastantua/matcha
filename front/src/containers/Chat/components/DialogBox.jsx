@@ -86,10 +86,8 @@ export default ({ loggedUser, user, messages, pushMessage }) => {
 	useEffect(() => {
 		chatSocket.on('typing', data => {
 			isTyping(true);
-			console.log("typing")
 			setTimeout(() => {
 				isTyping(false);
-				console.log('no more typing');
 			}, 6000);
 		});
 	}, [isTyping])

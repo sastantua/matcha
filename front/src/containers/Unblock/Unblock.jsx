@@ -1,11 +1,8 @@
 import React, {useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import api from '../../api/api'
-import findAge from '../../helper/findAge'
 import Loader from '../../components/Loader/Loader'
-import UserImages from '../../helper/UserImages';
 import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
 
 const UnblockContainer = styled.div`
@@ -80,7 +77,7 @@ function Unblock() {
 
 	const handleUnblock = (id) => {
 		api.post(`user/unblock/${id}`)
-		.then((res) => {
+		.then(() => {
 			document.getElementById(id).style.display = "none";
 		})
 		.catch((err) => {console.log(err)})

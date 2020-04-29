@@ -17,14 +17,18 @@
 			Localisation:
 			Popularity Score:
 			Last VisitOnline:
-
-			L’utilisateur doit pouvoir consulter les personnes ayant consulté son profil, ainsi que les personnes qui l’ont “liké”.
+			Problem with hobby
 
 		- Optional:
 			Match: add profile link?
 			Profile: style for IpadPro
 			Profile: add picture modal
 			Helper: Move card from match and search to helper? (no style already differ ...)
+			Account: problem with modal on mobile
+
+
+		- Potential error
+			Match: remove setUser from context
 
 # React Hooks
 

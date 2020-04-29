@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import { styled as styledMaterial } from '@material-ui/core/styles';
 import { COLORS, BREAK_POINTS } from '../../config/style'
 
 import EmojiButton from './EmojiButton/EmojiButton'

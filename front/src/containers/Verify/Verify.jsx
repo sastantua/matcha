@@ -37,7 +37,6 @@ function Verify() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log("token = ", token)
 		api.post(`/user/verify/${token}`)
 		.then((res) => {
 			enqueueSnackbar(`Account activated`, {variant: 'success'});

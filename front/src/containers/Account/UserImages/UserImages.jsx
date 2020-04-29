@@ -165,7 +165,6 @@ function UserImages() {
 		.then((res) => {
 			getUserPictures();
 			setSelectedPicture();
-			console.log(res);
 		})
 		.catch((err) => {
 			console.log(err);

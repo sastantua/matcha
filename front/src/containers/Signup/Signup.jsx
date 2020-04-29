@@ -102,7 +102,7 @@ function Signup() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (password !== confirm_password)
-			return console.log('fail');
+			return ;
 		const user = {
 			email: email,
 			password: password,

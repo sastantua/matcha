@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import styled from 'styled-components'
 import { makeStyles } from '@material-ui/core/styles';
 
 import { COLORS } from '../../../config/style'
 
-import { List, ListItem, ListItemText, Collapse, Chip } from '@material-ui/core';
+import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({

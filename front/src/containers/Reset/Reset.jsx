@@ -97,7 +97,7 @@ function Reset() {
 		api.post('/user/forgot', {email: email})
 		.then((res) => {
 			enqueueSnackbar(`Check you mails`, {variant: 'success'});
-			console.log("email = ", email);
+			setTimeout(closeSnackbar(), 1000)
 		    history.push("/");
 		})
 		.catch((err) => {

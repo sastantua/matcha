@@ -124,7 +124,6 @@ function Account() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		api.post('/user/edit', user)
-		.then((res) => {console.log(res);})
 		.catch((err) => {console.log(err);})
 	}
 

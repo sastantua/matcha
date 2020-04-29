@@ -157,8 +157,8 @@ const Bottom = styled.div`
 	}
 `
 const Box = styled.div`
-	padding: ${SPACING.XXS} ${SPACING.XXS};
-	background-color: ${COLORS.GREY};
+	padding: ${SPACING.XS} ${SPACING.XS};
+	background-color: ${COLORS.GREY_LIGHT};
 	border-radius: 32px;
 `
 
@@ -199,8 +199,8 @@ function UserCard(props) {
 					{`${props.user.biography}`}
 				</Biography>
 				<Bottom id="Bottom">
-					{props.user.likes && <Box>{"Already likes you"}</Box>}
-					{props.user.isSeen && <Box>{"Already saw your profile"}</Box>}
+					{props.user.likes && <Box>{"has liked you"}</Box>}
+					{props.user.isSeen && <Box>{"has seen your profile"}</Box>}
 				</Bottom>
 			</Link>
 		</UserCardContainer>
