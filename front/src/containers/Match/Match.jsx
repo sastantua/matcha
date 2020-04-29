@@ -230,6 +230,15 @@ function Match() {
 		.catch((err) => {console.log(err);})
 	}, []);
 
+	// Rajoute ici le call saw
+	useEffect(() => {
+		match && notifSocket.emit('notification', {
+			type: 'visit',
+			to: match[matchIndex]._id,
+			from: user._id
+		})
+	}, [user, match, matchIndex])
+
 	const previousMatch = () => {
 		if (matchIndex > 0) {
 			setLike(false);

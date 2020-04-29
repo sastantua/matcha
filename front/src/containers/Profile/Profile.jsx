@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components'
 
 import api from '../../api/api'
@@ -168,14 +168,23 @@ function Profile(props) {
 	const [like, setLike] = useState(false);
 	const [block, setBlock] = useState(false);
 
+	const profile = props.history.location.state.user ? props.history.location.state.user : undefined;
+	const age = findAge(profile.birthdate);
+
+	// Rajoute ici le call saw
+	useEffect(() => {
+		user && notifSocket.emit('notification', {
+			type: 'visit',
+			to: profile._id,
+			from: user._id
+		})
+	}, [user, profile])
+
 	if (props.history.location.state === undefined) {
 		return (
 			<div></div>
 		);
 	}
-
-	const profile = props.history.location.state.user;
-	const age = findAge(profile.birthdate);
 
 	const likeMatch = () => {
 		api.post(`/user/like/${profile._id}`)
