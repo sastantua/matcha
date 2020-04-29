@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from "styled-components";
+import { getPreciseDistance } from 'geolib';
 
 import api from '../../api/api'
 import { notifSocket } from '../../api/socket';
@@ -22,15 +23,18 @@ const MatchContainer = styled.div`
 `
 
 const Card = styled.div`
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		width: 50%;
+		padding: ${SPACING.BASE};
+	}
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
+		padding: ${SPACING.XS};
+		width: 80%;
 	}
-	width: 50%;
 	border-radius: 15px;
-	padding: ${SPACING.BASE};
-	/* background-color: ${COLORS.WHITE}; */
 	background-image: linear-gradient(90deg, ${COLORS.ORANGE_GRADIENT} 30%, ${COLORS.PINK_GRADIENT} 90%);
 	box-shadow: 0px 0px 31px -5px rgba(0,0,0,0.75);
 `
@@ -40,8 +44,15 @@ const ButtonsContainer = styled.div`
 	justify-content: space-evenly;
 	align-items: center;
 	margin-top: ${SPACING.BASE};
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		width: 50%;
+		padding: ${SPACING.BASE};
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		width: 80%;
+		padding: ${SPACING.XS};
+	}
 	color: white;
-	width: 40%;
 	& > div {
 		filter: grayscale(100%) opacity(.7);
 		transition: filter 600ms ease;
@@ -104,7 +115,6 @@ const Infos = styled.div`
 
 const Text = styled.span`
 	color: ${COLORS.BLACK};
-	width: 50%;
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		font-weight: 600;
 		font-size: 1.3em;
@@ -122,26 +132,16 @@ const NameContainer = styled.div`
 	justify-content: center;
 	margin-left: ${SPACING.BASE};
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		width: auto;
 		margin-left: ${SPACING.XS};
-	}
-`
-
-const GenderOrientationAgeContainer = styled.div`
-	display: flex;
-	flex-direction: row;
-	& > :nth-child(n+2) {
-		margin-left: ${SPACING.XXS}
-	}
-	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		width: auto;
 	}
 `
 
 const RowContainer = styled.div`
 	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
+	flex-direction: row;
+	& > :nth-child(n+2) {
+		margin-left: ${SPACING.XXS}
+	}
 `
 
 const Icon = styled.div`
@@ -153,13 +153,17 @@ const Icon = styled.div`
 	opacity: .7;
 	box-shadow: 0px 0px 102px -20px rgba(0,0,0,0.75);
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		height: 12px;
-		width: 12px;
+		&& {
+			height: 12px;
+			width: 12px;
+		}
 		margin-right: ${SPACING.XXS};
 	}
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
-		height: 28px;
-		width: 28px;
+		&& {
+			height: 28px;
+			width: 28px;
+		}
 		margin-right: ${SPACING.XS};
 	}
 `
@@ -171,9 +175,16 @@ const Chip = styled.div`
 	background-color: ${COLORS.PURPLE};
 	margin: ${SPACING.XXS};
 	padding: ${SPACING.XXS} ${SPACING.XXS};
-	font-size: 0.5em;
-	font-weight: 300;
 	border-radius: 32px;
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		font-size: 1em;
+		font-weight: 600;
+
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		font-size: 0.5em;
+		font-weight: 300;
+	}
 `
 
 const ChipsContainer = styled.div`
@@ -276,6 +287,17 @@ function Match() {
 		}
 	}
 
+	const getDistance = (user_a, user_b) => {
+		return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001
+	}
+
+	if (match) {
+		var distance = getDistance(match[matchIndex], user);
+
+		console.log("user", user);
+		console.log("match[matchIndex]", match[matchIndex]);
+	}
+	
 	return (
 		fetchState ?
 			<MatchContainer>
@@ -287,22 +309,26 @@ function Match() {
 					<Infos id="Infos">
 						<NameContainer id="NameContainer">
 							<Text>{`@${match[matchIndex].username.charAt(0).toUpperCase() + match[matchIndex].username.slice(1)}`}</Text>
-							<Text>{`${match[matchIndex].firstname.charAt(0).toUpperCase() + match[matchIndex].firstname.slice(1)} ${match[matchIndex].lastname.charAt(0).toUpperCase() + match[matchIndex].lastname.slice(1)}`}</Text>
-							<GenderOrientationAgeContainer id="GenderOrientationAgeContainer">
+							<RowContainer id="RowContainer">
+								<Text>{match[matchIndex].firstname.charAt(0).toUpperCase() + match[matchIndex].firstname.slice(1)}</Text>
+								<Text>{match[matchIndex].lastname.charAt(0).toUpperCase() + match[matchIndex].lastname.slice(1)}</Text>
+							</RowContainer>
+							<RowContainer id="RowContainer">
 								<Text>{match[matchIndex].gender.name.charAt(0).toUpperCase() + match[matchIndex].gender.name.slice(1)}</Text>
 								<Text>{match[matchIndex].orientation.name.charAt(0).toUpperCase() + match[matchIndex].orientation.name.slice(1)}</Text>
 								<Text>{`${findAge(match[matchIndex].birthdate)} Yo`}</Text>
-							</GenderOrientationAgeContainer>
+							</RowContainer>
+								<Text>Distance: {distance}</Text>
+								<Text>Populairty score: {match[matchIndex].popularity}</Text>
 						</NameContainer>
 					</Infos>
 				</HeadContainer>
 				<RowContainer id="RowContainer">
 					<ChipsContainer id="ChipsContainer">
 					{
-						match[matchIndex].hobbies.map((hobby, index) =>
-							<Chip id="Chip" key={index}>
-								<Icon className="fab fa-slack-hash">
-								</Icon>
+						match[matchIndex].hobbies.map(hobby =>
+							<Chip id="Chip">
+								<Icon className="fab fa-slack-hash"></Icon>
 								<span>{hobby.name}</span>
 							</Chip>
 						)

@@ -1,16 +1,14 @@
 # Todo
 
 	Objectif du jour:
-		- Get saw get likes
-		- Report fake profile
-		- When profile is visited (Match: card loaded, profile)
-		- Popularity
+		- Dropdown
 		- Distance
-		- Do homepage
-		- Remove all console.log
-
+		- Popularity
 		- Call when profile is seen on profile and match
-		- Report as fake account
+		- Report fake profile
+		- Last connexion
+		- Do homepage
+
 
 		- Important:
 			Error:
@@ -29,6 +27,12 @@
 
 		- Potential error
 			Match: remove setUser from context
+	
+		- End
+			Remove all console.log
+			Remove all warnings
+			Remove all errors
+
 
 # React Hooks
 

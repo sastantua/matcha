@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import api from '../../api/api';
 import UserCard from '../../helper/UserCard';
-import { BREAK_POINTS } from '../../config/style'
+import { COLORS, BREAK_POINTS } from '../../config/style'
 import LonelyCat from '../../media/lonelycat.png'
 
 import Checkbox from './Checkbox';
@@ -37,6 +37,27 @@ const SubSawContainer = styled.div`
 	}
 `
 
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+`
+
+const Text = styled.span`
+	color: ${COLORS.WHITE};
+	width: 50%;
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		font-weight: 600;
+		font-size: 1.3em;
+		width: auto;
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		font-weight: 400;
+		font-size: 0.8em;
+	}
+`
+
 function Saw() {
 	const [liked, setLiked] = useState(true);
 	const [visited, setVisited] = useState(false);
@@ -65,7 +86,12 @@ function Saw() {
 
 	const Liked = () => {
 		likeResult.length > 0 && likeResult.map((user, index) => {
-			return <UserCard user={likeResult[index].user} key={index}/>
+			return (
+				<Container>
+					<UserCard user={likeResult[index].user} key={index}/>
+					<Text>Liked your profile {likeResult[index].date.substring(0, 21)}</Text>
+				</Container>
+		);
 		})
 		return <img src={LonelyCat} alt=""/>
 	}
@@ -74,7 +100,12 @@ function Saw() {
 		let returnJsx = null;
 		if (visited) {
 			returnJsx = visitedResult.length > 0 && visitedResult.map((user, index) => {
-				return <UserCard user={visitedResult[index].user} key={index}/>
+				return (
+					<Container>
+						<UserCard user={visitedResult[index].user} key={index}/>
+						<Text>Saw your profile {visitedResult[index].date.substring(0, 21)}</Text>
+					</Container>
+				);
 			})
 		}
 		else {
