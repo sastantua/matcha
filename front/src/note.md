@@ -1,7 +1,6 @@
 # Todo
 
 	Objectif du jour:
-		- Call when profile is seen on profile and match
 		- Report fake profile
 		- Last connexion
 		- Do homepage
