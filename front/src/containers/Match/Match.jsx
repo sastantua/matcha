@@ -225,7 +225,7 @@ const Box = styled.div`
 `
 
 function Match() {
-	const { user } = useContext(UserContext);
+	const [user] = useContext(UserContext);
 	const [like, setLike] = useState(false);
 	const [match, setMatch] = useState();
 	const [matchIndex, setMatchIndex] = useState(0);

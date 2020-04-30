@@ -106,7 +106,7 @@ const SubmitButton = styled.button`
 `
 
 function Account() {
-	const { user, setUser } = useContext(UserContext);
+	const [user, setUser] = useContext(UserContext);
 
 	const [openGender, setOpenGender] = useState(false);
 	const [openOrientation, setOpenOrientation] = useState(false);	

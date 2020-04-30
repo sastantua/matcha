@@ -91,7 +91,7 @@ const Icon = styled.div`
 function Hobby(props) {
 	const classes = useStyles();
 
-	const { user, setUser } = useContext(UserContext);
+	const [user, setUser] = useContext(UserContext);
 
 	const [hobbyList, setHobbyList] = useState([]);
 	const [userHobbyList, setUserHobbyList] = useState([]);

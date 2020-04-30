@@ -167,7 +167,7 @@ const ActionContainer = styled.div`
 `
 
 function Profile(props) {
-	const { user } = useContext(UserContext);
+	const [user] = useContext(UserContext);
 	const [like, setLike] = useState(false);
 	const [block, setBlock] = useState(false);
 
@@ -249,6 +249,8 @@ function Profile(props) {
 		.catch((err) => {console.log(err)})
 	}
 
+	console.log(profile);
+
 	return (
 		<ProfileContainer id="ProfileContainer">
 			<UserPicturesContainer id="UserPicturesContainer">
@@ -271,6 +273,7 @@ function Profile(props) {
 				</InfoRowContainer>
 				<InfoText>Distance: {distance} km</InfoText>
 				<InfoText>Populairty score: {profile.popularity}</InfoText>
+				<InfoText>{profile.status === 'online' ? "Online" : `Offline since ${new Date(profile.status).toLocaleString()}`}</InfoText>
 			</InfoContainer>
 			<HobbyContainer id="HobbyContainer">
 				{

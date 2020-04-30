@@ -33,10 +33,33 @@ export const getNotifications = async (_id) => {
 export const deleteNotification = async (_id) => {
 	const dbSession = session(mode.WRITE);
 	const query = 'MATCH (n:Notification) WHERE n._id = $_id DETACH DELETE n';
-	return await dbSession.session.run(query, { _id }).then((res) => {
+	await dbSession.session.run(query, { _id }).then((res) => {
 		closeBridge(dbSession)
 	})
 	.catch(e => {
 	console.log(e);
+	})
+}
+
+export const setConnected = async (id) => {
+	const dbSession = session(mode.WRITE);
+	const query = 'MATCH (u:User) WHERE u._id = $id SET u.status ="online"';
+	await dbSession.session.run(query, { id }).then((res) => {
+		closeBridge(dbSession);
+	})
+	.catch(e => {
+		console.log(e);
+	})
+}
+
+export const setDisconnected = async (id) => {
+	const dbSession = session(mode.WRITE);
+	const date = new Date().toString();
+	const query = 'MATCH (u:User) WHERE u._id = $id SET u.status = $date RETURN u';
+	await dbSession.session.run(query, {id, date}).then((res) => {
+		closeBridge(dbSession);
+	})
+	.catch(e => {
+		console.log(e);
 	})
 }

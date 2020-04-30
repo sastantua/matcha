@@ -5,6 +5,8 @@ import styled from "styled-components";
 
 import api from '../../api/api'
 import { COLORS } from '../../config/style'
+import { useContext } from 'react';
+import { UserContext } from '../../context/UserContext';
 
 const LoginContainer = styled.div`
 	display: flex;
@@ -110,6 +112,7 @@ const SignupButton = styled.button`
 
 function Login() {
 	const history = useHistory();
+	const [ user, setUser ] = useContext(UserContext);
 	const [email, setEmail] = useState("guillaumeroux123@gmail.com");
 	const [password, setPassword] = useState("Guillaume-1234");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -127,6 +130,7 @@ function Login() {
 		api.post('/user/login', user)
 		.then((res) => {
 			localStorage.token = res.data.token;
+			setUser(res.data.user);
 			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
 			history.push("/");

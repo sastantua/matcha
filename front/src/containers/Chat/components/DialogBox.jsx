@@ -6,12 +6,15 @@ import { animateScroll } from "react-scroll";
 import { chatSocket, notifSocket } from '../../../api/socket';
 import Message, { LoaderMessage } from './Message';
 import { SPACING } from '../../../config';
+import { BREAK_POINTS } from '../../../config/style';
 
 const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: 100vh;
+	@media screen and (min-width: ${BREAK_POINTS.SCREEN_XS}){
+		height: 100vh;	
+	}
 `
 
 const Header = styled.div`

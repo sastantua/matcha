@@ -4,10 +4,11 @@ import { useHistory, Link } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 import api from '../../api/api'
-import { notifSocket } from '../../api/socket';
+import { notifSocket, chatSocket } from '../../api/socket';
 import { COLORS, BREAK_POINTS } from '../../config/style'
 import { useContext } from 'react';
 import { NotificationsContext } from '../../context/NotificationsProvider';
+import { UserContext } from '../../context/UserContext';
 
 
 const Typography = styled.span`
@@ -138,6 +139,7 @@ const Icon = styled.i`
 
 function Header() {
 	const history = useHistory();
+	const [user, setUser] = useContext(UserContext);
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	const [notifications, addNotification] = useContext(NotificationsContext);
 
@@ -146,36 +148,35 @@ function Header() {
 			const res = await api.get('/notifications');
 			addNotification(() => res.data);
 		}
-		fetchNotifications();
-	}, [addNotification])
+		user && fetchNotifications();
+	}, [user, addNotification])
 
 	useEffect(() => {
 		const notificationHandler = (notification) => {		
 			switch (notification.type) {
 				case "like" :
-					enqueueSnackbar('Someone liked you', {variant: notification.type});
+					enqueueSnackbar('Someone liked you');
 					break;
 				case "unlike" :
-					enqueueSnackbar('Someone unliked you', {variant: notification.type});
+					enqueueSnackbar('Someone unliked you');
 					break;
 				case "block" :
-					enqueueSnackbar('Someone blocked you', {variant: notification.type});
+					enqueueSnackbar('Someone blocked you');
 					break;
 				case "visit" :
-					enqueueSnackbar('Someone visited your profile', {variant: notification.type});
+					enqueueSnackbar('Someone visited your profile');
 					break;
 				case "match" :
-					enqueueSnackbar('Someone you liked likes you', {variant: notification.type});
+					enqueueSnackbar('Someone you liked likes you');
 					break;
 				case "message" :
-					enqueueSnackbar("You've got a new message", {variant: notification.type});
+					enqueueSnackbar("You've got a new message");
 					break;
 				default :
 					break;
 			}
 		}
 		notifSocket.on('notification', data => {
-			console.log(data);
 			addNotification(draft => {
 				draft.push(data);
 			})
@@ -184,13 +185,18 @@ function Header() {
 	}, [addNotification, enqueueSnackbar, closeSnackbar])
 
 	const handleClick = () => {
-		api.post('/user/logout')
-		.then(() => {
-			localStorage.removeItem("token");
-			delete api.defaults.headers.common['Authorization'];
-			history.push("/");
-		})
-		.catch((err) => console.log(`${err.response.data.message}`));
+		if (localStorage.getItem('token')) {
+			api.post('/user/logout')
+			.then(() => {
+				localStorage.removeItem("token");
+				delete api.defaults.headers.common['Authorization'];
+				setUser(undefined);
+				notifSocket.emit('logout');
+				chatSocket.emit('logout');
+				history.push("/");
+			})
+			.catch((err) => console.log(`${err.response.data.message}`));
+		}
 	}
 
 	return (
@@ -222,8 +228,8 @@ function Header() {
 				</Element>
 				<Element>
 					<SLink to="/saw">
-						<Icon className="fas fa-eye"></Icon>
-						<Typography>Visitied</Typography>
+						<Icon className="fas fa-child fa-lg"></Icon>
+						<Typography>Interactions</Typography>
 					</SLink>
 				</Element>
 				<Element>

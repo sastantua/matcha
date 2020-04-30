@@ -2,6 +2,7 @@ import React from 'react';
 import Picture from '../../../components/Picture/Picture';
 import styled from 'styled-components';
 import { SPACING } from '../../../config';
+import { BREAK_POINTS } from '../../../config/style';
 
 const Wrapper = styled.div`
 	display: flex;
@@ -11,6 +12,9 @@ const Wrapper = styled.div`
 	margin: ${SPACING.XS} 0;
 	padding: ${SPACING.XS};
 	border-radius: 10px;
+	@media screen and (max-width: ${BREAK_POINTS.SCREEN_XS}){
+		justify-content: center;
+	}
 `
 
 const Typography = styled.h4`

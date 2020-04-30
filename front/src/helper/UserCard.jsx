@@ -163,7 +163,7 @@ const Box = styled.div`
 
 
 function UserCard(props) {
-	const { user } = useContext(UserContext);
+	const [user] = useContext(UserContext);
 	
 	const getDistance = (user_a, user_b) => {
 		return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001;

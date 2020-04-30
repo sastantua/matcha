@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import usePosition from '../hooks/usePosition';
@@ -6,7 +6,7 @@ import { UserContext } from '../context/UserContext'
 import { NotificationsProvider } from '../context/NotificationsProvider';
 import api from '../api/api';
 import { BREAK_POINTS, COLORS } from '../config/style';
-import { notifSocket } from '../api/socket';
+import { notifSocket, chatSocket } from '../api/socket';
 
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
@@ -35,6 +35,7 @@ const AppContainer = styled.div`
 	flex: 1;
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_XS}) {
 		margin-left: 5rem;
+		min-height: 100vh;
 	}
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_XS}) {
 		margin-bottom: 5rem;
@@ -43,7 +44,6 @@ const AppContainer = styled.div`
 		width: 100%;
 	}
 	height: auto;
-	min-height: 100vh;
 `
 
 const AuthenticatedRoute = ({ component: Component, ...rest}) => {
@@ -60,15 +60,30 @@ const AuthenticatedRoute = ({ component: Component, ...rest}) => {
 }
 
 function App() {
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useState(undefined);
 	const {latitude, longitude} = usePosition();
-	const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
+
+	useEffect(() => {
+		return () => {
+			notifSocket.emit('disconnect');
+			chatSocket.emit('disconnect');
+		}
+	}, []);
 
 	useEffect(() => {
 		if (user) {
+			notifSocket.emit('connected', user._id);
+			console.log('user is now logged');
+		}
+	}, [user])
+
+	useEffect(() => {
+		const getPosition = () => {
 			api.post('/user/location', {lat: latitude, lng: longitude})
 			.catch(err => console.log(err))
-			notifSocket.emit('connected', user._id);
+		}
+		if (user) {
+			getPosition();
 		}
 	}, [user, latitude, longitude]);
 
@@ -81,8 +96,8 @@ function App() {
 	}
 
 	return (
-		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }} classes={{like: {backgroundColor: COLORS.PINK}}} iconVariant={{like: '❤️'}}>
-			<UserContext.Provider value={ userMemo }>
+		<SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+			<UserContext.Provider value={[user, setUser]}>
 				<NotificationsProvider>
 					<BrowserRouter>
 						<Header />
