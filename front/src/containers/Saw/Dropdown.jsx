@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
-import api from '../../api/api'
-import { COLORS, BREAK_POINTS } from '../../config/style'
+import { COLORS } from '../../config/style'
 
 import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
+import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -32,20 +27,6 @@ const DropdownContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-`
-
-const Text = styled.span`
-	color: ${COLORS.WHITE};
-	width: 50%;
-	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		font-weight: 600;
-		font-size: 1.3em;
-		width: auto;
-	}
-	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		font-weight: 400;
-		font-size: 0.8em;
-	}
 `
 
 function Dropdown(props) {

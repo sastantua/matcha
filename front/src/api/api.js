@@ -2,37 +2,34 @@ import axios from 'axios';
 
 const api = axios.create({ baseURL: process.env.REACT_APP_API_URL});
 
-// headers: {'Access-Control-Allow-Origin': '*'}
-
-// const config = {
-//     headers: { Authorization: `Bearer ${token}` }
-// };
-
-// const args = {
-//    a: "a",
-//    b: "b",
-//    c: "c",
-//    d: "d",
-//    e: "e"
-// };
-
-// Axios.post( 
-//   '/router/....',
-//   args,
-//   config
-// ).then(console.log('then')).catch(console.log('catch'));
 
 
-// guillaumeroux123@gmail.com
-// Guillaume-123
+/*
 
-// ssh root@matchapi.guillaumerx.fr && cd matcha/back && docker-compose up
-// username: neo4jpassword: 42
-// bolt://matchapi.guillaumerx.fr:7687
-// http://167.172.168.207:7474
-// http://167.172.168.207:7474/browser/
-// match (n)-[r]-() delete n,r
+SSH DB:
+	ssh root@matchapi.guillaumerx.fr && cd matcha/back && docker-compose up
 
-// doc https://stoplight.io/p/docs/gh/guillaumerx/matcha/reference/Base-API.v1.yaml
+Credential Neo4j
+	username: neo4j
+	password: 42
+	bolt://matchapi.guillaumerx.fr:7687
+	
+	http://167.172.168.207:7474
+	http://167.172.168.207:7474/browser/
+
+Crediential Test: 
+	username: guillaumeroux123@gmail.com
+	password: Guillaume-123
+
+Basic Request in Neo4j:
+	MATCH (n)-[r]-() DELETE n,r
+	MATCH (u:User) WHERE u.username = 'guroux' RETURN u
+	MATCH (u:User)-[:PIC]-(p) WHERE u.username = "guroux" RETURN u,p
+
+
+doc https://stoplight.io/p/docs/gh/guillaumerx/matcha/reference/Base-API.v1.yaml
+
+
+*/
 
 export default api;

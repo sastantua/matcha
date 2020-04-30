@@ -271,7 +271,7 @@ function Profile(props) {
 					</InfoText>
 				</InfoRowContainer>
 				<InfoText>Distance: {distance} km</InfoText>
-				<InfoText>Populairty score: {profile.popularity}</InfoText>
+				<InfoText>Popularity score: {profile.popularity}</InfoText>
 			</InfoContainer>
 			<HobbyContainer id="HobbyContainer">
 				{

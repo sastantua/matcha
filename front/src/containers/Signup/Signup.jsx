@@ -97,7 +97,6 @@ function Signup() {
 	const handleUsername = (e) => {setUsername(e.target.value);}
 	const handleFirstname = (e) => {setFirstname(e.target.value);}
 	const handleLastname = (e) => {setLastname(e.target.value);}
-	closeSnackbar();
 	
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -113,6 +112,7 @@ function Signup() {
 		api.post('/user/register', user)
 		.then((res) => {
 			enqueueSnackbar(`Welcome ${username}\ngo login`, {variant: 'success'});
+			setTimeout(closeSnackbar(), 1000);
 			history.push("/login");
 		})
 		.catch((err) => {
@@ -128,8 +128,8 @@ function Signup() {
 				<StyledInput placeholder="lastname" label="lastname" name="lastname" onChange={handleLastname} variant="outlined" />
 				<StyledInput placeholder="username" label="username" name="username" onChange={handleUsername} variant="outlined" />
 				<StyledInput placeholder="email" label="email" name="email" onChange={handleEmail} variant="outlined" />
-				<StyledInput placeholder="password" label="password" name="password" onChange={handlePassword} variant="outlined" />
-				<StyledInput placeholder="confirm password" label="confirm_password" name="confirm_password" onChange={handleConfirmPassword} variant="outlined" />
+				<StyledInput placeholder="password" label="password" name="password" type="password" onChange={handlePassword} variant="outlined" />
+				<StyledInput placeholder="confirm password" label="confirm_password" name="confirm_password" type="password" onChange={handleConfirmPassword} variant="outlined" />
 				<SubmitButton type='submit'>submit</SubmitButton>
 			</SignupForm>
 			<LoginLink>

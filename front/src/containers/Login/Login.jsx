@@ -116,7 +116,6 @@ function Login() {
 
 	const handleEmail = (e) => {setEmail(e.target.value);}
 	const handlePassword = (e) => {setPassword(e.target.value);}
-	closeSnackbar();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -129,6 +128,7 @@ function Login() {
 			localStorage.token = res.data.token;
 			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
+			setTimeout(closeSnackbar(), 1000);
 			history.push("/");
 		})
 		.catch((err) => {
