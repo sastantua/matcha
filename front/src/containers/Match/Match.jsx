@@ -241,8 +241,11 @@ function Match() {
 		.catch((err) => {console.log(err);})
 	}, []);
 
-	// Rajoute ici le call saw
 	useEffect(() => {
+		if (match) {
+			api.post(`/user/saw/${match[matchIndex]._id}`)
+			.catch((err) => console.log(err))
+		}
 		match && notifSocket.emit('notification', {
 			type: 'visit',
 			to: match[matchIndex]._id,
@@ -258,7 +261,6 @@ function Match() {
 	}
 
 	const nextMatch = () => {
-		console.log("yipikai")
 		if (matchIndex < match.length1) {
 			setLike(false);
 			setMatchIndex(matchIndex + 1);
