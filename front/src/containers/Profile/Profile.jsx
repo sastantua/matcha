@@ -33,12 +33,13 @@ const ProfileContainer = styled.div`
 
 const UserPicturesContainer = styled.div`
 	height: auto;
-	width: auto;
 	margin-top: 10vh;
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
 		min-width: 15vw;
+		width: 50%;
 	}
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		width: 65%;
 		min-width: 30vw;
 	}
 `
@@ -114,6 +115,7 @@ const BiographyContainer = styled.div`
 	display: flex;
 	justify-content: stretch;
 	min-height: 50px;
+	margin: ${SPACING.XS} 0;
 	padding: ${SPACING.XXS} ${SPACING.XXS};
 	border-radius: 15px;
 	background-color: ${COLORS.GREY_LIGHT};
@@ -121,8 +123,8 @@ const BiographyContainer = styled.div`
 
 const BiographyText = styled.span`
 	color: ${COLORS.BLACK};
-	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		font-weight: 600;
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		font-weight: 400;
 		font-size: 1.3em;
 	}
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
@@ -169,15 +171,24 @@ function Profile(props) {
 	const [like, setLike] = useState(false);
 	const [block, setBlock] = useState(false);
 
-	// const getDistance = (user_a, user_b) => {
-	// 	return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001;
-	// }
+	const getDistance = (user_a, user_b) => {
+		return getPreciseDistance({
+			latitude: user_a.location.lat,
+			longitude: user_a.location.lng
+		},
+		{
+			latitude: user_b.location.lat,
+			longitude: user_b.location.lng
+		}) * 0.001;
+	}
 	
 	const profile = props.history.location.state.user ? props.history.location.state.user : undefined;
-	// const distance = getDistance(profile, user).toString().split('.')[0];
 	const age = findAge(profile.birthdate);
-	
-	console.log("profile", profile);
+	let distance = null;
+
+	if (profile !== null && user !== null && profile !== undefined && user !== undefined)
+		distance = getDistance(profile, user).toString().split('.')[0];
+
 	// Rajoute ici le call saw
 	useEffect(() => {
 		user && notifSocket.emit('notification', {
@@ -246,16 +257,20 @@ function Profile(props) {
 			<InfoContainer id="InfoContainer">
 				<InfoText>@{profile.username.charAt(0).toUpperCase() + profile.username.slice(1)}</InfoText>
 				<InfoRowContainer id="InfoRowContainer">
-					<InfoText>{profile.firstname.charAt(0).toUpperCase() + profile.firstname.slice(1)}</InfoText>
-					<InfoText>{profile.lastname.charAt(0).toUpperCase() + profile.lastname.slice(1)}</InfoText>
+					<InfoText>
+						{profile.firstname.charAt(0).toUpperCase() + profile.firstname.slice(1) + " "}
+						{profile.lastname.charAt(0).toUpperCase() + profile.lastname.slice(1)}
+					</InfoText>
 				</InfoRowContainer>
 				<InfoRowContainer id="InfoRowContainer">
-					<InfoText>{profile.gender.name.charAt(0).toUpperCase() + profile.gender.name.slice(1)}</InfoText>
-					<InfoText>{profile.orientation.name.charAt(0).toUpperCase() + profile.orientation.name.slice(1)}</InfoText>
-					<InfoText>{age} year old</InfoText>
+					<InfoText>
+						{profile.gender.name.charAt(0).toUpperCase() + profile.gender.name.slice(1) + " "}
+						{profile.orientation.name.charAt(0).toUpperCase() + profile.orientation.name.slice(1) + " "}
+						{age + " year old"}
+					</InfoText>
 				</InfoRowContainer>
-				{/* <InfoText>Distance: {distance} km</InfoText> */}
-				{/* <InfoText>Populairty score: {props.user.popularity}</InfoText> */}
+				<InfoText>Distance: {distance} km</InfoText>
+				<InfoText>Populairty score: {profile.popularity}</InfoText>
 			</InfoContainer>
 			<HobbyContainer id="HobbyContainer">
 				{

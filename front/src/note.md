@@ -1,7 +1,6 @@
 # Todo
 
 	Objectif du jour:
-		- Dropdown
 		- Distance / Popularity -- Problem in profile
 		- Call when profile is seen on profile and match
 		- Report fake profile
