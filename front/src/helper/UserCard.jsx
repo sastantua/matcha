@@ -1,9 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react';
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { getPreciseDistance } from 'geolib';
+
 
 import findAge from './findAge'
 import UserImages from './UserImages';
+import { UserContext } from '../context/UserContext';
 import { COLORS, SPACING, BREAK_POINTS } from '../config/style';
 
 const UserCardContainer = styled.div`
@@ -66,20 +69,16 @@ const NameContainer = styled.div`
 	}
 `
 
-const GenderOrientationAgeContainer = styled.div`
+const RowContainer = styled.div`
 	display: flex;
 	flex-direction: row;
 	& > :nth-child(n+2) {
 		margin-left: ${SPACING.XXS}
 	}
-	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		width: auto;
-	}
 `
 
 const Text = styled.span`
 	color: ${COLORS.BLACK};
-	width: 50%;
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		font-weight: 600;
 		font-size: 1.3em;
@@ -89,12 +88,6 @@ const Text = styled.span`
 		font-weight: 400;
 		font-size: 0.8em;
 	}
-`
-
-const RowContainer = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
 `
 
 const ChipsContainer = styled.div`
@@ -127,13 +120,17 @@ const Icon = styled.div`
 	opacity: .7;
 	box-shadow: 0px 0px 102px -20px rgba(0,0,0,0.75);
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		height: 12px;
-		width: 12px;
+		&& {
+			height: 12px;
+			width: 12px;
+		}
 		margin-right: ${SPACING.XXS};
 	}
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
-		height: 28px;
-		width: 28px;
+		&& {
+			height: 28px;
+			width: 28px;
+		}
 		margin-right: ${SPACING.XS};
 	}
 `
@@ -162,8 +159,19 @@ const Box = styled.div`
 	border-radius: 32px;
 `
 
+
+
 function UserCard(props) {
-	return (
+	const { user } = useContext(UserContext);
+	
+	const getDistance = (user_a, user_b) => {
+		return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001;
+	}
+
+	if (props)
+		var distance = getDistance(props.user, user).toString().split('.')[0];
+	
+		return (
 		<UserCardContainer id={props.user.username}>
 			<Link to={{pathname: '/profile', state: { user: props.user }}} style={{ textDecoration: 'none' }}>
 				<HeadContainer id="HeadContainer">
@@ -174,27 +182,27 @@ function UserCard(props) {
 						<NameContainer id="NameContainer">
 							<Text>{`@${props.user.username.charAt(0).toUpperCase() + props.user.username.slice(1)}`}</Text>
 							<Text>{`${props.user.firstname.charAt(0).toUpperCase() + props.user.firstname.slice(1)} ${props.user.lastname.charAt(0).toUpperCase() + props.user.lastname.slice(1)}`}</Text>
-							<GenderOrientationAgeContainer id="GenderOrientationAgeContainer">
+							<RowContainer id="RowContainer">
 								<Text>{props.user.gender.name.charAt(0).toUpperCase() + props.user.gender.name.slice(1)}</Text>
 								<Text>{props.user.orientation.name.charAt(0).toUpperCase() + props.user.orientation.name.slice(1)}</Text>
 								<Text>{`${findAge(props.user.birthdate)} Yo`}</Text>
-							</GenderOrientationAgeContainer>
+							</RowContainer>
+							<Text>Distance: {distance} km</Text>
+							<Text>Populairty score: {props.user.popularity}</Text>
 						</NameContainer>
 					</Infos>
 				</HeadContainer>
-				<RowContainer id="RowContainer">
-					<ChipsContainer id="ChipsContainer">
-					{
-						props.user.hobbies.map(hobby =>
-							<Chip id="Chip">
-								<Icon className="fab fa-slack-hash">
-								</Icon>
-								<span>{hobby.name}</span>
-							</Chip>
-						)
-					}
-					</ChipsContainer>
-				</RowContainer>
+				<ChipsContainer id="ChipsContainer">
+				{
+					props.user.hobbies.map(hobby =>
+						<Chip id="Chip">
+							<Icon className="fab fa-slack-hash">
+							</Icon>
+							<span>{hobby.name}</span>
+						</Chip>
+					)
+				}
+				</ChipsContainer>
 				<Biography id="Biography">
 					{`${props.user.biography}`}
 				</Biography>

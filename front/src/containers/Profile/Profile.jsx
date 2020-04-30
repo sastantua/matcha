@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components'
+import { getPreciseDistance } from 'geolib';
 
 import api from '../../api/api'
 import findAge from '../../helper/findAge';
@@ -168,9 +169,15 @@ function Profile(props) {
 	const [like, setLike] = useState(false);
 	const [block, setBlock] = useState(false);
 
+	// const getDistance = (user_a, user_b) => {
+	// 	return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001;
+	// }
+	
 	const profile = props.history.location.state.user ? props.history.location.state.user : undefined;
+	// const distance = getDistance(profile, user).toString().split('.')[0];
 	const age = findAge(profile.birthdate);
-
+	
+	console.log("profile", profile);
 	// Rajoute ici le call saw
 	useEffect(() => {
 		user && notifSocket.emit('notification', {
@@ -247,6 +254,8 @@ function Profile(props) {
 					<InfoText>{profile.orientation.name.charAt(0).toUpperCase() + profile.orientation.name.slice(1)}</InfoText>
 					<InfoText>{age} year old</InfoText>
 				</InfoRowContainer>
+				{/* <InfoText>Distance: {distance} km</InfoText> */}
+				{/* <InfoText>Populairty score: {props.user.popularity}</InfoText> */}
 			</InfoContainer>
 			<HobbyContainer id="HobbyContainer">
 				{

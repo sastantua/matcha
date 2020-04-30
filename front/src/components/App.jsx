@@ -63,7 +63,7 @@ function App() {
 	const [user, setUser] = useState(null);
 	const {latitude, longitude} = usePosition();
 	const userMemo = useMemo(() => ({ user, setUser }), [user, setUser]);
-	
+
 	useEffect(() => {
 		if (user) {
 			api.post('/user/location', {lat: latitude, lng: longitude})

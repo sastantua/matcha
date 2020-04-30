@@ -6,7 +6,7 @@ import UserCard from '../../helper/UserCard';
 import { COLORS, BREAK_POINTS } from '../../config/style'
 import LonelyCat from '../../media/lonelycat.png'
 
-import Dropdown from './Dropdown';
+import Checkbox from './Checkbox';
 
 const SawContainer = styled.div`
 	display: flex;
@@ -59,9 +59,10 @@ const Text = styled.span`
 `
 
 function Saw() {
+	const [liked, setLiked] = useState(true);
+	const [visited, setVisited] = useState(false);
 	const [likeResult, setLikeResult] = useState([]);
 	const [visitedResult, setVisitedResult] = useState([]);
-	const [userChoice, setUserChoice] = useState();
 
 	useEffect(() => {
 		api.get('/user/likes')
@@ -84,54 +85,43 @@ function Saw() {
 	}, []);
 
 	const Liked = () => {
-		let ReturnJsx = null;
-		if (likeResult.length > 0) {
-			ReturnJsx = () => likeResult.map((user, index) => {
-				return (
-					<Container>
-						<UserCard user={likeResult[index].user} key={index}/>
-						<Text>Liked your profile {likeResult[index].date.substring(0, 21)}</Text>
-					</Container>
-				);
-			})
-		}
-		else {
-			ReturnJsx = () => {
-				return <img src={LonelyCat} alt=""/>
-			}
-		}
-		return <ReturnJsx/>;
+		likeResult.length > 0 && likeResult.map((user, index) => {
+			return (
+				<Container>
+					<UserCard user={likeResult[index].user} key={index}/>
+					<Text>Liked your profile {likeResult[index].date.substring(0, 21)}</Text>
+				</Container>
+		);
+		})
+		return <img src={LonelyCat} alt=""/>
 	}
 
 	const Visited = () => {
-		let ReturnJsx = null;
-		if (visitedResult.length > 0) {
-			ReturnJsx = () => visitedResult.map((user, index) => {
+		let returnJsx = null;
+		if (visited) {
+			returnJsx = visitedResult.length > 0 && visitedResult.map((user, index) => {
 				return (
-					<Container key={`${index}A}`}>
-						<UserCard user={visitedResult[index].user} key={`${index}B}`}/>
-						<Text key={`${index}C}`}>
-							Saw your profile {visitedResult[index].date.substring(0, 21)}
-						</Text>
+					<Container>
+						<UserCard user={visitedResult[index].user} key={index}/>
+						<Text>Saw your profile {visitedResult[index].date.substring(0, 21)}</Text>
 					</Container>
 				);
 			})
 		}
 		else {
-			ReturnJsx = () => {
+			returnJsx = () => {
 				return <img src={LonelyCat} alt=""/>
 			}
 		}
-		return <ReturnJsx/>;
+		return returnJsx;
 	}
 
 	return (
 		<SawContainer id="SawContainer">
 			<SubSawContainer id="SubSawContainer">
-				<Dropdown userChoice={userChoice} setUserChoice={setUserChoice}/>
-				{ userChoice === "1" && <Liked/> }
-				{ userChoice === "2" && <Visited/> }
-				{ userChoice === "3" && <Liked/> && <Visited/> }
+				<Checkbox liked={liked} setLiked={setLiked} visited={visited} setVisited={setVisited}/>
+				{ liked && <Liked/> }
+				{ visited && <Visited/> }
 			</SubSawContainer>
 		</SawContainer>
 	);
