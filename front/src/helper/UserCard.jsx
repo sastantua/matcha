@@ -37,12 +37,13 @@ const HeadContainer = styled.div`
 `
 
 const ImagesContainer = styled.div`
-	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
 		width: 50%;
 	}
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		width: 100%;
 	}
+
 `
 
 const Infos = styled.div`
@@ -79,13 +80,13 @@ const RowContainer = styled.div`
 
 const Text = styled.span`
 	color: ${COLORS.BLACK};
-	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		font-weight: 600;
-		font-size: 1.3em;
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		font-weight: 400;
+		font-size: 1.4em;
 		width: auto;
 	}
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		font-weight: 400;
+		font-weight: 300;
 		font-size: 0.8em;
 	}
 `
