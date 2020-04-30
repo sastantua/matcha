@@ -7,11 +7,11 @@ import { notifSocket } from '../../api/socket';
 import { UserContext } from '../../context/UserContext';
 import UserImages from '../../helper/UserImages';
 
-import Loader from '../../components/Loader/Loader';
-import { Favorite, FavoriteBorder } from '@material-ui/icons';
-import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
-
 import findAge from '../../helper/findAge.js'
+import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
+import Loader from '../../components/Loader/Loader';
+
+import { Favorite, FavoriteBorder, Block } from '@material-ui/icons';
 
 const MatchContainer = styled.div`
 	padding: ${SPACING.BASE};
@@ -139,6 +139,10 @@ const NameContainer = styled.div`
 const RowContainer = styled.div`
 	display: flex;
 	flex-direction: row;
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		justify-content: center;
+		align-items: center;
+	}
 	& > :nth-child(n+2) {
 		margin-left: ${SPACING.XXS}
 	}
@@ -193,6 +197,8 @@ const ChipsContainer = styled.div`
 	margin: ${SPACING.BASE} 0;
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 		margin: ${SPACING.XS} 0;
 	}
 `
@@ -227,6 +233,7 @@ const Box = styled.div`
 function Match() {
 	const { user } = useContext(UserContext);
 	const [like, setLike] = useState(false);
+	const [block, setBlock] = useState(false);
 	const [match, setMatch] = useState();
 	const [matchIndex, setMatchIndex] = useState(0);
 	const [fetchState, setFetchState] = useState(false);
@@ -289,6 +296,19 @@ function Match() {
 		}
 	}
 
+	const blockMatch = () => {
+		api.post(`/user/block/${match[matchIndex]._id}`)
+		.then((res) => {
+			setBlock(true);
+			notifSocket.emit('notification', {
+				type: 'block',
+				to: match[matchIndex]._id,
+				from: user._id
+			})
+		})
+		.catch((err) => {console.log(err)})
+	}
+
 	const getDistance = (user_a, user_b) => {
 		return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001;
 	}
@@ -347,6 +367,9 @@ function Match() {
 					</div>
 					<div onClick={likeMatch}>
 						{like ? <Favorite fontSize="large"/> : <FavoriteBorder fontSize="large"/>}
+					</div>
+					<div onClick={blockMatch}>
+						{<Block fontSize="large"/>}
 					</div>
 					<div onClick={nextMatch}>
 						<i className="fas fa-chevron-right fa-3x"></i>
