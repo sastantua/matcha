@@ -189,8 +189,9 @@ function Profile(props) {
 	if (profile !== null && user !== null && profile !== undefined && user !== undefined)
 		distance = getDistance(profile, user).toString().split('.')[0];
 
-	// Rajoute ici le call saw
 	useEffect(() => {
+		api.post(`/user/saw/${profile._id}`)
+		.catch((err) => console.log(err))
 		user && notifSocket.emit('notification', {
 			type: 'visit',
 			to: profile._id,
