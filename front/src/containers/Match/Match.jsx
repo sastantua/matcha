@@ -233,7 +233,6 @@ const Box = styled.div`
 function Match() {
 	const [user] = useContext(UserContext);
 	const [like, setLike] = useState(false);
-	const [block, setBlock] = useState(false);
 	const [match, setMatch] = useState();
 	const [matchIndex, setMatchIndex] = useState(0);
 	const [fetchState, setFetchState] = useState(false);
@@ -243,7 +242,6 @@ function Match() {
 		.then((res) => {
 			setMatch(res.data);
 			setFetchState(true);
-			console.log(res.data);
 		})
 		.catch((err) => {console.log(err);})
 	}, []);
@@ -299,7 +297,6 @@ function Match() {
 	const blockMatch = () => {
 		api.post(`/user/block/${match[matchIndex]._id}`)
 		.then((res) => {
-			setBlock(true);
 			notifSocket.emit('notification', {
 				type: 'block',
 				to: match[matchIndex]._id,
@@ -345,7 +342,7 @@ function Match() {
 					<ChipsContainer id="ChipsContainer">
 					{
 						match[matchIndex].hobbies.map(hobby =>
-							<Chip id="Chip">
+							<Chip id="Chip" key={hobby.name}>
 								<Icon className="fab fa-slack-hash"></Icon>
 								<span>{hobby.name}</span>
 							</Chip>

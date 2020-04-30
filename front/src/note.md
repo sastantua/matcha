@@ -1,28 +1,33 @@
 # Todo
 
-	Objectif du jour:
-		- Report fake profile
-		- Last connexion
-		- Do homepage
+		To do:
+			- Report fake profile
+			- Last connexion
+			- Homepage
 
+		- Error
+				OK Account:
+			KO Chat:
+			KO Homepage:
+			KO Login:
+				OK Match:
+			KO NoMatch:
+			KO Notifications:
+			KO Profile:
+			KO Reset:
+			KO Saw:
+			KO Search:
+			KO Signup:
+			KO Unblock:
+			KO Verify:
 
-		- Important:
-			Error:
-			Localisation:
-			Last VisitOnline:
-			Problem with hobby
 
 		- Optional:
-			Match: add profile link?
-			Profile: style for IpadPro
+			Account: overflow for picture modal
 			Profile: add picture modal
+			Profile: style for IpadPro
 			Helper: Move card from match and search to helper? (no style already differ ...)
-			Account: problem with modal on mobile
 
-
-		- Potential error
-			Match: remove setUser from context
-	
 		- End
 			Remove all console.log
 			Remove all warnings
