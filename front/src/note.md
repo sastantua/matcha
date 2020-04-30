@@ -1,7 +1,6 @@
 # Todo
 
 	Objectif du jour:
-		- Distance / Popularity -- Problem in profile
 		- Call when profile is seen on profile and match
 		- Report fake profile
 		- Last connexion
@@ -11,7 +10,6 @@
 		- Important:
 			Error:
 			Localisation:
-			Popularity Score:
 			Last VisitOnline:
 			Problem with hobby
 

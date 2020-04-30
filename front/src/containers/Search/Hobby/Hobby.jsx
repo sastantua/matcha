@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
+import styled from "styled-components";
 import { makeStyles } from '@material-ui/core/styles';
 
 import api from '../../../api/api'
-import { COLORS } from '../../../config/style'
+import { COLORS, BREAK_POINTS, SPACING } from '../../../config/style'
 import SearchRequestContext from '../../../context/SearchRequestContext';
 
-import { List, ListItem, ListItemText, Collapse, Chip } from '@material-ui/core';
+import { List, ListItem, ListItemText, Collapse } from '@material-ui/core';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
@@ -15,13 +16,52 @@ const useStyles = makeStyles(theme => ({
 		borderRadius: '10px',
 		marginTop: '2vh',
 	},
-	chip: {
-		width: '100%',
-		background: '#FF3860',
-		color: COLORS.WHITE
-	},
-	field: {color: COLORS.WHITE},
 }));
+
+const ChipsContainer = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+	margin: ${SPACING.BASE} 0;
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		flex-direction: row;
+		margin: ${SPACING.XS} 0;
+	}
+`
+
+const Chip = styled.div`
+	display: flex;
+	align-items: center;
+	color: white;
+	background-color: ${COLORS.PURPLE};
+	margin: ${SPACING.XXS};
+	padding: ${SPACING.XXS} ${SPACING.XXS};
+	font-weight: 300;
+	border-radius: 32px;
+`
+
+const Icon = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	background-color: ${COLORS.PINK_FLASHY};
+	opacity: .7;
+	box-shadow: 0px 0px 102px -20px rgba(0,0,0,0.75);
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		&& {
+			height: 12px;
+			width: 12px;
+		}
+		margin-right: ${SPACING.XXS};
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		&& {
+			height: 28px;
+			width: 28px;
+		}
+		margin-right: ${SPACING.XS};
+	}
+`
 
 function Hobby() {
 	const classes = useStyles();
@@ -78,11 +118,19 @@ function Hobby() {
 
 	const ChoosedHobbyList = () => {
 		return (
-			requestHobbyList.map(hobby => {
-				return (
-					<Chip className={classes.chip} variant="outlined" size="small" key={hobby.id} label={hobby.name} onClick={() => deleteUserHobby(hobby)} />
-				)
-			})
+			<ChipsContainer>
+				{
+					requestHobbyList.map(hobby => {
+						return (
+							<Chip id="Chip" onClick={() => deleteUserHobby(hobby)}>
+								<Icon className="fab fa-slack-hash">
+								</Icon>
+								<span>{hobby.name}</span>
+							</Chip>
+						)
+					})
+				}
+			</ChipsContainer>
 		)
 	}
 

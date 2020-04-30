@@ -194,15 +194,15 @@ function UserCard(props) {
 					</Infos>
 				</HeadContainer>
 				<ChipsContainer id="ChipsContainer">
-				{
-					props.user.hobbies.map(hobby =>
-						<Chip id="Chip">
-							<Icon className="fab fa-slack-hash">
-							</Icon>
-							<span>{hobby.name}</span>
-						</Chip>
-					)
-				}
+					{
+						props.user.hobbies.map(hobby =>
+							<Chip id="Chip">
+								<Icon className="fab fa-slack-hash">
+								</Icon>
+								<span>{hobby.name}</span>
+							</Chip>
+						)
+					}
 				</ChipsContainer>
 				<Biography id="Biography">
 					{`${props.user.biography}`}
