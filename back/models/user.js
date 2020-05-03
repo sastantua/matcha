@@ -33,7 +33,8 @@ export const registerUser = async (user) => {
 	const dbSession = session(mode.WRITE);
 	user.password = await bcrypt.hash(user.password, 8)
 	user._id = uuidv1();
-	const query = 'CREATE (u:User { _id: $_id, username: $username, firstname: $firstname, lastname: $lastname, email: $email, password: $password, activated: false })';
+	user.status = new Date().toString();
+	const query = 'CREATE (u:User { _id: $_id, username: $username, firstname: $firstname, lastname: $lastname, email: $email, password: $password, status: $status, activated: false })';
 	await dbSession.session.run(query, user).then(res => {
 		closeBridge(dbSession);
 	}).catch(e => {
@@ -70,7 +71,7 @@ export const activateAccount = async (token) => {
 	return false;
 }
 
-export const sendActivation = async (user) => {
+export const sendActivation = async (user, origin) => {
 	const dbSession = session(mode.WRITE);
 	user.registerToken = jwt.sign({ email: user.email }, process.env.JWT_KEY);
 	const query = 'MATCH (u:User) WHERE u._id = $_id CREATE (m:Mail {token: $registerToken}) MERGE (u)<-[:TOKEN]-(m)';
@@ -79,7 +80,7 @@ export const sendActivation = async (user) => {
 	}).catch(e => {
 		console.log(e);
 	})
-	registerMail(user);
+	registerMail(user, origin);
 }
 
 export const verifyUser = async (_id, token) => {
@@ -156,7 +157,7 @@ export const editPassword = async (user, password) => {
 		.catch(e => console.log(e));
 }
 
-export const requestPassword = async (email) => {
+export const requestPassword = async (email, origin) => {
 	const dbSession = session(mode.WRITE);
 	var query = `MATCH (u:User) WHERE u.email = $email
 	OPTIONAL MATCH (u)-[r:RESET]-(m)
@@ -178,7 +179,7 @@ export const requestPassword = async (email) => {
 		.then(res => {
 			closeBridge(dbSession)
 		}).catch(e => console.log(e));
-		passwordMail(user);
+		passwordMail(user, origin);
 	}
 }
 
@@ -393,7 +394,7 @@ export const like = async (user, _id) => {
 
 export const unlike = async (user, _id) => {
 	const dbSession = session(mode.WRITE);
-	const query = 'MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $likedId MATCH (a)-[l:LOVE]->(b) DETACH DELETE l';
+	const query = 'MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $likedId MATCH (a)-[l:LOVE]->(b) OPTIONAL MATCH (a)-[c:CHAT]-(b) DETACH DELETE l,c';
 	await dbSession.session.run(query, {_id: user._id, likedId: _id}).then(res => {
 		closeBridge(dbSession)
 	}).catch(e => console.log(e));
@@ -454,6 +455,31 @@ export const getLikes = async (user) => {
 	return alikes;
 }
 
+export const report = async (_id) => {
+	const dbSession = session(mode.WRITE);
+	const query = `MATCH (a:User) WHERE a._id = $_id
+	OPTIONAL MATCH (a)-[l:LOVE]-()
+	OPTIONAL MATCH (a)-[s:SAW]-()
+	OPTIONAL MATCH (a)-[c:CHAT]-()
+	SET a.report = true
+	DETACH DELETE l,s,c`;
+	await dbSession.session.run(query, { _id }).then(res => {
+		closeBridge(dbSession);
+	}).catch(e => console.log(e));
+}
+
+export const isReported = async (_id) => {
+	const dbSession = session(mode.READ);
+	const query = `MATCH (u:User) WHERE u._id = $_id RETURN u`;
+	return await dbSession.session.run(query, { _id }).then(res => {
+		closeBridge(dbSession);
+		if (res.records.length) {
+			return (res.records[0]._fields[0].properties.report ? true : false);
+		}
+		return false
+	}).catch(e => console.log(e));
+}
+
 export const getBlocked = async (user) => {
 	const dbSession = session(mode.READ);
 	const query = 'MATCH (y:User)-[b:BLOCK]->(u:User) WHERE y._id = $_id RETURN u';
@@ -469,7 +495,6 @@ export const getBlocked = async (user) => {
 		return users;
 	}).catch(e => console.log(e));
 }
-
 
 export const blocks = async (user, _id) => {
 	const dbSession = session(mode.READ);
@@ -488,8 +513,9 @@ export const block = async (user, _id) => {
 	const query = `MATCH (a:User) WHERE a._id = $_id MATCH (b:User) WHERE b._id = $blockId
 	OPTIONAL MATCH (a)-[l:LOVE]-(b)
 	OPTIONAL MATCH (a)-[s:SAW]-(b)
+	OPTIONAL MATCH (a)-[c:CHAT]-(b)
 	MERGE (a)-[:BLOCK]->(b)
-	DETACH DELETE l,s`;
+	DETACH DELETE l,s,c`;
 	await dbSession.session.run(query, {_id: user._id, blockId: _id}).then(res => {
 		closeBridge(dbSession);
 	}).catch(e => console.log(e));
@@ -621,6 +647,10 @@ export const getByOrientation = async (user) => {
 		if (!await hasExtendedProfile(users[key]) || await isLiked(user, users[key]._id) || await blocks(user, users[key]._id)) users.splice(key, 1);
 	}
 	for (let aUser of users) {
+		if (await isLiked(user, aUser._id) || await blocks(user, aUser._id) || await isReported(aUser._id)) {
+			users.splice(users.indexOf(aUser), 1);
+			continue;
+		}
 		aUser.gender = await getGender(aUser);
 		aUser.orientation = await getOrientation(aUser);
 		aUser.hobbies = await getHobbies(aUser);
