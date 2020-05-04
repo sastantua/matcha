@@ -235,7 +235,7 @@ function Match() {
 	const [user] = useContext(UserContext);
 	const [like, setLike] = useState(false);
 	const [match, setMatch] = useImmer();
-	const [matchIndex, setMatchIndex] = useState(0);
+	const [matchIndex, setMatchIndex] = useState(1);
 	const [fetchState, setFetchState] = useState(false);
 
 	useEffect(() => {
@@ -249,7 +249,8 @@ function Match() {
 
 	useEffect(() => {
 		if (match && match.length) {
-			api.post(`/user/saw/${match[matchIndex]._id}`).then((res) => {
+			api.post(`/user/saw/${match[matchIndex]._id}`)
+			.then((res) => {
 				notifSocket.emit('notification', {
 					type: 'visit',
 					to: match[matchIndex]._id,

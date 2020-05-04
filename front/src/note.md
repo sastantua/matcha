@@ -7,9 +7,9 @@
 
 		- Error
 			KO Signup:
-			KO Login:
-			KO Reset:
-			KO Edit:
+				OK Login:
+				OK Reset:
+			KO Edit: change to password
 				OK Homepage:
 				OK Account:
 				OK Match:

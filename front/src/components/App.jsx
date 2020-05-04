@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+import api from '../api/api';
 import usePosition from '../hooks/usePosition';
 import { UserContext } from '../context/UserContext'
 import { NotificationsProvider } from '../context/NotificationsProvider';
-import api from '../api/api';
 import { BREAK_POINTS, COLORS } from '../config/style';
 import { notifSocket, chatSocket } from '../api/socket';
 
@@ -25,6 +25,7 @@ import Unblock from '../containers/Unblock/Unblock';
 import Signup from '../containers/Signup/Signup';
 import Login from '../containers/Login/Login';
 import Verify from '../containers/Verify/Verify';
+import Password from '../containers/Password/Password';
 import NoMatch from '../containers/NoMatch/NoMatch';
 import Header from './Header/Header';
 import Notifications from '../containers/Notifications/Notifications';
@@ -73,7 +74,6 @@ function App() {
 	useEffect(() => {
 		if (user) {
 			notifSocket.emit('connected', user._id);
-			// console.log('user is now logged');
 		}
 	}, [user])
 
@@ -107,6 +107,7 @@ function App() {
 								<Route exact path="/home" component={Homepage} />
 								<Route exact path="/login" component={Login} />
 								<Route exact path="/reset" component={Reset} />
+								<Route exact path="/password/:token" component={Password} />
 								<Route exact path="/signup" component={Signup} />
 								<Route exact path="/verify/:token" component={Verify} />
 								<AuthenticatedRoute exact path="/saw" component={Saw} />
