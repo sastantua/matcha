@@ -11,6 +11,7 @@ import { Block, Replay } from '@material-ui/icons';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import { notifSocket } from '../../api/socket';
 import { UserContext } from '../../context/UserContext';
+import { useHistory } from 'react-router-dom';
 
 const ProfileContainer = styled.div`
  	display: flex;
@@ -167,6 +168,7 @@ const ActionContainer = styled.div`
 `
 
 function Profile(props) {
+	const history = useHistory();
 	const [user] = useContext(UserContext);
 	const [like, setLike] = useState(false);
 	const [block, setBlock] = useState(false);
@@ -239,14 +241,10 @@ function Profile(props) {
 				to: profile._id,
 				from: user._id
 			})
+			history.goBack();
 		})
 		.catch((err) => {console.log(err)})
-	}
-
-	const unblockMatch = () => {
-		api.post(`/user/unblock/${profile._id}`)
-		.then((res) => {setBlock(false)})
-		.catch((err) => {console.log(err)})
+		
 	}
 
 	console.log(profile);
@@ -298,7 +296,7 @@ function Profile(props) {
 			</Bottom>
 			<ActionContainer id="ActionContainer">
 				{like ? <FavoriteBorder onClick={unlikeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></FavoriteBorder> : <Favorite onClick={likeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"/>}
-				{block ? <Replay onClick={unblockMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></Replay> : <Block onClick={blockMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></Block>}
+				<Block onClick={blockMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></Block>
 			</ActionContainer>
 		</ProfileContainer>
 	);

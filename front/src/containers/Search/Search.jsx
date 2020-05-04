@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
+import { useImmer } from 'use-immer';
 
 import { COLORS, BREAK_POINTS } from '../../config/style'
 import usePosition from '../../hooks/usePosition'
@@ -81,7 +82,7 @@ function Search() {
 	const [ascending, setAscending] = useState(true);
 	const [descending, setDescending] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [result, setResult] = useState([]);
+	const [result, setResult] = useImmer([]);
 	const [request, setRequest] = useState({
 		distance: 5,
 		age: {
@@ -105,14 +106,14 @@ function Search() {
 	}, [setUserHobbies]);
 
 	useEffect(() => {
-		setResult(sortUsers(result, userPosition, userHobbies, sort, ascending, descending));
+		setResult(() => sortUsers(result, userPosition, userHobbies, sort, ascending, descending));
 	}, [result, userHobbies, userPosition, sort, ascending, descending])
 
 	const handleSubmit = () => {
 		setIsLoading(true);
 		api.get('/user/search', request)
 		.then((res) => {
-			setResult(sortUsers(res.data, userPosition, userHobbies, sort, ascending, descending))
+			setResult(() => sortUsers(res.data, userPosition, userHobbies, sort, ascending, descending))
 			setIsLoading(false);
 		})
 		.catch((err) => {

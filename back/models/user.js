@@ -647,7 +647,7 @@ export const getByOrientation = async (user) => {
 		if (!await hasExtendedProfile(users[key]) || await isLiked(user, users[key]._id) || await blocks(user, users[key]._id)) users.splice(key, 1);
 	}
 	for (let aUser of users) {
-		if (await isLiked(user, aUser._id) || await blocks(user, aUser._id) || await isReported(aUser._id)) {
+		if (await isLiked(user, aUser._id) || await blocks(user, aUser._id) || await isReported(aUser._id) || aUser._id === user._id) {
 			users.splice(users.indexOf(aUser), 1);
 			continue;
 		}
