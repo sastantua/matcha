@@ -87,7 +87,7 @@ function Unblock() {
 		return (
 			users.map((user, index) => {
 				return (
-					<RowContainer id={user._id}>
+					<RowContainer key={user._id}>
 						<Cell>
 							<Text>{user.username}</Text>
 						</Cell>

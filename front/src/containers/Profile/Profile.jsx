@@ -173,12 +173,16 @@ const ActionContainer = styled.div`
 const RedirectButton = styled.button`
 	position: absolute;
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
-		top: 5vh;
-		right: 5vw;
+		top: 0.5vh;
+		left: 10vw;
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_LG}) {
+		top: 0.5vh;
+		left: 7vw;
 	}
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		top: 0.5vh;
-		right: 5vw;
+		left: 5vw;
 	}
 
 	color: ${COLORS.WHITE};

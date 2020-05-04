@@ -4,25 +4,28 @@
 			- Report fake profile
 			- Homepage
 
+
 		- Error
-			Ko Account: error in birthdate uncontroll component
-			KO Chat:
-				OK Homepage:
+			KO Signup:
 			KO Login:
-				OK Match:
-				OK NoMatch:
-			KO Notifications:
-				OK Profile:
 			KO Reset:
+			KO Edit:
+				OK Homepage:
+				OK Account:
+				OK Match:
+				OK Profile:
 			KO Saw:
 				OK Search:
-			KO Signup:
 			KO Unblock:
 			KO Verify:
+				OK NoMatch:
+			KO Chat:
+			KO Notifications:
 
 
 		- Optional:
 			Account: overflow for picture modal
+			Match: block doesnt remove user before reload
 			Profile: add picture modal
 			Profile: style for IpadPro
 			Helper: Move card from match and search to helper? (no style already differ ...)
