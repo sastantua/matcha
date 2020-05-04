@@ -19,8 +19,8 @@
 			KO Unblock:
 			KO Verify:
 				OK NoMatch:
-			KO Chat:
-			KO Notifications:
+				OK Chat:
+				OK Notifications:
 
 
 		- Optional:

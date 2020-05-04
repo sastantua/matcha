@@ -88,9 +88,11 @@ function Saw() {
 		if (likeResult.length > 0) {
 			ReturnJsx = () => likeResult.map((user, index) => {
 				return (
-					<Container>
-						<UserCard user={likeResult[index].user} key={index}/>
-						<Text>Liked your profile {likeResult[index].date.substring(0, 21)}</Text>
+					<Container key={index}>
+						<UserCard user={likeResult[index].user}/>
+						<Text>
+							Liked your profile {new Date(visitedResult[index].date).toLocaleString('en-US')}
+						</Text>
 					</Container>
 				);
 			})
@@ -108,9 +110,9 @@ function Saw() {
 		if (visitedResult.length > 0) {
 			ReturnJsx = () => visitedResult.map((user, index) => {
 				return (
-					<Container key={`${index}A}`}>
-						<UserCard user={visitedResult[index].user} key={`${index}B}`}/>
-						<Text key={`${index}C}`}>
+					<Container key={index}>
+						<UserCard user={visitedResult[index].user}/>
+						<Text>
 							Saw your profile {new Date(visitedResult[index].date).toLocaleString('en-US')}
 						</Text>
 					</Container>
