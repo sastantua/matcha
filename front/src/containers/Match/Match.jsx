@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from "styled-components";
+import { useImmer } from 'use-immer';
 import { getPreciseDistance } from 'geolib';
 
 import api from '../../api/api'
@@ -7,11 +8,11 @@ import { notifSocket } from '../../api/socket';
 import { UserContext } from '../../context/UserContext';
 import UserImages from '../../helper/UserImages';
 
-import Loader from '../../components/Loader/Loader';
-import { Favorite, FavoriteBorder } from '@material-ui/icons';
-import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
-
 import findAge from '../../helper/findAge.js'
+import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
+import Loader from '../../components/Loader/Loader';
+
+import { Favorite, FavoriteBorder, Block } from '@material-ui/icons';
 
 const MatchContainer = styled.div`
 	padding: ${SPACING.BASE};
@@ -139,6 +140,10 @@ const NameContainer = styled.div`
 const RowContainer = styled.div`
 	display: flex;
 	flex-direction: row;
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		justify-content: center;
+		align-items: center;
+	}
 	& > :nth-child(n+2) {
 		margin-left: ${SPACING.XXS}
 	}
@@ -193,6 +198,8 @@ const ChipsContainer = styled.div`
 	margin: ${SPACING.BASE} 0;
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
 		flex-direction: row;
+		justify-content: center;
+		align-items: center;
 		margin: ${SPACING.XS} 0;
 	}
 `
@@ -227,22 +234,24 @@ const Box = styled.div`
 function Match() {
 	const [user] = useContext(UserContext);
 	const [like, setLike] = useState(false);
-	const [match, setMatch] = useState();
+	const [match, setMatch] = useImmer();
 	const [matchIndex, setMatchIndex] = useState(0);
 	const [fetchState, setFetchState] = useState(false);
 
 	useEffect(() => {
 		api.get('/user/match')
 		.then((res) => {
-			setMatch(res.data);
+			setMatch(() => res.data);
 			setFetchState(true);
-			console.log(res.data);
 		})
 		.catch((err) => {console.log(err);})
 	}, []);
 
-	// Rajoute ici le call saw
 	useEffect(() => {
+		if (match) {
+			api.post(`/user/saw/${match[matchIndex]._id}`)
+			.catch((err) => console.log(err))
+		}
 		match && notifSocket.emit('notification', {
 			type: 'visit',
 			to: match[matchIndex]._id,
@@ -258,7 +267,6 @@ function Match() {
 	}
 
 	const nextMatch = () => {
-		console.log("yipikai")
 		if (matchIndex < match.length1) {
 			setLike(false);
 			setMatchIndex(matchIndex + 1);
@@ -266,25 +274,33 @@ function Match() {
 	}
 
 	const likeMatch = () => {
-		if (like) {
-			api.post(`/user/unlike/${match[matchIndex]._id}`)
-			.then((res) => {setLike(false)})
-			.catch((err) => {console.log(err)})
+		api.post(`/user/like/${match[matchIndex]._id}`)
+		.then((res) => {
 			notifSocket.emit('notification', {
-				type: 'unlike',
+				type: 'like',
 				to: match[matchIndex]._id,
 				from: user._id
 			})
-		} else {
-		api.post(`/user/like/${match[matchIndex]._id}`)
-		.then((res) => {setLike(true)})
-		.catch((err) => {console.log(err)})
-		notifSocket.emit('notification', {
-			type: 'like',
-			to: match[matchIndex]._id,
-			from: user._id
+			setMatch((draft) => {
+				draft.splice(matchIndex, 1);
+			})
 		})
-		}
+		.catch((err) => {console.log(err)})
+	}
+
+	const blockMatch = () => {
+		api.post(`/user/block/${match[matchIndex]._id}`)
+		.then((res) => {
+			notifSocket.emit('notification', {
+				type: 'block',
+				to: match[matchIndex]._id,
+				from: user._id
+			});
+			setMatch((draft) => {
+				draft.splice(matchIndex, 1);
+			});
+		})
+		.catch((err) => {console.log(err)})
 	}
 
 	const getDistance = (user_a, user_b) => {
@@ -323,8 +339,8 @@ function Match() {
 					<ChipsContainer id="ChipsContainer">
 					{
 						match[matchIndex].hobbies.map(hobby =>
-							<Chip id="Chip">
-								<Icon className="fab fa-slack-hash"></Icon>
+							<Chip id="Chip" key={hobby.name}>
+								<Icon className="fab fa-slack-hash"/>
 								<span>{hobby.name}</span>
 							</Chip>
 						)
@@ -344,7 +360,10 @@ function Match() {
 						<i className="fas fa-chevron-left fa-3x"></i>
 					</div>
 					<div onClick={likeMatch}>
-						{like ? <Favorite fontSize="large"/> : <FavoriteBorder fontSize="large"/>}
+						<FavoriteBorder fontSize="large"/>
+					</div>
+					<div onClick={blockMatch}>
+						<Block fontSize="large"/>
 					</div>
 					<div onClick={nextMatch}>
 						<i className="fas fa-chevron-right fa-3x"></i>

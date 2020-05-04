@@ -161,7 +161,6 @@ const Box = styled.div`
 `
 
 
-
 function UserCard(props) {
 	const [user] = useContext(UserContext);
 	
@@ -195,10 +194,9 @@ function UserCard(props) {
 				</HeadContainer>
 				<ChipsContainer id="ChipsContainer">
 					{
-						props.user.hobbies.map(hobby =>
-							<Chip id="Chip">
-								<Icon className="fab fa-slack-hash">
-								</Icon>
+						props.user.hobbies.map((hobby, index) =>
+							<Chip key={index}>
+								<Icon className="fab fa-slack-hash"/>
 								<span>{hobby.name}</span>
 							</Chip>
 						)

@@ -111,7 +111,7 @@ function Saw() {
 					<Container key={`${index}A}`}>
 						<UserCard user={visitedResult[index].user} key={`${index}B}`}/>
 						<Text key={`${index}C}`}>
-							Saw your profile {visitedResult[index].date.substring(0, 21)}
+							Saw your profile {new Date(visitedResult[index].date).toLocaleString('en-US')}
 						</Text>
 					</Container>
 				);

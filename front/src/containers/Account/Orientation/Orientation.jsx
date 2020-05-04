@@ -66,7 +66,6 @@ function Orientation(props) {
 		})
 	};
 
-	console.log("orientationList = ", orientationList);
 	// Create the jsx for the orientation selection list
 	const orientationListJsx = orientationList.map(text => {
 		return (

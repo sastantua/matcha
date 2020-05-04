@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import { getPreciseDistance } from 'geolib';
 
@@ -100,17 +101,20 @@ const Icon = styled.div`
 	opacity: .7;
 	box-shadow: 0px 0px 102px -20px rgba(0,0,0,0.75);
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		height: 12px;
-		width: 12px;
+		&& {
+			height: 12px;
+			width: 12px;
+		}
 		margin-right: ${SPACING.XXS};
 	}
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
-		height: 28px;
-		width: 28px;
+		&& {
+			height: 28px;
+			width: 28px;
+		}
 		margin-right: ${SPACING.XS};
 	}
 `
-
 
 const BiographyContainer = styled.div`
 	display: flex;
@@ -167,6 +171,34 @@ const ActionContainer = styled.div`
 	}
 `
 
+const RedirectButton = styled.button`
+	position: absolute;
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		top: 0.5vh;
+		left: 10vw;
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_LG}) {
+		top: 0.5vh;
+		left: 7vw;
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		top: 0.5vh;
+		left: 5vw;
+	}
+
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 5px 10px;
+	margin: 2em 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 10px;
+	:hover {
+		transform: scale(1.05);
+	}
+`
+
 function Profile(props) {
 	const history = useHistory();
 	const [user] = useContext(UserContext);
@@ -191,8 +223,9 @@ function Profile(props) {
 	if (profile !== null && user !== null && profile !== undefined && user !== undefined)
 		distance = getDistance(profile, user).toString().split('.')[0];
 
-	// Rajoute ici le call saw
 	useEffect(() => {
+		api.post(`/user/saw/${profile._id}`)
+		.catch((err) => console.log(err))
 		user && notifSocket.emit('notification', {
 			type: 'visit',
 			to: profile._id,
@@ -247,7 +280,9 @@ function Profile(props) {
 		
 	}
 
-	console.log(profile);
+	const handleRedirect = () => {
+		history.push("/search");
+	}
 
 	return (
 		<ProfileContainer id="ProfileContainer">
@@ -275,11 +310,9 @@ function Profile(props) {
 			</InfoContainer>
 			<HobbyContainer id="HobbyContainer">
 				{
-					profile.hobbies.map(hobby =>
-						<Chip>
-							<Icon>
-								<i class="fab fa-slack-hash"></i>
-							</Icon>
+					profile.hobbies.map((hobby, index) =>
+						<Chip key={index}>
+							<Icon className="fab fa-slack-hash"/>
 							<span>{hobby.name}</span>
 						</Chip>
 					)
@@ -298,6 +331,7 @@ function Profile(props) {
 				{like ? <FavoriteBorder onClick={unlikeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></FavoriteBorder> : <Favorite onClick={likeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"/>}
 				<Block onClick={blockMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></Block>
 			</ActionContainer>
+			<RedirectButton onClick={handleRedirect}>Search</RedirectButton>
 		</ProfileContainer>
 	);
 }

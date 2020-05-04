@@ -110,7 +110,7 @@ export default () => {
 	return (
 		<SContainer>
 			<MobileButton onClick={() => {setHidden(!hidden)}}>
-				<i class="fas fa-bars"></i>
+				<i className="fas fa-bars"></i>
 			</MobileButton>
 			<ContactContainer hidden={hidden}>
 				<Heading>Contacts</Heading>

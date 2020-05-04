@@ -113,13 +113,12 @@ const SignupButton = styled.button`
 function Login() {
 	const history = useHistory();
 	const [ user, setUser ] = useContext(UserContext);
-	const [email, setEmail] = useState("guillaumeroux123@gmail.com");
-	const [password, setPassword] = useState("Guillaume-1234");
+	const [email, setEmail] = useState("zozo@yopmail.com");
+	const [password, setPassword] = useState("Zozo-123");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const handleEmail = (e) => {setEmail(e.target.value);}
 	const handlePassword = (e) => {setPassword(e.target.value);}
-	closeSnackbar();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -133,6 +132,7 @@ function Login() {
 			setUser(res.data.user);
 			api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.token}`;
 			enqueueSnackbar(`Welcome ${res.data.user.username}`, {variant: 'success'});
+			setTimeout(closeSnackbar(), 1000);
 			history.push("/");
 		})
 		.catch((err) => {
