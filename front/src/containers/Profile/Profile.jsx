@@ -12,7 +12,6 @@ import { Block, Replay } from '@material-ui/icons';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import { notifSocket } from '../../api/socket';
 import { UserContext } from '../../context/UserContext';
-import { useHistory } from 'react-router-dom';
 
 const ProfileContainer = styled.div`
  	display: flex;

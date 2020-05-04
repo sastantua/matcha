@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from "styled-components";
+import { useImmer } from 'use-immer';
 import { getPreciseDistance } from 'geolib';
 
 import api from '../../api/api'
@@ -233,14 +234,14 @@ const Box = styled.div`
 function Match() {
 	const [user] = useContext(UserContext);
 	const [like, setLike] = useState(false);
-	const [match, setMatch] = useState();
+	const [match, setMatch] = useImmer();
 	const [matchIndex, setMatchIndex] = useState(0);
 	const [fetchState, setFetchState] = useState(false);
 
 	useEffect(() => {
 		api.get('/user/match')
 		.then((res) => {
-			setMatch(res.data);
+			setMatch(() => res.data);
 			setFetchState(true);
 		})
 		.catch((err) => {console.log(err);})
@@ -273,25 +274,18 @@ function Match() {
 	}
 
 	const likeMatch = () => {
-		if (like) {
-			api.post(`/user/unlike/${match[matchIndex]._id}`)
-			.then((res) => {setLike(false)})
-			.catch((err) => {console.log(err)})
+		api.post(`/user/like/${match[matchIndex]._id}`)
+		.then((res) => {
 			notifSocket.emit('notification', {
-				type: 'unlike',
+				type: 'like',
 				to: match[matchIndex]._id,
 				from: user._id
 			})
-		} else {
-		api.post(`/user/like/${match[matchIndex]._id}`)
-		.then((res) => {setLike(true)})
-		.catch((err) => {console.log(err)})
-		notifSocket.emit('notification', {
-			type: 'like',
-			to: match[matchIndex]._id,
-			from: user._id
+			setMatch((draft) => {
+				draft.splice(matchIndex, 1);
+			})
 		})
-		}
+		.catch((err) => {console.log(err)})
 	}
 
 	const blockMatch = () => {
@@ -301,7 +295,10 @@ function Match() {
 				type: 'block',
 				to: match[matchIndex]._id,
 				from: user._id
-			})
+			});
+			setMatch((draft) => {
+				draft.splice(matchIndex, 1);
+			});
 		})
 		.catch((err) => {console.log(err)})
 	}
@@ -363,10 +360,10 @@ function Match() {
 						<i className="fas fa-chevron-left fa-3x"></i>
 					</div>
 					<div onClick={likeMatch}>
-						{like ? <Favorite fontSize="large"/> : <FavoriteBorder fontSize="large"/>}
+						<FavoriteBorder fontSize="large"/>
 					</div>
 					<div onClick={blockMatch}>
-						{<Block fontSize="large"/>}
+						<Block fontSize="large"/>
 					</div>
 					<div onClick={nextMatch}>
 						<i className="fas fa-chevron-right fa-3x"></i>
