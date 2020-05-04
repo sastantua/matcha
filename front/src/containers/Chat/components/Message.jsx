@@ -12,7 +12,7 @@ const Container = styled.div`
 	${p => p.self && 'align-self: flex-end;'}
 	max-width: 49%;
 	min-width: 50px;
-	padding: ${SPACING.XXS} ${SPACING.XXS};
+	padding: ${SPACING.XXS} ${SPACING.XS};
 	margin-top: ${SPACING.XXS};
 	border-radius: 1.3em;
 	background-color: ${p => p.self ? '#0084ff' : '#f1f0f0'};
