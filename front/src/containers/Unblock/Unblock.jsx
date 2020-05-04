@@ -1,4 +1,5 @@
 import React, {useState, useEffect } from 'react';
+import { useImmer } from 'use-immer';
 import styled from 'styled-components'
 
 import api from '../../api/api'
@@ -61,13 +62,13 @@ const StyledButton = styled.button`
 `
 
 function Unblock() {
-	const [users, setUsers] = useState([]);
+	const [users, setUsers] = useImmer([]);
 	const [fetchState, setFetchState] = useState(false);
 
 	useEffect(() => {
 		api.get('/user/blocked')
 		.then((res) => {
-			setUsers(res.data);
+			setUsers(() => res.data);
 			setFetchState(true);
 		})
 		.catch((err) => {
@@ -78,7 +79,9 @@ function Unblock() {
 	const handleUnblock = (id) => {
 		api.post(`user/unblock/${id}`)
 		.then(() => {
-			document.getElementById(id).style.display = "none";
+			setUsers((draft) => {
+				draft.splice(draft.findIndex((current) => current._id === id), 1);
+			})
 		})
 		.catch((err) => {console.log(err)})
 	}
