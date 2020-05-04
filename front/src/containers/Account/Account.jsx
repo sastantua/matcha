@@ -134,6 +134,11 @@ function Account() {
 	const handleBirthdate = (e) => {setUser({...user, birthdate: e.target.value});}
 	const handleBiography = (e) => {setUser({...user, biography: e.target.value});}
 
+	let birthdate = "";
+
+	if (user && user.birthdate)
+		birthdate = user.birthdate;
+
 	return (
 		<AccountContainer>
 			<SubAccountContainer>
@@ -149,7 +154,7 @@ function Account() {
 						<StyledInput type="text" placeholder="firstname" label="firstname" value={user ? user.firstname : ""} name="firstname" onChange={handleFirstname}/>
 						<StyledInput type="text" placeholder="lastname" label="lastname" value={user ? user.lastname : ""} name="lastname" onChange={handleLastname}/>
 					</GroupInput>
-					<StyledInput type="date" placeholder="birthdate" label="birthdate" value={user ? user.birthdate : ""} name="birthdate" onChange={handleBirthdate}/>
+					<StyledInput type="date" placeholder="birthdate" label="birthdate" value={birthdate} name="birthdate" onChange={handleBirthdate}/>
 					<StyledTextarea placeholder="biography" label="biography" value={user ? user.biography : ""} name="biography" onChange={handleBiography}/>
 					<GroupDropdowns>
 						<Gender user={user} dropdowns={dropdowns} />

@@ -113,8 +113,8 @@ const SignupButton = styled.button`
 function Login() {
 	const history = useHistory();
 	const [ user, setUser ] = useContext(UserContext);
-	const [email, setEmail] = useState("guillaumeroux123@gmail.com");
-	const [password, setPassword] = useState("Guillaume-1234");
+	const [email, setEmail] = useState("zozo@yopmail.com");
+	const [password, setPassword] = useState("Zozo-123");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const handleEmail = (e) => {setEmail(e.target.value);}

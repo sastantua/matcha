@@ -120,9 +120,9 @@ function Hobby() {
 		return (
 			<ChipsContainer>
 				{
-					requestHobbyList.map(hobby => {
+					requestHobbyList.map((hobby, index) => {
 						return (
-							<Chip id="Chip" onClick={() => deleteUserHobby(hobby)}>
+							<Chip key={index} onClick={() => deleteUserHobby(hobby)}>
 								<Icon className="fab fa-slack-hash">
 								</Icon>
 								<span>{hobby.name}</span>

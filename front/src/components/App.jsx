@@ -73,7 +73,7 @@ function App() {
 	useEffect(() => {
 		if (user) {
 			notifSocket.emit('connected', user._id);
-			console.log('user is now logged');
+			// console.log('user is now logged');
 		}
 	}, [user])
 

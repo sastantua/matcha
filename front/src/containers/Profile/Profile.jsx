@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import { getPreciseDistance } from 'geolib';
 
@@ -99,17 +100,20 @@ const Icon = styled.div`
 	opacity: .7;
 	box-shadow: 0px 0px 102px -20px rgba(0,0,0,0.75);
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
-		height: 12px;
-		width: 12px;
+		&& {
+			height: 12px;
+			width: 12px;
+		}
 		margin-right: ${SPACING.XXS};
 	}
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
-		height: 28px;
-		width: 28px;
+		&& {
+			height: 28px;
+			width: 28px;
+		}
 		margin-right: ${SPACING.XS};
 	}
 `
-
 
 const BiographyContainer = styled.div`
 	display: flex;
@@ -166,7 +170,32 @@ const ActionContainer = styled.div`
 	}
 `
 
+const RedirectButton = styled.button`
+	position: absolute;
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		top: 5vh;
+		right: 5vw;
+	}
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		top: 0.5vh;
+		right: 5vw;
+	}
+
+	color: ${COLORS.WHITE};
+	background-color: ${COLORS.PINK_FLASHY};
+	padding: 5px 10px;
+	margin: 2em 0;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 10px;
+	:hover {
+		transform: scale(1.05);
+	}
+`
+
 function Profile(props) {
+	const history = useHistory();
 	const [user] = useContext(UserContext);
 	const [like, setLike] = useState(false);
 	const [block, setBlock] = useState(false);
@@ -250,7 +279,9 @@ function Profile(props) {
 		.catch((err) => {console.log(err)})
 	}
 
-	console.log(profile);
+	const handleRedirect = () => {
+		history.push("/search");
+	}
 
 	return (
 		<ProfileContainer id="ProfileContainer">
@@ -278,11 +309,9 @@ function Profile(props) {
 			</InfoContainer>
 			<HobbyContainer id="HobbyContainer">
 				{
-					profile.hobbies.map(hobby =>
-						<Chip>
-							<Icon>
-								<i class="fab fa-slack-hash"></i>
-							</Icon>
+					profile.hobbies.map((hobby, index) =>
+						<Chip key={index}>
+							<Icon className="fab fa-slack-hash"/>
 							<span>{hobby.name}</span>
 						</Chip>
 					)
@@ -301,6 +330,7 @@ function Profile(props) {
 				{like ? <FavoriteBorder onClick={unlikeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></FavoriteBorder> : <Favorite onClick={likeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"/>}
 				{block ? <Replay onClick={unblockMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></Replay> : <Block onClick={blockMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></Block>}
 			</ActionContainer>
+			<RedirectButton onClick={handleRedirect}>Search</RedirectButton>
 		</ProfileContainer>
 	);
 }

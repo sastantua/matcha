@@ -2,21 +2,20 @@
 
 		To do:
 			- Report fake profile
-			- Last connexion
 			- Homepage
 
 		- Error
-				OK Account:
+			Ko Account: error in birthdate uncontroll component
 			KO Chat:
-			KO Homepage:
+				OK Homepage:
 			KO Login:
 				OK Match:
-			KO NoMatch:
+				OK NoMatch:
 			KO Notifications:
-			KO Profile:
+				OK Profile:
 			KO Reset:
 			KO Saw:
-			KO Search:
+				OK Search:
 			KO Signup:
 			KO Unblock:
 			KO Verify:

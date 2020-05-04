@@ -343,7 +343,7 @@ function Match() {
 					{
 						match[matchIndex].hobbies.map(hobby =>
 							<Chip id="Chip" key={hobby.name}>
-								<Icon className="fab fa-slack-hash"></Icon>
+								<Icon className="fab fa-slack-hash"/>
 								<span>{hobby.name}</span>
 							</Chip>
 						)
