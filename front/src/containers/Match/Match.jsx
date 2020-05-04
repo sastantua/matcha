@@ -248,15 +248,16 @@ function Match() {
 	}, []);
 
 	useEffect(() => {
-		if (match) {
-			api.post(`/user/saw/${match[matchIndex]._id}`)
+		if (match && match.length) {
+			api.post(`/user/saw/${match[matchIndex]._id}`).then((res) => {
+				notifSocket.emit('notification', {
+					type: 'visit',
+					to: match[matchIndex]._id,
+					from: user._id
+				})
+			})
 			.catch((err) => console.log(err))
 		}
-		match && notifSocket.emit('notification', {
-			type: 'visit',
-			to: match[matchIndex]._id,
-			from: user._id
-		})
 	}, [user, match, matchIndex])
 
 	const previousMatch = () => {
@@ -281,9 +282,11 @@ function Match() {
 				to: match[matchIndex]._id,
 				from: user._id
 			})
+			/* Utilise ça pour enlever le profil de l'array */
 			setMatch((draft) => {
 				draft.splice(matchIndex, 1);
 			})
+			/* ---------- */
 		})
 		.catch((err) => {console.log(err)})
 	}
@@ -307,69 +310,72 @@ function Match() {
 		return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001;
 	}
 
-	if (match)
+	if (match && match.length)
 		var distance = getDistance(match[matchIndex], user).toString().split('.')[0];
 	
 	return (
 		fetchState ?
-			<MatchContainer>
-				<Card>
-				<HeadContainer id="HeadContainer">
-					<ImagesContainer id="ImagesContainer">
-						<UserImages match={match[matchIndex]} id="UserImages"/>
-					</ImagesContainer>
-					<Infos id="Infos">
-						<NameContainer id="NameContainer">
-							<Text>{`@${match[matchIndex].username.charAt(0).toUpperCase() + match[matchIndex].username.slice(1)}`}</Text>
-							<RowContainer id="RowContainer">
-								<Text>{match[matchIndex].firstname.charAt(0).toUpperCase() + match[matchIndex].firstname.slice(1)}</Text>
-								<Text>{match[matchIndex].lastname.charAt(0).toUpperCase() + match[matchIndex].lastname.slice(1)}</Text>
-							</RowContainer>
-							<RowContainer id="RowContainer">
-								<Text>{match[matchIndex].gender.name.charAt(0).toUpperCase() + match[matchIndex].gender.name.slice(1)}</Text>
-								<Text>{match[matchIndex].orientation.name.charAt(0).toUpperCase() + match[matchIndex].orientation.name.slice(1)}</Text>
-								<Text>{`${findAge(match[matchIndex].birthdate)} Yo`}</Text>
-							</RowContainer>
-								<Text>Distance: {distance} km</Text>
-								<Text>Populairty score: {match[matchIndex].popularity}</Text>
-						</NameContainer>
-					</Infos>
-				</HeadContainer>
-				<RowContainer id="RowContainer">
-					<ChipsContainer id="ChipsContainer">
-					{
-						match[matchIndex].hobbies.map(hobby =>
-							<Chip id="Chip" key={hobby.name}>
-								<Icon className="fab fa-slack-hash"/>
-								<span>{hobby.name}</span>
-							</Chip>
-						)
-					}
-					</ChipsContainer>
-				</RowContainer>
-				<Biography id="Biography">
-					{`${match[matchIndex].biography}`}
-				</Biography>
-				<Bottom>
-					{match[matchIndex].likes && <Box>{"Already likes you"}</Box>}
-					{match[matchIndex].isSeen && <Box>{"Already saw your profile"}</Box>}
-				</Bottom>
-				</Card>
-				<ButtonsContainer>
-					<div onClick={previousMatch}>
-						<i className="fas fa-chevron-left fa-3x"></i>
-					</div>
-					<div onClick={likeMatch}>
-						<FavoriteBorder fontSize="large"/>
-					</div>
-					<div onClick={blockMatch}>
-						<Block fontSize="large"/>
-					</div>
-					<div onClick={nextMatch}>
-						<i className="fas fa-chevron-right fa-3x"></i>
-					</div>
-				</ButtonsContainer>
-			</MatchContainer>
+			match.length ?
+				<MatchContainer>
+					<Card>
+					<HeadContainer id="HeadContainer">
+						<ImagesContainer id="ImagesContainer">
+							<UserImages match={match[matchIndex]} id="UserImages"/>
+						</ImagesContainer>
+						<Infos id="Infos">
+							<NameContainer id="NameContainer">
+								<Text>{`@${match[matchIndex].username.charAt(0).toUpperCase() + match[matchIndex].username.slice(1)}`}</Text>
+								<RowContainer id="RowContainer">
+									<Text>{match[matchIndex].firstname.charAt(0).toUpperCase() + match[matchIndex].firstname.slice(1)}</Text>
+									<Text>{match[matchIndex].lastname.charAt(0).toUpperCase() + match[matchIndex].lastname.slice(1)}</Text>
+								</RowContainer>
+								<RowContainer id="RowContainer">
+									<Text>{match[matchIndex].gender.name.charAt(0).toUpperCase() + match[matchIndex].gender.name.slice(1)}</Text>
+									<Text>{match[matchIndex].orientation.name.charAt(0).toUpperCase() + match[matchIndex].orientation.name.slice(1)}</Text>
+									<Text>{`${findAge(match[matchIndex].birthdate)} Yo`}</Text>
+								</RowContainer>
+									<Text>Distance: {distance} km</Text>
+									<Text>Populairty score: {match[matchIndex].popularity}</Text>
+							</NameContainer>
+						</Infos>
+					</HeadContainer>
+					<RowContainer id="RowContainer">
+						<ChipsContainer id="ChipsContainer">
+						{
+							match[matchIndex].hobbies.map(hobby =>
+								<Chip id="Chip" key={hobby.name}>
+									<Icon className="fab fa-slack-hash"/>
+									<span>{hobby.name}</span>
+								</Chip>
+							)
+						}
+						</ChipsContainer>
+					</RowContainer>
+					<Biography id="Biography">
+						{`${match[matchIndex].biography}`}
+					</Biography>
+					<Bottom>
+						{match[matchIndex].likes && <Box>{"Already likes you"}</Box>}
+						{match[matchIndex].isSeen && <Box>{"Already saw your profile"}</Box>}
+					</Bottom>
+					</Card>
+					<ButtonsContainer>
+						<div onClick={previousMatch}>
+							<i className="fas fa-chevron-left fa-3x"></i>
+						</div>
+						<div onClick={likeMatch}>
+							<FavoriteBorder fontSize="large"/>
+						</div>
+						<div onClick={blockMatch}>
+							<Block fontSize="large"/>
+						</div>
+						<div onClick={nextMatch}>
+							<i className="fas fa-chevron-right fa-3x"></i>
+						</div>
+					</ButtonsContainer>
+				</MatchContainer>
+				:
+				<><p>Salut change moi</p></>
 		: 
 		<Loader/>
 	);

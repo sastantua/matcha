@@ -710,10 +710,11 @@ export const match = async (user) => {
 
 export const hasExtendedProfile = async (user) => {
 	user.gender = await getGender(user);
+	user.orientation = await getOrientation(user);
 	user.pictures = await getPictures(user);
 	user.hobbies = await getHobbies(user);
 	user.location = await getLocation(user);
-	if (!user.gender || !user.birthdate || !user.biography || !user.hobbies.length || !user.pictures || !user.location || !user.location.lat || !user.location.lng)
+	if (!user.gender || !user.birthdate || !user.biography || !user.hobbies.length || !user.pictures || !user.location || !user.location.lat || !user.location.lng || !user.orientation)
 		return false;
 	return true;
 }
