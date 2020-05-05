@@ -66,7 +66,6 @@ userRouter.post('/login', async (req, res, next) => {
 userRouter.post('/forgot', async (req, res, next) => {
 	try {
 		const { email } = req.body;
-
 		if (!email.match(regex.email)) throw new ErrorHandler(400, 'Invalid required fields');
 		await requestPassword(email, req.get('origin'));
 		res.status(200).send();
@@ -79,7 +78,7 @@ userRouter.post('/reset', async (req, res, next) => {
 	try {
 		const { token, password } = req.body;
 
-		if (!password.match(regex.password)|| !token) throw new ErrorHandler(400, 'Invalid required fields');
+		if (!password.match(regex.password) || !token) throw new ErrorHandler(400, 'Invalid required fields');
 		if (!await changePassword(password, token)) throw new ErrorHandler(400, "Invalid Token");
 		res.status(200).send();
 	} catch (err) {

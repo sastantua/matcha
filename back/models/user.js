@@ -269,7 +269,6 @@ export const verifyPicture = async (user, picture_id) => {
 	const pictures = await getPictures(user);
 
 	for (let picture of pictures) {
-		console.log(picture);
 		if (picture_id == picture._id) return picture.name;
 	}
 	return false;

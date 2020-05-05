@@ -45,11 +45,11 @@ function Password() {
 	const [password, setPassword] = useState("");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 	
-	const handlePassword = (e) => {setPassword({password: e.target.value});}
+	const handlePassword = (e) => {setPassword(e.target.value)}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		let request = {"password": password, "token": token}
+		let request = {password: password, token: token}
 		api.post('/user/reset', request)
 		.then((res) => {
 			enqueueSnackbar(`Password changed`, {variant: 'success'});

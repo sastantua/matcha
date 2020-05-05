@@ -87,7 +87,7 @@ const LoginButton = styled.button`
 
 function Reset() {
 	const history = useHistory();
-	const [email, setEmail] = useState("test@test.com");
+	const [email, setEmail] = useState("");
 	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const handleEmail = (e) => {setEmail(e.target.value);}
