@@ -1,9 +1,8 @@
 # Todo
 
 		To do:
-			- Report fake profile
+			- Report fake profile (Match & Profile)
 			- Homepage
-
 
 		- Error
 			KO Signup:

@@ -283,11 +283,9 @@ function Match() {
 				to: match[matchIndex]._id,
 				from: user._id
 			})
-			/* Utilise ça pour enlever le profil de l'array */
 			setMatch((draft) => {
 				draft.splice(matchIndex, 1);
 			})
-			/* ---------- */
 		})
 		.catch((err) => {console.log(err)})
 	}
@@ -311,8 +309,8 @@ function Match() {
 		return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001;
 	}
 
-	if (match && match.length)
-		var distance = getDistance(match[matchIndex], user).toString().split('.')[0];
+	// if (user && match && match.length)
+	// 	var distance = getDistance(match[matchIndex], user).toString().split('.')[0];
 	
 	return (
 		fetchState ?
@@ -335,7 +333,7 @@ function Match() {
 									<Text>{match[matchIndex].orientation.name.charAt(0).toUpperCase() + match[matchIndex].orientation.name.slice(1)}</Text>
 									<Text>{`${findAge(match[matchIndex].birthdate)} Yo`}</Text>
 								</RowContainer>
-									<Text>Distance: {distance} km</Text>
+									<Text>Distance: {getDistance(match[matchIndex], user).toString().split('.')[0]} km</Text>
 									<Text>Populairty score: {match[matchIndex].popularity}</Text>
 							</NameContainer>
 						</Infos>
