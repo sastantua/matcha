@@ -186,7 +186,7 @@ export const requestPassword = async (email, origin) => {
 export const changePassword = async (password, token) => {
 	const dbSession = session(mode.WRITE);
 	const hash = await bcrypt.hash(password, 8)
-	const query = 'MATCH (u:User)-[r:RESET]-(m:Mail) WHERE m.token = $token SET u += {password: $hash} DETACH DELETE m,r RETURN u';
+	const query = 'MATCH (u:User)-[r:RESET]-(m:Mail) WHERE m.token = $token SET u.password = $hash DETACH DELETE m,r RETURN u';
 
 	return await dbSession.session.run(query, {token, hash}).then(res => {
 		closeBridge(dbSession);

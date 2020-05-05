@@ -144,7 +144,7 @@ function Login() {
 		<LoginContainer>
 			<LoginTitle>Matcha</LoginTitle>	
 			<LoginForm noValidate autoComplete="off" onSubmit={handleSubmit}>
-				<StyledInput placeholder="email" label="email" type="password" name="email" onChange={handleEmail}/>
+				<StyledInput placeholder="email" label="email" type="email" name="email" onChange={handleEmail}/>
 				<StyledInput placeholder="password" label="password" type="password" name="password" onChange={handlePassword} style={{marginTop: "1vh"}}/>
 				<SubmitButton color="secondary" type='submit'>submit</SubmitButton>
 			</LoginForm>

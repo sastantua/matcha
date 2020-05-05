@@ -51,6 +51,7 @@ userRouter.post('/login', async (req, res, next) => {
 		if (!email.match(regex.email) || !password.match(regex.password)) throw new ErrorHandler(400, 'Invalid required fields');
 		const user = await findByCreditentials(email, password);
 		if (!user) throw new ErrorHandler(401, 'Login failed! Check authentication credentials');
+		if (user.report) throw new ErrorHandler(401, 'Your account as been reported, contact an administrator');
 		if (!user.activated) throw new ErrorHandler(401, 'Please activate your account');
 		user.popularity = await getPopularityScore(user);
 		const location = await getLocation(user);
