@@ -24,7 +24,7 @@ export const newUser = async () => {
 			username: faker.internet.userName(firstname, lastname),
 			email: faker.internet.email(firstname, lastname),
 			password: faker.internet.password(),
-			birthdate: faker.date.past(30).toISOString().split('T')[0],
+			birthdate: faker.date.past(10, '2010-01-01').toISOString().split('T')[0],
 			biography: faker.lorem.paragraph(),
 		},
 		other: {

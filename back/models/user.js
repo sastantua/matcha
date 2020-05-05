@@ -662,7 +662,8 @@ export const getByOrientation = async (user) => {
 		delete aUser.password;
 		delete aUser.email;
 	}
-	users = cleanList(users, gender.name, orientation.name);
+	if (users.length)
+		users = cleanList(users, gender.name, orientation.name);
 	return users;
 }
 
