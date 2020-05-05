@@ -1,7 +1,6 @@
 # Todo
 
 		To do:
-			- Report fake profile (Match & Profile)
 			- Homepage
 
 		- Error
@@ -15,12 +14,11 @@
 				OK Profile:
 			KO Saw:
 				OK Search:
-			KO Unblock:
+				OK Unblock:
 			KO Verify:
 				OK NoMatch:
 				OK Chat:
 				OK Notifications:
-
 
 		- Optional:
 			Account: overflow for picture modal

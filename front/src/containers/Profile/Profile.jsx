@@ -170,6 +170,12 @@ const ActionContainer = styled.div`
 	}
 `
 
+const StyleSvg = styled.i`
+	color: ${COLORS.PURPLE};
+	width: 1rem;
+  	margin: 0 1.5rem;
+`
+
 const RedirectButton = styled.button`
 	position: absolute;
 	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
@@ -278,6 +284,14 @@ function Profile(props) {
 		.catch((err) => {console.log(err)})
 	}
 
+	const reportMatch = () => {
+		api.post(`/user/report/${profile._id}`)
+		.then(() => {
+			history.push("/search");
+		})
+		.catch((err) => {console.log(err)})
+	}
+
 	const handleRedirect = () => {
 		history.push("/search");
 	}
@@ -326,8 +340,13 @@ function Profile(props) {
 					{profile.isSeen && <Box>{"Already saw your profile"}</Box>}
 			</Bottom>
 			<ActionContainer id="ActionContainer">
+				<div onClick={blockMatch}>
+					<StyleSvg className="fas fa-user-lock"/>
+				</div>
 				{like ? <FavoriteBorder onClick={unlikeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></FavoriteBorder> : <Favorite onClick={likeMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"/>}
-				<Block onClick={blockMatch} htmlColor={COLORS.PINK_FLASHY} fontSize="large"></Block>
+				<div onClick={reportMatch}>
+					<StyleSvg className="fas fa-robot"/>
+				</div>
 			</ActionContainer>
 			<RedirectButton onClick={handleRedirect}>Search</RedirectButton>
 		</ProfileContainer>

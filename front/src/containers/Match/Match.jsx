@@ -6,11 +6,13 @@ import { getPreciseDistance } from 'geolib';
 import api from '../../api/api'
 import { notifSocket } from '../../api/socket';
 import { UserContext } from '../../context/UserContext';
-import UserImages from '../../helper/UserImages';
 
+import LonelyCat from '../../media/lonelycat.png'
+import UserImages from '../../helper/UserImages';
+import Loader from '../../components/Loader/Loader';
 import findAge from '../../helper/findAge.js'
 import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
-import Loader from '../../components/Loader/Loader';
+
 
 import { Favorite, FavoriteBorder, Block } from '@material-ui/icons';
 
@@ -217,6 +219,9 @@ const Biography = styled.span`
 `
 
 const Bottom = styled.div`
+	& > * {
+		margin-top: ${SPACING.XS};
+	}
 	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) 	{
 		flex-direction: column;
 		align-items: center;
@@ -225,10 +230,50 @@ const Bottom = styled.div`
 	display: flex;
 	justify-content: space-evenly;
 `
+
+const MaliciousContainer = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	& > :nth-child(2) {
+		margin-left: ${SPACING.XS};
+	}
+	& > div:hover {
+		filter: grayscale(0%) opacity(1);
+		transform: scale(1.1);
+	}
+`
+
 const Box = styled.div`
 	padding: ${SPACING.XXS} ${SPACING.XXS};
 	background-color: ${COLORS.GREY};
 	border-radius: 32px;
+`
+
+const LonelyCatContainer = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	@media only screen and (max-width: ${BREAK_POINTS.SCREEN_SM}) {
+		& > * {
+			width: 80%;
+			margin-top: 4vh;
+		}
+	}
+	@media only screen and (min-width: ${BREAK_POINTS.SCREEN_SM}) {
+		& > * {
+			width: 50%;
+			margin-top: 4vh;
+		}
+	}
+`
+
+const ActionIcon = styled.i`
+	color: ${COLORS.PINK};
+	width: 2rem;
+	font-size: 2rem;
+  	min-width: 2rem;
+  	margin: 0 1.5rem;
 `
 
 function Match() {
@@ -248,7 +293,7 @@ function Match() {
 	}, []);
 
 	useEffect(() => {
-		if (match && match.length) {
+		if (match && match.length > 0 && match[matchIndex] != undefined) {
 			api.post(`/user/saw/${match[matchIndex]._id}`)
 			.then((res) => {
 				notifSocket.emit('notification', {
@@ -305,16 +350,26 @@ function Match() {
 		.catch((err) => {console.log(err)})
 	}
 
+	const reportMatch = () => {
+		api.post(`/user/report/${match[matchIndex]._id}`)
+		.then(res => {
+			setMatch((draft) => {
+				draft.splice(matchIndex, 1);
+			});
+		})
+		.catch((err) => {console.log(err)})
+	}
+
 	const getDistance = (user_a, user_b) => {
 		return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001;
 	}
 
 	// if (user && match && match.length)
 	// 	var distance = getDistance(match[matchIndex], user).toString().split('.')[0];
-	
+
 	return (
 		fetchState ?
-			match.length ?
+			(match && match.length > 0 && match[matchIndex] !== undefined) ?
 				<MatchContainer>
 					<Card>
 					<HeadContainer id="HeadContainer">
@@ -354,6 +409,14 @@ function Match() {
 						{`${match[matchIndex].biography}`}
 					</Biography>
 					<Bottom>
+						<MaliciousContainer>
+							<div onClick={blockMatch}>
+								<i className="fas fa-user-lock"></i>
+							</div>
+							<div onClick={reportMatch}>
+								<i className="fas fa-robot"></i>
+							</div>
+						</MaliciousContainer>
 						{match[matchIndex].likes && <Box>{"Already likes you"}</Box>}
 						{match[matchIndex].isSeen && <Box>{"Already saw your profile"}</Box>}
 					</Bottom>
@@ -365,16 +428,15 @@ function Match() {
 						<div onClick={likeMatch}>
 							<FavoriteBorder fontSize="large"/>
 						</div>
-						<div onClick={blockMatch}>
-							<Block fontSize="large"/>
-						</div>
 						<div onClick={nextMatch}>
 							<i className="fas fa-chevron-right fa-3x"></i>
 						</div>
 					</ButtonsContainer>
 				</MatchContainer>
 				:
-				<><p>Salut change moi</p></>
+				<LonelyCatContainer>
+					<img src={LonelyCat} alt=""/>
+				</LonelyCatContainer>
 		: 
 		<Loader/>
 	);
