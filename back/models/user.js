@@ -605,8 +605,8 @@ export const editSaw = async (user, _id) => {
 const cleanList = (users, gender, orientation) => {
 	switch (orientation) {
 		case 'straight' :
-			if (gender == 'male') users = users.filter(user => user.gender.name === 'female');
-			if (gender == 'female') users = users.filter(user => user.gender.name === 'male');
+			if (gender == 'male') users = users.filter(user => { console.log(user.gender.name); return (user.gender.name === 'female')});
+			if (gender == 'female') users = users.filter(user => { console.log(user.gender.name); return (user.gender.name === 'male')});
 			break;
 		case 'gay' :
 			if (gender == 'male') users = users.filter(user => user.gender.name === 'male');
@@ -663,6 +663,8 @@ export const getByOrientation = async (user) => {
 		delete aUser.email;
 	}
 	if (users.length && orientation)
+		console.log("gender name", gender.name);
+		console.log("orientation name", orientation.name);
 		users = cleanList(users, gender.name, orientation.name);
 	return users;
 }
