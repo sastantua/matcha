@@ -55,7 +55,6 @@ const toDb = async (user) => {
 
 const editNewUser = async (user) => {
 	await setGender(user.main, user.other.gender);
-	await setGender(user.main, user.other.gender);
 	await setOrientation(user.main, user.other.orientation);
 	await setHobbies(user.main, user.other.hobbies);
 	for (let picture of user.other.pictures){
@@ -73,4 +72,4 @@ const generate = async (amount) => {
 	}
 }
 
-generate(150);
+generate(50);
