@@ -714,7 +714,7 @@ export const hasExtendedProfile = async (user) => {
 	user.pictures = await getPictures(user);
 	user.hobbies = await getHobbies(user);
 	user.location = await getLocation(user);
-	if (!user.gender || !user.birthdate || !user.biography || !user.hobbies.length || !user.pictures || !user.location || !user.location.lat || !user.location.lng || !user.orientation)
+	if (!user.gender.name || !user.birthdate || !user.biography || !user.hobbies.length || !user.pictures || !user.location || !user.location.lat || !user.location.lng || !user.orientation)
 		return false;
 	return true;
 }
