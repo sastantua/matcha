@@ -1,38 +1,38 @@
-# Todo
+## Error
 
+		KO UserPosition
+		KO Edit: change to Password
+		KO Logout: parfois des erreurs random POST forbidden
+			
+		OK Signup:
+		OK Login:
+		OK Reset:
+		OK Homepage:
+		OK Account:
+		OK Match:
+		OK Profile:
+		OK Saw:
+		OK Search:
+		OK Unblock:
+		OK Verify:
+		OK NoMatch:
+		OK Chat:
+		OK Notifications:
 
-		- Error
-			KO UserPosition
-			KO Edit: change to Password
-			KO Logout: parfois des erreurs random POST forbidden
+## Optional:
 
-				OK Signup:
-				OK Login:
-				OK Reset:
-				OK Homepage:
-				OK Account:
-				OK Match:
-				OK Profile:
-				OK Saw:
-				OK Search:
-				OK Unblock:
-				OK Verify:
-				OK NoMatch:
-				OK Chat:
-				OK Notifications:
+		Homepage: redesign
+		Account: overflow for picture modal
+		Match: block doesnt remove user before reload
+		Profile: add picture modal
+		Profile: style for IpadPro
+		Helper: Move card from match and search to helper? (no style already differ ...)
 
-		- Optional:
-			Homepage: redesign
-			Account: overflow for picture modal
-			Match: block doesnt remove user before reload
-			Profile: add picture modal
-			Profile: style for IpadPro
-			Helper: Move card from match and search to helper? (no style already differ ...)
+## End
 
-		- End
-			Remove all console.log
-			Remove all warnings
-			Remove all errors
+		Remove all console.log
+		Remove all warnings
+		Remove all errors
 
 
 # React Hooks

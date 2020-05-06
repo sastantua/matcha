@@ -14,7 +14,7 @@ import findAge from '../../helper/findAge.js'
 import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
 
 
-import { Favorite, FavoriteBorder, Block } from '@material-ui/icons';
+import { FavoriteBorder } from '@material-ui/icons';
 
 const MatchContainer = styled.div`
 	padding: ${SPACING.BASE};
@@ -268,14 +268,6 @@ const LonelyCatContainer = styled.div`
 	}
 `
 
-const ActionIcon = styled.i`
-	color: ${COLORS.PINK};
-	width: 2rem;
-	font-size: 2rem;
-  	min-width: 2rem;
-  	margin: 0 1.5rem;
-`
-
 function Match() {
 	const [user] = useContext(UserContext);
 	const [like, setLike] = useState(false);
@@ -290,10 +282,10 @@ function Match() {
 			setFetchState(true);
 		})
 		.catch((err) => {console.log(err);})
-	}, []);
+	}, [setMatch]);
 
 	useEffect(() => {
-		if (match && match.length > 0 && match[matchIndex] != undefined) {
+		if (match && match.length > 0 && match[matchIndex] !== undefined) {
 			api.post(`/user/saw/${match[matchIndex]._id}`)
 			.then((res) => {
 				notifSocket.emit('notification', {

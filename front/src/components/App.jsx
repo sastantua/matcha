@@ -5,9 +5,8 @@ import api from '../api/api';
 import usePosition from '../hooks/usePosition';
 import { UserContext } from '../context/UserContext'
 import { NotificationsProvider } from '../context/NotificationsProvider';
-import { BREAK_POINTS, COLORS } from '../config/style';
+import { BREAK_POINTS } from '../config/style';
 import { notifSocket, chatSocket } from '../api/socket';
-
 
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import { SnackbarProvider } from 'notistack';

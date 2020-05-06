@@ -107,7 +107,7 @@ function Search() {
 
 	useEffect(() => {
 		setResult(() => sortUsers(result, userPosition, userHobbies, sort, ascending, descending));
-	}, [result, userHobbies, userPosition, sort, ascending, descending])
+	}, [result, userHobbies, userPosition, setResult, sort, ascending, descending])
 
 	const handleSubmit = () => {
 		setIsLoading(true);

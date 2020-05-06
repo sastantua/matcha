@@ -74,7 +74,7 @@ function Unblock() {
 		.catch((err) => {
 			console.log(err);
 		})
-	}, []);
+	}, [setUsers]);
 
 	const handleUnblock = (id) => {
 		api.post(`user/unblock/${id}`)

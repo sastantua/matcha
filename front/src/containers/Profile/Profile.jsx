@@ -8,7 +8,6 @@ import findAge from '../../helper/findAge';
 import UserPictures from '../../helper/UserImages';
 import { COLORS, SPACING, BREAK_POINTS } from '../../config/style';
 
-import { Block, Replay } from '@material-ui/icons';
 import { Favorite, FavoriteBorder } from '@material-ui/icons';
 import { notifSocket } from '../../api/socket';
 import { UserContext } from '../../context/UserContext';
