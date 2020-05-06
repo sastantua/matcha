@@ -1,26 +1,28 @@
 # Todo
 
-		To do:
-			- Homepage
 
 		- Error
-			KO Signup:
+			KO UserPosition
+			KO Edit: change to Password
+			KO Logout: parfois des erreurs random POST forbidden
+
+				OK Signup:
 				OK Login:
 				OK Reset:
-			KO Edit: change to password
 				OK Homepage:
 				OK Account:
 				OK Match:
 				OK Profile:
-			KO Saw:
+				OK Saw:
 				OK Search:
 				OK Unblock:
-			KO Verify:
+				OK Verify:
 				OK NoMatch:
 				OK Chat:
 				OK Notifications:
 
 		- Optional:
+			Homepage: redesign
 			Account: overflow for picture modal
 			Match: block doesnt remove user before reload
 			Profile: add picture modal

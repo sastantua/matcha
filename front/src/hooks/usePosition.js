@@ -47,7 +47,7 @@ export default () => {
 		};
 
 		if (!navigator.geolocation) {
-			console.log("locationFromIp from useEffect")
+			// console.log("locationFromIp from useEffect")
 			locationFromIp();
 			setError('Geolocation is not supported');
 			return ;

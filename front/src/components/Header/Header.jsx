@@ -10,7 +10,6 @@ import { useContext } from 'react';
 import { NotificationsContext } from '../../context/NotificationsProvider';
 import { UserContext } from '../../context/UserContext';
 
-
 const Typography = styled.span`
 	display: none;
 	margin-left: 1rem;

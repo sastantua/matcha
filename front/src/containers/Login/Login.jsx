@@ -13,6 +13,7 @@ const LoginContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	color: white;
+	min-height: calc(100vh5rem);
 `
 
 const LoginTitle = styled.p`
@@ -90,7 +91,6 @@ const SignupLink = styled.div`
 	justify-content: center;
 	align-items: center;
 	margin-top: auto;
-	margin-bottom: 2vh;
 `
 
 const SignupText = styled.p`

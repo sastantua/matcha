@@ -11,6 +11,7 @@ const SignupContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	color: white;
+	min-height: calc(100vh5rem);
 `
 
 const SignupTitle = styled.p`

@@ -37,7 +37,7 @@ function Dropdown(props) {
 	const [dropdownTitle, setDropdownTitle] = useState("show people that have");
 	
 	useEffect(() => {
-		setDropdownList([{name: "liked you", _id: "1"}, {name: "visited your profile", _id: "2"}, {name: "liked and visited your profile", _id: "3"}]);
+		setDropdownList([{name: "liked you", _id: "1"}, {name: "visited your profile", _id: "2"}, {name: "liked you or visited your profile", _id: "3"}]);
 	}, [])
 	
 	const handleOpenDropdown = () => {isOpen === true ? setIsOpen(false) : setIsOpen(true);};
