@@ -39,15 +39,10 @@ export default () => {
 		}
 
 		const onError = () => {
-			console.log("locationFromIp from onError")
 			locationFromIp();
-			// if (error.code == error.PERMISSION_DENIED)
-			// console.log("you denied me :-(");
-			// setError(error.message);
 		};
 
 		if (!navigator.geolocation) {
-			// console.log("locationFromIp from useEffect")
 			locationFromIp();
 			setError('Geolocation is not supported');
 			return ;
@@ -59,19 +54,20 @@ export default () => {
 	return {...position, error};
 }
 
-
-// const locationFromIp = () => {
-// 	let ip = undefined;
-// 	axios.get('https://www.cloudflare.com/cdn-cgi/trace')
-// 	.then(res => ip = res.data.ip)
-// 	.catch(err => console.log(err))
-// 	.then(() => {
-// 		console.log("ip", ip);
-// 		axios.get(`http://api.ipstack.com/${ip}?access_key=32340123d14b195dc9a8865d9d53de09&format=1`)
-// 		.then(res => {
-// 			const {latitude, longitude} = res.data;
-// 			setPosition({latitude, longitude});
-// 		})
-// 		.catch(err => console.log(err))
-// 	})
-// }
+/*
+const locationFromIp = () => {
+	let ip = undefined;
+	axios.get('https://www.cloudflare.com/cdn-cgi/trace')
+	.then(res => ip = res.data.ip)
+	.catch(err => console.log(err))
+	.then(() => {
+		console.log("ip", ip);
+		axios.get(`http://api.ipstack.com/${ip}?access_key=32340123d14b195dc9a8865d9d53de09&format=1`)
+		.then(res => {
+			const {latitude, longitude} = res.data;
+			setPosition({latitude, longitude});
+		})
+		.catch(err => console.log(err))
+	})
+}
+*/

@@ -184,7 +184,7 @@ function Header() {
 	}, [addNotification, enqueueSnackbar, closeSnackbar])
 
 	const handleClick = () => {
-		if (localStorage.getItem('token')) {
+		if (localStorage.getItem('token') !== undefined) {
 			api.post('/user/logout')
 			.then(() => {
 				localStorage.removeItem("token");

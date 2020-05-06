@@ -1,9 +1,9 @@
 ## Error
 
-		KO UserPosition
 		KO Edit: change to Password
 		KO Logout: parfois des erreurs random POST forbidden
 			
+		OK UserPosition
 		OK Signup:
 		OK Login:
 		OK Reset:

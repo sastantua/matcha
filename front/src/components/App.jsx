@@ -78,8 +78,10 @@ function App() {
 
 	useEffect(() => {
 		const getPosition = () => {
-			api.post('/user/location', {lat: latitude, lng: longitude})
-			.catch(err => console.log(err))
+			if (latitude !== undefined && longitude !== undefined) {
+				api.post('/user/location', {lat: latitude, lng: longitude})
+				.catch(err => console.log(err))
+			}
 		}
 		if (user) {
 			getPosition();
