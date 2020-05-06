@@ -19,6 +19,7 @@ import Saw from '../containers/Saw/Saw';
 import Profile from '../containers/Profile/Profile';
 import Reset from '../containers/Reset/Reset';
 import Chat from '../containers/Chat';
+import Map from '../containers/Map/Map';
 import Unblock from '../containers/Unblock/Unblock';
 
 import Signup from '../containers/Signup/Signup';
@@ -112,6 +113,7 @@ function App() {
 								<Route exact path="/signup" component={Signup} />
 								<Route exact path="/verify/:token" component={Verify} />
 								<AuthenticatedRoute exact path="/saw" component={Saw} />
+								<AuthenticatedRoute exact path="/map" component={Map} />
 								<AuthenticatedRoute exact path="/chat" component={Chat} />
 								<AuthenticatedRoute exact path="/match" component={Match} />
 								<AuthenticatedRoute exact path="/search" component={Search} />

@@ -1,8 +1,8 @@
 ## Error
 
 		KO Edit: change to Password
-		KO Logout: parfois des erreurs random POST forbidden
 			
+		OK Logout:
 		OK UserPosition
 		OK Signup:
 		OK Login:

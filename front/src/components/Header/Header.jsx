@@ -204,54 +204,60 @@ function Header() {
 				<Logo>
 					<SLink to={"/"}>
 						<Typography>Matcha</Typography>
-						<Icon className="fas fa-grin-hearts fa-lg"></Icon>
+						<Icon className="fas fa-grin-hearts fa-lg"/>
 					</SLink>
 				</Logo>
 				<Element>
 					<SLink to="/account">
-						<Icon className="fas fa-user fa-lg"></Icon>
+						<Icon className="fas fa-user fa-lg"/>
 						<Typography>Account</Typography>
 					</SLink>
 				</Element>
 				<Element>
 					<SLink to="/match">
-						<Icon className="fab fa-hotjar fa-lg"></Icon>
+						<Icon className="fab fa-hotjar fa-lg"/>
 						<Typography>Match</Typography>
 					</SLink>
 				</Element>
 				<Element>
 					<SLink to="/search">
-						<Icon className="fas fa-search fa-lg"></Icon>
+						<Icon className="fas fa-search fa-lg"/>
 						<Typography>Search</Typography>
 					</SLink>
 				</Element>
 				<Element>
 					<SLink to="/saw">
-						<Icon className="fas fa-child fa-lg"></Icon>
+						<Icon className="fas fa-child fa-lg"/>
 						<Typography>Interactions</Typography>
 					</SLink>
 				</Element>
 				<Element>
 					<SLink to="/chat">
-						<Icon className="fas fa-comment-dots fa-lg"></Icon>
+						<Icon className="fas fa-comment-dots fa-lg"/>
 						<Typography>Chat</Typography>
 					</SLink>
 				</Element>
 				<Element>
 					<SLink to="/notifications" notify={!!notifications.length ? 1 : 0}>
-								<Icon className="fas fa-bell fa-lg"></Icon>
+						<Icon className="fas fa-bell fa-lg"/>
 						<Typography>Notifications</Typography>
 					</SLink>
 				</Element>
 				<Element>
+					<SLink to="/map">
+						<Icon className="fas fa-map-marker-alt"/>
+						<Typography>Map</Typography>
+					</SLink>
+				</Element>
+				<Element>
 					<SLink to="/unblock">
-						<Icon className="fas fa-unlock fa-lg"></Icon>
+						<Icon className="fas fa-unlock fa-lg"/>
 						<Typography>Unblock</Typography>
 					</SLink>
 				</Element>
 				<Element>
 					<SLink as="a" onClick={handleClick}>
-						<Icon className="fas fa-sign-out-alt fa-lg"></Icon>
+						<Icon className="fas fa-sign-out-alt fa-lg"/>
 						<Typography>Logout</Typography>
 					</SLink>
 				</Element>

@@ -3,7 +3,9 @@ import styled from "styled-components"
 
 import { BREAK_POINTS } from '../../config/style'
 
-const HomepageContainer = styled.div`
+import SimpleMap from './SimpleMap';
+
+const MapContainer = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -20,11 +22,12 @@ const HomepageContainer = styled.div`
 	}
 `
 
-function Homepage() {
+function Map() {
 	return (
-		<HomepageContainer>
-		</HomepageContainer>
+		<MapContainer>
+			<SimpleMap/>
+		</MapContainer>
 	);
 }
 
-export default Homepage;
+export default Map;
