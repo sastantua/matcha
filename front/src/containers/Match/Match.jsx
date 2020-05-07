@@ -356,9 +356,6 @@ function Match() {
 		return getPreciseDistance({latitude: user_a.location.lat, longitude: user_a.location.lng}, {latitude: user_b.location.lat, longitude: user_b.location.lng}) * 0.001;
 	}
 
-	// if (user && match && match.length)
-	// 	var distance = getDistance(match[matchIndex], user).toString().split('.')[0];
-
 	return (
 		fetchState ?
 			(match && match.length > 0 && match[matchIndex] !== undefined) ?

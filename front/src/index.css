@@ -38,3 +38,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'Outbreak';
+  src: local('Outbreak'), url(./config/fonts/Outbreak.otf) format('truetype');
+}
