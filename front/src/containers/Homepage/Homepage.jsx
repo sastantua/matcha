@@ -10,6 +10,7 @@ const HomepageContainer = styled.div`
 	align-items: center;
 	justify-content: center;
 	flex-direction: column;
+	background-color: ${COLORS.BLACK_REAL};
 	height: 100%;
 	width: 100%;
 	& > * {
@@ -97,13 +98,12 @@ const RedirectionButton = styled.button`
 `
 
 function Homepage() {
-	
 	const history = useHistory();
 	const handleLogin = () => {history.push("/login");}
 	const handleSignup = () => {history.push("/signup");}
 
 	return (
-		<HomepageContainer>
+		<HomepageContainer id="localhost:3000">
 			<Title>Matcha</Title>
 			<ImageBlockContainer>
 				<StyledImage src={Love} alt=""/>
