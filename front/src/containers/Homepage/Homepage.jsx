@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import { useHistory } from 'react-router-dom';
 
 import { COLORS, BREAK_POINTS, SPACING } from '../../config/style';
 import Love from '../../media/lovegif1.gif';
@@ -95,8 +96,12 @@ const RedirectionButton = styled.button`
 	}
 `
 
-
 function Homepage() {
+	
+	const history = useHistory();
+	const handleLogin = () => {history.push("/login");}
+	const handleSignup = () => {history.push("/signup");}
+
 	return (
 		<HomepageContainer>
 			<Title>Matcha</Title>
@@ -105,8 +110,8 @@ function Homepage() {
 				<Text>Because love is going remote</Text>
 			</ImageBlockContainer>
 			<RedirectionsContainer>
-				<RedirectionButton>Login</RedirectionButton>
-				<RedirectionButton>Signup</RedirectionButton>
+				<RedirectionButton onClick={handleLogin}>Login</RedirectionButton>
+				<RedirectionButton onClick={handleSignup}>Signup</RedirectionButton>
 			</RedirectionsContainer>
 		</HomepageContainer>
 	);
