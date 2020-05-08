@@ -32,7 +32,9 @@ In the end I've redesigned everything using basic css rules and style-components
 I've learn that the simpler your design, the better.
 The app is quite responsive.
 
-Here are some screenshots of the app running:
+You can find some screenshots of the app running at the end of this Readme
+
+## Back
 
 <img src="front/public/matcha_screen/Homepage.png" alt="homepage" width="500"/>
 <img src="front/public/matcha_screen/Signup.png" alt="signup" width="500"/>
@@ -42,4 +44,3 @@ Here are some screenshots of the app running:
 <img src="front/public/matcha_screen/Chat.png" alt="chat" width="500"/>
 <img src="front/public/matcha_screen/Map.png" alt="map" width="500"/>
 
-## Back
