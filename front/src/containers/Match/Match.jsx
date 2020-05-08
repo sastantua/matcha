@@ -368,10 +368,7 @@ function Match() {
 						<Infos id="Infos">
 							<NameContainer id="NameContainer">
 								<Text>{`@${match[matchIndex].username.charAt(0).toUpperCase() + match[matchIndex].username.slice(1)}`}</Text>
-								<RowContainer id="RowContainer">
-									<Text>{match[matchIndex].firstname.charAt(0).toUpperCase() + match[matchIndex].firstname.slice(1)}</Text>
-									<Text>{match[matchIndex].lastname.charAt(0).toUpperCase() + match[matchIndex].lastname.slice(1)}</Text>
-								</RowContainer>
+								<Text>{match[matchIndex].firstname.charAt(0).toUpperCase() + match[matchIndex].firstname.slice(1)} {match[matchIndex].lastname.charAt(0).toUpperCase() + match[matchIndex].lastname.slice(1)}</Text>
 								<RowContainer id="RowContainer">
 									<Text>{match[matchIndex].gender.name.charAt(0).toUpperCase() + match[matchIndex].gender.name.slice(1)}</Text>
 									<Text>{match[matchIndex].orientation.name.charAt(0).toUpperCase() + match[matchIndex].orientation.name.slice(1)}</Text>
