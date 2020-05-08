@@ -34,12 +34,19 @@ The app is quite responsive.
 
 Here are some screenshots of the app running:
 
-![simple](front/public/matcha_screen/Homepage.png)
-![simple](front/public/matcha_screen/Signup.png)
-![simple](front/public/matcha_screen/Account.png)
-![simple](front/public/matcha_screen/Match.png)
-![simple](front/public/matcha_screen/Search.png)
-![simple](front/public/matcha_screen/Chat.png)
-![simple](front/public/matcha_screen/Map.png)
+### Homepage 
+![Homepage](front/public/matcha_screen/Homepage.png)
+### Signup 
+![Signup](front/public/matcha_screen/Signup.png)
+### Account (on mobile)
+![Account](front/public/matcha_screen/Account.png)
+### Match
+![Match](front/public/matcha_screen/Match.png)
+### Search
+![Search](front/public/matcha_screen/Search.png)
+### Chat
+![Chat](front/public/matcha_screen/Chat.png)
+### Unfinished map
+![Map](front/public/matcha_screen/Map.png)
 
 ## Back
