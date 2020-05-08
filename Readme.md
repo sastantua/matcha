@@ -35,8 +35,8 @@ The app is quite responsive.
 Here are some screenshots of the app running:
 
 ### Homepage 
-![Homepage](front/public/matcha_screen/Homepage.png | width=100)
-<!-- <img src="drawing.jpg" alt="drawing" width="200"/> -->
+<!-- ![Homepage](front/public/matcha_screen/Homepage.png) -->
+<img src="front/public/matcha_screen/Homepage.png" alt="drawing" width="200"/>
 ### Signup 
 ![Signup](front/public/matcha_screen/Signup.png)
 ### Account (on mobile)
