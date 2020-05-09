@@ -21,18 +21,13 @@ If it does not open in your browser you can do it manually (it could be some oth
 ## Front
 
 I've work on all the frontend, except for the socket related stuff (chat and notifications).
-As it was my first project with this technology, I did things in a way, then find another better way, then start again and so on...
+As it was my first project with this technology, I did things in a way, found a better way later on, then iterate and so on...
 
-React is a very powerful toolkit, yet I personally found it difficult.
+React is a very powerful toolkit, yet a bit frustrating.
 You're never really sure what's happening under the hood so it's hard to know if your solution is elegant or trash.
 I've used some of its hooks (mainly state, effect, context, custom).
 
-The styling was also confusing at first, I used classic css files, then added material-ui and used their component and special styling methods.
-In the end I've redesigned everything using basic css rules and style-components, removing material-ui.
-I've learn that the simpler your design, the better.
-The app is quite responsive.
-
-You can find some screenshots of the app running at the end of this Readme
+I also iterate a lot on styling. I've started with css files, then added material-ui style librairy, then removed it and went with style-components and vanilla css. The app is responsive. You can find some screenshots of the app running at the end of this Readme
 
 ## Back
 
