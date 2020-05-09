@@ -17,7 +17,7 @@ services:
         DB_USR: "neo4j"
         DB_PWD: "42"
         DB_URL: "bolt://neo4j:7687"
-        JWT_KEY: "hello world"
+		JWT_KEY: "hello world"
 	command: ["./wait-for-it.sh", "neo4j:7687","-t", "0", "--", "node", "api.js"]
   front:
 	build: ./front
