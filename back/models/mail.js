@@ -17,8 +17,8 @@ export const passwordMail = (user, origin) => {
 		from: process.env.MAIL_USR,
 		to: user.email,
 		subject: 'Modification du mot de passe',
-		text: `Lien de modification : ${origin}/edit/${user.token}`,
-		html: `<p>Lien de modification : <a href="${origin}/edit/${user.token}">${origin}/edit/${user.token}</p>`
+		text: `Lien de modification : ${origin}/password/${user.token}`,
+		html: `<p>Lien de modification : <a href="${origin}/password/${user.token}">${origin}/password/${user.token}</p>`
 	}
 
 	mailService.sendMail(message);
