@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --exec babel-node ./bin/www",
+    "start": "nodemon --exec babel-node app.js",
     "build": "babel app.js --out-file api.js",
     "build:hydrate": "babel middleware/generate.js --out-file hydrate.js",
     "hydrate": " build:hydrate && node hydrate.js"

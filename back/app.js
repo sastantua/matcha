@@ -42,4 +42,6 @@ app.use('/notifications', notificationRouter);
 
 app.use(handleError)
 
-module.exports = app;
+app.listen(3000, () => {
+	console.log("I'm staying alive !");
+});
