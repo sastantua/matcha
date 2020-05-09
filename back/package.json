@@ -5,8 +5,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node app.js",
     "build": "babel app.js --out-file api.js",
-    "build:hydrate": "babel middleware/generate.js --out-file hydrate.js",
-    "hydrate": " build:hydrate && node hydrate.js"
+    "hydrate": "nodemon --exec babel-node hydrate.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
