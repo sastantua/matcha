@@ -7,7 +7,7 @@ services:
            "3000:3000"
            "4242:4242"
         volumes:
-           ./front:/usr/app/
+           ./back:/usr/app/
            /usr/app/node_modules
         links:
            "neo4j"
