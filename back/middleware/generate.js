@@ -72,4 +72,4 @@ const generate = async (amount) => {
 	}
 }
 
-generate(50);
+generate(100);
