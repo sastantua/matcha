@@ -26,7 +26,7 @@ import Signup from '../containers/Signup/Signup';
 import Login from '../containers/Login/Login';
 import Verify from '../containers/Verify/Verify';
 import Password from '../containers/Password/Password';
-import NoMatch from '../containers/NoMatch/NoMatch';
+import NotFound from '../containers/NotFound/NotFound';
 import Header from './Header/Header';
 import Notifications from '../containers/Notifications/Notifications';
 
@@ -121,7 +121,7 @@ function App() {
 								<AuthenticatedRoute exact path="/profile" component={Profile} />
 								<AuthenticatedRoute exact path="/unblock" component={Unblock} />
 								<AuthenticatedRoute exact path="/notifications" component={Notifications} />
-								<Route path="*" component={NoMatch} />
+								<Route path="*" component={NotFound} />
 							</Switch>
 						</AppContainer>
 					</BrowserRouter>
